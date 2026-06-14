@@ -62,6 +62,56 @@ def type_of(bedrooms):
     return {0: "Studio", 1: "T2", 2: "T3", 3: "T4", 4: "T5"}.get(bedrooms, "T6+")
 
 
+def clean_review(t):
+    t = t or ""
+    m = re.search(r"Positive\s*:\s*(.+?)(?:Negative\s*:|$)", t, re.S | re.I)
+    if m:
+        t = m.group(1)
+    return re.sub(r"\s+", " ", t).strip().strip("-").strip()
+
+
+def is_french(t):
+    tl = " " + t.lower() + " "
+    fr = sum(w in tl for w in (" le ", " la ", " les ", " très ", " est ", " et ", " avec ",
+                               " logement", " séjour", " propre", " bien ", " nous ", " tout ", " sur "))
+    es = sum(w in tl for w in (" muy ", " está ", " habitac", " apartamento", " bonito", " ubicaci",
+                               " todo ", " buena", " grande ", " casa "))
+    return fr >= 2 and fr > es
+
+
+def first_name(n):
+    n = (n or "").strip().split(" ")[0]
+    return (n[:1].upper() + n[1:].lower()) if n else "Voyageur"
+
+
+def pick_reviews(tok, byid, n=6):
+    res = api_get("/reviews", tok, {"limit": 500}).get("result", [])
+    cands = []
+    for r in res:
+        if r.get("type") != "guest-to-host" or r.get("status") != "published":
+            continue
+        txt = clean_review(r.get("publicReview"))
+        if not (45 <= len(txt) <= 230) or "negative" in txt.lower() or not is_french(txt):
+            continue
+        listing = byid.get(r.get("listingMapId"))
+        city = (listing.get("city") if listing else "") or ""
+        cands.append({
+            "rating": r.get("rating") or 9,
+            "name": first_name(r.get("guestName")),
+            "place": city or "Séjour vérifié",
+            "text": txt,
+        })
+    cands.sort(key=lambda x: (-x["rating"], -len(x["text"])))
+    seen, out = set(), []
+    for c in cands:
+        if c["name"] in seen:
+            continue
+        seen.add(c["name"]); out.append({k: c[k] for k in ("name", "place", "text")})
+        if len(out) >= n:
+            break
+    return out
+
+
 def main():
     load_env()
     tok = get_token()
@@ -94,11 +144,16 @@ def main():
         })
 
     communes = sorted({(l.get("city") or "").strip() for l in listings if l.get("city")})
+    try:
+        reviews = pick_reviews(tok, byid)
+    except Exception as e:
+        print("avis non récupérés:", e); reviews = []
     out = {
         "count": len(listings),
         "communes": len(communes),
         "adr": adr,
         "featured": featured,
+        "reviews": reviews,
     }
     if os.environ.get("BUILD_DATE"):
         out["updated"] = os.environ["BUILD_DATE"]
@@ -107,7 +162,7 @@ def main():
     with open(os.path.join(here, "data.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
     print(f"data.json écrit : {out['count']} logements, {out['communes']} communes, "
-          f"types={adr}, {len(featured)} en vedette")
+          f"types={adr}, {len(featured)} en vedette, {len(reviews)} avis réels")
 
 
 if __name__ == "__main__":
