@@ -10,9 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="https://unpkg.com/supercluster@8.0.1/dist/supercluster.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -59,12 +56,12 @@ tailwind.config = {
   details.faq .faq-chev { transition: transform .25s ease; }
   details.faq[open] .faq-chev { transform: rotate(180deg); }
   /* Carte 3D (MapLibre) */
-  #map3d { width: 100%; height: clamp(440px, 64vh, 660px); border-radius: 24px; background: linear-gradient(#a7c9ee 0%, #cfe0f1 40%, #efe7d8 70%, #e7d9c0 100%); }
+  #map3d { width: 100%; height: clamp(440px, 64vh, 660px); border-radius: 24px; background: linear-gradient(#bcd0e8 0%, #e6dcc6 45%, #f1e6d0 78%, #e7d9c0 100%); }
   #map3d canvas, #map3d .maplibregl-canvas-container, #map3d .maplibregl-canvas { border-radius: 24px; }
   #map3d .maplibregl-ctrl-group { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(46,36,16,.28); }
   #map3d .maplibregl-ctrl-attrib { font-size: 10px; background: rgba(251,248,243,.8); }
   #map3d .maplibregl-ctrl-attrib a { color: #5c4636; }
-  #map3d-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #5c4636; font-size: 14px; font-weight: 500; background: linear-gradient(#cfe0f1, #efe7d8); border-radius: 24px; transition: opacity .5s ease; }
+  #map3d-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #5c4636; font-size: 14px; font-weight: 500; background: linear-gradient(#dfe6ec, #f1e6d0); border-radius: 24px; transition: opacity .5s ease; }
   #map3d-loading.gone { opacity: 0; pointer-events: none; }
   #map3d-loading .spin { width: 18px; height: 18px; border: 2.5px solid #d9c79f; border-top-color: #E0AE2C; border-radius: 50%; animation: shspin .8s linear infinite; }
   @keyframes shspin { to { transform: rotate(360deg); } }
@@ -81,6 +78,15 @@ tailwind.config = {
   /* Bulles de regroupement */
   .sh-clus { display: flex; align-items: center; justify-content: center; background: #2E2410; color: #FBF8F3; border: 2px solid #FBF8F3; border-radius: 50%; font: 700 13px/1 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 0 4px 13px rgba(46,36,16,.5); transition: transform .14s ease, background .14s ease; }
   .sh-clus:hover { transform: scale(1.09); background: #463618; }
+  /* Carte illustrée : pastilles de villes cliquables */
+  .sh-map { line-height: 0; }
+  .sh-town { position: absolute; transform: translate(-50%, -50%); width: 16px; height: 16px; z-index: 2; }
+  .sh-town i { position: absolute; inset: 0; border-radius: 50%; background: #E0AE2C; border: 2px solid #FBF8F3; box-shadow: 0 1px 5px rgba(46,36,16,.55); transition: transform .15s ease, background .15s ease; }
+  .sh-town::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(224,174,44,.65); animation: shtown 2.1s ease-out infinite; }
+  @keyframes shtown { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.7); opacity: 0; } }
+  .sh-town:hover i, .sh-town:focus-visible i { transform: scale(1.35); background: #2E2410; }
+  .sh-town b { position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%) translateY(5px); background: #2E2410; color: #FBF8F3; font: 600 12px/1 Inter, sans-serif; padding: 6px 10px; border-radius: 9px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; box-shadow: 0 8px 22px rgba(46,36,16,.45); }
+  .sh-town:hover b, .sh-town:focus-visible b { opacity: 1; transform: translateX(-50%) translateY(0); }
   .sh-pop .maplibregl-popup-content { padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
   .sh-pop .maplibregl-popup-tip { display: none; }
   .sh-card { display: block; width: 218px; background: #FBF8F3; color: #2E2410; border-radius: 14px; overflow: hidden; text-decoration: none; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
@@ -426,13 +432,15 @@ tailwind.config = {
     <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Notre terrain de jeu</p>
     <h2 class="reveal font-display text-4xl sm:text-5xl font-600 leading-tight max-w-3xl mx-auto">Ancrés en Saône-et-Loire, au cœur des vignobles</h2>
     <p class="reveal text-muted text-lg mt-5 max-w-2xl mx-auto">Séjournez à deux pas des trésors de la Bourgogne — nos logements sont idéalement placés près des sites incontournables.</p>
-    <div class="mt-9">
-      <div id="map-toggles" class="reveal flex flex-wrap items-center justify-center gap-2.5 mb-5"></div>
-      <div class="relative border border-ecru shadow-xl shadow-ink/10 rounded-3xl" style="border-radius:24px">
-        <div id="map3d"></div>
-        <div id="map3d-loading"><span class="spin"></span>Chargement de la carte 3D…</div>
+    <div class="mt-9 reveal">
+      <div class="sh-map relative overflow-hidden rounded-3xl border border-ecru shadow-xl shadow-ink/10">
+        <img src="img/carte-bourgogne.jpg?v=1" alt="Carte illustrée de la Bourgogne — vignobles, villages, châteaux et sites à visiter" class="block w-full h-auto" loading="lazy">
+        <a class="sh-town" style="left:58.5%;top:61%" href="catalogue.html?q=Chalon-sur-Sa%C3%B4ne" aria-label="Nos logements à Chalon-sur-Saône"><i></i><b>Chalon-sur-Saône</b></a>
+        <a class="sh-town" style="left:51%;top:86.5%" href="catalogue.html?q=M%C3%A2con" aria-label="Nos logements à Mâcon"><i></i><b>Mâcon</b></a>
+        <a class="sh-town" style="left:51%;top:72.5%" href="catalogue.html?q=Tournus" aria-label="Nos logements à Tournus"><i></i><b>Tournus</b></a>
+        <a class="sh-town" style="left:63%;top:45%" href="catalogue.html?q=Beaune" aria-label="Nos logements vers Beaune"><i></i><b>Beaune &amp; environs</b></a>
       </div>
-      <p class="reveal text-muted/80 text-xs mt-3 text-center">Nos logements en pastilles de prix (les zones denses se regroupent — cliquez une bulle pour zoomer), avec notre sélection de lieux à visiter, vignobles et bonnes tables tout autour. Survolez une pastille pour la photo, cochez / décochez les calques. Carte 3D inclinable : clic droit (ou Ctrl) + glisser.</p>
+      <p class="reveal text-muted/80 text-xs mt-4 text-center">Survolez une pastille dorée pour repérer la ville, cliquez pour découvrir nos logements du secteur. Tout notre parc est dans <a href="catalogue.html?v=2" class="text-bronze hover:text-ink font-600">le catalogue</a>.</p>
     </div>
   </div>
 </section>
@@ -785,247 +793,6 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     }
   }
 }).catch(() => {});
-
-// Carte 3D interactive : terrain réel (satellite + relief) + nos logements cliquables + filtres.
-// La carte MapLibre est créée PARESSEUSEMENT quand la section entre dans l'écran : un canvas WebGL créé hors écran
-// reste « gelé » (il ne compose pas et ne charge pas ses tuiles). En le créant visible, le rendu démarre normalement.
-(function(){
-  const tog = document.getElementById('map-toggles');
-  const el3d = document.getElementById('map3d');
-  if (!el3d || !tog || !window.maplibregl) return;
-  const TYPES = [['all','Tous'],['Studio','Studio'],['T2','T2'],['T3','T3'],['T4','T4'],['T5+','T5 et +']];
-  const typeOf = b => b === 0 ? 'Studio' : ({1:'T2',2:'T3',3:'T4'}[b] || 'T5+');
-  const e2 = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-  const eur2 = n => Math.round(n).toLocaleString('fr-FR') + ' €';
-  // Bornes Bourgogne : on garde les logements de la région (exclut les pépites Var / Megève)
-  const inBgne = l => l.lat >= 45.95 && l.lat <= 48.05 && l.lng >= 2.6 && l.lng <= 5.95;
-  let LL = [], markers = [], show = true, ftype = 'all', hideT = null;
-  let map = null, popup = null, dataReady = false, created = false, revealed = false, sc = null;
-
-  // --- Lieux à découvrir : sélection curée de sites, vignobles et tables réputés à proximité de nos logements ---
-  const POICATS = {
-    vin:        { emoji: '🍷', label: 'Vignobles',     color: '#7b2e46' },
-    patrimoine: { emoji: '🏛️', label: 'Patrimoine',    color: '#8A5E1A' },
-    table:      { emoji: '🍽️', label: 'Bonnes tables', color: '#b4452f' },
-    nature:     { emoji: '🌿', label: 'Nature',        color: '#4f7a3a' }
-  };
-  const POIS = [
-    { cat:'patrimoine', name:'Hospices de Beaune', lat:47.0238, lng:4.8378, note:'Hôtel-Dieu aux toits vernissés — l’incontournable · Beaune' },
-    { cat:'patrimoine', name:'Abbaye de Cluny', lat:46.4344, lng:4.6586, note:'Plus vaste abbaye de l’Occident médiéval · Cluny' },
-    { cat:'patrimoine', name:'Abbaye Saint-Philibert', lat:46.5662, lng:4.9098, note:'Chef-d’œuvre de l’art roman · Tournus' },
-    { cat:'patrimoine', name:'Château de Cormatin', lat:46.5406, lng:4.6886, note:'Décors Louis XIII & jardins remarquables · Cormatin' },
-    { cat:'patrimoine', name:'Cité médiévale de Brancion', lat:46.5378, lng:4.7567, note:'Village fortifié perché · Martailly-lès-Brancion' },
-    { cat:'patrimoine', name:'Autun la romaine', lat:46.9483, lng:4.2994, note:'Cathédrale Saint-Lazare & théâtre antique · Autun' },
-    { cat:'patrimoine', name:'Basilique de Paray-le-Monial', lat:46.4531, lng:4.1206, note:'Joyau de l’art roman clunisien · Paray-le-Monial' },
-    { cat:'patrimoine', name:'Palais des Ducs de Bourgogne', lat:47.3216, lng:5.0414, note:'Cœur historique de la capitale · Dijon' },
-    { cat:'patrimoine', name:'Musée Nicéphore Niépce', lat:46.7803, lng:4.8531, note:'Berceau de la photographie · Chalon-sur-Saône' },
-    { cat:'patrimoine', name:'Château de Sully', lat:46.9886, lng:4.2614, note:'« Le Fontainebleau bourguignon » · Sully' },
-    { cat:'vin', name:'Beaune, capitale des vins', lat:47.0246, lng:4.8400, note:'Marché aux vins & maisons de négoce · Beaune' },
-    { cat:'vin', name:'Château du Clos de Vougeot', lat:47.1747, lng:4.9533, note:'Grands Crus de la Côte de Nuits · Vougeot' },
-    { cat:'vin', name:'Pommard', lat:47.0008, lng:4.7872, note:'Grand rouge de la Côte de Beaune' },
-    { cat:'vin', name:'Meursault', lat:46.9786, lng:4.7689, note:'Grands vins blancs réputés' },
-    { cat:'vin', name:'Puligny-Montrachet', lat:46.9472, lng:4.7558, note:'Parmi les plus grands blancs du monde' },
-    { cat:'vin', name:'Mercurey', lat:46.8292, lng:4.7150, note:'Plus grande appellation de la Côte chalonnaise' },
-    { cat:'vin', name:'Givry', lat:46.7808, lng:4.7472, note:'Rouges fins, « le vin des rois »' },
-    { cat:'vin', name:'Rully', lat:46.8769, lng:4.7344, note:'Crémant de Bourgogne & blancs élégants' },
-    { cat:'vin', name:'Pouilly-Fuissé', lat:46.2944, lng:4.7256, note:'Grand blanc du Mâconnais · Solutré' },
-    { cat:'table', name:'Maison Lameloise', lat:46.9092, lng:4.7519, note:'★★★ Michelin — institution · Chagny' },
-    { cat:'table', name:'Aux Terrasses', lat:46.5650, lng:4.9082, note:'Table gastronomique étoilée · Tournus' },
-    { cat:'table', name:'L’Amaryllis', lat:46.7686, lng:4.8233, note:'Table étoilée (Cédric Burtin) · Saint-Rémy' },
-    { cat:'table', name:'Le Bénaton', lat:47.0207, lng:4.8336, note:'Table gastronomique étoilée · Beaune' },
-    { cat:'table', name:'Greuze', lat:46.5676, lng:4.9090, note:'Institution de la cuisine bourguignonne · Tournus' },
-    { cat:'table', name:'Loiseau des Vignes', lat:47.0233, lng:4.8391, note:'Maison Bernard Loiseau · Beaune' },
-    { cat:'nature', name:'Roche de Solutré', lat:46.2972, lng:4.7211, note:'Grand site classé, panorama sur le Mâconnais' },
-    { cat:'nature', name:'Mont Beuvray — Bibracte', lat:46.9236, lng:4.0339, note:'Capitale gauloise au cœur du Morvan' },
-    { cat:'nature', name:'Lac des Settons', lat:47.1875, lng:4.0900, note:'Baignade & balades dans le Parc du Morvan' }
-  ];
-  const catOn = { vin: true, patrimoine: true, table: true, nature: true };
-  let poiMarkers = [];
-
-  const reveal = () => { if (revealed) return; revealed = true; const ld = document.getElementById('map3d-loading'); if (ld) ld.classList.add('gone'); };
-
-  // --- Filtres (fonctionnent même avant la création de la carte) ---
-  function renderTog(){
-    const logChips =
-      `<button data-x="toggle" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${show ? 'bg-ink text-cream border-ink' : 'bg-cream text-cocoa border-ecru'}">`
-      + `<span style="margin-right:5px">${show ? '☑' : '☐'}</span>Nos logements (${LL.length})</button>`
-      + TYPES.map(([k,lab]) => `<button data-t="${k}" class="rounded-full border px-3.5 py-2 text-sm font-500 cursor-pointer ${(ftype===k && show) ? 'bg-gold text-ink border-gold' : 'bg-cream text-cocoa border-ecru hover:border-cocoa/40'}">${lab}</button>`).join('');
-    const poiChips = Object.keys(POICATS).map(k => {
-      const c = POICATS[k], on = catOn[k];
-      const sty = on ? `background:${c.color}1f;border-color:${c.color};color:#2E2410` : '';
-      return `<button data-cat="${k}" class="rounded-full border px-3.5 py-2 text-sm font-500 cursor-pointer ${on ? '' : 'bg-cream text-cocoa border-ecru hover:border-cocoa/40'}" style="${sty}">${on ? '☑' : '☐'} ${c.emoji} ${c.label}</button>`;
-    }).join('');
-    tog.innerHTML = logChips + '<div class="basis-full h-0"></div>' + poiChips;
-  }
-  function applyFilter(){
-    if (map) { indexPoints(); renderClusters(); }   // logements : le clustering intègre le filtre type + on/off
-    poiMarkers.forEach(o => { o.mk.getElement().style.display = catOn[o.cat] ? '' : 'none'; });
-  }
-  tog.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.x === 'toggle') show = !show;
-    else if (b.dataset.t) { ftype = b.dataset.t; show = true; }
-    else if (b.dataset.cat) { catOn[b.dataset.cat] = !catOn[b.dataset.cat]; }
-    renderTog(); applyFilter();
-  });
-
-  // --- Survol : carte photo façon Airbnb ---
-  function cardHTML(l){
-    const note = l.rating
-      ? `<span class="m">★ ${(l.rating/2).toFixed(2).replace('.', ',')} · ${typeOf(l.bedrooms)} · ${e2(l.city)}</span>`
-      : `<span class="m">${typeOf(l.bedrooms)} · ${e2(l.city)}</span>`;
-    return `<a class="sh-card" href="logement.html?id=${l.id}">`
-      + `<img src="${e2(l.cover)}" alt="" decoding="async">`
-      + `<span class="cb"><b>${e2(l.name)}</b>${note}`
-      + `<span class="pr">${eur2(l.price)} <i>/ nuit</i></span></span></a>`;
-  }
-  function scheduleHide(){ hideT = setTimeout(() => popup.remove(), 160); }
-  // Pastille de prix d'un logement — survol = carte photo, clic = fiche
-  function pinEl(l){
-    const a = document.createElement('a');
-    a.className = 'sh-pin' + (l.rating && l.rating >= 9.6 ? ' feat' : '');
-    a.href = 'logement.html?id=' + l.id;
-    a.setAttribute('aria-label', l.name);
-    a.innerHTML = (l.rating && l.rating >= 9.6 ? '<span class="h">♥</span>' : '') + eur2(l.price);
-    a.addEventListener('mouseenter', () => {
-      clearTimeout(hideT); a.classList.add('hot');
-      popup.setLngLat([l.lng, l.lat]).setHTML(cardHTML(l)).addTo(map);
-      const pe = popup.getElement();
-      if (pe) { pe.onmouseenter = () => clearTimeout(hideT); pe.onmouseleave = scheduleHide; }
-    });
-    a.addEventListener('mouseleave', () => { a.classList.remove('hot'); scheduleHide(); });
-    return a;
-  }
-  function passType(l){ return ftype === 'all' || typeOf(l.bedrooms) === ftype; }
-  // (Re)construit l'index de clustering selon le filtre actif (type + affichage on/off)
-  function indexPoints(){
-    if (!window.Supercluster) { sc = null; return; }
-    const feats = (show ? LL.filter(passType) : []).map(l => ({ type:'Feature', properties:{ l: l }, geometry:{ type:'Point', coordinates:[l.lng, l.lat] } }));
-    sc = new Supercluster({ radius: 52, maxZoom: 13, minPoints: 2 }).load(feats);
-  }
-  // Affiche pastilles + bulles de regroupement pour la vue courante (rappelé à chaque déplacement)
-  function renderClusters(){
-    if (!map) return;
-    markers.forEach(m => m.remove()); markers = [];
-    if (!sc) { // repli sans clustering : pastilles individuelles
-      (show ? LL.filter(passType) : []).forEach(l => markers.push(new maplibregl.Marker({ element: pinEl(l), anchor: 'center' }).setLngLat([l.lng, l.lat]).addTo(map)));
-      return;
-    }
-    const b = map.getBounds(), z = Math.round(map.getZoom());
-    sc.getClusters([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()], z).forEach(c => {
-      const lng = c.geometry.coordinates[0], lat = c.geometry.coordinates[1];
-      let el;
-      if (c.properties.cluster) {
-        const n = c.properties.point_count, d = n < 10 ? 38 : n < 25 ? 46 : 54;
-        el = document.createElement('div');
-        el.className = 'sh-clus'; el.style.width = el.style.height = d + 'px';
-        el.textContent = n; el.title = n + ' logements — cliquez pour zoomer';
-        el.addEventListener('click', () => {
-          const ez = Math.min(sc.getClusterExpansionZoom(c.properties.cluster_id), 15);
-          map.easeTo({ center: [lng, lat], zoom: ez, duration: 650 });
-        });
-      } else { el = pinEl(c.properties.l); }
-      markers.push(new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map));
-    });
-  }
-
-  // --- Lieux à découvrir : pastilles emoji par catégorie + carte d'info au survol ---
-  function cardPOI(p){
-    const c = POICATS[p.cat];
-    return `<div class="sh-poic" style="--c:${c.color}"><b>${c.emoji} ${e2(p.name)}</b><span class="m">${e2(p.note)}</span></div>`;
-  }
-  function buildPOIs(){
-    if (!map) return;
-    poiMarkers.forEach(o => o.mk.remove()); poiMarkers = [];
-    POIS.forEach(p => {
-      const el = document.createElement('div');
-      el.className = 'sh-poi';
-      el.style.setProperty('--c', POICATS[p.cat].color);
-      el.textContent = POICATS[p.cat].emoji;
-      el.setAttribute('aria-label', p.name);
-      el.addEventListener('mouseenter', () => {
-        clearTimeout(hideT); el.classList.add('hot');
-        popup.setLngLat([p.lng, p.lat]).setHTML(cardPOI(p)).addTo(map);
-        const pe = popup.getElement();
-        if (pe) { pe.onmouseenter = () => clearTimeout(hideT); pe.onmouseleave = scheduleHide; }
-      });
-      el.addEventListener('mouseleave', () => { el.classList.remove('hot'); scheduleHide(); });
-      const mk = new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([p.lng, p.lat]).addTo(map);
-      poiMarkers.push({ mk, cat: p.cat });
-    });
-    applyFilter();
-  }
-
-  // --- Création de la carte (uniquement quand la section est visible) ---
-  function createMap(){
-    if (created) return; created = true;
-    const ESRI = 'https://services.arcgisonline.com/ArcGIS/rest/services';
-    map = new maplibregl.Map({
-      container: 'map3d',
-      minZoom: 5, maxPitch: 80, attributionControl: false,
-      center: [4.84, 46.62], zoom: 6.9, pitch: 55, bearing: -19,
-      style: {
-        version: 8,
-        sources: {
-          sat:   { type: 'raster', tiles: [ESRI + '/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics' },
-          place: { type: 'raster', tiles: [ESRI + '/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19 },
-          dem:   { type: 'raster-dem', tiles: ['https://elevation-tiles-prod.s3.amazonaws.com/terrarium/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 14, encoding: 'terrarium', attribution: 'Relief © Mapzen / AWS Terrain Tiles' }
-        },
-        layers: [
-          { id: 'sat',   type: 'raster', source: 'sat' },
-          { id: 'hill',  type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.42, 'hillshade-shadow-color': '#2b2008', 'hillshade-highlight-color': '#fff7e6' } },
-          { id: 'place', type: 'raster', source: 'place', paint: { 'raster-opacity': 0.9 } }
-        ]
-      }
-    });
-    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
-    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-    popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 15, maxWidth: 'none', className: 'sh-pop' });
-    buildPOIs();
-    map.on('moveend', renderClusters);   // recalcule les regroupements à chaque déplacement / zoom
-    // Intro animée vers le cadrage cible : une animation de caméra (plusieurs frames) est le SEUL moyen fiable de forcer
-    // MapLibre à composer les tuiles d'un canvas WebGL ; on l'exécute dès que le style est prêt (sans attendre 'load',
-    // qui peut tarder avec le terrain).
-    let intro = false;
-    const playIntro = () => {
-      if (intro || !map.isStyleLoaded()) return; intro = true;
-      try { map.setTerrain({ source: 'dem', exaggeration: 1.5 }); } catch (e) {}
-      try { map.setSky({ 'sky-color': '#a7c9ee', 'horizon-color': '#e3eaf2', 'fog-color': '#f3ece0', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.5, 'fog-ground-blend': 0.4 }); } catch (e) {}
-      map.resize();
-      map.easeTo({ center: [4.84, 46.62], zoom: 7.7, pitch: 62, bearing: -19, duration: 1600 });
-      setTimeout(reveal, 850);
-    };
-    map.on('load', playIntro);
-    map.on('styledata', playIntro);
-    const introPoll = setInterval(() => { if (intro) { clearInterval(introPoll); return; } playIntro(); }, 250);
-    setTimeout(() => clearInterval(introPoll), 6000);
-    map.on('idle', reveal);
-    if (dataReady) { indexPoints(); renderClusters(); }
-    setTimeout(reveal, 8000); // filet de sécurité
-  }
-
-  // --- Données préchargées tout de suite (indépendamment de la carte) ---
-  fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
-    if (!d || !d.listings) return;
-    LL = d.listings.filter(l => l.lat != null && l.lng != null && inBgne(l));
-    dataReady = true;
-    renderTog();
-    if (map) { indexPoints(); renderClusters(); }
-  }).catch(() => {});
-
-  // --- Déclencheur : on crée la carte quand la section est SOLIDEMENT visible (elle traverse le milieu de l'écran),
-  // et on diffère la création de 2 frames pour que le navigateur l'ait réellement peinte (un canvas WebGL créé hors
-  // écran ne charge pas ses tuiles). IntersectionObserver (vraie visibilité) + repli sur la position au défilement. ---
-  let triggered = false;
-  const fire = () => { if (triggered) return; triggered = true; createMap(); };
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting && e.intersectionRatio >= 0.2)) { fire(); io.disconnect(); } }, { threshold: [0, 0.2, 0.5] });
-    io.observe(el3d);
-  }
-  const onScroll = () => { const r = el3d.getBoundingClientRect(); if (r.top < innerHeight * 0.55 && r.bottom > innerHeight * 0.45) { fire(); window.removeEventListener('scroll', onScroll); } };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
 </script>
 </body>
 </html>

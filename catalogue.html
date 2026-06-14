@@ -87,6 +87,8 @@ fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null)
   if (!d || !d.listings) { document.getElementById('empty').classList.remove('hidden'); return; }
   LISTINGS = d.listings;
   document.getElementById('count').textContent = d.count || LISTINGS.length;
+  const urlQ = new URLSearchParams(location.search).get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
+  if (urlQ) { q = urlQ; const qi = document.getElementById('q'); if (qi) qi.value = urlQ; }
   renderTypes(); render();
 }).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
 
