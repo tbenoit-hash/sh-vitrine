@@ -706,10 +706,13 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
   }
 }).catch(() => {});
 
-// Carte 3D interactive : terrain réel (satellite + relief) + nos logements cliquables + filtres
+// Carte 3D interactive : terrain réel (satellite + relief) + nos logements cliquables + filtres.
+// La carte MapLibre est créée PARESSEUSEMENT quand la section entre dans l'écran : un canvas WebGL créé hors écran
+// reste « gelé » (il ne compose pas et ne charge pas ses tuiles). En le créant visible, le rendu démarre normalement.
 (function(){
   const tog = document.getElementById('map-toggles');
-  if (!document.getElementById('map3d') || !tog || !window.maplibregl) return;
+  const el3d = document.getElementById('map3d');
+  if (!el3d || !tog || !window.maplibregl) return;
   const TYPES = [['all','Tous'],['Studio','Studio'],['T2','T2'],['T3','T3'],['T4','T4'],['T5+','T5 et +']];
   const typeOf = b => b === 0 ? 'Studio' : ({1:'T2',2:'T3',3:'T4'}[b] || 'T5+');
   const e2 = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
@@ -717,34 +720,28 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
   // Bornes Bourgogne : on garde les logements de la région (exclut les pépites Var / Megève)
   const inBgne = l => l.lat >= 45.95 && l.lat <= 48.05 && l.lng >= 2.6 && l.lng <= 5.95;
   let LL = [], markers = [], show = true, ftype = 'all', hideT = null;
+  let map = null, popup = null, dataReady = false, created = false, revealed = false;
 
-  const ESRI = 'https://services.arcgisonline.com/ArcGIS/rest/services';
-  const map = new maplibregl.Map({
-    container: 'map3d',
-    minZoom: 5, maxPitch: 80, attributionControl: false,
-    center: [4.84, 46.62], zoom: 7.7, pitch: 62, bearing: -19,
-    style: {
-      version: 8,
-      sources: {
-        sat:   { type: 'raster', tiles: [ESRI + '/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics' },
-        place: { type: 'raster', tiles: [ESRI + '/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19 },
-        dem:   { type: 'raster-dem', tiles: ['https://elevation-tiles-prod.s3.amazonaws.com/terrarium/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 14, encoding: 'terrarium', attribution: 'Relief © Mapzen / AWS Terrain Tiles' }
-      },
-      layers: [
-        { id: 'sat',   type: 'raster', source: 'sat' },
-        { id: 'hill',  type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.42, 'hillshade-shadow-color': '#2b2008', 'hillshade-highlight-color': '#fff7e6' } },
-        { id: 'place', type: 'raster', source: 'place', paint: { 'raster-opacity': 0.9 } }
-      ]
-    }
-  });
-  map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
-  map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-  map.on('load', () => {
-    try { map.setTerrain({ source: 'dem', exaggeration: 1.5 }); } catch (e) {}
-    try { map.setSky({ 'sky-color': '#a7c9ee', 'horizon-color': '#e3eaf2', 'fog-color': '#f3ece0', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.5, 'fog-ground-blend': 0.4 }); } catch (e) {}
+  const reveal = () => { if (revealed) return; revealed = true; const ld = document.getElementById('map3d-loading'); if (ld) ld.classList.add('gone'); };
+
+  // --- Filtres (fonctionnent même avant la création de la carte) ---
+  function renderTog(){
+    tog.innerHTML =
+      `<button data-x="toggle" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${show ? 'bg-ink text-cream border-ink' : 'bg-cream text-cocoa border-ecru'}">`
+      + `<span style="margin-right:5px">${show ? '☑' : '☐'}</span>Nos logements (${LL.length})</button>`
+      + TYPES.map(([k,lab]) => `<button data-t="${k}" class="rounded-full border px-3.5 py-2 text-sm font-500 cursor-pointer ${(ftype===k && show) ? 'bg-gold text-ink border-gold' : 'bg-cream text-cocoa border-ecru hover:border-cocoa/40'}">${lab}</button>`).join('');
+  }
+  function applyFilter(){
+    markers.forEach(o => { o.mk.getElement().style.display = (show && (ftype === 'all' || o.type === ftype)) ? '' : 'none'; });
+  }
+  tog.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.x === 'toggle') show = !show;
+    else if (b.dataset.t) { ftype = b.dataset.t; show = true; }
+    renderTog(); applyFilter();
   });
 
-  const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 15, maxWidth: 'none', className: 'sh-pop' });
+  // --- Survol : carte photo façon Airbnb ---
   function cardHTML(l){
     const note = l.rating
       ? `<span class="m">★ ${(l.rating/2).toFixed(2).replace('.', ',')} · ${typeOf(l.bedrooms)} · ${e2(l.city)}</span>`
@@ -755,8 +752,8 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
       + `<span class="pr">${eur2(l.price)} <i>/ nuit</i></span></span></a>`;
   }
   function scheduleHide(){ hideT = setTimeout(() => popup.remove(), 160); }
-
   function buildMarkers(){
+    if (!map) return;
     markers.forEach(o => o.mk.remove()); markers = [];
     LL.forEach(l => {
       const a = document.createElement('a');
@@ -776,28 +773,61 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     });
     applyFilter();
   }
-  function applyFilter(){
-    markers.forEach(o => { o.mk.getElement().style.display = (show && (ftype === 'all' || o.type === ftype)) ? '' : 'none'; });
-  }
-  function renderTog(){
-    tog.innerHTML =
-      `<button data-x="toggle" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${show ? 'bg-ink text-cream border-ink' : 'bg-cream text-cocoa border-ecru'}">`
-      + `<span style="margin-right:5px">${show ? '☑' : '☐'}</span>Nos logements (${LL.length})</button>`
-      + TYPES.map(([k,lab]) => `<button data-t="${k}" class="rounded-full border px-3.5 py-2 text-sm font-500 cursor-pointer ${(ftype===k && show) ? 'bg-gold text-ink border-gold' : 'bg-cream text-cocoa border-ecru hover:border-cocoa/40'}">${lab}</button>`).join('');
-  }
-  tog.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.x === 'toggle') show = !show;
-    else if (b.dataset.t) { ftype = b.dataset.t; show = true; }
-    renderTog(); applyFilter();
-  });
 
+  // --- Création de la carte (uniquement quand la section est visible) ---
+  function createMap(){
+    if (created) return; created = true;
+    const ESRI = 'https://services.arcgisonline.com/ArcGIS/rest/services';
+    map = new maplibregl.Map({
+      container: 'map3d',
+      minZoom: 5, maxPitch: 80, attributionControl: false,
+      center: [4.84, 46.62], zoom: 7.7, pitch: 62, bearing: -19,
+      style: {
+        version: 8,
+        sources: {
+          sat:   { type: 'raster', tiles: [ESRI + '/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics' },
+          place: { type: 'raster', tiles: [ESRI + '/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19 },
+          dem:   { type: 'raster-dem', tiles: ['https://elevation-tiles-prod.s3.amazonaws.com/terrarium/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 14, encoding: 'terrarium', attribution: 'Relief © Mapzen / AWS Terrain Tiles' }
+        },
+        layers: [
+          { id: 'sat',   type: 'raster', source: 'sat' },
+          { id: 'hill',  type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.42, 'hillshade-shadow-color': '#2b2008', 'hillshade-highlight-color': '#fff7e6' } },
+          { id: 'place', type: 'raster', source: 'place', paint: { 'raster-opacity': 0.9 } }
+        ]
+      }
+    });
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 15, maxWidth: 'none', className: 'sh-pop' });
+    map.on('load', () => {
+      try { map.setTerrain({ source: 'dem', exaggeration: 1.5 }); } catch (e) {}
+      try { map.setSky({ 'sky-color': '#a7c9ee', 'horizon-color': '#e3eaf2', 'fog-color': '#f3ece0', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.5, 'fog-ground-blend': 0.4 }); } catch (e) {}
+      map.resize();
+      setTimeout(reveal, 900);
+    });
+    map.on('idle', reveal);
+    if (dataReady) buildMarkers();
+    setTimeout(reveal, 8000); // filet de sécurité
+  }
+
+  // --- Données préchargées tout de suite (indépendamment de la carte) ---
   fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
     if (!d || !d.listings) return;
     LL = d.listings.filter(l => l.lat != null && l.lng != null && inBgne(l));
-    renderTog(); buildMarkers();
-    const ld = document.getElementById('map3d-loading'); if (ld) ld.classList.add('gone');
+    dataReady = true;
+    renderTog();
+    if (map) buildMarkers();
   }).catch(() => {});
+
+  // --- Déclencheurs : on crée la carte quand la section est réellement visible (un canvas créé visible ne « gèle » pas) ---
+  const near = () => { const r = el3d.getBoundingClientRect(); return r.top < innerHeight - 40 && r.bottom > 40; };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { createMap(); io.disconnect(); } }, { threshold: 0.08 });
+    io.observe(el3d);
+  }
+  const onScroll = () => { if (near()) { createMap(); window.removeEventListener('scroll', onScroll); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 </body>
