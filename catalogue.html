@@ -13,7 +13,7 @@
 tailwind.config = { theme: { extend: {
   colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
   fontFamily: { display:['"Cormorant Garamond"','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
-  maxWidth: { content:'1180px' }
+  maxWidth: { content:'1280px' }
 }}}
 </script>
 <style>
@@ -21,13 +21,16 @@ tailwind.config = { theme: { extend: {
   .font-display{font-family:"Cormorant Garamond",Georgia,serif}
   .tracking-luxe{letter-spacing:.28em}
   a,button{transition:all .2s ease}
-  .card-img{transition:transform .5s ease}
-  .grp:hover .card-img{transform:scale(1.05)}
+  .card-img{transition:transform .45s ease}
+  .grp:hover .card-img{transform:scale(1.045)}
+  .heart svg{transition:transform .15s ease, fill .15s ease}
+  .heart:hover svg{transform:scale(1.12)}
+  .heart.on svg{fill:#E0AE2C !important;stroke:#FBF8F3 !important}
 </style>
 </head>
 <body class="bg-cream text-ink antialiased">
 
-<header class="border-b border-ecru/70 bg-cream/90 backdrop-blur sticky top-0 z-30">
+<header class="border-b border-ecru/60 bg-cream/95 backdrop-blur sticky top-0 z-30">
   <div class="max-w-content mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-2.5">
       <img src="img/logo_gold.png" alt="" class="h-7 w-auto">
@@ -41,24 +44,22 @@ tailwind.config = { theme: { extend: {
 </header>
 
 <main class="max-w-content mx-auto px-5 sm:px-8 py-10">
-  <div class="mb-8">
+  <div class="text-center mb-8">
     <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-3">Réservez en direct</p>
     <h1 class="font-display text-4xl sm:text-5xl font-600">Nos locations en Bourgogne</h1>
     <p class="text-muted text-lg mt-3"><span id="count">…</span> logements d'exception, à réserver sans intermédiaire.</p>
   </div>
 
-  <!-- Filtres -->
-  <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-4 -mx-5 px-5 sm:-mx-8 sm:px-8 border-b border-ecru/50 mb-8">
-    <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
-      <div class="relative flex-1 max-w-md">
-        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="q" type="search" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full border border-ecru bg-cream pl-10 pr-4 py-2.5 text-sm outline-none focus:border-gold">
-      </div>
-      <div id="type-filters" class="flex flex-wrap gap-2"></div>
+  <!-- Barre de recherche style Airbnb -->
+  <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
+    <div class="max-w-xl mx-auto relative">
+      <svg class="absolute left-5 top-1/2 -translate-y-1/2 text-bronze" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full bg-cream border border-ecru shadow-lg shadow-ink/5 pl-12 pr-5 py-4 text-[15px] outline-none focus:border-gold focus:shadow-ink/10">
     </div>
+    <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
   </div>
 
-  <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  <div id="grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-9"></div>
   <p id="empty" class="hidden text-center text-muted py-20">Aucun logement ne correspond à votre recherche.</p>
   <div id="loading" class="text-center text-muted py-20">Chargement du catalogue…</div>
 </main>
@@ -76,6 +77,10 @@ const typeOf = b => b===0?'Studio':({1:'T2',2:'T3',3:'T4'}[b]||'T5+');
 let LISTINGS = [], q = '', activeType = 'all';
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+const note5 = r => (r/2).toFixed(2).replace('.', ',');
+const FAV = new Set(JSON.parse(localStorage.getItem('sh_fav') || '[]'));
+const heart = '<svg viewBox="0 0 32 32" width="24" height="24" style="display:block;fill:rgba(46,36,16,.35);stroke:#FBF8F3;stroke-width:2.4;overflow:visible"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>';
+const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" style="display:inline-block;vertical-align:-1px"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
 
 fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
   document.getElementById('loading').classList.add('hidden');
@@ -88,8 +93,28 @@ fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null)
 function renderTypes(){
   document.getElementById('type-filters').innerHTML = TYPES.map(([k,l]) => {
     const on = k === activeType;
-    return `<button data-t="${k}" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${on?'bg-ink text-cream border-ink':'bg-cream text-cocoa border-ecru hover:border-cocoa/40'}">${l}</button>`;
+    return `<button data-t="${k}" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${on?'bg-ink text-cream border-ink':'bg-cream text-cocoa border-ecru hover:border-cocoa/50'}">${l}</button>`;
   }).join('');
+}
+function card(l){
+  const fav = FAV.has(l.id);
+  const badge = (l.rating && l.rating >= 9.6) ? `<span class="absolute top-3 left-3 bg-cream text-ink text-[12px] font-700 px-2.5 py-1 rounded-full shadow-sm">Coup de cœur voyageurs</span>` : '';
+  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note5(l.rating)}</span>` : '';
+  return `<a href="logement.html?id=${l.id}" class="grp block">
+    <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
+      <img src="${l.cover}" alt="${esc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+      ${badge}
+      <button type="button" class="heart absolute top-2.5 right-2.5 ${fav?'on':''}" data-id="${l.id}" aria-label="Enregistrer dans mes favoris">${heart}</button>
+    </div>
+    <div class="mt-2.5">
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="font-600 text-ink leading-tight truncate">${esc(l.name)}</h3>
+        ${rate}
+      </div>
+      <p class="text-muted text-sm leading-snug truncate">${esc(l.city)} · ${l.guests} voyageurs · ${l.bedrooms?l.bedrooms+' ch.':'Studio'}</p>
+      <p class="mt-1.5 text-ink"><span class="font-700">${eur(l.price)}</span> <span class="text-muted">/ nuit</span></p>
+    </div>
+  </a>`;
 }
 function render(){
   const ql = q.trim().toLowerCase();
@@ -98,25 +123,22 @@ function render(){
     if (ql && !((l.name||'').toLowerCase().includes(ql) || (l.city||'').toLowerCase().includes(ql))) return false;
     return true;
   });
-  const grid = document.getElementById('grid');
   document.getElementById('empty').classList.toggle('hidden', items.length > 0);
-  grid.innerHTML = items.map(l => `
-    <a href="logement.html?id=${l.id}" class="grp block rounded-2xl overflow-hidden bg-cream border border-ecru/70 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-1">
-      <div class="relative aspect-[4/3] overflow-hidden">
-        <img src="${l.cover}" alt="${esc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
-        ${l.rating ? `<span class="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-cream/95 text-ink px-2.5 py-1 text-xs font-700 shadow"><svg width="12" height="12" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>${(+l.rating).toFixed(1)}</span>` : ''}
-      </div>
-      <div class="p-4">
-        <h3 class="font-display text-lg font-600 leading-tight truncate">${esc(l.name)}</h3>
-        <p class="text-muted text-sm mt-0.5">${esc(l.city)} · ${l.guests} voy. · ${l.bedrooms?l.bedrooms+' ch.':'Studio'}</p>
-        <p class="mt-2.5 text-ink"><span class="font-display text-xl font-700">${eur(l.price)}</span> <span class="text-muted text-sm">/ nuit</span></p>
-      </div>
-    </a>`).join('');
+  document.getElementById('grid').innerHTML = items.map(card).join('');
 }
 document.getElementById('q').addEventListener('input', e => { q = e.target.value; render(); });
 document.getElementById('type-filters').addEventListener('click', e => {
   const b = e.target.closest('button[data-t]'); if (!b) return;
   activeType = b.dataset.t; renderTypes(); render();
+});
+// cœur favoris (clic sans ouvrir la fiche)
+document.getElementById('grid').addEventListener('click', e => {
+  const h = e.target.closest('.heart'); if (!h) return;
+  e.preventDefault(); e.stopPropagation();
+  const id = +h.dataset.id;
+  if (FAV.has(id)) FAV.delete(id); else FAV.add(id);
+  h.classList.toggle('on');
+  localStorage.setItem('sh_fav', JSON.stringify([...FAV]));
 });
 </script>
 </body>
