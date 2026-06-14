@@ -30,13 +30,13 @@ jobs:
 
       - name: Commit si changement
         run: |
-          if ! git diff --quiet -- data.json; then
+          git add data.json catalogue.json
+          if ! git diff --cached --quiet; then
             git config user.name "sh-sync-bot"
             git config user.email "bot@sh-developpement.fr"
-            git add data.json
-            git commit -m "chore: mise à jour data.json (sync Hostaway quotidien)"
+            git commit -m "chore: mise à jour data.json + catalogue.json (sync Hostaway quotidien)"
             git push
-            echo "data.json mis à jour et publié."
+            echo "Données mises à jour et publiées."
           else
             echo "Aucun changement détecté."
           fi

@@ -197,11 +197,18 @@ def main():
     if os.environ.get("BUILD_DATE"):
         out["updated"] = os.environ["BUILD_DATE"]
 
+    # Catalogue complet (toutes les fiches, pour le site sans dépendance Hostaway)
+    catalogue = [prop_record(l) for l in listings]
+    catalogue.sort(key=lambda x: (-(x.get("rating") or 0), x.get("name") or ""))
+
     here = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(here, "data.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
+    with open(os.path.join(here, "catalogue.json"), "w", encoding="utf-8") as f:
+        json.dump({"count": len(catalogue), "listings": catalogue}, f, ensure_ascii=False)
     print(f"data.json écrit : {out['count']} logements, {out['communes']} communes, "
-          f"types={adr}, {len(featured)} en vedette, {len(reviews)} avis réels")
+          f"types={adr}, {len(featured)} en vedette, {len(reviews)} avis réels ; "
+          f"catalogue.json : {len(catalogue)} fiches complètes")
 
 
 if __name__ == "__main__":
