@@ -178,8 +178,9 @@
       "bathrooms": 3,
       "price": 250,
       "rating": 9.5,
-      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73",
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-zGKcE0tzCU2mv0zqYCpfVhLvbig8Fjpgya189Pcz0ds-6967426b5bd2f",
       "photos": [
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-zGKcE0tzCU2mv0zqYCpfVhLvbig8Fjpgya189Pcz0ds-6967426b5bd2f",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-gkoCiCpKNkMWo7HBkgB2seJQ1HpA6qPHODXAapXffyg-69674251c26e3",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-U0cdJJs--ZJ5YKdVYP3q-37Cqn8r2lLgkUi6ltmvXaNI-6966a114c711e",
@@ -190,8 +191,7 @@
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-8Juh37Fxyp5PFQEF3q5FKO0zKV7oZjIe3f42xI01qss-6967bc4e07e1d",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-mF1U52SpV1cT9fU5oal7V9LTH9hQ63s-I5Cnzn4TXmo-6967fe30dad5e",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-bILBSmspHPQvyQqGWqovh0rKLxWK7R5AQF--3gvuTZWk-6967bc4eed9c4",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-EanJr7REYfLEhXJJN9Nfo8blhsijVaN2jMW53Ojmpcc-6967426a6a43f",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-D0pWjeRgjbexLuzz5ApK0KPb4076vIb1GC6ouvksKwo-6967425e70bdb"
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-EanJr7REYfLEhXJJN9Nfo8blhsijVaN2jMW53Ojmpcc-6967426a6a43f"
       ],
       "description": "Découvrez et savourez le charme unique de Dracy-le-Fort de part notre maison de 150m2. Parfait pour accueillir confortablement une famille, des amis ou encore des voyageurs d'affaires. L’emplacement est idéal si vous êtes en quête d’inspiration, d'aventure ou de détente. Proche des plus grands domaines viticoles de France, venez vivre un magnifique séjour ! Franchissez le seuil de la maison et laissez-vous envelopper par une atmosphère à la fois authentique et contemporaine, où chaque détail semble avoir été pensé pour le confort et la sérénité. Le mariage subtil entre les murs en pierre, le parquet chaleureux et les teintes naturelles instaure dès l’entrée une ambiance douce et apaisante, propice à la détente. L’espace de vie s’articule autour d’une cuisine entièrement équipée, ouverte et conviviale. Ses lignes sobres et modernes contrastent élégamment avec la pierre apparente, créant un équilibre parfait entre tradition et modernité. Vous y trouverez tout le nécessaire pour préparer vos repas dans un cadre inspirant, baigné d’une lumière naturelle qui traverse généreusement la pièce. Dans le prolongement, un salon raffiné vous invite à la détente. Ses assises confortables, ses touches de décoration soigneusement sélectionnées et la chaleur du bois en font un lieu idéal pour partager un moment en famille ou entre amis. Les jeux de lumière, associés à la texture brute des murs,",
       "amenities": [
@@ -570,5 +570,5 @@
       "text": "Le logement était très propre et bien équipé. La remise des clés simples"
     }
   ],
-  "updated": "2026-06-14"
+  "updated": "2026-06-15"
 }

@@ -95,10 +95,9 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <script>
 const WA = "33659327710";
-// URL du moteur de réservation Hostaway (checkout sécurisé). À renseigner une fois confirmée
-// dans le tableau de bord Hostaway (ex. "https://votreslug.holidayfuture.com"). Tant qu'elle
-// est vide, le bouton « Réserver » envoie une demande pré-remplie à l'équipe (jamais un cul-de-sac).
-const BOOKING_ENGINE_BASE = "";
+// Moteur de réservation Hostaway « Sh-Conciergerie » (PUBLIÉ). Les fiches du portail
+// réutilisent les ID Hostaway → lien profond /listings/{id}. Si vide, repli demande email.
+const BOOKING_ENGINE_BASE = "https://136426_1.holidayfuture.com";
 const id = 470488;
 let AVAIL = null, calMonth = null, selIn = null, selOut = null;
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
@@ -301,7 +300,7 @@ function checkout(p){
   const guests = document.getElementById('bk-guests').value || 2;
   if (!selIn || !selOut){ document.getElementById('bk-cal').classList.remove('hidden'); renderCal(p); flash('Choisissez vos dates de séjour.'); return; }
   if (BOOKING_ENGINE_BASE){
-    const u = `${BOOKING_ENGINE_BASE.replace(/\/$/,'')}/${p.id}?startDate=${selIn}&endDate=${selOut}&numberOfGuests=${guests}`;
+    const u = `${BOOKING_ENGINE_BASE.replace(/\/$/,'')}/listings/${p.id}?startDate=${selIn}&endDate=${selOut}&numberOfGuests=${guests}`;
     window.open(u, '_blank'); return;
   }
   // Repli (tant que l'URL du moteur Hostaway n'est pas branchée) : demande pré-remplie
