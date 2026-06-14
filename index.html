@@ -829,13 +829,16 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     if (map) buildMarkers();
   }).catch(() => {});
 
-  // --- Déclencheurs : on crée la carte quand la section est réellement visible (un canvas créé visible ne « gèle » pas) ---
-  const near = () => { const r = el3d.getBoundingClientRect(); return r.top < innerHeight - 40 && r.bottom > 40; };
+  // --- Déclencheur : on crée la carte quand la section est SOLIDEMENT visible (elle traverse le milieu de l'écran),
+  // et on diffère la création de 2 frames pour que le navigateur l'ait réellement peinte (un canvas WebGL créé hors
+  // écran ne charge pas ses tuiles). IntersectionObserver (vraie visibilité) + repli sur la position au défilement. ---
+  let triggered = false;
+  const fire = () => { if (triggered) return; triggered = true; createMap(); };
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { createMap(); io.disconnect(); } }, { threshold: 0.08 });
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting && e.intersectionRatio >= 0.2)) { fire(); io.disconnect(); } }, { threshold: [0, 0.2, 0.5] });
     io.observe(el3d);
   }
-  const onScroll = () => { if (near()) { createMap(); window.removeEventListener('scroll', onScroll); } };
+  const onScroll = () => { const r = el3d.getBoundingClientRect(); if (r.top < innerHeight * 0.55 && r.bottom > innerHeight * 0.45) { fire(); window.removeEventListener('scroll', onScroll); } };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 })();
