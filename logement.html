@@ -82,7 +82,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
         <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Message (facultatif)</span><textarea name="Message" rows="2" class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></textarea></label>
         <label class="flex items-start gap-2 text-xs text-ink/80"><input type="checkbox" name="Consentement" required class="mt-0.5"> <span>J'accepte d'être recontacté(e) au sujet de ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
         <button type="submit" id="bkm-submit" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Envoyer ma demande</button>
-        <p class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le lien de paiement sécurisé. Sans frais de plateforme.</p>
+        <p class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.</p>
       </form>
     </div>
     <div id="bkm-success" class="hidden text-center py-6">
@@ -225,7 +225,7 @@ function initBooking(p){
   const days = (AVAIL && AVAIL.days) || {};
   const has = Object.keys(days).length > 0;
   const note = document.getElementById('bk-note');
-  note.textContent = 'Réservation en direct sur notre site, sans frais de plateforme · réponse sous 24 h.';
+  note.textContent = 'Réservation en direct sur notre site · paiement sécurisé par carte ou virement, sans frais de plateforme.';
   if (!has) {
     // Pas de calendrier pré-chargé → demande simple, sans cul-de-sac
     document.getElementById('bk-dates').classList.add('hidden');
