@@ -85,7 +85,11 @@ const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" sty
 fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
   document.getElementById('loading').classList.add('hidden');
   if (!d || !d.listings) { document.getElementById('empty').classList.remove('hidden'); return; }
-  LISTINGS = d.listings.slice().sort((a, b) => (b.price || 0) - (a.price || 0) || (b.rating || 0) - (a.rating || 0));  // du plus cher au moins cher (prix / nuit)
+  const SH_BAS = new Set([470958, 465564, 556640]);  // Le Maie Buisson, Panorama des Neiges, Le Perchoir → toujours en bas
+  LISTINGS = d.listings.slice().sort((a, b) =>
+    ((SH_BAS.has(a.id) ? 1 : 0) - (SH_BAS.has(b.id) ? 1 : 0))   // ces 3 biens relégués en dernier
+    || (b.price || 0) - (a.price || 0)                          // sinon, du plus cher au moins cher
+    || (b.rating || 0) - (a.rating || 0));
   document.getElementById('count').textContent = d.count || LISTINGS.length;
   const urlQ = new URLSearchParams(location.search).get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
   if (urlQ) { q = urlQ; const qi = document.getElementById('q'); if (qi) qi.value = urlQ; }
