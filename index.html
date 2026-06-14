@@ -51,6 +51,8 @@ tailwind.config = {
   .heart:hover svg { transform: scale(1.12); }
   .heart.on svg { fill:#E0AE2C !important; stroke:#FBF8F3 !important; }
   a, button { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+  .dlink { text-decoration: underline; text-decoration-color: rgba(138,94,26,.35); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .dlink:hover { color: #8A5E1A; text-decoration-color: #8A5E1A; }
   details.faq > summary { list-style: none; cursor: pointer; }
   details.faq > summary::-webkit-details-marker { display: none; }
   details.faq .faq-chev { transition: transform .25s ease; }
@@ -311,11 +313,11 @@ tailwind.config = {
         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(123,46,70,.1)">🍷</div>
         <h3 class="font-display text-2xl font-600">Vignobles & Grands Crus</h3>
         <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
-          <li>Beaune, capitale des vins de Bourgogne</li>
-          <li>Clos de Vougeot · Côte de Nuits</li>
-          <li>Pommard · Meursault · Puligny-Montrachet</li>
-          <li>Givry · Mercurey · Rully <span class="text-bronze">(Côte chalonnaise)</span></li>
-          <li>Pouilly-Fuissé · vignobles du Mâconnais</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Beaune+vins+de+Bourgogne" target="_blank" rel="noopener">Beaune</a>, capitale des vins de Bourgogne</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+du+Clos+de+Vougeot" target="_blank" rel="noopener">Clos de Vougeot</a> · <a class="dlink" href="https://www.google.com/search?q=C%C3%B4te+de+Nuits+vignoble" target="_blank" rel="noopener">Côte de Nuits</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Pommard+vin" target="_blank" rel="noopener">Pommard</a> · <a class="dlink" href="https://www.google.com/search?q=Meursault+vin" target="_blank" rel="noopener">Meursault</a> · <a class="dlink" href="https://www.google.com/search?q=Puligny-Montrachet+vin" target="_blank" rel="noopener">Puligny-Montrachet</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Givry+vin+C%C3%B4te+chalonnaise" target="_blank" rel="noopener">Givry</a> · <a class="dlink" href="https://www.google.com/search?q=Mercurey+vin" target="_blank" rel="noopener">Mercurey</a> · <a class="dlink" href="https://www.google.com/search?q=Rully+Bourgogne+vin" target="_blank" rel="noopener">Rully</a> <span class="text-bronze">(Côte chalonnaise)</span></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Pouilly-Fuiss%C3%A9+vin" target="_blank" rel="noopener">Pouilly-Fuissé</a> · vignobles du <a class="dlink" href="https://www.google.com/search?q=vignobles+du+M%C3%A2connais" target="_blank" rel="noopener">Mâconnais</a></li>
         </ul>
       </article>
 
@@ -324,11 +326,11 @@ tailwind.config = {
         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(138,94,26,.12)">🏛️</div>
         <h3 class="font-display text-2xl font-600">Patrimoine & visites</h3>
         <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
-          <li>Hospices de Beaune & ses toits vernissés</li>
-          <li>Abbaye de Cluny · Abbaye de Tournus</li>
-          <li>Château de Cormatin · cité de Brancion</li>
-          <li>Autun la romaine · château de Sully</li>
-          <li>Palais des Ducs & vieille ville de Dijon</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Hospices+de+Beaune" target="_blank" rel="noopener">Hospices de Beaune</a> & ses toits vernissés</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Abbaye+de+Cluny" target="_blank" rel="noopener">Abbaye de Cluny</a> · <a class="dlink" href="https://www.google.com/search?q=Abbaye+Saint-Philibert+Tournus" target="_blank" rel="noopener">Abbaye de Tournus</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+de+Cormatin" target="_blank" rel="noopener">Château de Cormatin</a> · <a class="dlink" href="https://www.google.com/search?q=Brancion+cit%C3%A9+m%C3%A9di%C3%A9vale" target="_blank" rel="noopener">cité de Brancion</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Autun+tourisme" target="_blank" rel="noopener">Autun la romaine</a> · <a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+de+Sully+Bourgogne" target="_blank" rel="noopener">château de Sully</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Palais+des+Ducs+de+Bourgogne+Dijon" target="_blank" rel="noopener">Palais des Ducs</a> & vieille ville de Dijon</li>
         </ul>
       </article>
 
@@ -337,11 +339,11 @@ tailwind.config = {
         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(180,69,47,.1)">🍽️</div>
         <h3 class="font-display text-2xl font-600">Bonnes tables</h3>
         <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
-          <li>Maison Lameloise <span class="text-bronze">★★★</span> · Chagny</li>
-          <li>Greuze & Aux Terrasses · Tournus</li>
-          <li>L'Amaryllis (C. Burtin) · Saint-Rémy</li>
-          <li>Le Bénaton & Loiseau des Vignes · Beaune</li>
-          <li>Bistrots de terroir & caveaux de vignerons</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Maison+Lameloise+Chagny" target="_blank" rel="noopener">Maison Lameloise</a> <span class="text-bronze">★★★</span> · Chagny</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Restaurant+Greuze+Tournus" target="_blank" rel="noopener">Greuze</a> & <a class="dlink" href="https://www.google.com/search?q=Aux+Terrasses+Tournus+restaurant" target="_blank" rel="noopener">Aux Terrasses</a> · Tournus</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Restaurant+L%27Amaryllis+Saint-R%C3%A9my+71" target="_blank" rel="noopener">L'Amaryllis</a> (C. Burtin) · Saint-Rémy</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Le+B%C3%A9naton+Beaune" target="_blank" rel="noopener">Le Bénaton</a> & <a class="dlink" href="https://www.google.com/search?q=Loiseau+des+Vignes+Beaune" target="_blank" rel="noopener">Loiseau des Vignes</a> · Beaune</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=caveaux+d%C3%A9gustation+vignerons+Bourgogne" target="_blank" rel="noopener">Bistrots de terroir & caveaux de vignerons</a></li>
         </ul>
       </article>
 
@@ -350,11 +352,11 @@ tailwind.config = {
         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(79,122,58,.12)">🚴</div>
         <h3 class="font-display text-2xl font-600">Activités & nature</h3>
         <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
-          <li>Voie Verte à vélo (Givry · Cluny · Mâconnais)</li>
-          <li>Accrobranche & parcours aventure · Givry</li>
-          <li>Roche de Solutré · grand site classé</li>
-          <li>Montgolfière au-dessus des vignes</li>
-          <li>Baignade & rando · lac des Settons, Morvan</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Voie+Verte+Bourgogne+du+Sud+%C3%A0+v%C3%A9lo" target="_blank" rel="noopener">Voie Verte à vélo</a> (Givry · Cluny · Mâconnais)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=accrobranche+Givry" target="_blank" rel="noopener">Accrobranche & parcours aventure</a> · Givry</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Roche+de+Solutr%C3%A9" target="_blank" rel="noopener">Roche de Solutré</a> · grand site classé</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=montgolfi%C3%A8re+Bourgogne+vignes" target="_blank" rel="noopener">Montgolfière au-dessus des vignes</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Lac+des+Settons+Morvan" target="_blank" rel="noopener">Baignade & rando · lac des Settons</a>, Morvan</li>
         </ul>
       </article>
     </div>
