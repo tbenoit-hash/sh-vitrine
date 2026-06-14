@@ -199,20 +199,26 @@ def main():
     records = [prop_record(l) for l in listings]
     byrec = {r["id"]: r for r in records}
 
-    # Galerie « nos biens d'exception » : les logements les plus CHERS, 1 seul par famille
-    # (pour la variété), hors pépites hors-région. Auto-mis à jour chaque jour : un bien
-    # au tarif plus élevé remonte tout seul dans la sélection. (tri par prix décroissant)
-    cand = [r for r in records if r["id"] not in EXTRA_IDS and r.get("cover") and (r.get("price") or 0) > 0]
-    cand.sort(key=lambda r: (-(r.get("price") or 0), -(r.get("rating") or 0), r.get("name") or ""))
-    featured, seen_fam = [], set()
-    for r in cand:
-        fk = family_key(r.get("name"))
-        if fk in seen_fam:
-            continue
-        seen_fam.add(fk)
-        featured.append(r)
-        if len(featured) >= 8:
-            break
+    # Galerie « nos biens d'exception » : sélection CURÉE par le client (8 logements choisis à la
+    # main), données rafraîchies chaque jour depuis Hostaway. Affichée par prix décroissant ;
+    # complétée par les plus chers si un id venait à manquer (logement retiré / sans prix).
+    FEATURED_PINNED = [
+        470939,  # Le Verger Secret (Saint-Loup-de-Varennes)
+        465573,  # Chalon Hacienda
+        468351,  # Belle maison rénovée avec jacuzzi (Saint-Rémy)
+        465755,  # Les Vagastines 2
+        475670,  # La Cave des Miracles (Dracy)
+        468463,  # Les Vignes Rouges (Givry / Russilly)
+        474343,  # Charmant gîte 3* — 25 Russilly (Givry)
+        465404,  # Château de Dracy – L'Élégante
+    ]
+    featured = [byrec[i] for i in FEATURED_PINNED if i in byrec]
+    if len(featured) < 8:  # filet de sécurité : compléter avec les plus chers
+        have = {r["id"] for r in featured} | set(EXTRA_IDS)
+        fillers = sorted((r for r in records if r["id"] not in have and r.get("cover") and (r.get("price") or 0) > 0),
+                         key=lambda r: -(r.get("price") or 0))
+        featured += fillers[:8 - len(featured)]
+    featured.sort(key=lambda r: (-(r.get("price") or 0), r.get("name") or ""))
     extras = [byrec[i] for i in EXTRA_IDS if i in byrec]
     byid = {l.get("id"): l for l in listings}
 
