@@ -265,6 +265,10 @@ tailwind.config = {
           <input id="sim-occ" type="range" min="40" max="70" step="1" value="55" class="w-full accent-[#E0AE2C] cursor-pointer" aria-label="Taux d'occupation">
           <p class="text-cream/40 text-xs mt-2.5">Moyenne constatée sur nos logements : <span class="text-cream/60">~55 %</span>.</p>
         </div>
+        <div class="mt-9">
+          <label class="block text-cream/55 text-xs font-600 uppercase tracking-luxe mb-4">Atouts du logement</label>
+          <div id="sim-amen" class="flex flex-wrap gap-2.5"></div>
+        </div>
         <p id="sim-assump" class="text-cream/40 text-xs mt-7 pt-6 border-t border-cream/10 leading-relaxed"></p>
       </div>
 
@@ -300,7 +304,7 @@ tailwind.config = {
         <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Une sélection à réserver en direct</h2>
         <p class="text-muted text-lg mt-4">Du studio en cœur de ville au château pour grandes tablées — réservez sans frais de plateforme.</p>
       </div>
-      <a href="#" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les 123 logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="https://136426_1.holidayfuture.com/" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les 123 logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7" id="grid">
@@ -318,7 +322,7 @@ tailwind.config = {
       <p class="text-muted text-lg mt-3">Nous gérons aussi quelques biens d'exception ailleurs en France.</p>
     </div>
     <div class="grid sm:grid-cols-2 gap-7">
-      <a href="#" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+      <a href="https://136426_1.holidayfuture.com/listings/497952" target="_blank" rel="noopener" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
         <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-497952-bicpmOVHFG4cjq0--se4NZHnsgWhMcTNl8DX2OZl7IO4-69b97468722e4" alt="La Croix Du Sud — villa avec piscine à débordement dans le Var" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent"></div>
         <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-cream/95 text-ink px-3 py-1.5 text-xs font-700">
@@ -331,7 +335,7 @@ tailwind.config = {
           <p class="mt-2.5 font-600">à partir de 2 000 € <span class="text-cream/70 font-400">/ nuit</span></p>
         </div>
       </a>
-      <a href="#" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+      <a href="https://136426_1.holidayfuture.com/listings/496304" target="_blank" rel="noopener" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
         <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-3j--2QozKBeK6dxiqYyYeQQhpaZfoln7zrUT-UwQcq20-69b296a9a68f5" alt="Le Megevand — chalet à Megève" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent"></div>
         <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-cream/95 text-ink px-3 py-1.5 text-xs font-700">
@@ -384,6 +388,7 @@ tailwind.config = {
   <div class="max-w-content mx-auto px-5 sm:px-8 text-center">
     <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Notre terrain de jeu</p>
     <h2 class="reveal font-display text-4xl sm:text-5xl font-600 leading-tight max-w-3xl mx-auto">Ancrés en Saône-et-Loire, au cœur des vignobles</h2>
+    <p class="reveal text-muted text-lg mt-5 max-w-2xl mx-auto">Séjournez à deux pas des trésors de la Bourgogne — nos logements sont idéalement placés près des sites incontournables.</p>
     <div class="reveal flex flex-wrap justify-center gap-3 mt-10">
       <span class="rounded-full border border-ecru bg-sand/50 px-5 py-2.5 font-500 text-cocoa">Mâcon</span>
       <span class="rounded-full border border-ecru bg-sand/50 px-5 py-2.5 font-500 text-cocoa">Tournus</span>
@@ -394,7 +399,11 @@ tailwind.config = {
       <span class="rounded-full border border-ecru bg-sand/50 px-5 py-2.5 font-500 text-cocoa">+ 17 communes</span>
     </div>
     <div class="reveal mt-12 rounded-3xl overflow-hidden border border-ecru shadow-xl shadow-ink/5">
-      <div id="map" class="w-full h-[400px] sm:h-[480px] bg-sand" aria-label="Carte de notre zone d'intervention en Saône-et-Loire"></div>
+      <div id="map" class="w-full h-[400px] sm:h-[520px] bg-sand" aria-label="Carte de nos logements et des sites à visiter en Bourgogne"></div>
+    </div>
+    <div class="reveal flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mt-6 text-sm text-cocoa">
+      <span class="inline-flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-gold border-2 border-cream shadow-sm"></span> Nos logements</span>
+      <span class="inline-flex items-center gap-2"><span class="inline-flex w-5 h-5 rounded-full bg-cream border-2 border-bronze items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8A5E1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M6 3h12l-1.2 7.2a5 5 0 0 1-9.6 0L6 3z"/></svg></span> Sites incontournables à visiter</span>
     </div>
   </div>
 </section>
@@ -515,20 +524,23 @@ tailwind.config = {
 </footer>
 
 <script>
+// Moteur de réservation Hostaway (direct, sans commission de plateforme)
+const ENGINE = "https://136426_1.holidayfuture.com";
+const bookUrl = id => `${ENGINE}/listings/${id}`;
 // Real listings (extraits de votre base Hostaway)
 const listings = [
-  {name:"Château de Dracy — La Nomade", city:"Dracy-le-Fort", guests:3, bedrooms:0, price:75, rating:9.9, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465405-SzVYjQj00EwgKaKsFQXSEkGnsVVu6J0VSF2dhl3TbTs-693c78575272f"},
-  {name:"La Cave des Miracles", city:"Dracy-le-Fort", guests:8, bedrooms:4, price:250, rating:9.5, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73"},
-  {name:"Chalon Hacienda", city:"Chalon-sur-Saône", guests:8, bedrooms:4, price:400, rating:9.3, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce"},
-  {name:"Les Vignes Rouges", city:"Givry", guests:8, bedrooms:3, price:250, rating:9.5, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468463-zuoEeX--fFdIDlkJn7fYgS7vAb9DNq57--41eHpgxVrKA-694a805d2594a"},
-  {name:"Wine & Saône", city:"Chalon-sur-Saône", guests:6, bedrooms:3, price:180, rating:9.8, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470948-3O-VZvUm2N8l0uKeRAtKd0JgCqfQo0nydAK732KoX6I-69552584664b9"},
-  {name:"Les Vagastines 2", city:"Saint-Germain-du-Plain", guests:10, bedrooms:8, price:250, rating:10, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63"},
+  {id:465405, name:"Château de Dracy — La Nomade", city:"Dracy-le-Fort", guests:3, bedrooms:0, price:75, rating:9.9, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465405-SzVYjQj00EwgKaKsFQXSEkGnsVVu6J0VSF2dhl3TbTs-693c78575272f"},
+  {id:475670, name:"La Cave des Miracles", city:"Dracy-le-Fort", guests:8, bedrooms:4, price:250, rating:9.5, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73"},
+  {id:465573, name:"Chalon Hacienda", city:"Chalon-sur-Saône", guests:8, bedrooms:4, price:400, rating:9.3, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce"},
+  {id:468463, name:"Les Vignes Rouges", city:"Givry", guests:8, bedrooms:3, price:250, rating:9.5, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468463-zuoEeX--fFdIDlkJn7fYgS7vAb9DNq57--41eHpgxVrKA-694a805d2594a"},
+  {id:470948, name:"Wine & Saône", city:"Chalon-sur-Saône", guests:6, bedrooms:3, price:180, rating:9.8, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470948-3O-VZvUm2N8l0uKeRAtKd0JgCqfQo0nydAK732KoX6I-69552584664b9"},
+  {id:465755, name:"Les Vagastines 2", city:"Saint-Germain-du-Plain", guests:10, bedrooms:8, price:250, rating:10, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63"},
 ];
 const bedIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9v11M2 13h20v7M22 13V9a2 2 0 0 0-2-2H8v6M6 11h.01"/></svg>';
 const guestIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>';
 const grid = document.getElementById('grid');
-grid.innerHTML = listings.map(l => `
-  <a href="#" class="reveal group block rounded-2xl overflow-hidden bg-cream border border-ecru/70 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+grid.innerHTML = listings.map((l, i) => `
+  <a href="${bookUrl(l.id)}" target="_blank" rel="noopener" style="transition-delay:${i*70}ms" class="reveal group block rounded-2xl overflow-hidden bg-cream border border-ecru/70 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
     <div class="relative aspect-[4/3] overflow-hidden">
       <img src="${l.cover}" alt="${l.name} — ${l.city}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
       <span class="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-cream/95 text-ink px-2.5 py-1 text-xs font-700 shadow">
@@ -564,8 +576,13 @@ const logoTxt = document.getElementById('logo-txt');
 const logoSub = document.getElementById('logo-sub');
 const navLinks = document.getElementById('nav-links');
 const menuBtnEl = document.getElementById('menu-btn');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const heroImg = document.querySelector('#top img');
 const onScroll = () => {
   const scrolled = window.scrollY > 40;
+  if (heroImg && !reduceMotion && window.scrollY < 1000) {
+    heroImg.style.transform = 'translate3d(0,' + (window.scrollY * 0.25) + 'px,0) scale(1.18)';
+  }
   nav.classList.toggle('bg-cream/90', scrolled);
   nav.classList.toggle('backdrop-blur', scrolled);
   nav.classList.toggle('shadow-sm', scrolled);
@@ -602,9 +619,19 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
 // Simulateur de revenus — loyers médians réels par type (base : 123 logements Hostaway)
 const SIM_ADR = { 'Studio':45, 'T2':55, 'T3':75, 'T4':96, 'T5':250, 'T6+':350 };
 const SIM_ORDER = ['Studio','T2','T3','T4','T5','T6+'];
+const SIM_AMEN = [
+  { key:'jardin',   label:'Extérieur / Jardin', mult:1.07 },
+  { key:'terrasse', label:'Balcon / Terrasse',  mult:1.04 },
+  { key:'jacuzzi',  label:'Jacuzzi',            mult:1.12 },
+  { key:'piscine',  label:'Piscine',            mult:1.20 },
+  { key:'sauna',    label:'Sauna',              mult:1.06 },
+  { key:'vue',      label:'Vue exceptionnelle', mult:1.05 },
+];
 const OWNER_FACTOR = 0.72; // part propriétaire estimée après commissions plateforme + conciergerie
 let simType = 'T3';
+const simSel = new Set();
 const simTypesBox = document.getElementById('sim-types');
+const simAmenBox = document.getElementById('sim-amen');
 const simOcc = document.getElementById('sim-occ');
 const eur = n => (Math.round(n/10)*10).toLocaleString('fr-FR') + ' €';
 function simRenderTags(){
@@ -613,35 +640,59 @@ function simRenderTags(){
     return `<button type="button" data-t="${t}" class="rounded-full border px-5 py-2.5 font-600 cursor-pointer ${on ? 'bg-gold text-ink border-gold' : 'border-cream/20 text-cream/80 hover:border-gold/60 hover:text-cream'}">${t}</button>`;
   }).join('');
 }
+function simRenderAmen(){
+  simAmenBox.innerHTML = SIM_AMEN.map(a => {
+    const on = simSel.has(a.key); const pct = '+' + Math.round((a.mult-1)*100) + '%';
+    return `<button type="button" data-a="${a.key}" class="inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-500 cursor-pointer ${on ? 'bg-gold text-ink border-gold' : 'border-cream/20 text-cream/75 hover:border-gold/60 hover:text-cream'}">${a.label}<span class="text-xs font-700 ${on ? 'text-ink/70' : 'text-gold/80'}">${pct}</span></button>`;
+  }).join('');
+}
 function simCalc(){
   const adr = SIM_ADR[simType];
   const occ = parseInt(simOcc.value, 10) / 100;
-  const netM = adr * 30.4 * occ * OWNER_FACTOR;
+  let mult = 1; SIM_AMEN.forEach(a => { if (simSel.has(a.key)) mult *= a.mult; });
+  const netM = adr * mult * 30.4 * occ * OWNER_FACTOR;
   document.getElementById('sim-occ-val').textContent = simOcc.value + ' %';
   document.getElementById('sim-month').textContent = eur(netM);
   document.getElementById('sim-range').textContent = eur(netM * 0.88) + ' – ' + eur(netM * 1.12);
   document.getElementById('sim-year').textContent = eur(netM * 12);
-  document.getElementById('sim-assump').textContent = `Base : loyer médian ${simType} ≈ ${adr} €/nuit · part propriétaire estimée ~${Math.round(OWNER_FACTOR*100)} % des revenus générés.`;
+  const boost = mult > 1 ? ` · atouts +${Math.round((mult-1)*100)} %` : '';
+  document.getElementById('sim-assump').textContent = `Base : loyer médian ${simType} ≈ ${adr} €/nuit${boost} · part propriétaire ~${Math.round(OWNER_FACTOR*100)} % des revenus.`;
 }
-if (simTypesBox && simOcc) {
+if (simTypesBox && simOcc && simAmenBox) {
   simTypesBox.addEventListener('click', e => { const b = e.target.closest('button[data-t]'); if(!b) return; simType = b.dataset.t; simRenderTags(); simCalc(); });
+  simAmenBox.addEventListener('click', e => { const b = e.target.closest('button[data-a]'); if(!b) return; const k = b.dataset.a; simSel.has(k) ? simSel.delete(k) : simSel.add(k); simRenderAmen(); simCalc(); });
   simOcc.addEventListener('input', simCalc);
-  simRenderTags(); simCalc();
+  simRenderTags(); simRenderAmen(); simCalc();
 }
 
-// Carte de la zone d'intervention (Leaflet)
+// Carte : nos logements (or) + sites phares de Bourgogne à visiter (bronze)
 if (typeof L !== 'undefined' && document.getElementById('map')) {
-  const map = L.map('map', { scrollWheelZoom: false, attributionControl: true }).setView([46.72, 4.80], 9);
+  const map = L.map('map', { scrollWheelZoom: false, attributionControl: true }).setView([46.66, 4.80], 9);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap, &copy; CARTO', subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
+  // Villes où nous gérons des logements
   [
     ['Mâcon', 46.306, 4.828], ['Tournus', 46.566, 4.908], ['Chalon-sur-Saône', 46.781, 4.853],
     ['Beaune', 47.024, 4.840], ['Le Creusot', 46.803, 4.426], ['Dracy-le-Fort', 46.781, 4.781],
     ['Givry', 46.781, 4.742], ['Saint-Germain-du-Plain', 46.690, 4.992]
   ].forEach(([n, lat, lng]) => {
-    L.circleMarker([lat, lng], { radius: 7, color: '#FBF8F3', weight: 2, fillColor: '#E0AE2C', fillOpacity: 1 })
-      .addTo(map).bindTooltip(n, { direction: 'top', offset: [0, -6] });
+    L.circleMarker([lat, lng], { radius: 8, color: '#FBF8F3', weight: 2, fillColor: '#E0AE2C', fillOpacity: 1 })
+      .addTo(map).bindTooltip('Nos logements · ' + n, { direction: 'top', offset: [0, -8] });
+  });
+  // Sites phares à visiter
+  const poiIcon = L.divIcon({
+    className: '', iconSize: [28, 28], iconAnchor: [14, 14],
+    html: '<div style="width:28px;height:28px;border-radius:50%;background:#FBF8F3;border:2px solid #8A5E1A;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(46,36,16,.3)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A5E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M6 3h12l-1.2 7.2a5 5 0 0 1-9.6 0L6 3z"/></svg></div>'
+  });
+  [
+    ['Hospices de Beaune', 47.024, 4.842], ['Route des Grands Crus', 47.137, 4.946],
+    ['Abbaye de Cluny', 46.434, 4.659], ['Roche de Solutré', 46.298, 4.717],
+    ['Abbaye de Tournus', 46.566, 4.905], ['Château de Cormatin', 46.545, 4.687],
+    ['Cité médiévale de Brancion', 46.546, 4.781], ['Vignobles de la Côte chalonnaise', 46.83, 4.71],
+    ['Palais des Ducs — Dijon', 47.322, 5.041]
+  ].forEach(([n, lat, lng]) => {
+    L.marker([lat, lng], { icon: poiIcon, riseOnHover: true }).addTo(map).bindTooltip('À visiter · ' + n, { direction: 'top', offset: [0, -14] });
   });
   setTimeout(() => map.invalidateSize(), 250);
 }
