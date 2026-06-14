@@ -11,8 +11,6 @@ Identifiants : variables d'env HOSTAWAY_ACCOUNT_ID / HOSTAWAY_API_KEY
 import os, re, json, statistics, urllib.parse, urllib.request
 
 API = "https://api.hostaway.com/v1"
-# Logements mis en avant dans la galerie « plus belles » (8, ordre conservé)
-FEATURED_IDS = [465405, 475670, 465573, 468463, 470948, 465755, 495090, 491876]
 # Pépites hors région (section « Évasion »)
 EXTRA_IDS = [497952, 496304]
 
@@ -175,6 +173,15 @@ def pick_reviews(tok, byid, n=6):
     return out
 
 
+def family_key(name):
+    """Clé de regroupement par « famille » de logement (évite d'afficher 4 fois le même château)."""
+    n = (name or "").strip()
+    n = re.split(r'\s+[-–—·]\s+', n)[0]   # avant un séparateur « - »
+    n = re.sub(r'\s*\(\d+\)\s*$', '', n)  # « (2) » final
+    n = re.sub(r'\s+\d+\s*$', '', n)       # numéro final
+    return (n.strip() or (name or "")).lower()
+
+
 def main():
     load_env()
     tok = get_token()
@@ -188,10 +195,26 @@ def main():
         by_type.setdefault(t, []).append(int(round(l["price"])))
     adr = {t: int(statistics.median(v)) for t, v in by_type.items() if v}
 
-    # Galerie : logements mis en avant, données rafraîchies depuis Hostaway
+    # Tous les enregistrements (réutilisés pour la galerie ET le catalogue)
+    records = [prop_record(l) for l in listings]
+    byrec = {r["id"]: r for r in records}
+
+    # Galerie « nos plus beaux » : meilleures notes voyageurs, 1 seul par famille (variété),
+    # avec une galerie photo complète (gage de présentation soignée), hors pépites hors-région.
+    # Auto-mis à jour chaque jour : un logement mieux noté remonte tout seul dans la sélection.
+    cand = [r for r in records if r["id"] not in EXTRA_IDS and r.get("rating") and r.get("cover") and len(r.get("photos") or []) >= 10]
+    cand.sort(key=lambda r: (-(r.get("rating") or 0), -len(r.get("photos") or []), r.get("name") or ""))
+    featured, seen_fam = [], set()
+    for r in cand:
+        fk = family_key(r.get("name"))
+        if fk in seen_fam:
+            continue
+        seen_fam.add(fk)
+        featured.append(r)
+        if len(featured) >= 8:
+            break
+    extras = [byrec[i] for i in EXTRA_IDS if i in byrec]
     byid = {l.get("id"): l for l in listings}
-    featured = [prop_record(byid[i]) for i in FEATURED_IDS if i in byid]
-    extras = [prop_record(byid[i]) for i in EXTRA_IDS if i in byid]
 
     communes = sorted({(l.get("city") or "").strip() for l in listings if l.get("city")})
     try:
@@ -210,7 +233,7 @@ def main():
         out["updated"] = os.environ["BUILD_DATE"]
 
     # Catalogue complet (toutes les fiches, pour le site sans dépendance Hostaway)
-    catalogue = [prop_record(l) for l in listings]
+    catalogue = list(records)
     catalogue.sort(key=lambda x: (-(x.get("rating") or 0), x.get("name") or ""))
 
     here = os.path.dirname(os.path.abspath(__file__))
