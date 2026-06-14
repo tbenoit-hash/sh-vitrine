@@ -11,8 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script>
 tailwind.config = {
   theme: {
@@ -383,12 +381,9 @@ tailwind.config = {
     <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Notre terrain de jeu</p>
     <h2 class="reveal font-display text-4xl sm:text-5xl font-600 leading-tight max-w-3xl mx-auto">Ancrés en Saône-et-Loire, au cœur des vignobles</h2>
     <p class="reveal text-muted text-lg mt-5 max-w-2xl mx-auto">Séjournez à deux pas des trésors de la Bourgogne — nos logements sont idéalement placés près des sites incontournables.</p>
-    <!-- Filtres cochables (logements + thèmes touristiques) -->
-    <div class="reveal flex flex-wrap justify-center gap-2.5 mt-9" id="map-filters"></div>
-    <div class="reveal mt-8 rounded-3xl overflow-hidden border border-ecru shadow-xl shadow-ink/10 relative">
-      <div id="map" class="w-full h-[460px] sm:h-[600px] bg-sand" aria-label="Carte 3D de nos logements et des sites à visiter en Bourgogne"></div>
+    <div class="reveal mt-10 rounded-3xl overflow-hidden border border-ecru shadow-xl shadow-ink/10 bg-cream">
+      <img src="carte-bourgogne.svg" alt="Carte illustrée de la Bourgogne — nos logements et les sites incontournables à visiter" class="w-full block">
     </div>
-    <p class="reveal text-muted/80 text-xs mt-4">Carte 3D — faites pivoter (clic droit&nbsp;+&nbsp;glisser ou deux doigts), zoomez sur une ville pour voir les bâtiments en relief, et cochez / décochez les catégories pour y voir clair.</p>
   </div>
 </section>
 
@@ -648,83 +643,6 @@ if (simTypesBox && simOcc && simAmenBox) {
   simRenderTags(); simRenderAmen(); simCalc();
 }
 
-// Carte 3D (MapLibre + relief AWS) : logements + thèmes touristiques filtrables
-if (window.maplibregl && document.getElementById('map')) {
-  const ICON = {
-    logements: 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
-    vignoble: 'M8 22h8M12 15v7M6 3h12l-1.2 7.2a5 5 0 0 1-9.6 0z',
-    patrimoine: 'M4 21h16M6 21V11m4 10V11m4 10V11m4 10V11M3 11h18L12 3z',
-    art: 'M3 4h18v13H3zM3 16l5-5 4 4 3-3 5 5M16 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0',
-    nature: 'M2 20h20L13.5 6l-3.2 5.5-2-3z'
-  };
-  const CATS = [
-    { key:'logements', label:'Nos logements', color:'#E0AE2C', dark:true, points:[
-      ['Mâcon',46.306,4.828],['Tournus',46.566,4.908],['Chalon-sur-Saône',46.781,4.853],['Beaune',47.024,4.840],
-      ['Le Creusot',46.803,4.426],['Dracy-le-Fort',46.781,4.781],['Givry',46.781,4.742],['Saint-Germain-du-Plain',46.690,4.992]]},
-    { key:'vignoble', label:'Vignoble', color:'#8C3B5A', points:[
-      ['Route des Grands Crus',47.137,4.946],['Clos de Vougeot',47.176,4.954],['Côte chalonnaise — Mercurey',46.829,4.713],
-      ['Pouilly-Fuissé',46.293,4.736],['Vignoble de Givry',46.781,4.742]]},
-    { key:'patrimoine', label:'Patrimoine', color:'#8A5E1A', points:[
-      ['Hospices de Beaune',47.024,4.842],['Abbaye de Cluny',46.434,4.659],['Abbaye de Tournus',46.566,4.905],
-      ['Château de Cormatin',46.545,4.687],['Cité médiévale de Brancion',46.546,4.781],['Basilique de Paray-le-Monial',46.452,4.115]]},
-    { key:'art', label:'Art & Culture', color:'#356C7A', points:[
-      ['Musée Nicéphore Niépce — Chalon',46.781,4.853],['Musée des Ursulines — Mâcon',46.307,4.831],['Musée des Beaux-Arts — Dijon',47.322,5.041]]},
-    { key:'nature', label:'Nature', color:'#5C7D45', points:[
-      ['Roche de Solutré',46.298,4.717],['Parc naturel du Morvan',47.270,4.100],['Canal du Centre',46.785,4.450]]}
-  ];
-  const map = new maplibregl.Map({
-    container: 'map', style: 'https://tiles.openfreemap.org/styles/liberty',
-    center: [4.74, 46.52], zoom: 7.7, pitch: 52, bearing: -12, attributionControl: true,
-    cooperativeGestures: true, maxPitch: 75
-  });
-  map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
-  map.addControl(new maplibregl.FullscreenControl(), 'top-right');
-  window.shMap = map;
-  map.on('error', e => { window.shMapErr = (e && e.error && e.error.message) || String(e); });
-  const groups = {}; const active = {};
-  CATS.forEach(c => active[c.key] = true);
-  function pin(c, name) {
-    const el = document.createElement('div');
-    el.style.cursor = 'pointer';
-    const stroke = c.dark ? '#2E2410' : '#FFFFFF';
-    el.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(45deg);background:${c.color};box-shadow:0 3px 7px rgba(46,36,16,.45);border:2px solid #FBF8F3">`
-      + `<svg style="transform:rotate(-45deg)" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${ICON[c.key]}"/></svg></div>`;
-    return el;
-  }
-  // Marqueurs créés tout de suite (sans attendre l'événement 'load')
-  CATS.forEach(c => {
-    groups[c.key] = c.points.map(([name, lat, lng]) => new maplibregl.Marker({ element: pin(c, name), anchor: 'bottom' })
-      .setLngLat([lng, lat])
-      .setPopup(new maplibregl.Popup({ offset: 26, closeButton: false }).setHTML(
-        `<div style="font-family:Inter,sans-serif"><strong style="color:#2E2410">${name}</strong><br><span style="color:${c.color};font-size:12px;font-weight:600">${c.label}</span></div>`))
-      .addTo(map));
-  });
-  // Relief 3D best-effort (quand le style est prêt)
-  function addRelief() {
-    if (map.getSource('terrain')) return;
-    try {
-      map.addSource('terrain', { type: 'raster-dem', tiles: ['https://elevation-tiles-prod.s3.amazonaws.com/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Relief : AWS Terrain Tiles' });
-      map.setTerrain({ source: 'terrain', exaggeration: 1.5 });
-    } catch (e) {}
-  }
-  if (map.isStyleLoaded()) addRelief(); else map.on('style.load', addRelief);
-  const fbox = document.getElementById('map-filters');
-  function renderFilters() {
-    fbox.innerHTML = CATS.map(c => {
-      const on = active[c.key];
-      return `<button type="button" data-k="${c.key}" aria-pressed="${on}" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${on ? 'bg-ink text-cream border-ink' : 'bg-cream text-muted border-ecru hover:border-cocoa/40'}">`
-        + `<span style="width:11px;height:11px;border-radius:50%;background:${c.color};${on ? '' : 'opacity:.35'}"></span>${c.label}</button>`;
-    }).join('');
-  }
-  fbox.addEventListener('click', e => {
-    const b = e.target.closest('button[data-k]'); if (!b) return;
-    const k = b.dataset.k; active[k] = !active[k];
-    (groups[k] || []).forEach(m => m.getElement().style.display = active[k] ? '' : 'none');
-    renderFilters();
-  });
-  renderFilters();
-  setTimeout(() => map.resize(), 300);
-}
 
 // Données live — rafraîchies chaque jour depuis Hostaway (data.json généré par GitHub Action)
 fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
