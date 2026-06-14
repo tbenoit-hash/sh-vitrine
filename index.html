@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/supercluster@8.0.1/dist/supercluster.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -71,6 +72,15 @@ tailwind.config = {
   .sh-mk i { display: block; width: 14px; height: 14px; border-radius: 50%; background: #E0AE2C; border: 2.5px solid #FBF8F3; box-shadow: 0 2px 6px rgba(46,36,16,.55); transition: transform .15s ease, background .15s ease; }
   .sh-mk:hover i, .sh-mk.hot i { transform: scale(1.55); background: #2E2410; }
   .sh-mk.feat i { box-shadow: 0 0 0 4px rgba(224,174,44,.35), 0 2px 6px rgba(46,36,16,.55); }
+  /* Pastilles de prix façon Airbnb */
+  .sh-pin { display: inline-flex; align-items: center; gap: 4px; background: #FBF8F3; color: #2E2410; font: 700 12.5px/1 Inter, system-ui, sans-serif; padding: 6px 10px; border-radius: 999px; border: 1.5px solid rgba(46,36,16,.14); box-shadow: 0 3px 10px rgba(46,36,16,.32); cursor: pointer; white-space: nowrap; text-decoration: none; transition: transform .14s ease, background .14s ease, color .14s ease; }
+  .sh-pin:hover, .sh-pin.hot { background: #2E2410; color: #FBF8F3; transform: scale(1.08); z-index: 6; }
+  .sh-pin.feat { border-color: #E0AE2C; box-shadow: 0 0 0 2px rgba(224,174,44,.4), 0 3px 10px rgba(46,36,16,.32); }
+  .sh-pin .h { color: #E0AE2C; font-size: 11px; line-height: 1; }
+  .sh-pin:hover .h, .sh-pin.hot .h { color: #E0AE2C; }
+  /* Bulles de regroupement */
+  .sh-clus { display: flex; align-items: center; justify-content: center; background: #2E2410; color: #FBF8F3; border: 2px solid #FBF8F3; border-radius: 50%; font: 700 13px/1 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 0 4px 13px rgba(46,36,16,.5); transition: transform .14s ease, background .14s ease; }
+  .sh-clus:hover { transform: scale(1.09); background: #463618; }
   .sh-pop .maplibregl-popup-content { padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
   .sh-pop .maplibregl-popup-tip { display: none; }
   .sh-card { display: block; width: 218px; background: #FBF8F3; color: #2E2410; border-radius: 14px; overflow: hidden; text-decoration: none; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
@@ -422,7 +432,7 @@ tailwind.config = {
         <div id="map3d"></div>
         <div id="map3d-loading"><span class="spin"></span>Chargement de la carte 3D…</div>
       </div>
-      <p class="reveal text-muted/80 text-xs mt-3 text-center">Nos logements (points dorés) et notre sélection de lieux à visiter, vignobles et bonnes tables tout autour — survolez pour découvrir, cochez / décochez les calques. Carte 3D inclinable : clic droit (ou Ctrl) + glisser.</p>
+      <p class="reveal text-muted/80 text-xs mt-3 text-center">Nos logements en pastilles de prix (les zones denses se regroupent — cliquez une bulle pour zoomer), avec notre sélection de lieux à visiter, vignobles et bonnes tables tout autour. Survolez une pastille pour la photo, cochez / décochez les calques. Carte 3D inclinable : clic droit (ou Ctrl) + glisser.</p>
     </div>
   </div>
 </section>
@@ -790,7 +800,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
   // Bornes Bourgogne : on garde les logements de la région (exclut les pépites Var / Megève)
   const inBgne = l => l.lat >= 45.95 && l.lat <= 48.05 && l.lng >= 2.6 && l.lng <= 5.95;
   let LL = [], markers = [], show = true, ftype = 'all', hideT = null;
-  let map = null, popup = null, dataReady = false, created = false, revealed = false;
+  let map = null, popup = null, dataReady = false, created = false, revealed = false, sc = null;
 
   // --- Lieux à découvrir : sélection curée de sites, vignobles et tables réputés à proximité de nos logements ---
   const POICATS = {
@@ -848,7 +858,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     tog.innerHTML = logChips + '<div class="basis-full h-0"></div>' + poiChips;
   }
   function applyFilter(){
-    markers.forEach(o => { o.mk.getElement().style.display = (show && (ftype === 'all' || o.type === ftype)) ? '' : 'none'; });
+    if (map) { indexPoints(); renderClusters(); }   // logements : le clustering intègre le filtre type + on/off
     poiMarkers.forEach(o => { o.mk.getElement().style.display = catOn[o.cat] ? '' : 'none'; });
   }
   tog.addEventListener('click', e => {
@@ -870,26 +880,53 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
       + `<span class="pr">${eur2(l.price)} <i>/ nuit</i></span></span></a>`;
   }
   function scheduleHide(){ hideT = setTimeout(() => popup.remove(), 160); }
-  function buildMarkers(){
-    if (!map) return;
-    markers.forEach(o => o.mk.remove()); markers = [];
-    LL.forEach(l => {
-      const a = document.createElement('a');
-      a.className = 'sh-mk' + (l.rating && l.rating >= 9.6 ? ' feat' : '');
-      a.href = 'logement.html?id=' + l.id;
-      a.setAttribute('aria-label', l.name);
-      a.innerHTML = '<i></i>';
-      a.addEventListener('mouseenter', () => {
-        clearTimeout(hideT); a.classList.add('hot');
-        popup.setLngLat([l.lng, l.lat]).setHTML(cardHTML(l)).addTo(map);
-        const pe = popup.getElement();
-        if (pe) { pe.onmouseenter = () => clearTimeout(hideT); pe.onmouseleave = scheduleHide; }
-      });
-      a.addEventListener('mouseleave', () => { a.classList.remove('hot'); scheduleHide(); });
-      const mk = new maplibregl.Marker({ element: a, anchor: 'center' }).setLngLat([l.lng, l.lat]).addTo(map);
-      markers.push({ mk, type: typeOf(l.bedrooms) });
+  // Pastille de prix d'un logement — survol = carte photo, clic = fiche
+  function pinEl(l){
+    const a = document.createElement('a');
+    a.className = 'sh-pin' + (l.rating && l.rating >= 9.6 ? ' feat' : '');
+    a.href = 'logement.html?id=' + l.id;
+    a.setAttribute('aria-label', l.name);
+    a.innerHTML = (l.rating && l.rating >= 9.6 ? '<span class="h">♥</span>' : '') + eur2(l.price);
+    a.addEventListener('mouseenter', () => {
+      clearTimeout(hideT); a.classList.add('hot');
+      popup.setLngLat([l.lng, l.lat]).setHTML(cardHTML(l)).addTo(map);
+      const pe = popup.getElement();
+      if (pe) { pe.onmouseenter = () => clearTimeout(hideT); pe.onmouseleave = scheduleHide; }
     });
-    applyFilter();
+    a.addEventListener('mouseleave', () => { a.classList.remove('hot'); scheduleHide(); });
+    return a;
+  }
+  function passType(l){ return ftype === 'all' || typeOf(l.bedrooms) === ftype; }
+  // (Re)construit l'index de clustering selon le filtre actif (type + affichage on/off)
+  function indexPoints(){
+    if (!window.Supercluster) { sc = null; return; }
+    const feats = (show ? LL.filter(passType) : []).map(l => ({ type:'Feature', properties:{ l: l }, geometry:{ type:'Point', coordinates:[l.lng, l.lat] } }));
+    sc = new Supercluster({ radius: 52, maxZoom: 13, minPoints: 2 }).load(feats);
+  }
+  // Affiche pastilles + bulles de regroupement pour la vue courante (rappelé à chaque déplacement)
+  function renderClusters(){
+    if (!map) return;
+    markers.forEach(m => m.remove()); markers = [];
+    if (!sc) { // repli sans clustering : pastilles individuelles
+      (show ? LL.filter(passType) : []).forEach(l => markers.push(new maplibregl.Marker({ element: pinEl(l), anchor: 'center' }).setLngLat([l.lng, l.lat]).addTo(map)));
+      return;
+    }
+    const b = map.getBounds(), z = Math.round(map.getZoom());
+    sc.getClusters([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()], z).forEach(c => {
+      const lng = c.geometry.coordinates[0], lat = c.geometry.coordinates[1];
+      let el;
+      if (c.properties.cluster) {
+        const n = c.properties.point_count, d = n < 10 ? 38 : n < 25 ? 46 : 54;
+        el = document.createElement('div');
+        el.className = 'sh-clus'; el.style.width = el.style.height = d + 'px';
+        el.textContent = n; el.title = n + ' logements — cliquez pour zoomer';
+        el.addEventListener('click', () => {
+          const ez = Math.min(sc.getClusterExpansionZoom(c.properties.cluster_id), 15);
+          map.easeTo({ center: [lng, lat], zoom: ez, duration: 650 });
+        });
+      } else { el = pinEl(c.properties.l); }
+      markers.push(new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map));
+    });
   }
 
   // --- Lieux à découvrir : pastilles emoji par catégorie + carte d'info au survol ---
@@ -945,6 +982,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
     popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 15, maxWidth: 'none', className: 'sh-pop' });
     buildPOIs();
+    map.on('moveend', renderClusters);   // recalcule les regroupements à chaque déplacement / zoom
     // Intro animée vers le cadrage cible : une animation de caméra (plusieurs frames) est le SEUL moyen fiable de forcer
     // MapLibre à composer les tuiles d'un canvas WebGL ; on l'exécute dès que le style est prêt (sans attendre 'load',
     // qui peut tarder avec le terrain).
@@ -962,7 +1000,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     const introPoll = setInterval(() => { if (intro) { clearInterval(introPoll); return; } playIntro(); }, 250);
     setTimeout(() => clearInterval(introPoll), 6000);
     map.on('idle', reveal);
-    if (dataReady) buildMarkers();
+    if (dataReady) { indexPoints(); renderClusters(); }
     setTimeout(reveal, 8000); // filet de sécurité
   }
 
@@ -972,7 +1010,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     LL = d.listings.filter(l => l.lat != null && l.lng != null && inBgne(l));
     dataReady = true;
     renderTog();
-    if (map) buildMarkers();
+    if (map) { indexPoints(); renderClusters(); }
   }).catch(() => {});
 
   // --- Déclencheur : on crée la carte quand la section est SOLIDEMENT visible (elle traverse le milieu de l'écran),
