@@ -97,7 +97,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
         <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Message (facultatif)</span><textarea name="Message" rows="2" class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></textarea></label>
         <label class="flex items-start gap-2 text-xs text-ink/80"><input type="checkbox" name="Consentement" required class="mt-0.5"> <span>J'accepte d'être recontacté(e) au sujet de ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
         <button type="submit" id="bkm-submit" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Envoyer ma demande</button>
-        <p class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.</p>
+        <p id="bkm-note" class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.</p>
       </form>
     </div>
     <div id="bkm-success" class="hidden text-center py-6">
@@ -125,6 +125,10 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <script>
 const WA = "33659327710";
+// URL du serveur de paiement (Cloudflare Worker — voir dossier /paiement). VIDE = la demande
+// part à l'équipe (flux actuel). Une fois Payplug + le worker déployés, mettre ici son URL
+// (ex. "https://paiement.sh-developpement.fr") → le voyageur paie directement sur le site.
+const PAY_API = "";
 const id = 502569;
 let AVAIL = null, calMonth = null, selIn = null, selOut = null, LASTQ = null;
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
@@ -344,6 +348,10 @@ function openBooking(p){
   document.getElementById('bkm-body').classList.remove('hidden');
   document.getElementById('bkm-form').reset();
   const m = document.getElementById('bkmodal'); m.classList.remove('hidden'); m.classList.add('flex');
+  document.getElementById('bkm-submit').textContent = PAY_API ? 'Payer et réserver' : 'Envoyer ma demande';
+  document.getElementById('bkm-note').textContent = PAY_API
+    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · sans frais de plateforme.'
+    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.';
   document.getElementById('bkm-form').onsubmit = e => submitBooking(e, p, guests);
 }
 function closeBooking(){ const m = document.getElementById('bkmodal'); m.classList.add('hidden'); m.classList.remove('flex'); }
@@ -351,6 +359,7 @@ async function submitBooking(e, p, guests){
   e.preventDefault();
   const f = e.target, btn = document.getElementById('bkm-submit'), q = LASTQ || {};
   if (f._honey && f._honey.value) return; // honeypot anti-spam
+  if (PAY_API) return payNow(p, guests, f, btn); // paiement en ligne branché → on encaisse sur le site
   const data = {
     Nom: f.Nom.value, Email: f.Email.value, 'Téléphone': f['Téléphone'].value, Message: f.Message.value,
     Logement: `${p.name} (réf ${p.id})`, Ville: p.city || '', 'Arrivée': selIn, 'Départ': selOut,
@@ -372,6 +381,24 @@ async function submitBooking(e, p, guests){
     btn.disabled = false; btn.textContent = 'Envoyer ma demande';
     const body = `Bonjour,%0D%0A%0D%0AJe souhaite réserver « ${p.name} » (${p.city}).%0D%0A• Arrivée : ${selIn}%0D%0A• Départ : ${selOut}%0D%0A• Voyageurs : ${guests}%0D%0A• Total estimé : ${q.total!=null?eur(q.total):'à confirmer'}`;
     window.location.href = `mailto:contact@sh-developpement.fr?subject=${encodeURIComponent('Réservation — ' + p.name)}&body=${body}`;
+  }
+}
+
+/* Paiement en ligne (quand PAY_API est renseigné) : crée le paiement côté serveur puis
+   redirige vers la page sécurisée Payplug. Le serveur recalcule le prix (anti-fraude). */
+async function payNow(p, guests, f, btn){
+  btn.disabled = true; btn.textContent = 'Redirection vers le paiement sécurisé…';
+  try {
+    const r = await fetch(PAY_API.replace(/\/$/, '') + '/create-payment', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ listingId: p.id, listingName: p.name, startDate: selIn, endDate: selOut, guests, customer: { name: f.Nom.value, email: f.Email.value, phone: f['Téléphone'].value } })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (j && j.payment_url) { window.location.href = j.payment_url; return; }
+    throw new Error((j && j.error) || 'pay');
+  } catch (err) {
+    btn.disabled = false; btn.textContent = 'Payer et réserver';
+    flash('Paiement momentanément indisponible. Réessayez ou contactez-nous.');
   }
 }
 

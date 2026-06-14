@@ -1,0 +1,18 @@
+# Configuration Cloudflare Worker — serveur de paiement SH-Développement
+name = "sh-paiement"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Variables NON secrètes (modifiables ici)
+[vars]
+SITE_ORIGIN = "https://www.sh-developpement.fr"
+# À remplir avec l'URL du worker après le 1er `wrangler deploy`
+# (ex. https://sh-paiement.TON-COMPTE.workers.dev  ou un domaine perso paiement.sh-developpement.fr)
+WORKER_URL = "https://sh-paiement.example.workers.dev"
+# "1" pour activer le paiement scindé (propriétaire payé en direct) — voir README + offre marketplace
+SPLIT_ENABLED = "0"
+
+# Les SECRETS ne se mettent PAS ici. On les définit en ligne de commande (chiffrés) :
+#   wrangler secret put PAYPLUG_SECRET_KEY
+#   wrangler secret put HOSTAWAY_ACCOUNT_ID
+#   wrangler secret put HOSTAWAY_API_KEY
