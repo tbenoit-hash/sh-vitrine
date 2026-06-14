@@ -85,7 +85,7 @@ const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" sty
 fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
   document.getElementById('loading').classList.add('hidden');
   if (!d || !d.listings) { document.getElementById('empty').classList.remove('hidden'); return; }
-  LISTINGS = d.listings.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.price || 0) - (a.price || 0));  // des plus beaux (mieux notés) aux moins beaux
+  LISTINGS = d.listings.slice().sort((a, b) => (b.price || 0) - (a.price || 0) || (b.rating || 0) - (a.rating || 0));  // du plus cher au moins cher (prix / nuit)
   document.getElementById('count').textContent = d.count || LISTINGS.length;
   const urlQ = new URLSearchParams(location.search).get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
   if (urlQ) { q = urlQ; const qi = document.getElementById('q'); if (qi) qi.value = urlQ; }
