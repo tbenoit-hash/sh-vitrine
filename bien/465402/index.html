@@ -79,6 +79,36 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   <div id="lb-count" class="absolute bottom-5 left-1/2 -translate-x-1/2 text-cream/70 text-sm"></div>
 </div>
 
+<!-- Modale de réservation (tout se passe sur notre site) -->
+<div id="bkmodal" class="hidden fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm items-center justify-center p-4">
+  <div class="bg-cream rounded-2xl shadow-2xl w-full max-w-md max-h-[92vh] overflow-y-auto p-6 relative">
+    <button id="bkm-close" class="absolute top-4 right-4 text-muted hover:text-ink" aria-label="Fermer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div id="bkm-body">
+      <p class="text-bronze text-xs font-700 uppercase tracking-luxe">Réserver en direct</p>
+      <h3 class="font-display text-2xl font-700 leading-tight mt-1 pr-6" id="bkm-title">Votre séjour</h3>
+      <div id="bkm-recap" class="mt-3 rounded-xl bg-sand/60 border border-ecru p-4 text-sm text-ink/90 space-y-1"></div>
+      <form id="bkm-form" class="mt-4 space-y-3">
+        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Nom complet</span><input name="Nom" required class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Email</span><input type="email" name="Email" required class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></label>
+          <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Téléphone</span><input type="tel" name="Téléphone" required class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></label>
+        </div>
+        <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Message (facultatif)</span><textarea name="Message" rows="2" class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></textarea></label>
+        <label class="flex items-start gap-2 text-xs text-ink/80"><input type="checkbox" name="Consentement" required class="mt-0.5"> <span>J'accepte d'être recontacté(e) au sujet de ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
+        <button type="submit" id="bkm-submit" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Envoyer ma demande</button>
+        <p class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le lien de paiement sécurisé. Sans frais de plateforme.</p>
+      </form>
+    </div>
+    <div id="bkm-success" class="hidden text-center py-6">
+      <div class="w-14 h-14 mx-auto rounded-full bg-gold/20 flex items-center justify-center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8A5E1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3 class="font-display text-2xl font-700 mt-4">Demande envoyée&nbsp;!</h3>
+      <p class="text-muted mt-2 text-sm">Merci, nous revenons vers vous très vite pour confirmer votre séjour et le paiement sécurisé.</p>
+      <button id="bkm-done" class="mt-5 rounded-full bg-ink text-cream px-6 py-3 font-600 cursor-pointer">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <footer class="bg-ink text-cream/70 py-10 mt-16">
   <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement — Conciergerie en Bourgogne</span>
@@ -95,11 +125,8 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <script>
 const WA = "33659327710";
-// Moteur de réservation Hostaway « Sh-Conciergerie » (PUBLIÉ). Les fiches du portail
-// réutilisent les ID Hostaway → lien profond /listings/{id}. Si vide, repli demande email.
-const BOOKING_ENGINE_BASE = "https://136426_1.holidayfuture.com";
 const id = 465402;
-let AVAIL = null, calMonth = null, selIn = null, selOut = null;
+let AVAIL = null, calMonth = null, selIn = null, selOut = null, LASTQ = null;
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 let PHOTOS = [], lbIndex = 0;
 
@@ -213,7 +240,7 @@ function initBooking(p){
   const days = (AVAIL && AVAIL.days) || {};
   const has = Object.keys(days).length > 0;
   const note = document.getElementById('bk-note');
-  if (BOOKING_ENGINE_BASE) note.textContent = 'Sans frais de plateforme · paiement sécurisé · confirmation immédiate.';
+  note.textContent = 'Réservation en direct sur notre site, sans frais de plateforme · réponse sous 24 h.';
   if (!has) {
     // Pas de calendrier pré-chargé → demande simple, sans cul-de-sac
     document.getElementById('bk-dates').classList.add('hidden');
@@ -279,12 +306,13 @@ function pick(p, ds){
 function quote(p){
   const days = (AVAIL && AVAIL.days) || {};
   const q = document.getElementById('bk-quote'), go = document.getElementById('bk-go');
-  const label = (AVAIL && AVAIL.instant && BOOKING_ENGINE_BASE) ? 'Réserver en direct' : 'Demander à réserver';
-  if (!selIn || !selOut){ q.classList.add('hidden'); go.textContent = (selIn? 'Choisir la date de départ' : label); return; }
+  const label = 'Réserver en direct';
+  if (!selIn || !selOut){ q.classList.add('hidden'); LASTQ = null; go.textContent = (selIn ? 'Choisir la date de départ' : label); return; }
   const markup = (AVAIL && AVAIL.markup) || 1, clean = (AVAIL && AVAIL.cleaningFee) || 0, deposit = (AVAIL && AVAIL.deposit) || 0;
   let base = 0, d = parseD(selIn);
   while (ymd(d) < selOut){ base += days[ymd(d)] || 0; d = addDay(d); }
   const n = nights(selIn, selOut), accommodation = Math.round(base*markup), total = accommodation + clean;
+  LASTQ = { nights: n, accommodation, clean, total, deposit };
   q.innerHTML = `
     <div class="flex justify-between"><span>Hébergement · ${n} nuit${n>1?'s':''}</span><span>${eur(accommodation)}</span></div>
     ${clean?`<div class="flex justify-between"><span>Frais de ménage</span><span>${eur(clean)}</span></div>`:''}
@@ -297,16 +325,54 @@ function quote(p){
 function flash(msg){ const e = document.getElementById('bk-msg'); e.textContent = msg; e.classList.remove('hidden'); setTimeout(()=>e.classList.add('hidden'), 4000); }
 
 function checkout(p){
-  const guests = document.getElementById('bk-guests').value || 2;
   if (!selIn || !selOut){ document.getElementById('bk-cal').classList.remove('hidden'); renderCal(p); flash('Choisissez vos dates de séjour.'); return; }
-  if (BOOKING_ENGINE_BASE){
-    const u = `${BOOKING_ENGINE_BASE.replace(/\/$/,'')}/listings/${p.id}?startDate=${selIn}&endDate=${selOut}&numberOfGuests=${guests}`;
-    window.open(u, '_blank'); return;
+  openBooking(p);
+}
+
+/* Réservation 100 % sur NOTRE site : modale + envoi à l'équipe. AUCUNE redirection externe. */
+function openBooking(p){
+  const guests = document.getElementById('bk-guests').value || 2;
+  const fmt = s => parseD(s).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  const q = LASTQ || {};
+  document.getElementById('bkm-title').textContent = p.name;
+  document.getElementById('bkm-recap').innerHTML =
+    `<div class="flex justify-between gap-3"><span>Séjour</span><span class="font-600 text-right">${fmt(selIn)} → ${fmt(selOut)}</span></div>` +
+    `<div class="flex justify-between"><span>${q.nights||''} nuit${(q.nights||0)>1?'s':''} · ${guests} voyageur${guests>1?'s':''}</span><span></span></div>` +
+    (q.total!=null ? `<div class="flex justify-between border-t border-ecru pt-1.5 mt-1.5 font-700 text-ink"><span>Total estimé</span><span>${eur(q.total)}</span></div>` : '') +
+    (q.deposit ? `<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(q.deposit)}</span></div>` : '');
+  document.getElementById('bkm-success').classList.add('hidden');
+  document.getElementById('bkm-body').classList.remove('hidden');
+  document.getElementById('bkm-form').reset();
+  const m = document.getElementById('bkmodal'); m.classList.remove('hidden'); m.classList.add('flex');
+  document.getElementById('bkm-form').onsubmit = e => submitBooking(e, p, guests);
+}
+function closeBooking(){ const m = document.getElementById('bkmodal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+async function submitBooking(e, p, guests){
+  e.preventDefault();
+  const f = e.target, btn = document.getElementById('bkm-submit'), q = LASTQ || {};
+  if (f._honey && f._honey.value) return; // honeypot anti-spam
+  const data = {
+    Nom: f.Nom.value, Email: f.Email.value, 'Téléphone': f['Téléphone'].value, Message: f.Message.value,
+    Logement: `${p.name} (réf ${p.id})`, Ville: p.city || '', 'Arrivée': selIn, 'Départ': selOut,
+    Voyageurs: String(guests), 'Total estimé': (q.total!=null ? eur(q.total) : ''),
+    Caution: (q.deposit ? eur(q.deposit) : ''), 'Lien fiche': location.href,
+    Consentement: f.Consentement.checked ? 'Oui' : 'Non',
+    _subject: `Réservation — ${p.name} (${selIn} → ${selOut})`, _template: 'table'
+  };
+  btn.disabled = true; btn.textContent = 'Envoi…';
+  try {
+    const r = await fetch('https://formsubmit.co/ajax/contact@sh-developpement.fr', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data)
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!(r.ok && (j.success === true || j.success === 'true'))) throw new Error('formsubmit');
+    document.getElementById('bkm-body').classList.add('hidden');
+    document.getElementById('bkm-success').classList.remove('hidden');
+  } catch (err) {
+    btn.disabled = false; btn.textContent = 'Envoyer ma demande';
+    const body = `Bonjour,%0D%0A%0D%0AJe souhaite réserver « ${p.name} » (${p.city}).%0D%0A• Arrivée : ${selIn}%0D%0A• Départ : ${selOut}%0D%0A• Voyageurs : ${guests}%0D%0A• Total estimé : ${q.total!=null?eur(q.total):'à confirmer'}`;
+    window.location.href = `mailto:contact@sh-developpement.fr?subject=${encodeURIComponent('Réservation — ' + p.name)}&body=${body}`;
   }
-  // Repli (tant que l'URL du moteur Hostaway n'est pas branchée) : demande pré-remplie
-  const subj = `Réservation — ${p.name}`;
-  const body = `Bonjour,\n\nJe souhaite réserver « ${p.name} » (${p.city}).\n• Arrivée : ${selIn}\n• Départ : ${selOut}\n• Voyageurs : ${guests}\n\nMerci de me confirmer la disponibilité et le lien de paiement sécurisé.`;
-  window.location.href = `mailto:contact@sh-developpement.fr?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
 }
 
 /* Carte : chargement paresseux de MapLibre (au scroll) — hors du chemin critique */
@@ -345,6 +411,9 @@ function showLb(){ document.getElementById('lb-img').src = PHOTOS[lbIndex]; docu
 function closeLb(){ const lb=document.getElementById('lightbox'); lb.classList.add('hidden'); lb.classList.remove('flex'); }
 document.getElementById('lb-close').addEventListener('click', closeLb);
 document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id==='lightbox') closeLb(); });
+document.getElementById('bkm-close').addEventListener('click', closeBooking);
+document.getElementById('bkm-done').addEventListener('click', closeBooking);
+document.getElementById('bkmodal').addEventListener('click', e => { if (e.target.id==='bkmodal') closeBooking(); });
 document.getElementById('lb-prev').addEventListener('click', () => { lbIndex=(lbIndex-1+PHOTOS.length)%PHOTOS.length; showLb(); });
 document.getElementById('lb-next').addEventListener('click', () => { lbIndex=(lbIndex+1)%PHOTOS.length; showLb(); });
 document.addEventListener('keydown', e => { if (document.getElementById('lightbox').classList.contains('hidden')) return; if (e.key==='Escape') closeLb(); if (e.key==='ArrowLeft') document.getElementById('lb-prev').click(); if (e.key==='ArrowRight') document.getElementById('lb-next').click(); });
