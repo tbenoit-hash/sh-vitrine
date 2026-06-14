@@ -1,0 +1,75 @@
+{
+  "count": 119,
+  "communes": 23,
+  "adr": {
+    "Studio": 45,
+    "T3": 75,
+    "T2": 55,
+    "T5": 250,
+    "T4": 96,
+    "T6+": 350
+  },
+  "featured": [
+    {
+      "id": 465405,
+      "name": "Château de Dracy - La Nomade",
+      "city": "Dracy-le-Fort",
+      "guests": 3,
+      "bedrooms": 0,
+      "price": 75,
+      "rating": 9.8,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465405-u--lp-zYaogCK9188vZ0Z6f--Pj-gVh8Cq2XwsmPlBqwc-693c784db364f"
+    },
+    {
+      "id": 475670,
+      "name": "La Cave des Miracles",
+      "city": "Dracy-le-Fort",
+      "guests": 8,
+      "bedrooms": 4,
+      "price": 250,
+      "rating": 9.5,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73"
+    },
+    {
+      "id": 465573,
+      "name": "Chalon Hacienda",
+      "city": "Chalon-sur-Saône",
+      "guests": 8,
+      "bedrooms": 4,
+      "price": 400,
+      "rating": 9.3,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce"
+    },
+    {
+      "id": 468463,
+      "name": "Les Vignes Rouges",
+      "city": "Givry",
+      "guests": 8,
+      "bedrooms": 3,
+      "price": 250,
+      "rating": 9.5,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468463-zuoEeX--fFdIDlkJn7fYgS7vAb9DNq57--41eHpgxVrKA-694a805d2594a"
+    },
+    {
+      "id": 470948,
+      "name": "Wine & Saône",
+      "city": "Chalon-sur-Saône",
+      "guests": 6,
+      "bedrooms": 3,
+      "price": 180,
+      "rating": 9.8,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470948-3O-VZvUm2N8l0uKeRAtKd0JgCqfQo0nydAK732KoX6I-69552584664b9"
+    },
+    {
+      "id": 465755,
+      "name": "Les Vagastines 2",
+      "city": "Saint-Germain-du-Plain",
+      "guests": 10,
+      "bedrooms": 8,
+      "price": 250,
+      "rating": 10,
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63"
+    }
+  ],
+  "updated": "2026-06-14"
+}

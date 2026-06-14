@@ -130,11 +130,11 @@ tailwind.config = {
 <section class="bg-ink text-cream">
   <div class="max-w-content mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
     <div class="reveal py-9 px-4 text-center">
-      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">123</div>
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-count">123</div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">logements gérés</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
-      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">23</div>
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-communes">23</div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">communes</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
@@ -249,7 +249,7 @@ tailwind.config = {
     <div class="reveal max-w-2xl">
       <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Simulateur de revenus</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Combien votre bien peut-il vous rapporter ?</h2>
-      <p class="text-cream/70 text-lg mt-5 leading-relaxed">Estimation fondée sur les performances réelles de nos <span class="text-gold font-600">123 logements</span> en gestion en Saône-et-Loire. Choisissez votre type de bien.</p>
+      <p class="text-cream/70 text-lg mt-5 leading-relaxed">Estimation fondée sur les performances réelles de nos <span class="text-gold font-600"><span id="sim-count">123</span> logements</span> en gestion en Saône-et-Loire. Choisissez votre type de bien.</p>
     </div>
 
     <div class="reveal mt-12 grid lg:grid-cols-2 gap-7 lg:gap-10 items-stretch">
@@ -304,7 +304,7 @@ tailwind.config = {
         <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Une sélection à réserver en direct</h2>
         <p class="text-muted text-lg mt-4">Du studio en cœur de ville au château pour grandes tablées — réservez sans frais de plateforme.</p>
       </div>
-      <a href="https://136426_1.holidayfuture.com/" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les 123 logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="https://136426_1.holidayfuture.com/" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les <span id="cat-count" class="contents">123</span>&nbsp;logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7" id="grid">
@@ -527,8 +527,8 @@ tailwind.config = {
 // Moteur de réservation Hostaway (direct, sans commission de plateforme)
 const ENGINE = "https://136426_1.holidayfuture.com";
 const bookUrl = id => `${ENGINE}/listings/${id}`;
-// Real listings (extraits de votre base Hostaway)
-const listings = [
+// Logements en vedette (valeurs de repli ; data.json les rafraîchit chaque jour)
+let listings = [
   {id:465405, name:"Château de Dracy — La Nomade", city:"Dracy-le-Fort", guests:3, bedrooms:0, price:75, rating:9.9, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465405-SzVYjQj00EwgKaKsFQXSEkGnsVVu6J0VSF2dhl3TbTs-693c78575272f"},
   {id:475670, name:"La Cave des Miracles", city:"Dracy-le-Fort", guests:8, bedrooms:4, price:250, rating:9.5, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-Slrx5tdo-t24-lYg52OTHkhzKX--xw3QIrpjukS2Pg--4-696742651ac73"},
   {id:465573, name:"Chalon Hacienda", city:"Chalon-sur-Saône", guests:8, bedrooms:4, price:400, rating:9.3, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce"},
@@ -539,7 +539,7 @@ const listings = [
 const bedIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9v11M2 13h20v7M22 13V9a2 2 0 0 0-2-2H8v6M6 11h.01"/></svg>';
 const guestIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>';
 const grid = document.getElementById('grid');
-grid.innerHTML = listings.map((l, i) => `
+function renderGrid(){ grid.innerHTML = listings.map((l, i) => `
   <a href="${bookUrl(l.id)}" target="_blank" rel="noopener" style="transition-delay:${i*70}ms" class="reveal group block rounded-2xl overflow-hidden bg-cream border border-ecru/70 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
     <div class="relative aspect-[4/3] overflow-hidden">
       <img src="${l.cover}" alt="${l.name} — ${l.city}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
@@ -562,7 +562,8 @@ grid.innerHTML = listings.map((l, i) => `
       </div>
     </div>
   </a>
-`).join('');
+`).join(''); }
+renderGrid();
 
 // Scroll reveal (respects reduced-motion via CSS)
 const io = new IntersectionObserver((entries) => {
@@ -617,7 +618,7 @@ menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('h
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
 // Simulateur de revenus — loyers médians réels par type (base : 123 logements Hostaway)
-const SIM_ADR = { 'Studio':45, 'T2':55, 'T3':75, 'T4':96, 'T5':250, 'T6+':350 };
+let SIM_ADR = { 'Studio':45, 'T2':55, 'T3':75, 'T4':96, 'T5':250, 'T6+':350 };
 const SIM_ORDER = ['Studio','T2','T3','T4','T5','T6+'];
 const SIM_AMEN = [
   { key:'jardin',   label:'Extérieur / Jardin', mult:1.07 },
@@ -696,6 +697,16 @@ if (typeof L !== 'undefined' && document.getElementById('map')) {
   });
   setTimeout(() => map.invalidateSize(), 250);
 }
+
+// Données live — rafraîchies chaque jour depuis Hostaway (data.json généré par GitHub Action)
+fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+  if (!d) return;
+  const setTxt = (id, v) => { const e = document.getElementById(id); if (e && v != null) e.textContent = v; };
+  setTxt('stat-count', d.count); setTxt('sim-count', d.count); setTxt('cat-count', d.count);
+  setTxt('stat-communes', d.communes);
+  if (d.adr && Object.keys(d.adr).length) { SIM_ADR = Object.assign({}, SIM_ADR, d.adr); if (typeof simCalc === 'function') simCalc(); }
+  if (Array.isArray(d.featured) && d.featured.length) { listings = d.featured; renderGrid(); }
+}).catch(() => {});
 </script>
 </body>
 </html>
