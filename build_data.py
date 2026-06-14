@@ -11,6 +11,7 @@ Identifiants : variables d'env HOSTAWAY_ACCOUNT_ID / HOSTAWAY_API_KEY
 import os, re, json, statistics, urllib.parse, urllib.request
 
 API = "https://api.hostaway.com/v1"
+SITE = "https://www.sh-developpement.fr"
 # Pépites hors région (section « Évasion »)
 EXTRA_IDS = [497952, 496304]
 
@@ -120,6 +121,13 @@ def prop_record(l):
         "lng": l.get("lng"),
         "mapx": mx,
         "mapy": my,
+        "type": type_of(l.get("bedroomsNumber") or 0),
+        "cleaningFee": int(round(l.get("cleaningFee") or 0)),
+        "deposit": int(round(l.get("refundableDamageDeposit") or 0)),
+        "markup": round(float(l.get("bookingEngineMarkup") or 1.0), 4),
+        "minNights": int(l.get("minNights") or 1),
+        "currency": l.get("currencyCode") or "EUR",
+        "instant": 1 if l.get("instantBookable") else 0,
     }
 
 
@@ -180,6 +188,172 @@ def family_key(name):
     n = re.sub(r'\s*\(\d+\)\s*$', '', n)  # « (2) » final
     n = re.sub(r'\s+\d+\s*$', '', n)       # numéro final
     return (n.strip() or (name or "")).lower()
+
+
+def fetch_availability(tok, records, days=400):
+    """Pré-charge dispo + prix/nuit par logement via /listings/{id}/calendar.
+    Écrit avail/{id}.json compact (jours dispo → prix de base). Le token reste
+    côté CI : il n'est JAMAIS exposé au navigateur (site statique)."""
+    import time, datetime
+    here = os.path.dirname(os.path.abspath(__file__))
+    out_dir = os.path.join(here, "avail")
+    os.makedirs(out_dir, exist_ok=True)
+    start = datetime.date.today()
+    end = start + datetime.timedelta(days=days)
+    ok = 0
+    for r in records:
+        lid = r["id"]
+        try:
+            cal = api_get(f"/listings/{lid}/calendar", tok,
+                          {"startDate": start.isoformat(), "endDate": end.isoformat()})
+            rows = cal.get("result", []) or []
+        except Exception as e:
+            print(f"  calendrier {lid} échoué: {e}")
+            continue
+        days_map, ms_map = {}, {}
+        for row in rows:
+            d = row.get("date")
+            if not d:
+                continue
+            status = (row.get("status") or "").lower()
+            if not row.get("isAvailable") or status in ("reserved", "blocked", "unavailable"):
+                continue
+            price = row.get("price")
+            if price is None:
+                continue
+            days_map[d] = int(round(price))
+            mstay = row.get("minimumStay") or 0
+            if mstay and mstay > 1:
+                ms_map[d] = int(mstay)
+        payload = {
+            "id": lid, "name": r.get("name"),
+            "currency": r.get("currency") or "EUR",
+            "cleaningFee": r.get("cleaningFee") or 0,
+            "deposit": r.get("deposit") or 0,
+            "markup": r.get("markup") or 1.0,
+            "minNights": r.get("minNights") or 1,
+            "instant": r.get("instant") or 0,
+            "guests": r.get("guests") or 0,
+            "updated": os.environ.get("BUILD_DATE", start.isoformat()),
+            "days": days_map,
+        }
+        if ms_map:
+            payload["minStay"] = ms_map
+        with open(os.path.join(out_dir, f"{lid}.json"), "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+        ok += 1
+        time.sleep(0.12)
+    print(f"avail/ : {ok}/{len(records)} calendriers pré-chargés")
+    return ok
+
+
+def write_seo(records):
+    """robots.txt + sitemap.xml (accueil, catalogue, propriétaires, légal + 1 URL/logement)."""
+    import datetime
+    here = os.path.dirname(os.path.abspath(__file__))
+    today = os.environ.get("BUILD_DATE", datetime.date.today().isoformat())
+    with open(os.path.join(here, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    urls = []
+    def u(loc, prio, freq):
+        urls.append(f"  <url><loc>{SITE}/{loc}</loc><lastmod>{today}</lastmod>"
+                    f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>")
+    u("", "1.0", "daily")
+    u("catalogue.html", "0.9", "daily")
+    u("proprietaires.html", "0.8", "weekly")
+    u("mentions-legales.html", "0.2", "yearly")
+    u("confidentialite.html", "0.2", "yearly")
+    for r in records:
+        u(f"bien/{r['id']}/", "0.7", "weekly")
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + "\n".join(urls) + "\n</urlset>\n")
+    with open(os.path.join(here, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
+    print(f"sitemap.xml : {len(urls)} URLs ; robots.txt écrit")
+
+
+def generate_listing_pages(records):
+    """Génère bien/{id}/index.html à partir du gabarit logement.html : title/description
+    uniques, Open Graph, JSON-LD LodgingBusiness, repli <noscript>. Chaque logement a ainsi
+    une URL propre indexable (≠ logement.html?id= rendu 100 % en JavaScript)."""
+    import html as _h
+    here = os.path.dirname(os.path.abspath(__file__))
+    tpl_path = os.path.join(here, "logement.html")
+    if not os.path.exists(tpl_path):
+        print("logement.html introuvable — pages logement non générées"); return
+    tpl = open(tpl_path, encoding="utf-8").read()
+    e = lambda s: _h.escape(str(s), quote=True)
+    n = 0
+    for r in records:
+        lid = r["id"]
+        name = r.get("name") or f"Logement {lid}"
+        city = r.get("city") or "Bourgogne"
+        typ = r.get("type") or ""
+        url = f"{SITE}/bien/{lid}/"
+        cover = r.get("cover") or ""
+        desc = re.sub(r"\s+", " ", (r.get("description") or "")).strip()
+        if len(desc) > 158:
+            desc = desc[:158].rsplit(" ", 1)[0] + "…"
+        if not desc:
+            desc = (f"{name} à {city} — jusqu'à {r.get('guests') or 2} voyageurs. Location de "
+                    f"tourisme en Bourgogne, réservation en direct sans frais de plateforme.")
+        title = f"{name} — {city}" + (f" · {typ}" if typ else "") + " | SH Développement"
+        ld = {
+            "@context": "https://schema.org", "@type": "LodgingBusiness",
+            "name": name, "url": url, "image": ([cover] if cover else []),
+            "address": {"@type": "PostalAddress", "addressLocality": city,
+                        "addressRegion": "Bourgogne-Franche-Comté", "addressCountry": "FR"},
+            "priceRange": (f"À partir de {r.get('price')} € / nuit" if r.get("price") else "€€"),
+            "telephone": "+33659327710",
+        }
+        if r.get("lat") and r.get("lng"):
+            ld["geo"] = {"@type": "GeoCoordinates", "latitude": r["lat"], "longitude": r["lng"]}
+        if r.get("rating"):
+            ld["aggregateRating"] = {"@type": "AggregateRating",
+                                     "ratingValue": round(float(r["rating"]), 1),
+                                     "bestRating": 10, "worstRating": 0}
+        if r.get("amenities"):
+            ld["amenityFeature"] = [{"@type": "LocationFeatureSpecification", "name": a}
+                                    for a in r["amenities"][:12]]
+        head = (
+            f'<title>{e(title)}</title>\n'
+            f'<meta name="description" content="{e(desc)}">\n'
+            f'<link rel="canonical" href="{url}">\n'
+            '<meta property="og:type" content="website">\n'
+            '<meta property="og:site_name" content="SH Développement">\n'
+            '<meta property="og:locale" content="fr_FR">\n'
+            f'<meta property="og:title" content="{e(title)}">\n'
+            f'<meta property="og:description" content="{e(desc)}">\n'
+            f'<meta property="og:url" content="{url}">\n'
+            + (f'<meta property="og:image" content="{e(cover)}">\n' if cover else '')
+            + '<meta name="twitter:card" content="summary_large_image">\n'
+            f'<meta name="twitter:title" content="{e(title)}">\n'
+            f'<meta name="twitter:description" content="{e(desc)}">\n'
+            + (f'<meta name="twitter:image" content="{e(cover)}">\n' if cover else '')
+            + '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>'
+        )
+        page = tpl.replace('<title>Logement — SH Développement</title>', head)
+        page = page.replace(
+            "const id = parseInt(new URLSearchParams(location.search).get('id'), 10);",
+            f"const id = {lid};")
+        # chemins absolus (la page vit dans /bien/{id}/)
+        page = page.replace('src="img/', 'src="/img/').replace('href="index.html', 'href="/index.html')
+        noscript = (
+            f'<noscript><div class="py-8"><h1 class="font-display text-4xl font-600">{e(name)}</h1>'
+            f'<p class="text-muted mt-2">{e(city)}, Bourgogne · {r.get("guests") or 2} voyageurs</p>'
+            + (f'<img src="{e(cover)}" alt="{e(name)}" class="rounded-2xl mt-4 w-full max-w-2xl">' if cover else '')
+            + f'<p class="mt-4 max-w-2xl leading-relaxed">{e(desc)}</p>'
+            '<p class="mt-4"><a class="underline" href="/catalogue.html">Voir toutes nos locations</a> · '
+            '<a class="underline" href="tel:+33659327710">06 59 32 77 10</a></p></div></noscript>')
+        page = page.replace('<div id="content" class="hidden"></div>',
+                            '<div id="content" class="hidden"></div>\n  ' + noscript)
+        out_dir = os.path.join(here, "bien", str(lid))
+        os.makedirs(out_dir, exist_ok=True)
+        with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(page)
+        n += 1
+    print(f"bien/ : {n} pages logement statiques générées (SEO + Open Graph + JSON-LD)")
 
 
 def main():
@@ -250,6 +424,15 @@ def main():
     print(f"data.json écrit : {out['count']} logements, {out['communes']} communes, "
           f"types={adr}, {len(featured)} en vedette, {len(reviews)} avis réels ; "
           f"catalogue.json : {len(catalogue)} fiches complètes")
+
+    # Réservation directe : pré-chargement dispo/prix (token côté CI) + socle SEO + pages statiques
+    if os.environ.get("SKIP_AVAIL") != "1":
+        try:
+            fetch_availability(tok, records)
+        except Exception as e:
+            print("disponibilités échouées:", e)
+    write_seo(records)
+    generate_listing_pages(records)
 
 
 if __name__ == "__main__":

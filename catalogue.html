@@ -3,14 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/img/logo_gold.png">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="index, follow">
 <title>Nos locations en Bourgogne — SH Développement</title>
+<meta name="description" content="Parcourez nos 119 locations d'exception en Saône-et-Loire et en Bourgogne — réservation en direct, sans frais de plateforme.">
+<link rel="canonical" href="https://www.sh-developpement.fr/catalogue.html">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SH Développement">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Nos locations en Bourgogne — SH Développement">
+<meta property="og:description" content="Parcourez nos 119 locations d'exception en Saône-et-Loire et en Bourgogne — réservation en direct, sans frais de plateforme.">
+<meta property="og:url" content="https://www.sh-developpement.fr/catalogue.html">
+<meta property="og:image" content="https://www.sh-developpement.fr/img/logo_gold.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nos locations en Bourgogne — SH Développement">
+<meta name="twitter:description" content="Parcourez nos 119 locations d'exception en Saône-et-Loire et en Bourgogne — réservation en direct, sans frais de plateforme.">
+<meta name="twitter:image" content="https://www.sh-developpement.fr/img/logo_gold.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config = { theme: { extend: {
+tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
   colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
   fontFamily: { display:['"Cormorant Garamond"','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
   maxWidth: { content:'1280px' }
@@ -30,20 +47,37 @@ tailwind.config = { theme: { extend: {
 </head>
 <body class="bg-cream text-ink antialiased">
 
+<a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-ink text-cream px-4 py-2 rounded z-50">Aller au contenu</a>
+
 <header class="border-b border-ecru/60 bg-cream/95 backdrop-blur sticky top-0 z-30">
   <div class="max-w-content mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2.5">
+    <a href="/" class="flex items-center gap-2.5">
       <img src="img/logo_gold.png" alt="" class="h-7 w-auto">
       <span class="font-display text-lg font-700">SH <span class="text-bronze">Développement</span></span>
     </a>
-    <a href="index.html" class="text-sm font-600 text-bronze hover:text-ink inline-flex items-center gap-1.5">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Accueil
-    </a>
+    <nav class="flex items-center gap-4 sm:gap-6 text-sm font-600">
+      <a href="tel:+33659327710" class="text-bronze hover:text-ink inline-flex items-center gap-1.5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
+        <span class="hidden sm:inline">06 59 32 77 10</span>
+      </a>
+      <a href="/proprietaires.html" class="text-bronze hover:text-ink">Propriétaires</a>
+      <a href="/" class="text-bronze hover:text-ink inline-flex items-center gap-1.5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Accueil
+      </a>
+    </nav>
   </div>
 </header>
 
-<main class="max-w-content mx-auto px-5 sm:px-8 py-10">
+<main id="contenu" class="max-w-content mx-auto px-5 sm:px-8 py-10">
+  <noscript>
+    <div class="max-w-xl mx-auto text-center bg-sand border border-ecru rounded-2xl px-6 py-8 mb-8">
+      <p class="text-ink text-lg font-600 mb-3">Activez JavaScript pour parcourir nos 119 locations</p>
+      <p class="text-muted">En attendant, contactez-nous directement :
+        <a href="/proprietaires.html" class="text-bronze font-600 underline">espace propriétaires</a>
+        ou <a href="tel:+33659327710" class="text-bronze font-600 underline">06 59 32 77 10</a>.</p>
+    </div>
+  </noscript>
   <div class="text-center mb-8">
     <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-3">Réservez en direct</p>
     <h1 class="font-display text-4xl sm:text-5xl font-600">Nos locations en Bourgogne</h1>
@@ -54,7 +88,7 @@ tailwind.config = { theme: { extend: {
   <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
     <div class="max-w-xl mx-auto relative">
       <svg class="absolute left-5 top-1/2 -translate-y-1/2 text-bronze" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="search" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full bg-cream border border-ecru shadow-lg shadow-ink/5 pl-12 pr-5 py-4 text-[15px] outline-none focus:border-gold focus:shadow-ink/10">
+      <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full bg-cream border border-ecru shadow-lg shadow-ink/5 pl-12 pr-5 py-4 text-base outline-none focus:border-gold focus:shadow-ink/10">
     </div>
     <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
   </div>
@@ -64,10 +98,17 @@ tailwind.config = { theme: { extend: {
   <div id="loading" class="text-center text-muted py-20">Chargement des locations…</div>
 </main>
 
-<footer class="bg-ink text-cream/70 py-10 mt-10">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+<footer class="bg-ink text-cream/70 py-10 mt-16">
+  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement — Conciergerie en Bourgogne</span>
-    <a href="mailto:contact@sh-developpement.fr" class="hover:text-gold">contact@sh-developpement.fr</a>
+    <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
+      <a href="/" class="hover:text-gold">Accueil</a>
+      <a href="/proprietaires.html" class="hover:text-gold">Propriétaires</a>
+      <a href="tel:+33659327710" class="hover:text-gold">06 59 32 77 10</a>
+      <a href="mailto:contact@sh-developpement.fr" class="hover:text-gold">contact@sh-developpement.fr</a>
+      <a href="/mentions-legales.html" class="hover:text-gold">Mentions légales</a>
+      <a href="/confidentialite.html" class="hover:text-gold">Confidentialité</a>
+    </nav>
   </div>
 </footer>
 
@@ -106,7 +147,7 @@ function card(l){
   const fav = FAV.has(l.id);
   const badge = (l.rating && l.rating >= 9.6) ? `<span class="absolute top-3 left-3 bg-cream text-ink text-[12px] font-700 px-2.5 py-1 rounded-full shadow-sm">Coup de cœur voyageurs</span>` : '';
   const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note5(l.rating)}</span>` : '';
-  return `<a href="logement.html?id=${l.id}" class="grp block">
+  return `<a href="/bien/${l.id}/" class="grp block">
     <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
       <img src="${l.cover}" alt="${esc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
       ${badge}

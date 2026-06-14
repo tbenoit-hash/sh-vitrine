@@ -30,7 +30,7 @@ jobs:
 
       - name: Commit si changement
         run: |
-          git add data.json catalogue.json
+          git add data.json catalogue.json avail bien robots.txt sitemap.xml
           if ! git diff --cached --quiet; then
             git config user.name "sh-sync-bot"
             git config user.email "bot@sh-developpement.fr"

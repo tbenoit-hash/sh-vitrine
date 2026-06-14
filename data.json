@@ -19,10 +19,10 @@
       "bathrooms": 3,
       "price": 460,
       "rating": 9.1,
-      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-8YnaaOgZl1fkRZBSMqvlE1i8OmvN121mZHnTUrijM0w-6956b166dd661",
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-fes1SCAPiMY--SDOySOBZ2Q1amGBY-Um--gkrv3IWwnoU-695450d6e7619",
       "photos": [
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-8YnaaOgZl1fkRZBSMqvlE1i8OmvN121mZHnTUrijM0w-6956b166dd661",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-fes1SCAPiMY--SDOySOBZ2Q1amGBY-Um--gkrv3IWwnoU-695450d6e7619",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-8YnaaOgZl1fkRZBSMqvlE1i8OmvN121mZHnTUrijM0w-6956b166dd661",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-fchFrIK1t5rgq2h1vJrzraUqn5hNn9zI9pjazUc4Cto-6955278f5ffca",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-wedFgGA-Ttus8KxyXwAxIq6pF-YkEmlZumYLB0yhv--o-6955279fa4be4",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470939-jzqnXYONlebEBaSnHFGwleuI4m7Ic6wHlHcFPJbSRPk-695450d5ba14d",
@@ -54,7 +54,14 @@
       "lat": 46.7312999,
       "lng": 4.8628258,
       "mapx": 78.1,
-      "mapy": 72.7
+      "mapy": 72.7,
+      "type": "T6+",
+      "cleaningFee": 300,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 465573,
@@ -65,8 +72,10 @@
       "bathrooms": 2,
       "price": 400,
       "rating": 9.3,
-      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce",
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-TVtah0ZdUKTUfP-4YF0VvAC7mj7qf-ZGlhexHuic--XQ-693d6375bd308",
       "photos": [
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-TVtah0ZdUKTUfP-4YF0VvAC7mj7qf-ZGlhexHuic--XQ-693d6375bd308",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-JT626tld4VWdPU9giiOQW6AR-GjNXPfi2-Zt7ZBr2Fg-693d637431eca",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-5N4GDvVilim-glAg--MuWPJ8XPqj7PKfwEXWNop5Q39g-693d636fef9ce",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-VrkDHueQGd2X1jDpOs4BzluFKh1Kpt3aSuG--3fjCNME-693d63862d72e",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-SeeTbQVk3aHSnFwPqyp6vcZCcAfkG3QKkbDE05GycIc-693d6a6bef681",
@@ -76,9 +85,7 @@
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-Yb9Wl--0TgxYH3JfextM9h7zDvJBL4AigsDLs74CyhuI-693d63657ad9b",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-kBRthxL2Zgd0aixpGS0U1wmKtYCVHzuTvLGIvpvZlV8-693d6a6ce61e5",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-4oXkqsGpHohUljKd-9T3OpRHY7--WlI7r9Q1woejObNE-693d6a6f17487",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-9W3PKGpsBF4D0XrolqBscov76wOcC4oK--S91RwvpTqI-693d6397cac63",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-bjP-iHT1ei4mWqq7kHE7T2--huUR7FEHbaDPvWLHchSw-693d637a977a6",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-7dLATzXDodsxdok8p9Yj--Aq65xIAyg9IjgzXyDAVhFk-693d63957f650"
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465573-9W3PKGpsBF4D0XrolqBscov76wOcC4oK--S91RwvpTqI-693d6397cac63"
       ],
       "description": "Découvrez notre somptueuse maison de 127m2, situé Avenue Boucicaut. Idéal pour accueillir confortablement une famille, des amis ou encore des voyageurs d'affaires. Situé proche du centre ville et à proximité immédiate du périphérique, l'emplacement est idéal pour éviter le stress des bouchons. Venez découvrir un lieu rempli de charme à Chalon-sur-Saône ! Dès votre entrée, laissez-vous séduire par une pièce de vie spacieuse et lumineuse, divisée en deux espaces distincts. LE SALON, à l’ambiance cosy, est aménagé avec deux fauteuils confortables, une table basse, un canapé moelleux, et une TV SUSPENDUE. Quelques plantes décoratives et un grand miroir verrière à structure dorée reflète la lumière naturelle, apportant un cachet indéniable à cet espace raffiné. De l’autre côté, UNE CUISINE en U entièrement équipée vous invite à préparer vos plats préférés (équipée d’une machine à café Nespresso et d’une enceinte Bluetooth). Entre ces deux univers, UN ESPACE REPAS accueillant jusqu’à 8 convives vous attend, sublimé par un grand miroir qui agrandit visuellement l’espace. Attenant à la cuisine, une première SALLE D’EAU élégante propose une douche aux finitions dorées, un meuble vasque avec miroir et un WC, parfaitement intégrés à l’esthétique du logement. Direction l’étage, où TROIS CHAMBRES raffinées vous attendent ainsi qu’un WC indépendant. La première et la troisième chambres sont ",
       "amenities": [
@@ -100,7 +107,14 @@
       "lat": 46.7875024,
       "lng": 4.8395616,
       "mapx": 77.59,
-      "mapy": 70.37
+      "mapy": 70.37,
+      "type": "T5",
+      "cleaningFee": 95,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 468351,
@@ -111,20 +125,20 @@
       "bathrooms": 2,
       "price": 260,
       "rating": 8.8,
-      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-Ck----RCKILsnXQhP--RA52a1NXeS4E7mKV3rXjmCwHD6E-694a8ce5bf98d",
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-bDbenOl9gJ30WvspCQpvWGz-r--XKn4MwjB--hEJBW6EQ-6a2f1a6b1b1e8",
       "photos": [
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-Ck----RCKILsnXQhP--RA52a1NXeS4E7mKV3rXjmCwHD6E-694a8ce5bf98d",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-UJOzoBaZoO6io--Ne-M0XpSwawFHrNNSjc8WYYCU0-fs-694863b718274",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-z6nrFpKxlc4te66iEdPoTGLVXRUs2GYao8gqnUB9mz0-69491aa9ceb9d",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-5jZCu2OYUyjPaFJgk19uzcrY35Q-9uQqM1U6GlqwNvg-694863b0a9571",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-xpNXV0rmRGmAsdFiQmVmPvUzLJWev7gQiVhdQkZq9K8-69491aa8622d7",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-hHE7VbPg57fqy-5tN4--9fhdKllYdLMX--ySBks3e9cy4-69479737bc82c",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-Yrwtpe3DMYKf-ekkvm4l1tpqSJlNV2pQREg7SMpjpMI-694a8ce4e620c",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-VYIHAYx6AdH5lwez86ItEZCEiOjsb---deXFqetufpuo-694863b1a4bca",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-7nGrwdg5U2XGP2Jvt6VJuIA4ypcejJjV4A6AF1rwdLs-6948639dcd75f",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-gkMKTBiybwNAXU4TbZKulNHiVyqvYNBzy--bmo40LvxI-694797198420a",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-zZLRvycfzCYpPKilRd93zzI4uCOHOWO--b2fd4VNasqs-6948639b25644",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-cD3rU2rdbRUiZnjKOmw9PGRH1ushFb3ciH8N5cAtKVU-694863ab17fa0"
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-bDbenOl9gJ30WvspCQpvWGz-r--XKn4MwjB--hEJBW6EQ-6a2f1a6b1b1e8",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-C1IUWTXuZGuYM3DGE--olutbJ53lpaZhUG-89uEsKAz0-6a2f1a23941c3",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-ijZd2F--vDfNq29v1YLq9Xu7JiQ1p8U06d-IzejvGRj8-6a2f1a2854964",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-lzReULyjSVUkscWAepGl2o5yQW9--h5pZV-C5iqfhGGY-6a2f1a03c40a9",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-TKbjGyGq1iN47xpTdyEn2KvTUw6e2cgb1nhMQA3BZg8-6a2f1a3230901",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-8HkLHNbks94fG-JiHcm1bZT--V--vgE5LUbFjl4RtI-ho-6a2f1a4408b4e",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-qUJ--TQ1ayV1XBCWZhuTMKJFTbwg46rUac5vmLri0xt4-6a2f1a07b7583",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-hlzSaqEjOio7--SJcXCvilaPx8BsWF--jskrYz--8dKD8-6a2f1a11f08d2",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-H4IVChyAXBSoTrhSnIRdr-M598oER1wAXdBVHLRBODg-6a2f19f407891",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-nPY--PahU-w1CO21eqAhUBsJvDsFyUskZmhaPo7TenNU-6a2f1a39885c5",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-BV-FyvSpG27EIslwwQu6bVbnrr4ZSGf165dvccYcULc-6a2f1a3ebbae4",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-DKxuK2xhWanjOQAFp--Mw0UU622hSP--WJA--51x0nYj3c-6a2f19ef2e271"
       ],
       "description": "La maison est idéalement située au coeur de Saint-Rémy, à proximité des commerces. Un jaccuzi, qui vous permettra de profiter d'agréables moments de détente, se trouve dans le jardin, à l'arrière de la maison. logement affiche un style résolument unique. En entrant au rez-de-chaussée de la maison, vous aurez accès à une petite salle de bains avec douche, à des toilettes, à deux chambres: Une avec lit double et l'autre avec un lit double et un canapé (Clic-clac), à une salle de bain avec baignoire et douche, ainsi qu'à une buanderie. L'escalier qui se trouve dans le hall d'entrée vous mènera au premier étage où se trouvent une vaste pièce équipée d'une grande table et d'un coin salon avec un canapé deux places et une télévision. A cet étage se trouvent également deux chambres, une équipée d'un lit double, la seconde équipée de deux lits simples. La dernière pièce de ce niveau est une cuisine équipée spacieuse. Les voyageurs ont accès à toutes les pièces de la maison. Nous sommes disponible via l'application Airbnb de 8h à 21h. Au sud de la Bourgogne, Chalon-sur-Saône bénéficie d’une situation géographique privilégiée. Située dans le département de Saône-et-Loire, Chalon est à 120 km au nord de Lyon et à 70 km au sud de Dijon. L’arrivée de la ligne LGV Rhin-Rhône en 2012 a placé Strasbourg à 3h, Paris à 2h30 et Lyon à 1h. La Saône divise la ville en deux bras qui enserrent l’île ",
       "amenities": [
@@ -146,7 +160,14 @@
       "lat": 46.771921,
       "lng": 4.8322513,
       "mapx": 77.42,
-      "mapy": 71.01
+      "mapy": 71.01,
+      "type": "T5",
+      "cleaningFee": 150,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 475670,
@@ -192,7 +213,14 @@
       "lat": 46.7964801,
       "lng": 4.7644667,
       "mapx": 75.92,
-      "mapy": 69.99
+      "mapy": 69.99,
+      "type": "T5",
+      "cleaningFee": 140,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 2,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 465755,
@@ -238,7 +266,14 @@
       "lat": 46.6864496,
       "lng": 4.9791171,
       "mapx": 80.68,
-      "mapy": 74.57
+      "mapy": 74.57,
+      "type": "T6+",
+      "cleaningFee": 220,
+      "deposit": 400,
+      "markup": 1.15,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 468463,
@@ -284,7 +319,14 @@
       "lat": 46.776237,
       "lng": 4.717755,
       "mapx": 74.88,
-      "mapy": 70.84
+      "mapy": 70.84,
+      "type": "T4",
+      "cleaningFee": 140,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 3,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 474343,
@@ -295,15 +337,15 @@
       "bathrooms": 1,
       "price": 120,
       "rating": 9.8,
-      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-H1wAJTTQemZCyN9sIVH34lY86aMiNuDzCNyW1Nbyui4-69613b7216395",
+      "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-dhwmIbuk3oWYmg45pd9jOOtlKlmmOMn3Feq2T7TM-hs-6963f1f233b2f",
       "photos": [
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-dhwmIbuk3oWYmg45pd9jOOtlKlmmOMn3Feq2T7TM-hs-6963f1f233b2f",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-H1wAJTTQemZCyN9sIVH34lY86aMiNuDzCNyW1Nbyui4-69613b7216395",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-qzEre79Ql47S-bCbnNWmBvNsB72QNVasFTf-17zwI7k-6962ea2f1e2b0",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343---DF6qFn7OmbNFEn-ncrhdGnpHIWJudY0Mlc6R758trM-6962ea207bbe8",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-21gnGYCm4smrzuswKDnFQrA3YJ5g2jNpZ26xib4f-EE-6962ea1cea7f6",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-ESDFZsQ4GvQmjK5iQVvmmAkrzuHwogPjFsoY8DOxTVg-6962ea2df2871",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-oK2q8knsAh--xdH5HIYdNKYTTgR--j-xAyGY9pHWckwLk-6962ea31512fa",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-dhwmIbuk3oWYmg45pd9jOOtlKlmmOMn3Feq2T7TM-hs-6963f1f233b2f",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-qXNMG1iihd-Oen4piGThRXm--0DOwwqwuipu0HZG1GHE-6962ea2cdb478",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-QwmS3chAMJVcvrKKusWOXY9PJK8ottRBN2eqYLewA90-6962ea2b714a8",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-7vV2L-EuGIsXFKPnLa2tCRaIDWntx4eoAYwenM0FTt4-6962ea2212dd3",
@@ -330,7 +372,14 @@
       "lat": 46.7794574,
       "lng": 4.7076755,
       "mapx": 74.66,
-      "mapy": 70.7
+      "mapy": 70.7,
+      "type": "T3",
+      "cleaningFee": 65,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 465404,
@@ -375,7 +424,14 @@
       "lat": 46.79901651,
       "lng": 4.76616338,
       "mapx": 75.96,
-      "mapy": 69.89
+      "mapy": 69.89,
+      "type": "T3",
+      "cleaningFee": 50,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     }
   ],
   "extras": [
@@ -423,7 +479,14 @@
       "lat": 43.1760769,
       "lng": 6.2845245,
       "mapx": null,
-      "mapy": null
+      "mapy": null,
+      "type": "T5",
+      "cleaningFee": 300,
+      "deposit": 400,
+      "markup": 0.9,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1
     },
     {
       "id": 496304,
@@ -465,7 +528,14 @@
       "lat": 45.8668478,
       "lng": 6.6241973,
       "mapx": null,
-      "mapy": null
+      "mapy": null,
+      "type": "T5",
+      "cleaningFee": 300,
+      "deposit": 400,
+      "markup": 1.05,
+      "minNights": 7,
+      "currency": "EUR",
+      "instant": 1
     }
   ],
   "reviews": [
