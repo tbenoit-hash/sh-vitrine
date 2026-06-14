@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Logement — SH Développement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
+  fontFamily: { display:['"Cormorant Garamond"','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+  maxWidth: { content:'1140px' }
+}}}
+</script>
+<style>
+  body{font-family:Inter,system-ui,sans-serif}
+  .font-display{font-family:"Cormorant Garamond",Georgia,serif}
+  .tracking-luxe{letter-spacing:.28em}
+  a,button{transition:all .2s ease}
+  .lb-img{transition:transform .4s ease}
+  .gal-item:hover .lb-img{transform:scale(1.04)}
+</style>
+</head>
+<body class="bg-cream text-ink antialiased">
+
+<!-- NAV -->
+<header class="border-b border-ecru/70 bg-cream/90 backdrop-blur sticky top-0 z-30">
+  <div class="max-w-content mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <img src="img/logo_gold.png" alt="" class="h-7 w-auto">
+      <span class="font-display text-lg font-700">SH <span class="text-bronze">Développement</span></span>
+    </a>
+    <a href="index.html#locations" class="text-sm font-600 text-bronze hover:text-ink inline-flex items-center gap-1.5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Toutes nos locations
+    </a>
+  </div>
+</header>
+
+<main id="app" class="max-w-content mx-auto px-5 sm:px-8 py-8">
+  <div id="loading" class="py-32 text-center text-muted">Chargement du logement…</div>
+  <div id="notfound" class="hidden py-32 text-center">
+    <p class="font-display text-3xl">Logement introuvable</p>
+    <a href="index.html#locations" class="inline-block mt-4 rounded-full bg-ink text-cream px-6 py-3 font-600">Voir nos locations</a>
+  </div>
+  <div id="content" class="hidden"></div>
+</main>
+
+<!-- Lightbox -->
+<div id="lightbox" class="hidden fixed inset-0 z-50 bg-ink/95 items-center justify-center p-4">
+  <button id="lb-close" class="absolute top-5 right-5 text-cream/80 hover:text-cream" aria-label="Fermer"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <button id="lb-prev" class="absolute left-4 sm:left-8 text-cream/80 hover:text-cream" aria-label="Précédent"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <img id="lb-img" src="" alt="" class="max-h-[88vh] max-w-[92vw] object-contain rounded-lg">
+  <button id="lb-next" class="absolute right-4 sm:right-8 text-cream/80 hover:text-cream" aria-label="Suivant"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <div id="lb-count" class="absolute bottom-5 left-1/2 -translate-x-1/2 text-cream/70 text-sm"></div>
+</div>
+
+<footer class="bg-ink text-cream/70 py-10 mt-16">
+  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+    <span>© 2026 SH Développement — Conciergerie en Bourgogne</span>
+    <a href="mailto:contact@sh-developpement.fr" class="hover:text-gold">contact@sh-developpement.fr</a>
+  </div>
+</footer>
+
+<script>
+const ENGINE = "https://136426_1.holidayfuture.com";
+const WA = "33659327710";
+const id = parseInt(new URLSearchParams(location.search).get('id'), 10);
+const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
+let PHOTOS = [], lbIndex = 0;
+
+const amenityIcon = a => {
+  const m = {
+    'Wifi':'M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M2 9a15 15 0 0 1 20 0M12 20h.01',
+    'Piscine':'M2 12h20M2 16c1.5 1 3 1 4 0s2.5-1 4 0 3 1 4 0 2.5-1 4 0M6 12V5a2 2 0 0 1 4 0M14 12V5a2 2 0 0 1 4 0',
+    'Jacuzzi':'M4 13a8 8 0 0 1 16 0M2 13h20v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4zM8 9V6M12 9V6M16 9V6',
+    'Sauna':'M12 2a7 7 0 0 0-7 7c0 3 2 5 2 8h10c0-3 2-5 2-8a7 7 0 0 0-7-7zM9 21h6',
+    'Parking gratuit':'M5 21V5a1 1 0 0 1 1-1h6a4 4 0 0 1 0 8H9M9 14V8',
+    'Parking':'M5 21V5a1 1 0 0 1 1-1h6a4 4 0 0 1 0 8H9M9 14V8',
+    'Cuisine équipée':'M8 3v6a2 2 0 0 0 4 0V3M10 9v12M16 3c-1.5 1.5-2 3.5-2 6s.5 4 2 4v8',
+    'Climatisation':'M3 9h18M3 15h18M8 4l-2 2 2 2M16 4l2 2-2 2M8 16l-2 2 2 2M16 16l2 2-2 2',
+    'Télévision':'M3 5h18v12H3zM8 21h8M12 17v4',
+    'Chauffage':'M9 21V10a3 3 0 0 1 6 0v11M5 21V8a7 7 0 0 1 14 0v13',
+    'Lave-linge':'M5 3h14v18H5zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM8 6h.01M11 6h.01',
+    'Jardin':'M12 22V12M12 12a4 4 0 0 0-4-4 4 4 0 0 0 4 8 4 4 0 0 0 4-8 4 4 0 0 0-4 4zM7 22h10',
+    'Terrasse':'M5 21V8l7-4 7 4v13M9 21v-7h6v7',
+    'Balcon':'M5 21V8l7-4 7 4v13M9 21v-7h6v7',
+    'Cheminée':'M5 21V4h14v17M9 21v-6a3 3 0 0 1 6 0v6',
+    'Barbecue':'M6 8h12l-1 6a5 5 0 0 1-10 0zM9 21l1-3M15 21l-1-3M10 5l1-2M14 5l1-2',
+  };
+  return m[a] || 'M20 6 9 17l-5-5';
+};
+
+fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+  const all = [].concat((d && d.featured) || [], (d && d.extras) || []);
+  const p = all.find(x => x.id === id);
+  document.getElementById('loading').classList.add('hidden');
+  if (!p) { document.getElementById('notfound').classList.remove('hidden'); return; }
+  render(p);
+}).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
+
+function render(p) {
+  PHOTOS = (p.photos && p.photos.length) ? p.photos : [p.cover];
+  const c = document.getElementById('content');
+  const rating = p.rating ? `<span class="inline-flex items-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(+p.rating).toFixed(1)}/10</b></span> · ` : '';
+  const beds = p.bedrooms ? `${p.bedrooms} chambre${p.bedrooms>1?'s':''}` : 'Studio';
+  const gallery = `
+    <div class="grid grid-cols-4 grid-rows-2 gap-2 rounded-2xl overflow-hidden h-[300px] sm:h-[460px]">
+      <button class="gal-item col-span-4 sm:col-span-2 row-span-2 relative overflow-hidden" data-i="0"><img src="${PHOTOS[0]}" alt="${esc(p.name)}" class="lb-img w-full h-full object-cover"></button>
+      ${[1,2,3,4].map(i => PHOTOS[i] ? `<button class="gal-item hidden sm:block relative overflow-hidden" data-i="${i}"><img src="${PHOTOS[i]}" alt="" class="lb-img w-full h-full object-cover">${i===4 && PHOTOS.length>5 ? `<span class="absolute inset-0 bg-ink/45 flex items-center justify-center text-cream font-600">+${PHOTOS.length-5} photos</span>`:''}</button>` : '<span class="hidden sm:block bg-sand"></span>').join('')}
+    </div>`;
+  const amen = (p.amenities||[]).map(a => `
+    <div class="flex items-center gap-3 py-2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5c4636" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${amenityIcon(a)}"/></svg>
+      <span class="text-ink/90">${esc(a)}</span>
+    </div>`).join('');
+  c.innerHTML = `
+    <nav class="text-sm text-muted mb-4"><a href="index.html#locations" class="hover:text-bronze">Locations</a> <span class="mx-1">›</span> ${esc(p.city)} <span class="mx-1">›</span> <span class="text-ink">${esc(p.name)}</span></nav>
+    <h1 class="font-display text-4xl sm:text-5xl font-600 leading-tight">${esc(p.name)}</h1>
+    <p class="text-muted mt-2">${rating}${esc(p.city)}, Bourgogne · ${p.guests} voyageurs · ${beds} · ${p.bathrooms||1} salle${(p.bathrooms||1)>1?'s':''} de bain</p>
+    <div class="mt-6">${gallery}</div>
+    <div class="grid lg:grid-cols-3 gap-10 mt-10">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 pb-6 border-b border-ecru/70">
+          <span class="w-11 h-11 rounded-full bg-ink text-cream flex items-center justify-center font-display font-700">SH</span>
+          <div><p class="font-600">Géré par SH Développement</p><p class="text-muted text-sm">Conciergerie · accueil 7j/7</p></div>
+        </div>
+        ${p.description ? `<div class="py-6 border-b border-ecru/70"><h2 class="font-display text-2xl font-600 mb-3">À propos de ce logement</h2><p class="text-ink/85 leading-relaxed whitespace-pre-line">${esc(p.description)}</p></div>` : ''}
+        ${(p.amenities&&p.amenities.length) ? `<div class="py-6 border-b border-ecru/70"><h2 class="font-display text-2xl font-600 mb-3">Ce que propose ce logement</h2><div class="grid sm:grid-cols-2 gap-x-8">${amen}</div></div>` : ''}
+        <div class="py-6">
+          <h2 class="font-display text-2xl font-600 mb-3">Où vous serez</h2>
+          <p class="text-muted mb-4">${esc(p.city)}, Saône-et-Loire — emplacement exact communiqué après réservation.</p>
+          <div id="map" class="w-full h-[340px] rounded-2xl overflow-hidden border border-ecru bg-sand"></div>
+        </div>
+      </div>
+      <aside class="lg:col-span-1">
+        <div class="lg:sticky lg:top-24 rounded-2xl border border-ecru shadow-xl shadow-ink/10 p-6 bg-cream">
+          <p class="mb-4"><span class="font-display text-3xl font-700">${eur(p.price)}</span> <span class="text-muted">/ nuit</span></p>
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <label class="rounded-xl border border-ecru px-3 py-2"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span><input id="d-in" type="date" class="w-full bg-transparent text-sm text-ink outline-none"></label>
+            <label class="rounded-xl border border-ecru px-3 py-2"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span><input id="d-out" type="date" class="w-full bg-transparent text-sm text-ink outline-none"></label>
+          </div>
+          <label class="block rounded-xl border border-ecru px-3 py-2 mb-4"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span><input id="d-guests" type="number" min="1" max="${p.guests}" value="2" class="w-full bg-transparent text-sm text-ink outline-none"></label>
+          <button id="book" class="w-full rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-[#f0c244] cursor-pointer">Réserver — paiement sécurisé</button>
+          <a id="wa" href="#" class="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full border border-cocoa/30 text-ink py-3.5 font-600 hover:bg-ink/5 cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+            Demander par WhatsApp
+          </a>
+          <p class="text-muted text-xs text-center mt-3">Sans frais de réservation · annulation selon conditions</p>
+        </div>
+      </aside>
+    </div>`;
+  c.classList.remove('hidden');
+
+  // galerie → lightbox
+  c.querySelectorAll('.gal-item').forEach(b => b.addEventListener('click', () => openLb(+b.dataset.i)));
+  // réservation
+  document.getElementById('book').addEventListener('click', () => {
+    const u = new URL(ENGINE + '/listings/' + p.id);
+    const di = document.getElementById('d-in').value, dou = document.getElementById('d-out').value, g = document.getElementById('d-guests').value;
+    if (di) u.searchParams.set('startDate', di);
+    if (dou) u.searchParams.set('endDate', dou);
+    if (g) u.searchParams.set('numberOfGuests', g);
+    window.open(u.toString(), '_blank');
+  });
+  const waBtn = document.getElementById('wa');
+  waBtn.addEventListener('click', e => {
+    e.preventDefault();
+    const di = document.getElementById('d-in').value || '?', dou = document.getElementById('d-out').value || '?', g = document.getElementById('d-guests').value || '?';
+    const txt = `Bonjour, je souhaite réserver "${p.name}" (${p.city}). Arrivée ${di} → Départ ${dou}, ${g} voyageurs.`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`, '_blank');
+  });
+  // carte (zone approximative)
+  if (window.maplibregl && p.lat && p.lng) {
+    const map = new maplibregl.Map({ container: 'map', style: 'https://tiles.openfreemap.org/styles/liberty', center: [p.lng, p.lat], zoom: 12.5, attributionControl: true });
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+    const el = document.createElement('div');
+    el.innerHTML = '<div style="width:46px;height:46px;border-radius:50%;background:rgba(224,174,44,.35);border:2px solid #E0AE2C"></div>';
+    new maplibregl.Marker({ element: el }).setLngLat([p.lng, p.lat]).addTo(map);
+  }
+  document.title = p.name + ' — SH Développement';
+}
+
+// Lightbox
+function openLb(i){ lbIndex=i; showLb(); document.getElementById('lightbox').classList.remove('hidden'); document.getElementById('lightbox').classList.add('flex'); }
+function showLb(){ document.getElementById('lb-img').src = PHOTOS[lbIndex]; document.getElementById('lb-count').textContent = (lbIndex+1)+' / '+PHOTOS.length; }
+function closeLb(){ const lb=document.getElementById('lightbox'); lb.classList.add('hidden'); lb.classList.remove('flex'); }
+document.getElementById('lb-close').addEventListener('click', closeLb);
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id==='lightbox') closeLb(); });
+document.getElementById('lb-prev').addEventListener('click', () => { lbIndex=(lbIndex-1+PHOTOS.length)%PHOTOS.length; showLb(); });
+document.getElementById('lb-next').addEventListener('click', () => { lbIndex=(lbIndex+1)%PHOTOS.length; showLb(); });
+document.addEventListener('keydown', e => { if (document.getElementById('lightbox').classList.contains('hidden')) return; if (e.key==='Escape') closeLb(); if (e.key==='ArrowLeft') document.getElementById('lb-prev').click(); if (e.key==='ArrowRight') document.getElementById('lb-next').click(); });
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+</script>
+</body>
+</html>

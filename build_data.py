@@ -13,6 +13,28 @@ import os, re, json, statistics, urllib.parse, urllib.request
 API = "https://api.hostaway.com/v1"
 # Logements mis en avant dans la galerie « plus belles » (ordre conservé)
 FEATURED_IDS = [465405, 475670, 465573, 468463, 470948, 465755]
+# Pépites hors région (section « Évasion »)
+EXTRA_IDS = [497952, 496304]
+
+AMENITY_FR = {
+    'Internet': 'Wifi', 'Wireless': 'Wifi', 'Wifi': 'Wifi', 'Pocket wifi': 'Wifi',
+    'Kitchen': 'Cuisine équipée', 'Free parking on premises': 'Parking gratuit',
+    'Free parking': 'Parking gratuit', 'Parking': 'Parking', 'Washer': 'Lave-linge',
+    'Dryer': 'Sèche-linge', 'Dishwasher': 'Lave-vaisselle', 'Air conditioning': 'Climatisation',
+    'Heating': 'Chauffage', 'TV': 'Télévision', 'Cable TV': 'Télévision', 'Hot tub': 'Jacuzzi',
+    'Jacuzzi': 'Jacuzzi', 'Swimming pool': 'Piscine', 'Pool': 'Piscine', 'Sauna': 'Sauna',
+    'Balcony': 'Balcon', 'Garden or backyard': 'Jardin', 'Patio or balcony': 'Terrasse',
+    'Elevator': 'Ascenseur', 'Iron': 'Fer à repasser', 'Hair dryer': 'Sèche-cheveux',
+    'Coffee maker': 'Cafetière', 'Microwave': 'Micro-ondes', 'Refrigerator': 'Réfrigérateur',
+    'Oven': 'Four', 'BBQ grill': 'Barbecue', 'Fireplace': 'Cheminée', 'Gym': 'Salle de sport',
+    'Pets allowed': 'Animaux acceptés', 'Essentials': 'Linge & nécessaire', 'Crib': 'Lit bébé',
+    'Free street parking': 'Parking dans la rue', 'Private entrance': 'Entrée privée',
+    'Long term stays allowed': 'Séjours longue durée', 'Self check-in': 'Arrivée autonome',
+}
+PRIORITY_AM = ['Wifi', 'Cuisine équipée', 'Parking gratuit', 'Parking', 'Jacuzzi', 'Piscine',
+               'Sauna', 'Climatisation', 'Lave-linge', 'Sèche-linge', 'Lave-vaisselle',
+               'Télévision', 'Chauffage', 'Jardin', 'Balcon', 'Terrasse', 'Barbecue',
+               'Cheminée', 'Ascenseur', 'Arrivée autonome', 'Entrée privée']
 SKI_CITIES = {"Les Belleville", "Demi-Quartier", "Megève"}
 SEA_CITIES = {"La Londe-les-Maures"}
 
@@ -60,6 +82,35 @@ def cover_url(l):
 
 def type_of(bedrooms):
     return {0: "Studio", 1: "T2", 2: "T3", 3: "T4", 4: "T5"}.get(bedrooms, "T6+")
+
+
+def prop_record(l):
+    imgs = [i for i in (l.get("listingImages") or []) if i.get("url")]
+    imgs.sort(key=lambda i: (i.get("sortOrder") or 0))
+    photos = [i["url"] for i in imgs][:12]
+    am_fr, seen = [], set()
+    for a in (l.get("listingAmenities") or []):
+        fr = AMENITY_FR.get(a.get("amenityName", ""))
+        if fr and fr not in seen:
+            seen.add(fr); am_fr.append(fr)
+    am_fr.sort(key=lambda x: PRIORITY_AM.index(x) if x in PRIORITY_AM else 99)
+    desc = re.sub(r"\s+", " ", (l.get("description") or "")).strip()
+    return {
+        "id": l.get("id"),
+        "name": clean_name(l.get("name") or l.get("internalListingName") or f"Logement {l.get('id')}"),
+        "city": l.get("city") or "",
+        "guests": l.get("personCapacity") or 0,
+        "bedrooms": l.get("bedroomsNumber") or 0,
+        "bathrooms": l.get("bathroomsNumber") or 0,
+        "price": int(round(l.get("price") or 0)),
+        "rating": l.get("averageReviewRating"),
+        "cover": (photos[0] if photos else cover_url(l)),
+        "photos": photos,
+        "description": desc[:1400],
+        "amenities": am_fr[:14],
+        "lat": l.get("lat"),
+        "lng": l.get("lng"),
+    }
 
 
 def clean_review(t):
@@ -127,21 +178,8 @@ def main():
 
     # Galerie : logements mis en avant, données rafraîchies depuis Hostaway
     byid = {l.get("id"): l for l in listings}
-    featured = []
-    for lid in FEATURED_IDS:
-        l = byid.get(lid)
-        if not l:
-            continue
-        featured.append({
-            "id": lid,
-            "name": clean_name(l.get("name") or l.get("internalListingName") or f"Logement {lid}"),
-            "city": l.get("city") or "",
-            "guests": l.get("personCapacity") or 0,
-            "bedrooms": l.get("bedroomsNumber") or 0,
-            "price": int(round(l.get("price") or 0)),
-            "rating": l.get("averageReviewRating"),
-            "cover": cover_url(l),
-        })
+    featured = [prop_record(byid[i]) for i in FEATURED_IDS if i in byid]
+    extras = [prop_record(byid[i]) for i in EXTRA_IDS if i in byid]
 
     communes = sorted({(l.get("city") or "").strip() for l in listings if l.get("city")})
     try:
@@ -153,6 +191,7 @@ def main():
         "communes": len(communes),
         "adr": adr,
         "featured": featured,
+        "extras": extras,
         "reviews": reviews,
     }
     if os.environ.get("BUILD_DATE"):
