@@ -54,9 +54,14 @@ tailwind.config = {
   .map-pin .dot { display: block; width: 13px; height: 13px; border-radius: 50%; background: #E0AE2C; border: 2px solid #FBF8F3; box-shadow: 0 1px 3px rgba(46,36,16,.55); transition: transform .15s ease; }
   .map-pin:hover { z-index: 30; }
   .map-pin:hover .dot { transform: scale(1.55); background: #2E2410; }
-  .map-pin .tip { position: absolute; bottom: 175%; left: 50%; transform: translateX(-50%); background: #2E2410; color: #FBF8F3; border-radius: 10px; padding: 8px 11px; width: max-content; max-width: 210px; font-size: 12px; line-height: 1.35; opacity: 0; visibility: hidden; transition: opacity .15s ease; pointer-events: none; box-shadow: 0 8px 22px rgba(46,36,16,.4); z-index: 40; }
+  .map-pin .tip { position: absolute; bottom: 165%; left: 50%; transform: translateX(-50%); width: 216px; background: #FBF8F3; color: #2E2410; border-radius: 14px; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .15s ease; pointer-events: none; box-shadow: 0 12px 32px rgba(46,36,16,.4); z-index: 40; }
   .map-pin:hover .tip { opacity: 1; visibility: visible; }
-  .map-pin .tip:after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: #2E2410; }
+  .map-pin .tip img { width: 100%; height: 118px; object-fit: cover; display: block; background: #EFE6D4; }
+  .map-pin .tip .tb { padding: 9px 12px 11px; }
+  .map-pin .tip .tb b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; line-height: 1.1; display: block; }
+  .map-pin .tip .tb .m { font-size: 11.5px; color: #6B605C; margin-top: 2px; }
+  .map-pin .tip .tb .pr { font-size: 13px; font-weight: 700; margin-top: 5px; }
+  .map-pin .tip:after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 7px solid transparent; border-top-color: #FBF8F3; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1 !important; transform: none !important; transition: none; }
@@ -390,8 +395,10 @@ tailwind.config = {
     <p class="reveal text-muted text-lg mt-5 max-w-2xl mx-auto">Séjournez à deux pas des trésors de la Bourgogne — nos logements sont idéalement placés près des sites incontournables.</p>
     <div class="reveal mt-9">
       <div id="map-toggles" class="flex flex-wrap items-center justify-center gap-2.5 mb-5"></div>
-      <div class="rounded-3xl overflow-hidden border border-ecru shadow-xl shadow-ink/10 bg-cream relative select-none">
-        <img src="carte-bourgogne.svg?v=3" alt="Carte illustrée de la Bourgogne — nos logements et les sites incontournables à visiter" class="w-full block">
+      <div class="relative select-none">
+        <div class="rounded-3xl overflow-hidden border border-ecru shadow-xl shadow-ink/10 bg-cream">
+          <img src="carte-bourgogne.svg?v=3" alt="Carte illustrée de la Bourgogne — nos logements et les sites incontournables à visiter" class="w-full block">
+        </div>
         <div id="map-pins" class="absolute inset-0" style="pointer-events:none"></div>
       </div>
       <p class="text-muted/80 text-xs mt-3 text-center">Chaque point doré est l'un de nos logements — survolez pour le découvrir, cliquez pour ouvrir sa page. Cochez / décochez pour filtrer.</p>
@@ -697,11 +704,20 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
   function renderPins(){
     if (!show) { layer.innerHTML = ''; return; }
     const items = LL.filter(l => ftype === 'all' || typeOf(l.bedrooms) === ftype);
-    layer.innerHTML = items.map(l =>
-      `<a class="map-pin" href="logement.html?id=${l.id}" style="left:${l.mapx}%;top:${l.mapy}%" aria-label="${e2(l.name)}">`
-      + `<span class="dot"></span>`
-      + `<span class="tip"><b>${e2(l.name)}</b><br>${e2(l.city)} · ${eur2(l.price)}/nuit</span></a>`).join('');
+    layer.innerHTML = items.map(l => {
+      const star = l.rating ? ` · ★ ${(+l.rating).toFixed(1)}` : '';
+      return `<a class="map-pin" href="logement.html?id=${l.id}" style="left:${l.mapx}%;top:${l.mapy}%" aria-label="${e2(l.name)}">`
+        + `<span class="dot"></span>`
+        + `<span class="tip"><img data-cover="${e2(l.cover)}" alt=""><span class="tb"><b>${e2(l.name)}</b>`
+        + `<span class="m">${typeOf(l.bedrooms)} · ${e2(l.city)}${star}</span>`
+        + `<span class="pr">${eur2(l.price)} <span style="font-weight:400;color:#6B605C">/ nuit</span></span></span></span></a>`;
+    }).join('');
   }
+  layer.addEventListener('mouseover', e => {
+    const pin = e.target.closest('.map-pin'); if (!pin) return;
+    const img = pin.querySelector('.tip img[data-cover]');
+    if (img && !img.getAttribute('src')) img.src = img.dataset.cover;
+  });
   function renderTog(){
     tog.innerHTML =
       `<button data-x="toggle" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${show ? 'bg-ink text-cream border-ink' : 'bg-cream text-cocoa border-ecru'}">`
