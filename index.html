@@ -45,6 +45,9 @@ tailwind.config = {
   .hairline { background: linear-gradient(90deg, transparent, #E0AE2C, transparent); }
   .card-img { transition: transform .5s ease; }
   .group:hover .card-img { transform: scale(1.05); }
+  .heart svg { transition: transform .15s ease, fill .15s ease; }
+  .heart:hover svg { transform: scale(1.12); }
+  .heart.on svg { fill:#E0AE2C !important; stroke:#FBF8F3 !important; }
   a, button { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
   details.faq > summary { list-style: none; cursor: pointer; }
   details.faq > summary::-webkit-details-marker { display: none; }
@@ -317,7 +320,7 @@ tailwind.config = {
       <a href="catalogue.html?v=2" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les <span id="cat-count" class="contents">123</span>&nbsp;logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7" id="grid">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-9" id="grid">
       <!-- listing cards injected below -->
     </div>
   </div>
@@ -532,33 +535,39 @@ let listings = [
   {id:470948, name:"Wine & Saône", city:"Chalon-sur-Saône", guests:6, bedrooms:3, price:180, rating:9.8, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470948-3O-VZvUm2N8l0uKeRAtKd0JgCqfQo0nydAK732KoX6I-69552584664b9"},
   {id:465755, name:"Les Vagastines 2", city:"Saint-Germain-du-Plain", guests:10, bedrooms:8, price:250, rating:10, cover:"https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63"},
 ];
-const bedIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9v11M2 13h20v7M22 13V9a2 2 0 0 0-2-2H8v6M6 11h.01"/></svg>';
-const guestIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>';
 const grid = document.getElementById('grid');
-function renderGrid(){ grid.innerHTML = listings.map((l, i) => `
-  <a href="logement.html?id=${l.id}" style="transition-delay:${i*70}ms" class="reveal group block rounded-2xl overflow-hidden bg-cream border border-ecru/70 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-    <div class="relative aspect-[4/3] overflow-hidden">
-      <img src="${l.cover}" alt="${l.name} — ${l.city}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
-      <span class="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-cream/95 text-ink px-2.5 py-1 text-xs font-700 shadow">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>${l.rating}
-      </span>
+const SHesc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+const SHFAV = new Set(JSON.parse(localStorage.getItem('sh_fav') || '[]'));
+const SHHEART = '<svg viewBox="0 0 32 32" width="22" height="22" style="display:block;fill:rgba(46,36,16,.35);stroke:#FBF8F3;stroke-width:2.4;overflow:visible"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>';
+const SHSTAR = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" style="display:inline-block;vertical-align:-1px"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
+function renderGrid(){ grid.innerHTML = listings.map((l, i) => {
+  const fav = SHFAV.has(l.id);
+  const badge = (l.rating && l.rating >= 9.6) ? '<span class="absolute top-3 left-3 bg-cream text-ink text-[12px] font-700 px-2.5 py-1 rounded-full shadow-sm">Coup de cœur voyageurs</span>' : '';
+  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${SHSTAR} ${(l.rating/2).toFixed(2).replace('.', ',')}</span>` : '';
+  return `<a href="logement.html?id=${l.id}" style="transition-delay:${i*55}ms" class="reveal group block">
+    <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
+      <img src="${l.cover}" alt="${SHesc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+      ${badge}
+      <button type="button" class="heart absolute top-2.5 right-2.5 ${fav?'on':''}" data-id="${l.id}" aria-label="Enregistrer en favori">${SHHEART}</button>
     </div>
-    <div class="p-5">
+    <div class="mt-2.5">
       <div class="flex items-start justify-between gap-2">
-        <h3 class="font-display text-xl font-600 leading-tight">${l.name}</h3>
+        <h3 class="font-600 text-ink leading-tight truncate">${SHesc(l.name)}</h3>
+        ${rate}
       </div>
-      <p class="text-muted text-sm mt-1">${l.city}</p>
-      <div class="flex items-center gap-4 mt-4 text-muted text-sm">
-        <span class="inline-flex items-center gap-1.5">${guestIcon}${l.guests} pers.</span>
-        <span class="inline-flex items-center gap-1.5">${bedIcon}${l.bedrooms ? l.bedrooms + ' ch.' : 'Studio'}</span>
-      </div>
-      <div class="flex items-end justify-between mt-4 pt-4 border-t border-ecru/70">
-        <p class="text-ink"><span class="font-display text-2xl font-700">${l.price} €</span> <span class="text-muted text-sm">/ nuit</span></p>
-        <span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Réserver <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </div>
+      <p class="text-muted text-sm leading-snug truncate">${SHesc(l.city)} · ${l.guests} voyageurs · ${l.bedrooms ? l.bedrooms+' ch.' : 'Studio'}</p>
+      <p class="mt-1.5 text-ink"><span class="font-700">${l.price} €</span> <span class="text-muted">/ nuit</span></p>
     </div>
-  </a>
-`).join(''); }
+  </a>`;
+}).join(''); }
+grid.addEventListener('click', e => {
+  const h = e.target.closest('.heart'); if (!h) return;
+  e.preventDefault(); e.stopPropagation();
+  const id = +h.dataset.id;
+  if (SHFAV.has(id)) SHFAV.delete(id); else SHFAV.add(id);
+  h.classList.toggle('on');
+  localStorage.setItem('sh_fav', JSON.stringify([...SHFAV]));
+});
 renderGrid();
 
 // Scroll reveal (respects reduced-motion via CSS)

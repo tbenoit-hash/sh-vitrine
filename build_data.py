@@ -11,8 +11,8 @@ Identifiants : variables d'env HOSTAWAY_ACCOUNT_ID / HOSTAWAY_API_KEY
 import os, re, json, statistics, urllib.parse, urllib.request
 
 API = "https://api.hostaway.com/v1"
-# Logements mis en avant dans la galerie « plus belles » (ordre conservé)
-FEATURED_IDS = [465405, 475670, 465573, 468463, 470948, 465755]
+# Logements mis en avant dans la galerie « plus belles » (8, ordre conservé)
+FEATURED_IDS = [465405, 475670, 465573, 468463, 470948, 465755, 495090, 491876]
 # Pépites hors région (section « Évasion »)
 EXTRA_IDS = [497952, 496304]
 
