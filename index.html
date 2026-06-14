@@ -118,14 +118,13 @@ tailwind.config = {
       <span class="font-display text-2xl font-700 leading-none text-cream" id="logo-txt">SH&nbsp;<span class="text-cream" id="logo-sub">Développement</span></span>
     </a>
     <nav class="hidden lg:flex items-center gap-9 text-sm font-500 text-cream" id="nav-links">
-      <a href="#conciergerie" class="hover:text-bronze">La conciergerie</a>
-      <a href="#proprietaires" class="hover:text-bronze">Propriétaires</a>
-      <a href="#locations" class="hover:text-bronze">Locations</a>
+      <a href="proprietaires.html" class="hover:text-bronze">Propriétaires</a>
+      <a href="catalogue.html?v=2" class="hover:text-bronze">Nos locations</a>
+      <a href="#decouvrir" class="hover:text-bronze">À découvrir</a>
       <a href="#zone" class="hover:text-bronze">Notre région</a>
-      <a href="#faq" class="hover:text-bronze">FAQ</a>
     </nav>
     <div class="flex items-center gap-2">
-      <a href="#estimation" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-cream px-5 py-2.5 text-sm font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
+      <a href="proprietaires.html#estimation" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-cream px-5 py-2.5 text-sm font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
         Estimer mes revenus
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -138,12 +137,11 @@ tailwind.config = {
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
     <nav class="max-w-content mx-auto px-5 py-4 flex flex-col">
-      <a href="#conciergerie" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">La conciergerie</a>
-      <a href="#proprietaires" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
-      <a href="#locations" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Locations</a>
+      <a href="proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
+      <a href="catalogue.html?v=2" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos locations</a>
+      <a href="#decouvrir" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">À découvrir</a>
       <a href="#zone" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Notre région</a>
-      <a href="#faq" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">FAQ</a>
-      <a href="#estimation" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-5 py-3 font-600 hover:bg-brown cursor-pointer">
+      <a href="proprietaires.html#estimation" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-5 py-3 font-600 hover:bg-brown cursor-pointer">
         Estimer mes revenus
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -168,7 +166,7 @@ tailwind.config = {
       <a href="#locations" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-7 py-3.5 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
         Découvrir nos locations
       </a>
-      <a href="#proprietaires" class="inline-flex items-center gap-2 rounded-full border border-cream/40 text-cream px-7 py-3.5 font-600 hover:bg-cream/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+      <a href="proprietaires.html" class="inline-flex items-center gap-2 rounded-full border border-cream/40 text-cream px-7 py-3.5 font-600 hover:bg-cream/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
         Je confie mon bien
       </a>
     </div>
@@ -194,153 +192,6 @@ tailwind.config = {
       <div class="font-display text-4xl sm:text-5xl font-600 text-gold">7j/7</div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">accueil & assistance</div>
     </div>
-  </div>
-</section>
-
-<!-- ░░ CONCIERGERIE ░░ -->
-<section id="conciergerie" class="py-24 sm:py-32">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
-    <div class="reveal max-w-2xl">
-      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">La conciergerie tout-en-un</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Vous possédez. Nous nous occupons de tout le reste.</h2>
-      <p class="text-muted text-lg mt-5 leading-relaxed">De la mise en ligne de l'annonce au départ du voyageur, chaque étape est prise en charge par notre équipe locale. Vous gardez la maîtrise, nous portons la charge.</p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ecru/60 mt-14 rounded-2xl overflow-hidden border border-ecru/60">
-      <!-- card -->
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V10l-6-3"/><path d="M9 9v.01M9 13v.01M9 17v.01"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Ménage hôtelier & linge</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Prestataires formés, linge fourni et repassé, contrôle qualité après chaque séjour.</p>
-      </article>
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M19 9l-5 5-4-4-4 4"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Tarification dynamique</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Des prix ajustés chaque jour selon la saison, la demande et les événements locaux.</p>
-      </article>
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m3 17 4-3 3 2 4-4 7 6"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Photos & annonces</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Reportage photo professionnel et diffusion sur Airbnb, Booking et notre site direct.</p>
-      </article>
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7a2 2 0 0 1 2 2v11l-5-3-5 3V5a2 2 0 0 1 2-2h4"/><path d="M19 3v4M21 5h-4"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Accueil & remise des clés</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Arrivée autonome ou en personne, assistance voyageurs 7j/7 dans leur langue.</p>
-      </article>
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Maintenance & qualité</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Petites réparations, suivi des incidents et veille sur la propreté à chaque rotation.</p>
-      </article>
-      <article class="reveal bg-cream p-8 hover:bg-sand/50 group">
-        <div class="w-12 h-12 rounded-xl bg-ink/5 flex items-center justify-center text-bronze group-hover:bg-gold group-hover:text-ink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17V9l-2 2M14 7h4v4M14 17h6M4 4h7v16H4z"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-600 mt-5">Relevé mensuel transparent</h3>
-        <p class="text-muted mt-2.5 leading-relaxed">Chaque mois, un compte-rendu clair : revenus, frais, taux d'occupation et versement.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ░░ PROPRIÉTAIRES ░░ -->
-<section id="proprietaires" class="py-24 sm:py-28 bg-sand/60">
-  <div class="max-w-content mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-    <div class="reveal order-2 lg:order-1">
-      <div class="relative">
-        <img src="img/agence-interieur.jpg" alt="L'accueil de l'agence SH Développement — espace conseil aux propriétaires" class="rounded-2xl w-full object-cover aspect-[4/3] shadow-xl shadow-ink/10">
-        <div class="absolute -bottom-6 -right-4 sm:-right-6 bg-cream rounded-2xl shadow-lg shadow-ink/10 px-6 py-5 border border-ecru">
-          <div class="font-display text-3xl font-600 text-bronze">jusqu'à −15 %</div>
-          <div class="text-muted text-sm mt-0.5">de commission en moins<br>en réservation directe</div>
-        </div>
-      </div>
-    </div>
-    <div class="reveal order-1 lg:order-2">
-      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Pour les propriétaires</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Votre bien mérite mieux qu'un agenda et beaucoup de stress.</h2>
-      <ul class="mt-8 space-y-5">
-        <li class="flex gap-4">
-          <span class="shrink-0 w-7 h-7 rounded-full bg-gold/20 text-bronze flex items-center justify-center mt-0.5"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <p class="text-ink/90 text-lg"><span class="font-600">Revenus optimisés</span> — tarification dynamique et présence sur tous les canaux de réservation.</p>
-        </li>
-        <li class="flex gap-4">
-          <span class="shrink-0 w-7 h-7 rounded-full bg-gold/20 text-bronze flex items-center justify-center mt-0.5"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <p class="text-ink/90 text-lg"><span class="font-600">Zéro souci</span> — ménage, linge, accueil, maintenance : tout est géré localement.</p>
-        </li>
-        <li class="flex gap-4">
-          <span class="shrink-0 w-7 h-7 rounded-full bg-gold/20 text-bronze flex items-center justify-center mt-0.5"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <p class="text-ink/90 text-lg"><span class="font-600">Transparence totale</span> — relevé mensuel détaillé et interlocuteur unique et joignable.</p>
-        </li>
-      </ul>
-      <a href="#estimation" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-7 py-3.5 mt-9 font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand">
-        Estimer le potentiel de mon bien
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ░░ SIMULATEUR DE REVENUS ░░ -->
-<section id="estimation" class="py-24 sm:py-32 bg-ink text-cream relative overflow-hidden">
-  <div class="absolute inset-0 opacity-[0.12]" style="background:radial-gradient(circle at 82% 8%, #E0AE2C 0, transparent 45%), radial-gradient(circle at 5% 90%, #E0AE2C 0, transparent 40%)"></div>
-  <div class="max-w-content mx-auto px-5 sm:px-8 relative">
-    <div class="reveal max-w-2xl">
-      <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Simulateur de revenus</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Combien votre bien peut-il vous rapporter ?</h2>
-      <p class="text-cream/70 text-lg mt-5 leading-relaxed">Estimation fondée sur les performances réelles de nos <span class="text-gold font-600"><span id="sim-count">123</span> logements</span> en gestion en Saône-et-Loire. Choisissez votre type de bien.</p>
-    </div>
-
-    <div class="reveal mt-12 grid lg:grid-cols-2 gap-7 lg:gap-10 items-stretch">
-      <!-- Contrôles -->
-      <div class="bg-cream/[0.04] border border-cream/10 rounded-3xl p-7 sm:p-9">
-        <label class="block text-cream/55 text-xs font-600 uppercase tracking-luxe mb-4">Type de bien</label>
-        <div id="sim-types" class="flex flex-wrap gap-2.5"></div>
-        <div class="mt-9">
-          <div class="flex items-end justify-between mb-3">
-            <label for="sim-occ" class="text-cream/55 text-xs font-600 uppercase tracking-luxe">Taux d'occupation</label>
-            <span id="sim-occ-val" class="font-display text-2xl text-gold font-600 leading-none">55 %</span>
-          </div>
-          <input id="sim-occ" type="range" min="40" max="70" step="1" value="55" class="w-full accent-[#E0AE2C] cursor-pointer" aria-label="Taux d'occupation">
-          <p class="text-cream/40 text-xs mt-2.5">Moyenne constatée sur nos logements : <span class="text-cream/60">~55 %</span>.</p>
-        </div>
-        <div class="mt-9">
-          <label class="block text-cream/55 text-xs font-600 uppercase tracking-luxe mb-4">Atouts du logement</label>
-          <div id="sim-amen" class="flex flex-wrap gap-2.5"></div>
-        </div>
-        <p id="sim-assump" class="text-cream/40 text-xs mt-7 pt-6 border-t border-cream/10 leading-relaxed"></p>
-      </div>
-
-      <!-- Résultat -->
-      <div class="rounded-3xl p-7 sm:p-9 flex flex-col justify-center bg-gradient-to-br from-gold/[0.18] to-cream/[0.03] border border-gold/25">
-        <p class="text-cream/65 text-sm">Revenu net estimé pour vous <span class="text-cream/40">(après notre commission)</span></p>
-        <div class="mt-2 flex items-baseline gap-2 flex-wrap">
-          <span id="sim-month" class="font-display text-5xl sm:text-6xl font-700 text-gold leading-none">—</span>
-          <span class="text-cream/60 text-lg">net / mois</span>
-        </div>
-        <p class="text-cream/55 mt-2.5">fourchette <span id="sim-range" class="text-cream/80 font-500">—</span></p>
-        <div class="mt-6 pt-6 border-t border-cream/10 flex items-baseline gap-2 flex-wrap">
-          <span class="text-cream/55">soit environ</span>
-          <span id="sim-year" class="font-display text-3xl font-600 text-cream leading-none">—</span>
-          <span class="text-cream/55">net / an</span>
-        </div>
-        <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink px-7 py-4 mt-8 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
-          Obtenir mon estimation précise — gratuit
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-    </div>
-    <p class="reveal text-cream/35 text-xs mt-6 max-w-3xl leading-relaxed">Estimation indicative, à titre informatif. Le revenu réel dépend du logement, de son emplacement, de son équipement et de la saison. Demandez votre estimation personnalisée et sans engagement.</p>
   </div>
 </section>
 
@@ -440,144 +291,95 @@ tailwind.config = {
         <a class="sh-town" style="left:51%;top:72.5%" href="catalogue.html?q=Tournus" aria-label="Nos logements à Tournus"><i></i><b>Tournus</b></a>
         <a class="sh-town" style="left:63%;top:45%" href="catalogue.html?q=Beaune" aria-label="Nos logements vers Beaune"><i></i><b>Beaune &amp; environs</b></a>
       </div>
-      <p class="reveal text-muted/80 text-xs mt-4 text-center">Survolez une pastille dorée pour repérer la ville, cliquez pour découvrir nos logements du secteur. Tout notre parc est dans <a href="catalogue.html?v=2" class="text-bronze hover:text-ink font-600">le catalogue</a>.</p>
+      <p class="reveal text-muted/80 text-xs mt-4 text-center">Survolez une pastille dorée pour repérer la ville, cliquez pour découvrir nos logements du secteur. Retrouvez <a href="catalogue.html?v=2" class="text-bronze hover:text-ink font-600">toutes nos locations</a>.</p>
     </div>
   </div>
 </section>
 
-<!-- ░░ FAQ ░░ -->
-<section id="faq" class="py-24 sm:py-28 bg-sand/40">
-  <div class="max-w-3xl mx-auto px-5 sm:px-8">
-    <div class="reveal text-center mb-12">
-      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Questions fréquentes</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">On vous dit tout</h2>
-    </div>
-    <div class="reveal divide-y divide-ecru/70 border-y border-ecru/70">
-      <details class="faq py-5" open>
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Combien puis-je gagner avec ma location ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">Cela dépend de votre bien, de sa localisation et de la saison. Nous réalisons une estimation gratuite et personnalisée, puis notre tarification dynamique optimise le revenu de chaque nuit.</p>
-      </details>
-      <details class="faq py-5">
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Quels sont vos frais ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">Une commission transparente sur les revenus générés, sans frais cachés : tout est clairement détaillé dans votre contrat. Et surtout, c'est <span class="text-ink font-600">sans engagement</span> — vous restez libre à tout moment et terminez simplement le mois en cours.</p>
-      </details>
-      <details class="faq py-5">
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Que comprend la conciergerie ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">Tout est pris en charge : création et diffusion de l'annonce (Airbnb, Booking, site direct), accueil des voyageurs, ménage hôtelier et linge, maintenance, assistance 7j/7 et relevé mensuel détaillé.</p>
-      </details>
-      <details class="faq py-5">
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Ai-je quelque chose à gérer moi-même ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">Non. De la mise en ligne au départ du voyageur, nous nous occupons de tout. Vous suivez simplement vos revenus via votre relevé mensuel.</p>
-      </details>
-      <details class="faq py-5">
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Sur quelles plateformes mon bien sera-t-il visible ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">Sur Airbnb, Booking.com et notre propre site de réservation directe — ce dernier sans commission de plateforme.</p>
-      </details>
-      <details class="faq py-5">
-        <summary class="flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-600 text-ink">
-          Dans quel secteur intervenez-vous ?
-          <svg class="faq-chev shrink-0 text-bronze" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="text-muted leading-relaxed mt-3 pr-8">En Saône-et-Loire et alentours : Mâcon, Tournus, Chalon-sur-Saône, Beaune, Le Creusot et leurs environs.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ░░ CTA FINAL ░░ -->
-<section id="contact" class="pb-24 scroll-mt-24">
+<!-- ░░ À DÉCOUVRIR EN BOURGOGNE ░░ -->
+<section id="decouvrir" class="pb-24 sm:pb-28 scroll-mt-20">
   <div class="max-w-content mx-auto px-5 sm:px-8">
-    <div class="reveal relative overflow-hidden rounded-3xl bg-brown text-cream px-6 sm:px-12 lg:px-16 py-12 sm:py-16">
+    <div class="reveal max-w-2xl mb-12">
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">À ne pas manquer</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">La Bourgogne à vivre, à deux pas de nos logements</h2>
+      <p class="text-muted text-lg mt-5 leading-relaxed">Grands crus et tables étoilées, balades à vélo sur la Voie Verte, accrobranche, patrimoine millénaire et grands espaces… De quoi remplir chaque séjour.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Vignobles -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(123,46,70,.1)">🍷</div>
+        <h3 class="font-display text-2xl font-600">Vignobles & Grands Crus</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li>Beaune, capitale des vins de Bourgogne</li>
+          <li>Clos de Vougeot · Côte de Nuits</li>
+          <li>Pommard · Meursault · Puligny-Montrachet</li>
+          <li>Givry · Mercurey · Rully <span class="text-bronze">(Côte chalonnaise)</span></li>
+          <li>Pouilly-Fuissé · vignobles du Mâconnais</li>
+        </ul>
+      </article>
+
+      <!-- Patrimoine -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(138,94,26,.12)">🏛️</div>
+        <h3 class="font-display text-2xl font-600">Patrimoine & visites</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li>Hospices de Beaune & ses toits vernissés</li>
+          <li>Abbaye de Cluny · Abbaye de Tournus</li>
+          <li>Château de Cormatin · cité de Brancion</li>
+          <li>Autun la romaine · château de Sully</li>
+          <li>Palais des Ducs & vieille ville de Dijon</li>
+        </ul>
+      </article>
+
+      <!-- Bonnes tables -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(180,69,47,.1)">🍽️</div>
+        <h3 class="font-display text-2xl font-600">Bonnes tables</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li>Maison Lameloise <span class="text-bronze">★★★</span> · Chagny</li>
+          <li>Greuze & Aux Terrasses · Tournus</li>
+          <li>L'Amaryllis (C. Burtin) · Saint-Rémy</li>
+          <li>Le Bénaton & Loiseau des Vignes · Beaune</li>
+          <li>Bistrots de terroir & caveaux de vignerons</li>
+        </ul>
+      </article>
+
+      <!-- Activités & nature -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(79,122,58,.12)">🚴</div>
+        <h3 class="font-display text-2xl font-600">Activités & nature</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li>Voie Verte à vélo (Givry · Cluny · Mâconnais)</li>
+          <li>Accrobranche & parcours aventure · Givry</li>
+          <li>Roche de Solutré · grand site classé</li>
+          <li>Montgolfière au-dessus des vignes</li>
+          <li>Baignade & rando · lac des Settons, Morvan</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="reveal text-muted/70 text-xs mt-6">Sélection d'incontournables du secteur, à titre indicatif. Sur place, notre équipe conseille volontiers vos voyageurs selon leurs envies.</p>
+  </div>
+</section>
+
+<!-- ░░ BANDEAU PROPRIÉTAIRES ░░ -->
+<section class="pb-24 sm:pb-28">
+  <div class="max-w-content mx-auto px-5 sm:px-8">
+    <div class="reveal relative overflow-hidden rounded-3xl bg-brown text-cream px-8 sm:px-14 py-14 sm:py-16 text-center">
       <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 50% 0%, #E0AE2C 0, transparent 55%)"></div>
-      <div class="relative grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-        <!-- Accroche -->
-        <div class="text-center lg:text-left">
-          <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Estimation gratuite</p>
-          <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Parlons de votre projet autour d'un café</h2>
-          <p class="text-cream/80 text-lg mt-5 max-w-md mx-auto lg:mx-0">Recevez une estimation de revenus <span class="text-gold font-600">personnalisée et sans engagement</span>. Réponse sous 24 h.</p>
-          <div class="mt-7 flex flex-col sm:flex-row items-center lg:items-start gap-3 sm:gap-6 justify-center lg:justify-start text-cream/80 text-sm">
-            <span class="inline-flex items-center gap-2"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92z"/></svg>06 59 32 77 10</span>
-            <a href="https://wa.me/33659327710" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold hover:underline"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>Écrire sur WhatsApp</a>
-          </div>
-        </div>
-        <!-- Formulaire -->
-        <form id="estim-form" action="https://formsubmit.co/contact@sh-developpement.fr" method="POST" class="bg-cream text-ink rounded-3xl p-6 sm:p-8 shadow-2xl shadow-ink/40 text-left">
-          <input type="hidden" name="_subject" value="Nouvelle demande d'estimation — site SH">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://www.sh-developpement.fr/merci.html">
-          <input type="hidden" name="_autoresponse" value="Bonjour, merci pour votre demande d'estimation. Nous l'avons bien reçue et revenons vers vous sous 24 h. — L'équipe SH Développement">
-          <input type="hidden" id="estim-sim" name="Estimation simulateur">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <label class="block">
-              <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Nom et prénom *</span>
-              <input name="Nom" type="text" required autocomplete="name" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30">
-            </label>
-            <label class="block">
-              <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Téléphone *</span>
-              <input name="Téléphone" type="tel" required autocomplete="tel" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30">
-            </label>
-          </div>
-          <label class="block mt-4">
-            <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Email *</span>
-            <input name="Email" type="email" required autocomplete="email" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30">
-          </label>
-          <div class="grid sm:grid-cols-2 gap-4 mt-4">
-            <label class="block">
-              <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Type de bien</span>
-              <select name="Type de bien" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30">
-                <option>Studio</option><option>T2</option><option selected>T3</option><option>T4</option><option>T5 et +</option><option>Maison</option><option>Autre</option>
-              </select>
-            </label>
-            <label class="block">
-              <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Commune du bien</span>
-              <input name="Commune" type="text" placeholder="Ex. Chalon-sur-Saône" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30">
-            </label>
-          </div>
-          <label class="block mt-4">
-            <span class="text-[11px] font-700 text-cocoa uppercase tracking-wide">Votre message (facultatif)</span>
-            <textarea name="Message" rows="3" placeholder="Parlez-nous de votre bien…" class="mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 resize-none"></textarea>
-          </label>
-          <button type="submit" class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
-            Recevoir mon estimation gratuite
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <p class="text-muted text-xs mt-3 leading-relaxed">Vos informations servent uniquement à vous recontacter. Aucune transmission à des tiers.</p>
-        </form>
+      <div class="relative">
+        <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Vous êtes propriétaire ?</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight max-w-2xl mx-auto">Confiez-nous votre bien, on s'occupe de tout.</h2>
+        <p class="text-cream/80 text-lg mt-5 max-w-xl mx-auto">Conciergerie clé en main, revenus optimisés, zéro contrainte. Estimation gratuite et sans engagement.</p>
+        <a href="proprietaires.html" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-8 py-4 mt-9 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
+          Découvrir l'espace propriétaires
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
-<script>
-(function(){
-  var f = document.getElementById('estim-form'); if(!f) return;
-  f.addEventListener('submit', function(){
-    try{
-      var occ=(document.getElementById('sim-occ-val')||{}).textContent||'';
-      var m=(document.getElementById('sim-month')||{}).textContent||'';
-      var y=(document.getElementById('sim-year')||{}).textContent||'';
-      var el=document.getElementById('estim-sim');
-      if(el && m && m.indexOf('—')<0) el.value='Simulateur : occupation '+occ.trim()+' · ~'+m.trim()+' net/mois · '+y.trim()+' net/an';
-    }catch(e){}
-  });
-})();
-</script>
 
 <!-- ░░ FOOTER ░░ -->
 <footer class="bg-ink text-cream/70 pt-16 pb-10">
@@ -588,11 +390,11 @@ tailwind.config = {
         <p class="text-sm leading-relaxed">Conciergerie & locations d'exception en Bourgogne. Votre bien, notre métier.</p>
       </div>
       <div>
-        <h4 class="text-cream font-600 mb-4 text-sm tracking-wide">Conciergerie</h4>
+        <h4 class="text-cream font-600 mb-4 text-sm tracking-wide">Propriétaires</h4>
         <ul class="space-y-2.5 text-sm">
-          <li><a href="#conciergerie" class="hover:text-gold">Nos services</a></li>
-          <li><a href="#proprietaires" class="hover:text-gold">Estimer mes revenus</a></li>
-          <li><a href="#proprietaires" class="hover:text-gold">Pour les propriétaires</a></li>
+          <li><a href="proprietaires.html#conciergerie" class="hover:text-gold">Nos services</a></li>
+          <li><a href="proprietaires.html#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
+          <li><a href="proprietaires.html" class="hover:text-gold">Espace propriétaires</a></li>
         </ul>
       </div>
       <div>
@@ -752,6 +554,7 @@ function simRenderAmen(){
   }).join('');
 }
 function simCalc(){
+  if (!simOcc) return;   // pas de simulateur sur l'accueil (déplacé sur proprietaires.html)
   const adr = SIM_ADR[simType];
   const occ = parseInt(simOcc.value, 10) / 100;
   let mult = 1; SIM_AMEN.forEach(a => { if (simSel.has(a.key)) mult *= a.mult; });
