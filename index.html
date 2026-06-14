@@ -781,7 +781,7 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     map = new maplibregl.Map({
       container: 'map3d',
       minZoom: 5, maxPitch: 80, attributionControl: false,
-      center: [4.84, 46.62], zoom: 7.7, pitch: 62, bearing: -19,
+      center: [4.84, 46.62], zoom: 6.9, pitch: 55, bearing: -19,
       style: {
         version: 8,
         sources: {
@@ -799,12 +799,22 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
     popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 15, maxWidth: 'none', className: 'sh-pop' });
-    map.on('load', () => {
+    // Intro animée vers le cadrage cible : une animation de caméra (plusieurs frames) est le SEUL moyen fiable de forcer
+    // MapLibre à composer les tuiles d'un canvas WebGL ; on l'exécute dès que le style est prêt (sans attendre 'load',
+    // qui peut tarder avec le terrain).
+    let intro = false;
+    const playIntro = () => {
+      if (intro || !map.isStyleLoaded()) return; intro = true;
       try { map.setTerrain({ source: 'dem', exaggeration: 1.5 }); } catch (e) {}
       try { map.setSky({ 'sky-color': '#a7c9ee', 'horizon-color': '#e3eaf2', 'fog-color': '#f3ece0', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.5, 'fog-ground-blend': 0.4 }); } catch (e) {}
       map.resize();
-      setTimeout(reveal, 900);
-    });
+      map.easeTo({ center: [4.84, 46.62], zoom: 7.7, pitch: 62, bearing: -19, duration: 1600 });
+      setTimeout(reveal, 850);
+    };
+    map.on('load', playIntro);
+    map.on('styledata', playIntro);
+    const introPoll = setInterval(() => { if (intro) { clearInterval(introPoll); return; } playIntro(); }, 250);
+    setTimeout(() => clearInterval(introPoll), 6000);
     map.on('idle', reveal);
     if (dataReady) buildMarkers();
     setTimeout(reveal, 8000); // filet de sécurité
