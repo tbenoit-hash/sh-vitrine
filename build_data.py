@@ -35,6 +35,15 @@ PRIORITY_AM = ['Wifi', 'Cuisine équipée', 'Parking gratuit', 'Parking', 'Jacuz
                'Sauna', 'Climatisation', 'Lave-linge', 'Sèche-linge', 'Lave-vaisselle',
                'Télévision', 'Chauffage', 'Jardin', 'Balcon', 'Terrasse', 'Barbecue',
                'Cheminée', 'Ascenseur', 'Arrivée autonome', 'Entrée privée']
+
+# Projection sur la carte illustrée de Bourgogne (carte-bourgogne.svg, viewBox 1500x1180)
+MAP = dict(minlon=2.845190, maxlat=48.399390, kx=0.678446, scale=490.3163, offx=500.351, offy=40.0, W=1500.0, H=1180.0)
+def map_pos(lat, lon):
+    if lat is None or lon is None or not (45.8 <= lat <= 48.5 and 2.7 <= lon <= 5.7):
+        return (None, None)
+    x = MAP['offx'] + (lon - MAP['minlon']) * MAP['kx'] * MAP['scale']
+    y = MAP['offy'] + (MAP['maxlat'] - lat) * MAP['scale']
+    return (round(x / MAP['W'] * 100, 2), round(y / MAP['H'] * 100, 2))
 SKI_CITIES = {"Les Belleville", "Demi-Quartier", "Megève"}
 SEA_CITIES = {"La Londe-les-Maures"}
 
@@ -95,6 +104,7 @@ def prop_record(l):
             seen.add(fr); am_fr.append(fr)
     am_fr.sort(key=lambda x: PRIORITY_AM.index(x) if x in PRIORITY_AM else 99)
     desc = re.sub(r"\s+", " ", (l.get("description") or "")).strip()
+    mx, my = map_pos(l.get("lat"), l.get("lng"))
     return {
         "id": l.get("id"),
         "name": clean_name(l.get("name") or l.get("internalListingName") or f"Logement {l.get('id')}"),
@@ -110,6 +120,8 @@ def prop_record(l):
         "amenities": am_fr[:14],
         "lat": l.get("lat"),
         "lng": l.get("lng"),
+        "mapx": mx,
+        "mapy": my,
     }
 
 
