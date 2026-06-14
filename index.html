@@ -634,7 +634,13 @@ function renderGrid(){ grid.innerHTML = listings.map((l, i) => {
       <p class="mt-1.5 text-ink"><span class="font-700">${l.price} €</span> <span class="text-muted">/ nuit</span></p>
     </div>
   </a>`;
-}).join(''); }
+}).join('');
+  // ANTI PAGE BLANCHE : les cartes sont (re)injectées dynamiquement (repli puis data.json), et
+  // l'observateur de défilement n'observe que les .reveal présents au chargement. On rend donc
+  // les cartes visibles IMMÉDIATEMENT et de façon inconditionnelle — sans dépendre de l'observer
+  // ni de requestAnimationFrame (qui peut être gelé dans un onglet en arrière-plan).
+  grid.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
 grid.addEventListener('click', e => {
   const h = e.target.closest('.heart'); if (!h) return;
   e.preventDefault(); e.stopPropagation();
