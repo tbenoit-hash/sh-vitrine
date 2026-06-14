@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Merci — votre demande est envoyée | SH Développement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
+  fontFamily: { display:['"Cormorant Garamond"','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+  maxWidth: { content:'1280px' }
+}}}
+</script>
+<style>
+  body{font-family:Inter,system-ui,sans-serif}
+  .font-display{font-family:"Cormorant Garamond",Georgia,serif}
+  .tracking-luxe{letter-spacing:.28em}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  .pop{animation:pop .5s cubic-bezier(.2,.8,.3,1.2) both}
+</style>
+</head>
+<body class="bg-cream text-ink antialiased min-h-screen flex flex-col">
+
+<main class="flex-1 flex items-center justify-center px-5 py-16">
+  <div class="max-w-lg w-full text-center">
+    <div class="pop mx-auto w-20 h-20 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center mb-8">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8A5E1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Demande envoyée</p>
+    <h1 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Merci, c'est bien reçu !</h1>
+    <p class="text-muted text-lg mt-5 leading-relaxed">Votre demande d'estimation nous est parvenue. Notre équipe vous recontacte <span class="text-ink font-600">sous 24 h</span> avec une estimation personnalisée et sans engagement.</p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+      <a href="index.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-brown cursor-pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Retour à l'accueil
+      </a>
+      <a href="https://wa.me/33659327710" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-ecru text-cocoa px-7 py-4 font-600 hover:border-cocoa/50 cursor-pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.21 8.21 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+        Nous écrire sur WhatsApp
+      </a>
+    </div>
+
+    <p class="text-muted/70 text-sm mt-10">Une question ? <a href="mailto:contact@sh-developpement.fr" class="text-bronze hover:text-ink font-600">contact@sh-developpement.fr</a></p>
+  </div>
+</main>
+
+</body>
+</html>
