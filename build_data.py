@@ -199,11 +199,11 @@ def main():
     records = [prop_record(l) for l in listings]
     byrec = {r["id"]: r for r in records}
 
-    # Galerie « nos plus beaux » : meilleures notes voyageurs, 1 seul par famille (variété),
-    # avec une galerie photo complète (gage de présentation soignée), hors pépites hors-région.
-    # Auto-mis à jour chaque jour : un logement mieux noté remonte tout seul dans la sélection.
-    cand = [r for r in records if r["id"] not in EXTRA_IDS and r.get("rating") and r.get("cover") and len(r.get("photos") or []) >= 10]
-    cand.sort(key=lambda r: (-(r.get("rating") or 0), -len(r.get("photos") or []), r.get("name") or ""))
+    # Galerie « nos biens d'exception » : les logements les plus CHERS, 1 seul par famille
+    # (pour la variété), hors pépites hors-région. Auto-mis à jour chaque jour : un bien
+    # au tarif plus élevé remonte tout seul dans la sélection. (tri par prix décroissant)
+    cand = [r for r in records if r["id"] not in EXTRA_IDS and r.get("cover") and (r.get("price") or 0) > 0]
+    cand.sort(key=lambda r: (-(r.get("price") or 0), -(r.get("rating") or 0), r.get("name") or ""))
     featured, seen_fam = [], set()
     for r in cand:
         fk = family_key(r.get("name"))
