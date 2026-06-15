@@ -153,8 +153,46 @@ def first_name(n):
     return (n[:1].upper() + n[1:].lower()) if n else "Voyageur"
 
 
-def pick_reviews(tok, byid, n=6):
-    res = api_get("/reviews", tok, {"limit": 500}).get("result", [])
+def fetch_all_reviews(tok, max_pages=12):
+    """Récupère tous les avis (paginés, 500/page)."""
+    out = []
+    for p in range(max_pages):
+        res = api_get("/reviews", tok, {"limit": 500, "offset": p * 500}).get("result", []) or []
+        out.extend(res)
+        if len(res) < 500:
+            break
+    return out
+
+
+def aggregate_listing_reviews(all_reviews, per=3):
+    """Par logement : nombre d'avis publiés + meilleurs commentaires FR (prénom + texte)."""
+    counts, cands = {}, {}
+    for r in all_reviews:
+        if r.get("type") != "guest-to-host" or r.get("status") != "published":
+            continue
+        lid = r.get("listingMapId")
+        if lid is None:
+            continue
+        counts[lid] = counts.get(lid, 0) + 1
+        txt = clean_review(r.get("publicReview"))
+        if 40 <= len(txt) <= 240 and "negative" not in txt.lower() and is_french(txt):
+            cands.setdefault(lid, []).append({"rating": r.get("rating") or 0,
+                                              "name": first_name(r.get("guestName")), "text": txt})
+    out = {}
+    for lid, c in counts.items():
+        items = sorted(cands.get(lid, []), key=lambda x: (-(x["rating"] or 0), -len(x["text"])))
+        seen, picked = set(), []
+        for it in items:
+            if it["name"] in seen:
+                continue
+            seen.add(it["name"]); picked.append({"name": it["name"], "text": it["text"]})
+            if len(picked) >= per:
+                break
+        out[lid] = {"count": c, "reviews": picked}
+    return out
+
+
+def pick_reviews(res, byid, n=6):
     cands = []
     for r in res:
         if r.get("type") != "guest-to-host" or r.get("status") != "published":
@@ -313,6 +351,8 @@ def generate_listing_pages(records):
             ld["aggregateRating"] = {"@type": "AggregateRating",
                                      "ratingValue": round(float(r["rating"]), 1),
                                      "bestRating": 10, "worstRating": 0}
+            if r.get("reviewCount"):
+                ld["aggregateRating"]["reviewCount"] = r["reviewCount"]
         if r.get("amenities"):
             ld["amenityFeature"] = [{"@type": "LocationFeatureSpecification", "name": a}
                                     for a in r["amenities"][:12]]
@@ -398,7 +438,15 @@ def main():
 
     communes = sorted({(l.get("city") or "").strip() for l in listings if l.get("city")})
     try:
-        reviews = pick_reviews(tok, byid)
+        all_reviews = fetch_all_reviews(tok)
+        reviews = pick_reviews(all_reviews, byid)
+        per_listing_reviews = aggregate_listing_reviews(all_reviews)
+        for r in records:
+            pr = per_listing_reviews.get(r["id"])
+            if pr:
+                r["reviewCount"] = pr["count"]
+                r["reviews"] = pr["reviews"]
+        print(f"avis : {len(all_reviews)} récupérés, {len(per_listing_reviews)} logements notés")
     except Exception as e:
         print("avis non récupérés:", e); reviews = []
     out = {

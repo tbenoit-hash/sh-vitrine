@@ -1,10 +1,10 @@
 {
-  "count": 119,
+  "count": 122,
   "communes": 23,
   "adr": {
     "Studio": 45,
     "T3": 75,
-    "T2": 55,
+    "T2": 53,
     "T5": 250,
     "T4": 96,
     "T6+": 350
@@ -61,7 +61,22 @@
       "markup": 1.05,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 24,
+      "reviews": [
+        {
+          "name": "Voyageur",
+          "text": "Le logement est parfait pour accueillir grande famille ou bande de copains. Spacieux, organisé et propre. Une belle météo nous à permis de profiter de l'extérieur. Je recommande sans problème. Merci Anthony et à bientôt 👍"
+        },
+        {
+          "name": "Mohammed",
+          "text": "Très beau séjour. Maison très spacieuse et très agréable à vivre. La cuisine, le salon, les chambres; tout est grand, propre et neuf. Je recommande."
+        },
+        {
+          "name": "Tommy",
+          "text": "Très jolie maison, propre et fidèle à la description, je recommande"
+        }
+      ]
     },
     {
       "id": 465573,
@@ -114,7 +129,18 @@
       "markup": 1.05,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 9,
+      "reviews": [
+        {
+          "name": "Voyageur",
+          "text": "Nous avons passé un agréable séjour dans le logement d'Anthony. Le logement correspondait à nos critères et nous l'avons trouvé propre et bien décoré. je recommande"
+        },
+        {
+          "name": "Jonathan",
+          "text": "Le logement correspond totalement à l’annonce, c’est très propre et de bon goût, je recommande !"
+        }
+      ]
     },
     {
       "id": 468351,
@@ -130,8 +156,8 @@
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-bDbenOl9gJ30WvspCQpvWGz-r--XKn4MwjB--hEJBW6EQ-6a2f1a6b1b1e8",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-C1IUWTXuZGuYM3DGE--olutbJ53lpaZhUG-89uEsKAz0-6a2f1a23941c3",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-ijZd2F--vDfNq29v1YLq9Xu7JiQ1p8U06d-IzejvGRj8-6a2f1a2854964",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-lzReULyjSVUkscWAepGl2o5yQW9--h5pZV-C5iqfhGGY-6a2f1a03c40a9",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-TKbjGyGq1iN47xpTdyEn2KvTUw6e2cgb1nhMQA3BZg8-6a2f1a3230901",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-lzReULyjSVUkscWAepGl2o5yQW9--h5pZV-C5iqfhGGY-6a2f1a03c40a9",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-8HkLHNbks94fG-JiHcm1bZT--V--vgE5LUbFjl4RtI-ho-6a2f1a4408b4e",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-qUJ--TQ1ayV1XBCWZhuTMKJFTbwg46rUac5vmLri0xt4-6a2f1a07b7583",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-468351-hlzSaqEjOio7--SJcXCvilaPx8BsWF--jskrYz--8dKD8-6a2f1a11f08d2",
@@ -167,7 +193,22 @@
       "markup": 1.05,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 42,
+      "reviews": [
+        {
+          "name": "Paul",
+          "text": "Très bon séjour sur place pour le marathon de Chalon-sur-Saône. L’hôte nous a accordé de partir un petit plus tard le dimanche afin de nous reposer. Une belle attention pour ponctuer un passage dans cette belle région"
+        },
+        {
+          "name": "Justine",
+          "text": "Très bon séjour passé dans cette maison ! Top d’avoir des serviettes et du linge de lit de qualité. Bien équipée et propre. Hôte très réactif et sympathique"
+        },
+        {
+          "name": "Voyageur",
+          "text": "Belle maison de ville rénovée, logement propre, prix raisonnable, facilité pour garer les voitures, petit plus avec le jacuzzi propre et chaud. Parfait !"
+        }
+      ]
     },
     {
       "id": 475670,
@@ -220,7 +261,22 @@
       "markup": 1.05,
       "minNights": 2,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 40,
+      "reviews": [
+        {
+          "name": "Aurelien",
+          "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave."
+        },
+        {
+          "name": "Voyageur",
+          "text": "Maison idéale pour plusieurs couples d’amis ou une famille, tout était pratique et confortable. Petite attention locale à l’arrivée. On n’hésitera pas à y revenir si nous sommes dans le coin."
+        },
+        {
+          "name": "Claire",
+          "text": "Très belle maison dans un charmant village avec de belles balades à faire Bonne literie et espaces bien délimités nous avons passé un bon WE"
+        }
+      ]
     },
     {
       "id": 465755,
@@ -273,7 +329,18 @@
       "markup": 1.15,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 3,
+      "reviews": [
+        {
+          "name": "Martin",
+          "text": "Un séjour particulièrement reposant pour passer Noël en famille. La maison était parfaite À La fois pour adultes et enfants avec une piscine très sécurisée ! Nous reviendrons avec grand plaisir !"
+        },
+        {
+          "name": "Voyageur",
+          "text": "deux très beaux gîtes où on se sent bien 👍 très bonne communication en amont pour la préparation du séjour. Merci"
+        }
+      ]
     },
     {
       "id": 468463,
@@ -326,7 +393,22 @@
       "markup": 1.05,
       "minNights": 3,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 11,
+      "reviews": [
+        {
+          "name": "Voyageur",
+          "text": "j’ai passé un super week end dans ce airbnb, conforme au photo et à la description, le logement était très propre juste un peu compliqué à trouver mais à part ça tout était nickel, je recommande vivement"
+        },
+        {
+          "name": "Olivier",
+          "text": "Excellent séjour, très au calme. Quelques ajustements au debut mais le propriétaire a été très réactif."
+        },
+        {
+          "name": "Mohammed",
+          "text": "Merci pour ce séjour très agréable. Tout a été parfait. Je recommande fortement. Merci"
+        }
+      ]
     },
     {
       "id": 474343,
@@ -379,7 +461,22 @@
       "markup": 1.05,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 78,
+      "reviews": [
+        {
+          "name": "Voyageur",
+          "text": "Très jolie maison de village, bien équipée et décorée avec soin. Check in et communication avec l’hôte très facile. Située à proximité des vignes, sentiers de randonnée accessible à pied. Super week-end merci !"
+        },
+        {
+          "name": "Leonard",
+          "text": "Un très beau week-end au calme dans ce logement qui correspond aux attentes. Décoré avec goût et soin."
+        },
+        {
+          "name": "Celine",
+          "text": "Jolie maison de village, très bien équipée."
+        }
+      ]
     },
     {
       "id": 465404,
@@ -431,7 +528,22 @@
       "markup": 1.05,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "reviewCount": 67,
+      "reviews": [
+        {
+          "name": "Arnaud",
+          "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région."
+        },
+        {
+          "name": "Francine",
+          "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable."
+        },
+        {
+          "name": "Voyageur",
+          "text": "Un très bon week-end passé chez Anthony, le château est calme et agréable. Nous reviendrons avec plaisir."
+        }
+      ]
     }
   ],
   "extras": [
@@ -540,34 +652,34 @@
   ],
   "reviews": [
     {
+      "name": "Voyageur",
+      "place": "Chalon-sur-Saône",
+      "text": "un excellent logement pour quiconque souhaite passer un week end à chalon sur saone. Situer au coeur du centre-ville, cet appartement rend facile d'accès tous les restaurants et boutiques tout en restant confortable. Je recommande"
+    },
+    {
+      "name": "Veronique",
+      "place": "Fragnes-La Loyère",
+      "text": "Nous avons passé un excellent séjour. Christian est un hôte très sympathique. L appartement correspond bien au descriptif. Literie très confortable. L endroit est très paisible et propice aux ballades . Vue magnifique sur le canal"
+    },
+    {
+      "name": "Carlos",
+      "place": "La Charmée",
+      "text": "Maison conforme à la description, très propre, bien rangé et parfaitement équipé (très complet) dans un écrin de verdure et extrêmement paisible. Véronique s'est montrée extrêmement accueillante et à l'écoute. Nous recommandons !"
+    },
+    {
+      "name": "Martha",
+      "place": "Mâcon",
+      "text": "Logement très agréable et spacieux. Bon emplacement pour accéder au centre ville et bords de Saône. Arrivée autonome sans encombre. Nous nous sommes garés sur le parking gratuit de la gare, il n'y avait pas de place dans la rue."
+    },
+    {
       "name": "Hamouda",
       "place": "Chalon-sur-Saône",
       "text": "Logement facile d’accès, très bien situé. Le propriétaire est à l’écoute, disponible et présent en cas de besoin. Le logement est propre, pratique et fonctionnel. Très bon rapport qualité/prix. Je recommande sans hésitation."
     },
     {
-      "name": "Elodie",
-      "place": "Mâcon",
-      "text": "Magnifique logement, très bien situé et décoré avec beaucoup de goût. Très calme. C'était vraiment top !"
-    },
-    {
-      "name": "Emmanuel",
-      "place": "Chalon-sur-Saône",
-      "text": "Appartement fait avec beaucoup de goût . Spacieux calme Équipements au top Propriétaire très réactif"
-    },
-    {
-      "name": "Anne",
-      "place": "Chalon-sur-Saône",
-      "text": "L emplacement proche du centre ville et de la gare (ligne 1). La clarté, le calme, la propreté"
-    },
-    {
-      "name": "David",
+      "name": "Aurelien",
       "place": "Dracy-le-Fort",
-      "text": "Le château est très bien entretenu. Le logement est propre et confortable."
-    },
-    {
-      "name": "Dalencon",
-      "place": "Chalon-sur-Saône",
-      "text": "Le logement était très propre et bien équipé. La remise des clés simples"
+      "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave."
     }
   ],
   "updated": "2026-06-15"
