@@ -45,6 +45,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   .heart.on svg{fill:#E0AE2C !important;stroke:#FBF8F3 !important}
 </style>
 <script src="daterange.js" defer></script>
+<script src="destination.js" defer></script>
 </head>
 <body class="bg-cream text-ink antialiased">
 
@@ -89,9 +90,9 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
     <div class="max-w-3xl mx-auto">
       <div class="flex flex-col sm:flex-row sm:items-stretch bg-cream border border-ecru rounded-3xl sm:rounded-full shadow-lg shadow-ink/5">
-        <label class="flex-1 px-5 py-2.5 hover:bg-sand/40 rounded-t-3xl sm:rounded-l-full sm:rounded-tr-none cursor-text">
+        <label data-destpicker class="flex-1 px-5 py-2.5 hover:bg-sand/40 rounded-t-3xl sm:rounded-l-full sm:rounded-tr-none cursor-text">
           <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Destination</span>
-          <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Ville, logement…" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
+          <input id="q" data-dest-input type="search" aria-label="Rechercher une ville ou un logement" placeholder="Où allez-vous ?" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
         </label>
         <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
         <div data-rangepicker class="contents">

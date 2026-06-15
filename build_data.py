@@ -423,6 +423,19 @@ def generate_listing_pages(records):
     print(f"bien/ : {n} pages logement statiques générées (SEO + Open Graph + JSON-LD)")
 
 
+def build_cities(records):
+    """cities.json — villes + nb de logements, pour l'autocomplétion du champ Destination."""
+    cnt = {}
+    for r in records:
+        c = (r.get("city") or "").strip()
+        if c:
+            cnt[c] = cnt.get(c, 0) + 1
+    cities = [{"name": k, "n": v} for k, v in sorted(cnt.items(), key=lambda kv: (-kv[1], kv[0]))]
+    with open("cities.json", "w", encoding="utf-8") as f:
+        json.dump({"cities": cities}, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"cities.json : {len(cities)} villes")
+
+
 def main():
     load_env()
     tok = get_token()
@@ -508,6 +521,7 @@ def main():
             print("disponibilités échouées:", e)
     write_seo(records)
     build_dispo_index()
+    build_cities(records)
     generate_listing_pages(records)
 
 
