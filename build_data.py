@@ -329,9 +329,9 @@ def build_dispo_index(days=400):
         except Exception:
             continue
         lid = str(data.get("id") or os.path.splitext(os.path.basename(fp))[0])
-        dayset = set((data.get("days") or {}).keys())
-        idx[lid] = "".join("1" if (base + datetime.timedelta(days=i)).isoformat() in dayset else "0"
-                           for i in range(days))
+        daymap = data.get("days") or {}
+        # prix de base par nuit (0 = indisponible) → sert au filtre ET au calcul du prix du séjour
+        idx[lid] = [int(daymap.get((base + datetime.timedelta(days=i)).isoformat()) or 0) for i in range(days)]
     with open(os.path.join(here, "dispo.json"), "w", encoding="utf-8") as f:
         json.dump({"base": base.isoformat(), "days": days, "listings": idx}, f,
                   ensure_ascii=False, separators=(",", ":"))

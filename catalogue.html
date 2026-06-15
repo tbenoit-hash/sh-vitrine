@@ -155,7 +155,7 @@ const matchesTheme = (l, t) => {
   if (t === 'romantique') return (l.guests||0) <= 2;
   return true;
 };
-let LISTINGS = [], DISPO = null, q = '', activeType = 'all', activeTheme = 'all';
+let LISTINGS = [], DISPO = null, SEL = { ok:false }, q = '', activeType = 'all', activeTheme = 'all';
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
 const note5 = r => (r/2).toFixed(2).replace('.', ',');
@@ -217,20 +217,35 @@ function card(l){
         ${rate}
       </div>
       <p class="text-muted text-sm leading-snug truncate">${esc(l.city)} · ${l.guests} voyageurs · ${l.bedrooms?l.bedrooms+' ch.':'Studio'}</p>
-      <p class="mt-1.5 text-ink"><span class="font-700">${eur(l.price)}</span> <span class="text-muted">/ nuit</span></p>
+      <p class="mt-1.5 text-ink">${priceLine(l)}</p>
     </div>
   </a>`;
 }
+function dispoArr(id){ return (DISPO && DISPO.listings && DISPO.listings[String(id)]) || null; }
+function rangeOffset(inStr, outStr){
+  const base = new Date(DISPO.base + 'T00:00:00'), di = new Date(inStr + 'T00:00:00'), dout = new Date(outStr + 'T00:00:00');
+  return { off: Math.round((di - base) / 86400000), nights: Math.round((dout - di) / 86400000) };
+}
 function availFor(id, inStr, outStr){
-  if (!DISPO || !DISPO.listings) return true;
-  const bm = DISPO.listings[String(id)];
-  if (!bm) return true; // pas de données de dispo → on n'exclut pas le logement
-  const base = new Date(DISPO.base + 'T00:00:00');
-  const di = new Date(inStr + 'T00:00:00'), dout = new Date(outStr + 'T00:00:00');
-  const off = Math.round((di - base) / 86400000), nights = Math.round((dout - di) / 86400000);
-  if (off < 0 || nights < 1 || off + nights > bm.length) return false;
-  for (let i = 0; i < nights; i++) if (bm[off + i] !== '1') return false;
+  const arr = dispoArr(id);
+  if (!arr) return true; // pas de données → on n'exclut pas le logement
+  const { off, nights } = rangeOffset(inStr, outStr);
+  if (off < 0 || nights < 1 || off + nights > arr.length) return false;
+  for (let i = 0; i < nights; i++) if (!arr[off + i]) return false; // 0 = indisponible
   return true;
+}
+function stayTotal(l, inStr, outStr){
+  const arr = dispoArr(l.id);
+  if (!arr) return null;
+  const { off, nights } = rangeOffset(inStr, outStr);
+  if (off < 0 || nights < 1) return null;
+  let sum = 0;
+  for (let i = 0; i < nights; i++){ const p = arr[off + i]; if (!p) return null; sum += p; }
+  return { nights, total: Math.round(sum * (l.markup || 1)) + (l.cleaningFee || 0) };
+}
+function priceLine(l){
+  if (SEL.ok){ const s = stayTotal(l, SEL.in, SEL.out); if (s) return `<span class="font-700">${eur(s.total)}</span> <span class="text-muted">total · ${s.nights} nuit${s.nights>1?'s':''}</span>`; }
+  return `<span class="font-700">${eur(l.price)}</span> <span class="text-muted">/ nuit</span>`;
 }
 const fmtFR = s => { const p = s.split('-'); return p[2] + '/' + p[1]; };
 function render(){
@@ -255,6 +270,7 @@ function render(){
     if (datesOK) { note.textContent = items.length + ' logement' + (items.length>1?'s':'') + ' disponible' + (items.length>1?'s':'') + ' du ' + fmtFR(inV) + ' au ' + fmtFR(outV); note.classList.remove('hidden'); }
     else note.classList.add('hidden');
   }
+  SEL = datesOK ? { ok: true, in: inV, out: outV } : { ok: false };
   document.getElementById('empty').classList.toggle('hidden', items.length > 0);
   document.getElementById('grid').innerHTML = items.map(card).join('');
 }
