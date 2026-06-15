@@ -316,6 +316,28 @@ def write_seo(records):
     print(f"sitemap.xml : {len(urls)} URLs ; robots.txt écrit")
 
 
+def build_dispo_index(days=400):
+    """Consolide les dispos de tous les avail/{id}.json en UN seul dispo.json (bitmap compact)
+    → recherche par dates sur le catalogue sans charger 122 fichiers côté navigateur."""
+    import datetime, glob
+    here = os.path.dirname(os.path.abspath(__file__))
+    base = datetime.date.today()
+    idx = {}
+    for fp in glob.glob(os.path.join(here, "avail", "*.json")):
+        try:
+            data = json.load(open(fp, encoding="utf-8"))
+        except Exception:
+            continue
+        lid = str(data.get("id") or os.path.splitext(os.path.basename(fp))[0])
+        dayset = set((data.get("days") or {}).keys())
+        idx[lid] = "".join("1" if (base + datetime.timedelta(days=i)).isoformat() in dayset else "0"
+                           for i in range(days))
+    with open(os.path.join(here, "dispo.json"), "w", encoding="utf-8") as f:
+        json.dump({"base": base.isoformat(), "days": days, "listings": idx}, f,
+                  ensure_ascii=False, separators=(",", ":"))
+    print(f"dispo.json : {len(idx)} logements (fenêtre {days} j)")
+
+
 def generate_listing_pages(records):
     """Génère bien/{id}/index.html à partir du gabarit logement.html : title/description
     uniques, Open Graph, JSON-LD LodgingBusiness, repli <noscript>. Chaque logement a ainsi
@@ -485,6 +507,7 @@ def main():
         except Exception as e:
             print("disponibilités échouées:", e)
     write_seo(records)
+    build_dispo_index()
     generate_listing_pages(records)
 
 

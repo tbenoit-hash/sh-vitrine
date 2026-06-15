@@ -84,14 +84,40 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
     <p class="text-muted text-lg mt-3"><span id="count">…</span> logements d'exception, à réserver sans intermédiaire.</p>
   </div>
 
-  <!-- Barre de recherche style Airbnb -->
+  <!-- Barre de recherche façon Airbnb : destination + dates + voyageurs -->
   <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
-    <div class="max-w-xl mx-auto relative">
-      <svg class="absolute left-5 top-1/2 -translate-y-1/2 text-bronze" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full bg-cream border border-ecru shadow-lg shadow-ink/5 pl-12 pr-5 py-4 text-base outline-none focus:border-gold focus:shadow-ink/10">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-stretch bg-cream border border-ecru rounded-3xl sm:rounded-full shadow-lg shadow-ink/5">
+        <label class="flex-1 px-5 py-2.5 hover:bg-sand/40 rounded-t-3xl sm:rounded-l-full sm:rounded-tr-none cursor-text">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Destination</span>
+          <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Ville, logement…" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
+        </label>
+        <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
+        <label class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
+          <input id="d-in" type="date" aria-label="Date d'arrivée" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
+        </label>
+        <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
+        <label class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
+          <input id="d-out" type="date" aria-label="Date de départ" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
+        </label>
+        <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
+        <label class="px-5 py-2.5 hover:bg-sand/40 cursor-text border-t border-ecru/60 sm:border-t-0">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span>
+          <input id="d-guests" type="number" min="1" aria-label="Nombre de voyageurs" placeholder="Tous" class="w-20 bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
+        </label>
+        <div class="p-2 flex">
+          <button id="search-btn" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink px-5 py-3 font-700 hover:bg-bronze hover:text-cream cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-bronze">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <span class="sm:hidden">Rechercher</span>
+          </button>
+        </div>
+      </div>
+      <div id="dispo-note" class="hidden text-center text-sm text-bronze mt-3 font-600"></div>
+      <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
+      <div id="theme-filters" class="flex flex-wrap justify-center gap-2 mt-3"></div>
     </div>
-    <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
-    <div id="theme-filters" class="flex flex-wrap justify-center gap-2 mt-3"></div>
   </div>
 
   <div id="grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-9"></div>
@@ -129,7 +155,7 @@ const matchesTheme = (l, t) => {
   if (t === 'romantique') return (l.guests||0) <= 2;
   return true;
 };
-let LISTINGS = [], q = '', activeType = 'all', activeTheme = 'all';
+let LISTINGS = [], DISPO = null, q = '', activeType = 'all', activeTheme = 'all';
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
 const note5 = r => (r/2).toFixed(2).replace('.', ',');
@@ -137,20 +163,29 @@ const FAV = new Set(JSON.parse(localStorage.getItem('sh_fav') || '[]'));
 const heart = '<svg viewBox="0 0 32 32" width="24" height="24" style="display:block;fill:rgba(46,36,16,.35);stroke:#FBF8F3;stroke-width:2.4;overflow:visible"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>';
 const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" style="display:inline-block;vertical-align:-1px"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
 
-fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+Promise.all([
+  fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch('dispo.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+]).then(([d, dispo]) => {
   document.getElementById('loading').classList.add('hidden');
+  DISPO = dispo;
   if (!d || !d.listings) { document.getElementById('empty').classList.remove('hidden'); return; }
   const SH_BAS = new Set([470958, 465564, 556640]);  // Le Maie Buisson, Panorama des Neiges, Le Perchoir → toujours en bas
   LISTINGS = d.listings.slice().sort((a, b) =>
     ((SH_BAS.has(a.id) ? 1 : 0) - (SH_BAS.has(b.id) ? 1 : 0))   // ces 3 biens relégués en dernier
     || (b.price || 0) - (a.price || 0)                          // sinon, du plus cher au moins cher
     || (b.rating || 0) - (a.rating || 0));
-  document.getElementById('count').textContent = d.count || LISTINGS.length;
   const params = new URLSearchParams(location.search);
   const urlQ = params.get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
   if (urlQ) { q = urlQ; const qi = document.getElementById('q'); if (qi) qi.value = urlQ; }
   const urlT = params.get('theme'); // collection thématique (depuis l'accueil)
   if (urlT && THEMES.some(t => t[0] === urlT)) activeTheme = urlT;
+  // Dates / voyageurs — pré-remplis depuis l'URL (?in=&out=&guests=, ex. depuis l'accueil)
+  const today = new Date().toISOString().slice(0, 10);
+  const di = document.getElementById('d-in'), dou = document.getElementById('d-out'), dg = document.getElementById('d-guests');
+  if (di) { di.min = today; if (params.get('in')) di.value = params.get('in'); }
+  if (dou) { dou.min = today; if (params.get('out')) dou.value = params.get('out'); }
+  if (dg && params.get('guests')) dg.value = params.get('guests');
   renderTypes(); renderThemes(); render();
 }).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
 
@@ -186,17 +221,40 @@ function card(l){
     </div>
   </a>`;
 }
+function availFor(id, inStr, outStr){
+  if (!DISPO || !DISPO.listings) return true;
+  const bm = DISPO.listings[String(id)];
+  if (!bm) return true; // pas de données de dispo → on n'exclut pas le logement
+  const base = new Date(DISPO.base + 'T00:00:00');
+  const di = new Date(inStr + 'T00:00:00'), dout = new Date(outStr + 'T00:00:00');
+  const off = Math.round((di - base) / 86400000), nights = Math.round((dout - di) / 86400000);
+  if (off < 0 || nights < 1 || off + nights > bm.length) return false;
+  for (let i = 0; i < nights; i++) if (bm[off + i] !== '1') return false;
+  return true;
+}
+const fmtFR = s => { const p = s.split('-'); return p[2] + '/' + p[1]; };
 function render(){
   const ql = q.trim().toLowerCase();
+  const inV = (document.getElementById('d-in') || {}).value || '';
+  const outV = (document.getElementById('d-out') || {}).value || '';
+  const g = parseInt((document.getElementById('d-guests') || {}).value, 10) || 0;
+  const datesOK = inV && outV && outV > inV;
   const items = LISTINGS.filter(l => {
     if (activeType !== 'all' && typeOf(l.bedrooms) !== activeType) return false;
     if (!matchesTheme(l, activeTheme)) return false;
+    if (g && (l.guests || 0) < g) return false;
+    if (datesOK && !availFor(l.id, inV, outV)) return false;
     if (ql && !((l.name||'').toLowerCase().includes(ql) || (l.city||'').toLowerCase().includes(ql))) return false;
     return true;
   });
   const tt = THEME_TITLES[activeTheme];
   const title = document.getElementById('cat-title'); if (title) title.textContent = tt ? ('Nos locations ' + tt) : 'Nos locations en Bourgogne';
   const cnt = document.getElementById('count'); if (cnt) cnt.textContent = items.length;
+  const note = document.getElementById('dispo-note');
+  if (note) {
+    if (datesOK) { note.textContent = items.length + ' logement' + (items.length>1?'s':'') + ' disponible' + (items.length>1?'s':'') + ' du ' + fmtFR(inV) + ' au ' + fmtFR(outV); note.classList.remove('hidden'); }
+    else note.classList.add('hidden');
+  }
   document.getElementById('empty').classList.toggle('hidden', items.length > 0);
   document.getElementById('grid').innerHTML = items.map(card).join('');
 }
@@ -209,6 +267,14 @@ document.getElementById('theme-filters').addEventListener('click', e => {
   const b = e.target.closest('button[data-theme]'); if (!b) return;
   activeTheme = b.dataset.theme; renderThemes(); render();
 });
+['d-in','d-out','d-guests'].forEach(id => {
+  const el = document.getElementById(id); if (!el) return;
+  el.addEventListener('change', () => {
+    if (id === 'd-in') { const o = document.getElementById('d-out'); if (o && el.value && (!o.value || o.value <= el.value)) o.min = el.value; }
+    render();
+  });
+});
+document.getElementById('search-btn').addEventListener('click', render);
 // cœur favoris (clic sans ouvrir la fiche)
 document.getElementById('grid').addEventListener('click', e => {
   const h = e.target.closest('.heart'); if (!h) return;
