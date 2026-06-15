@@ -80,7 +80,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   </noscript>
   <div class="text-center mb-8">
     <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-3">Réservez en direct</p>
-    <h1 class="font-display text-4xl sm:text-5xl font-600">Nos locations en Bourgogne</h1>
+    <h1 id="cat-title" class="font-display text-4xl sm:text-5xl font-600">Nos locations en Bourgogne</h1>
     <p class="text-muted text-lg mt-3"><span id="count">…</span> logements d'exception, à réserver sans intermédiaire.</p>
   </div>
 
@@ -91,6 +91,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
       <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Rechercher une ville, un logement…" class="w-full rounded-full bg-cream border border-ecru shadow-lg shadow-ink/5 pl-12 pr-5 py-4 text-base outline-none focus:border-gold focus:shadow-ink/10">
     </div>
     <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
+    <div id="theme-filters" class="flex flex-wrap justify-center gap-2 mt-3"></div>
   </div>
 
   <div id="grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-9"></div>
@@ -108,14 +109,27 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
       <a href="mailto:contact@sh-developpement.fr" class="hover:text-gold">contact@sh-developpement.fr</a>
       <a href="/mentions-legales.html" class="hover:text-gold">Mentions légales</a>
       <a href="/confidentialite.html" class="hover:text-gold">Confidentialité</a>
+      <a href="/a-propos.html" class="hover:text-gold">À propos</a>
+      <a href="/guides.html" class="hover:text-gold">Guides</a>
     </nav>
   </div>
 </footer>
 
 <script>
 const TYPES = [['all','Tous'],['Studio','Studio'],['T2','T2'],['T3','T3'],['T4','T4'],['T5+','T5 et +']];
+const THEMES = [['all','Toutes'],['piscine','Avec piscine'],['jacuzzi','Avec jacuzzi'],['groupes','Groupes & familles'],['romantique','En amoureux']];
+const THEME_TITLES = { piscine:'avec piscine', jacuzzi:'avec jacuzzi', groupes:'pour groupes & familles', romantique:'en amoureux' };
 const typeOf = b => b===0?'Studio':({1:'T2',2:'T3',3:'T4'}[b]||'T5+');
-let LISTINGS = [], q = '', activeType = 'all';
+const matchesTheme = (l, t) => {
+  if (t === 'all') return true;
+  const am = l.amenities || [];
+  if (t === 'piscine') return am.includes('Piscine');
+  if (t === 'jacuzzi') return am.includes('Jacuzzi');
+  if (t === 'groupes') return (l.guests||0) >= 8 || (l.bedrooms||0) >= 4;
+  if (t === 'romantique') return (l.guests||0) <= 2;
+  return true;
+};
+let LISTINGS = [], q = '', activeType = 'all', activeTheme = 'all';
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
 const note5 = r => (r/2).toFixed(2).replace('.', ',');
@@ -132,15 +146,24 @@ fetch('catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null)
     || (b.price || 0) - (a.price || 0)                          // sinon, du plus cher au moins cher
     || (b.rating || 0) - (a.rating || 0));
   document.getElementById('count').textContent = d.count || LISTINGS.length;
-  const urlQ = new URLSearchParams(location.search).get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
+  const params = new URLSearchParams(location.search);
+  const urlQ = params.get('q');   // pré-filtre depuis la carte illustrée (clic sur une ville)
   if (urlQ) { q = urlQ; const qi = document.getElementById('q'); if (qi) qi.value = urlQ; }
-  renderTypes(); render();
+  const urlT = params.get('theme'); // collection thématique (depuis l'accueil)
+  if (urlT && THEMES.some(t => t[0] === urlT)) activeTheme = urlT;
+  renderTypes(); renderThemes(); render();
 }).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
 
 function renderTypes(){
   document.getElementById('type-filters').innerHTML = TYPES.map(([k,l]) => {
     const on = k === activeType;
     return `<button data-t="${k}" class="rounded-full border px-4 py-2 text-sm font-600 cursor-pointer ${on?'bg-ink text-cream border-ink':'bg-cream text-cocoa border-ecru hover:border-cocoa/50'}">${l}</button>`;
+  }).join('');
+}
+function renderThemes(){
+  document.getElementById('theme-filters').innerHTML = THEMES.map(([k,l]) => {
+    const on = k === activeTheme;
+    return `<button data-theme="${k}" class="rounded-full border px-3.5 py-1.5 text-[13px] font-600 cursor-pointer ${on?'bg-bronze text-cream border-bronze':'bg-cream text-bronze border-ecru hover:border-bronze/50'}">${l}</button>`;
   }).join('');
 }
 function card(l){
@@ -167,9 +190,13 @@ function render(){
   const ql = q.trim().toLowerCase();
   const items = LISTINGS.filter(l => {
     if (activeType !== 'all' && typeOf(l.bedrooms) !== activeType) return false;
+    if (!matchesTheme(l, activeTheme)) return false;
     if (ql && !((l.name||'').toLowerCase().includes(ql) || (l.city||'').toLowerCase().includes(ql))) return false;
     return true;
   });
+  const tt = THEME_TITLES[activeTheme];
+  const title = document.getElementById('cat-title'); if (title) title.textContent = tt ? ('Nos locations ' + tt) : 'Nos locations en Bourgogne';
+  const cnt = document.getElementById('count'); if (cnt) cnt.textContent = items.length;
   document.getElementById('empty').classList.toggle('hidden', items.length > 0);
   document.getElementById('grid').innerHTML = items.map(card).join('');
 }
@@ -177,6 +204,10 @@ document.getElementById('q').addEventListener('input', e => { q = e.target.value
 document.getElementById('type-filters').addEventListener('click', e => {
   const b = e.target.closest('button[data-t]'); if (!b) return;
   activeType = b.dataset.t; renderTypes(); render();
+});
+document.getElementById('theme-filters').addEventListener('click', e => {
+  const b = e.target.closest('button[data-theme]'); if (!b) return;
+  activeTheme = b.dataset.theme; renderThemes(); render();
 });
 // cœur favoris (clic sans ouvrir la fiche)
 document.getElementById('grid').addEventListener('click', e => {

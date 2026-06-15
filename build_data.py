@@ -299,6 +299,11 @@ def write_seo(records):
     u("", "1.0", "daily")
     u("catalogue.html", "0.9", "daily")
     u("proprietaires.html", "0.8", "weekly")
+    u("a-propos.html", "0.6", "monthly")
+    u("guides.html", "0.6", "weekly")
+    u("guide-week-end-vignobles.html", "0.5", "monthly")
+    u("guide-saone-et-loire-en-famille.html", "0.5", "monthly")
+    u("guide-cote-chalonnaise.html", "0.5", "monthly")
     u("mentions-legales.html", "0.2", "yearly")
     u("confidentialite.html", "0.2", "yearly")
     for r in records:
