@@ -145,6 +145,7 @@ tailwind.config = {
     .card-img, a, button { transition: none !important; }
   }
 </style>
+<script src="daterange.js" defer></script>
 </head>
 <body class="bg-cream text-ink antialiased">
 <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-ink text-cream px-4 py-2 rounded z-50">Aller au contenu</a>
@@ -219,15 +220,19 @@ tailwind.config = {
         <input name="q" type="search" aria-label="Destination" placeholder="Ville, logement…" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
       </label>
       <div class="hidden sm:block w-px bg-ecru my-2"></div>
-      <label class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0">
-        <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
-        <input name="in" id="hs-in" type="date" aria-label="Date d'arrivée" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
-      </label>
-      <div class="hidden sm:block w-px bg-ecru my-2"></div>
-      <label class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0">
-        <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
-        <input name="out" id="hs-out" type="date" aria-label="Date de départ" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
-      </label>
+      <div data-rangepicker class="contents">
+        <button type="button" data-dr-trigger="in" class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0 text-left">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
+          <span data-dr-disp-in data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+        </button>
+        <div class="hidden sm:block w-px bg-ecru my-2"></div>
+        <button type="button" data-dr-trigger="out" class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0 text-left">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
+          <span data-dr-disp-out data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+        </button>
+        <input type="hidden" name="in" id="hs-in" data-dr-in>
+        <input type="hidden" name="out" id="hs-out" data-dr-out>
+      </div>
       <div class="hidden sm:block w-px bg-ecru my-2"></div>
       <label class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-text border-t border-ecru/50 sm:border-t-0">
         <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span>
@@ -378,7 +383,7 @@ tailwind.config = {
       <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Trouvez en un clin d'œil</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Explorez par envie</h2>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       <a href="catalogue.html?theme=piscine" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
         <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(70,120,150,.14)">🏊</span>
         <span><span class="block font-display text-xl font-600 text-ink leading-tight">Avec piscine</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
@@ -390,10 +395,6 @@ tailwind.config = {
       <a href="catalogue.html?theme=groupes" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
         <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(150,100,40,.13)">👨‍👩‍👧‍👦</span>
         <span><span class="block font-display text-xl font-600 text-ink leading-tight">Groupes & familles</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-      </a>
-      <a href="catalogue.html?theme=romantique" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
-        <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(180,69,47,.12)">💞</span>
-        <span><span class="block font-display text-xl font-600 text-ink leading-tight">En amoureux</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
       </a>
     </div>
   </div>

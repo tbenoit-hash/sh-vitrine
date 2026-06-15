@@ -44,6 +44,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   .heart:hover svg{transform:scale(1.12)}
   .heart.on svg{fill:#E0AE2C !important;stroke:#FBF8F3 !important}
 </style>
+<script src="daterange.js" defer></script>
 </head>
 <body class="bg-cream text-ink antialiased">
 
@@ -93,15 +94,19 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
           <input id="q" type="search" aria-label="Rechercher une ville ou un logement" placeholder="Ville, logement…" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
         </label>
         <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
-        <label class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0">
-          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
-          <input id="d-in" type="date" aria-label="Date d'arrivée" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
-        </label>
-        <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
-        <label class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0">
-          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
-          <input id="d-out" type="date" aria-label="Date de départ" class="bg-transparent text-sm text-ink outline-none w-[8.5rem]">
-        </label>
+        <div data-rangepicker class="contents">
+          <button type="button" data-dr-trigger="in" class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0 text-left">
+            <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
+            <span data-dr-disp-in data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+          </button>
+          <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
+          <button type="button" data-dr-trigger="out" class="px-5 py-2.5 hover:bg-sand/40 cursor-pointer border-t border-ecru/60 sm:border-t-0 text-left">
+            <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
+            <span data-dr-disp-out data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+          </button>
+          <input type="hidden" id="d-in" data-dr-in>
+          <input type="hidden" id="d-out" data-dr-out>
+        </div>
         <div class="hidden sm:block w-px bg-ecru my-2.5"></div>
         <label class="px-5 py-2.5 hover:bg-sand/40 cursor-text border-t border-ecru/60 sm:border-t-0">
           <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span>
@@ -143,8 +148,8 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <script>
 const TYPES = [['all','Tous'],['Studio','Studio'],['T2','T2'],['T3','T3'],['T4','T4'],['T5+','T5 et +']];
-const THEMES = [['all','Toutes'],['piscine','Avec piscine'],['jacuzzi','Avec jacuzzi'],['groupes','Groupes & familles'],['romantique','En amoureux']];
-const THEME_TITLES = { piscine:'avec piscine', jacuzzi:'avec jacuzzi', groupes:'pour groupes & familles', romantique:'en amoureux' };
+const THEMES = [['all','Toutes'],['piscine','Avec piscine'],['jacuzzi','Avec jacuzzi'],['groupes','Groupes & familles']];
+const THEME_TITLES = { piscine:'avec piscine', jacuzzi:'avec jacuzzi', groupes:'pour groupes & familles' };
 const typeOf = b => b===0?'Studio':({1:'T2',2:'T3',3:'T4'}[b]||'T5+');
 const matchesTheme = (l, t) => {
   if (t === 'all') return true;
@@ -152,7 +157,6 @@ const matchesTheme = (l, t) => {
   if (t === 'piscine') return am.includes('Piscine');
   if (t === 'jacuzzi') return am.includes('Jacuzzi');
   if (t === 'groupes') return (l.guests||0) >= 8 || (l.bedrooms||0) >= 4;
-  if (t === 'romantique') return (l.guests||0) <= 2;
   return true;
 };
 let LISTINGS = [], DISPO = null, SEL = { ok:false }, q = '', activeType = 'all', activeTheme = 'all';
@@ -186,6 +190,7 @@ Promise.all([
   if (di) { di.min = today; if (params.get('in')) di.value = params.get('in'); }
   if (dou) { dou.min = today; if (params.get('out')) dou.value = params.get('out'); }
   if (dg && params.get('guests')) dg.value = params.get('guests');
+  [di, dou].forEach(x => x && x.dispatchEvent(new Event('change', { bubbles: true }))); // rafraîchit l'affichage du calendrier maison
   renderTypes(); renderThemes(); render();
 }).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
 
