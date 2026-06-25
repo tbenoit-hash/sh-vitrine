@@ -529,12 +529,8 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 68,
+      "reviewCount": 67,
       "reviews": [
-        {
-          "name": "Arnaud",
-          "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région."
-        },
         {
           "name": "Francine",
           "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable."
@@ -682,5 +678,5 @@
       "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave."
     }
   ],
-  "updated": "2026-06-24"
+  "updated": "2026-06-25"
 }
