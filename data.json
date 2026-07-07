@@ -262,7 +262,7 @@
       "minNights": 2,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 41,
+      "reviewCount": 42,
       "reviews": [
         {
           "name": "Aurelien",
@@ -678,5 +678,5 @@
       "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave."
     }
   ],
-  "updated": "2026-07-06"
+  "updated": "2026-07-07"
 }
