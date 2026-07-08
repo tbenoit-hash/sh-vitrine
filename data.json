@@ -283,8 +283,8 @@
       "name": "Les Vagastines 2",
       "city": "Saint-Germain-du-Plain",
       "guests": 10,
-      "bedrooms": 8,
-      "bathrooms": 5,
+      "bedrooms": 5,
+      "bathrooms": 2,
       "price": 250,
       "rating": 10,
       "cover": "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63",
@@ -302,7 +302,7 @@
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-ONE4j19BXM1y-ll3dKo2ZYG0BZl41JE0obEpeihi1p0-69eb64ce7e202",
         "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-3pkHDAGkxDNdN4fdXbxYUy--BpH2Q76dBwuidaulNoKA-69eb65314bbf6"
       ],
-      "description": "Bienvenue dans nos deux gîtes en plein coeur de bresse ! Deux maisons indépendantes au cœur de la campagne : un double séjour pour des moments inoubliables Situées sur la même propriété et séparées par une charmante cour, ces deux maisons indépendantes vous offrent la possibilité de séjourner ensemble tout en bénéficiant de votre intimité. Que vous soyez une grande famille, deux familles amies ou un groupe souhaitant combiner convivialité et indépendance, ce lieu est idéal. Maison 1 – Charme, confort et piscine intérieure Dès l’entrée, vous serez séduit par une pièce de vie chaleureuse et baignée de lumière naturelle, composée d’un salon cosy ouvert sur une cuisine entièrement équipée. Une table à manger pour 6 personnes trône au centre, idéale pour partager des repas conviviaux. Le salon, délimité par un grand tapis, est équipé d’un canapé confortable, d’une télévision, d’une table basse et d’une porte-fenêtre donnant directement sur le jardin privatif. La cuisine en longueur, moderne et fonctionnelle, vous permet de cuisiner en toute autonomie. Attenante à celle-ci, se trouve une véritable perle : une piscine intérieure, parfaite pour des instants de détente en toute saison. Cette maison comprend également : Un WC indépendant Une buanderie complète (lave-linge, sèche-linge, douche, meuble vasque) Un coin détente avec vue imprenable sur la campagne environnante, grâce aux gran",
+      "description": "Bienvenue dans notre gîte au cœur de la Bresse ! Profitez d'une maison indépendante entièrement rénovée, située en pleine campagne, où authenticité, confort et modernité se rencontrent pour vous offrir un séjour agréable en famille ou entre amis. Une grande pièce de vie conviviale Dès votre arrivée, vous découvrirez un vaste espace de vie lumineux comprenant : Une cuisine ouverte entièrement équipée pour préparer vos repas en toute autonomie. Une grande table à manger avec rallonge pouvant accueillir jusqu'à 12 personnes, idéale pour partager de bons moments. Un spacieux salon avec deux grands canapés et une cheminée décorative, parfait pour se détendre après une journée de découverte. Des chambres confortables Au rez-de-chaussée : Une salle d'eau moderne avec une grande douche à l'italienne et un meuble vasque. Deux chambres : Une chambre avec un lit double. Une chambre avec deux lits simples. Un WC indépendant. À l'étage : Une grande salle de jeux, idéale pour les enfants comme pour les adultes (voir les photos de l'annonce). Une chambre avec un lit double. Deux chambres équipées de deux lits simples chacune. Une grande salle de bain avec douche à l'italienne. Un second WC indépendant. Les extérieurs Vous pourrez profiter d'un environnement calme et verdoyant, typique de la campagne bressane, propice au repos et aux moments de convivialité avec terrain de pétanque. Un lieu id",
       "amenities": [
         "Wifi",
         "Cuisine équipée",
@@ -678,5 +678,5 @@
       "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave."
     }
   ],
-  "updated": "2026-07-07"
+  "updated": "2026-07-08"
 }
