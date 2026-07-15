@@ -280,6 +280,31 @@ function render(){
   document.getElementById('empty').classList.toggle('hidden', items.length > 0);
   document.getElementById('grid').innerHTML = items.map(card).join('');
 }
+// Sur mobile, le formulaire + filtres occupent ~2 écrans : après une recherche
+// datée, on amène l'utilisateur sur les résultats, sinon il reste face au
+// formulaire et croit que rien ne s'est passé.
+function scrollToResults(){
+  const target = document.getElementById('dispo-note');
+  if (!target || target.classList.contains('hidden')) return;
+  const y = target.getBoundingClientRect().top + window.scrollY - 76; // marge nav
+  // scroll instantané : le "smooth" est ignoré sur certains navigateurs/configs
+  if (Math.abs(window.scrollY - y) > 40) window.scrollTo(0, y);
+}
+let hadDates = false;
+function maybeScrollToResults(){
+  const inV = (document.getElementById('d-in') || {}).value || '';
+  const outV = (document.getElementById('d-out') || {}).value || '';
+  const ok = !!(inV && outV && outV > inV);
+  if (ok && !hadDates) {
+    scrollToResults();   // la paire de dates vient d'être complétée
+    // les polices/images chargées après coup décalent la page -> on recale
+    if (document.readyState !== 'complete')
+      window.addEventListener('load', () => setTimeout(scrollToResults, 60), { once: true });
+    if (document.fonts && document.fonts.ready)
+      document.fonts.ready.then(() => setTimeout(scrollToResults, 60));
+  }
+  hadDates = ok;
+}
 document.getElementById('q').addEventListener('input', e => { q = e.target.value; render(); });
 document.getElementById('type-filters').addEventListener('click', e => {
   const b = e.target.closest('button[data-t]'); if (!b) return;
@@ -294,9 +319,10 @@ document.getElementById('theme-filters').addEventListener('click', e => {
   el.addEventListener('change', () => {
     if (id === 'd-in') { const o = document.getElementById('d-out'); if (o && el.value && (!o.value || o.value <= el.value)) o.min = el.value; }
     render();
+    maybeScrollToResults();
   });
 });
-document.getElementById('search-btn').addEventListener('click', render);
+document.getElementById('search-btn').addEventListener('click', () => { render(); scrollToResults(); });
 // cœur favoris (clic sans ouvrir la fiche)
 document.getElementById('grid').addEventListener('click', e => {
   const h = e.target.closest('.heart'); if (!h) return;
