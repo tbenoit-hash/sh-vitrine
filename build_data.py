@@ -459,7 +459,7 @@ def main():
     FEATURED_PINNED = [
         470939,  # Le Verger Secret (Saint-Loup-de-Varennes)
         465573,  # Chalon Hacienda
-        468351,  # Belle maison rénovée avec jacuzzi (Saint-Rémy)
+        570611,  # Le Chai des Écluses gîtes 4* (Saint-Léger-sur-Dheune / CHASSIGNEUX)
         465755,  # Les Vagastines 2
         475670,  # La Cave des Miracles (Dracy)
         468463,  # Les Vignes Rouges (Givry / Russilly)
