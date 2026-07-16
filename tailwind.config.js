@@ -9,8 +9,8 @@ module.exports = {
         brown: '#463618', cocoa: '#5c4636', muted: '#6B605C', gold: '#E0AE2C', bronze: '#8A5E1A',
       },
       fontFamily: {
-        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-        sans: ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
+        display: ['Marcellus','Georgia','serif'],
+        sans: ['Figtree','-apple-system','"Helvetica Neue"','Arial','sans-serif'],
       },
     },
   },

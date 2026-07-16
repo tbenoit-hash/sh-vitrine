@@ -26,10 +26,10 @@
   function firstOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
 
   var css = ''
-    + '.dr-pop{position:fixed;z-index:60;width:328px;max-width:calc(100vw - 16px);background:#FBF8F3;border:1px solid #ecdbc0;border-radius:20px;box-shadow:0 22px 55px -14px rgba(46,36,16,.4);padding:16px;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .14s ease,transform .14s ease}'
+    + '.dr-pop{position:fixed;z-index:60;width:328px;max-width:calc(100vw - 16px);background:#FBF8F3;border:1px solid #ecdbc0;border-radius:20px;box-shadow:0 22px 55px -14px rgba(46,36,16,.4);padding:16px;font-family:Figtree,-apple-system,"Helvetica Neue",Arial,sans-serif;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .14s ease,transform .14s ease}'
     + '.dr-pop.dr-show{opacity:1;transform:none;pointer-events:auto}'
     + '.dr-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}'
-    + '.dr-title{font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;font-weight:700;font-size:21px;color:#2E2410;text-transform:capitalize}'
+    + '.dr-title{font-family:Marcellus, Georgia, serif;font-weight:700;font-size:21px;color:#2E2410;text-transform:capitalize}'
     + '.dr-nav{width:34px;height:34px;border-radius:9999px;border:1px solid #ecdbc0;background:#fff;color:#5c4636;font-size:19px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}'
     + '.dr-nav:hover:not(:disabled){background:#F1E9DC;border-color:#8A5E1A;color:#2E2410}'
     + '.dr-nav:disabled{opacity:.3;cursor:default}'
