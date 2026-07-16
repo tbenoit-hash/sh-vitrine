@@ -44,6 +44,7 @@
 }
 </script>
 <link rel="stylesheet" href="/site.css">
+<link rel="preload" as="image" imagesrcset="img/hero-828.webp 828w, img/hero-1120.webp 1120w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
@@ -178,7 +179,7 @@
 <main id="contenu">
 <!-- ░░ HERO ░░ -->
 <section id="top" class="relative min-h-dvh flex items-end overflow-hidden">
-  <img src="img/hero-1600.webp" srcset="img/hero-828.webp 828w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="926" fetchpriority="high" alt="L'agence SH Développement à l'angle d'une rue de Chalon-sur-Saône, vitrine de la conciergerie" class="absolute inset-0 w-full h-full object-cover object-center">
+  <img src="img/hero-1600.webp" srcset="img/hero-828.webp 828w, img/hero-1120.webp 1120w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="926" fetchpriority="high" alt="L'agence SH Développement à l'angle d'une rue de Chalon-sur-Saône, vitrine de la conciergerie" class="absolute inset-0 w-full h-full object-cover object-center">
   <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/30"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"></div>
   <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
@@ -695,7 +696,7 @@ if (simTypesBox && simOcc && simAmenBox) {
 
 
 // Données live — rafraîchies chaque jour depuis Hostaway (data.json généré par GitHub Action)
-fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+const loadData = () => fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
   if (!d) return;
   const setTxt = (id, v) => { const e = document.getElementById(id); if (e && v != null) e.textContent = v; };
   setTxt('stat-count', d.count); setTxt('sim-count', d.count); setTxt('cat-count', d.count);
@@ -715,7 +716,8 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
       </figure>`).join('');
     }
   }
-}).catch(() => {});
+}).catch(() => {});;
+if (document.readyState === 'complete') loadData(); else window.addEventListener('load', loadData);
 </script>
 </body>
 </html>
