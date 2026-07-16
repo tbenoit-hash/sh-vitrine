@@ -561,7 +561,7 @@ function renderGrid(){ grid.innerHTML = listings.map((l, i) => {
   const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${SHSTAR} ${(l.rating/2).toFixed(2).replace('.', ',')}</span>` : '';
   return `<a href="/bien/${l.id}/" style="transition-delay:${i*55}ms" class="reveal group block">
     <div class="sh-photo relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
-      <img src="${l.cover}" alt="${SHesc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+      <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${SHesc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">
       ${badge}
       <button type="button" class="heart absolute top-2.5 right-2.5 ${fav?'on':''}" data-id="${l.id}" aria-label="Enregistrer en favori">${SHHEART}</button>
     </div>

@@ -133,18 +133,30 @@ const amenityIcon = a => {
   return m[a] || 'M20 6 9 17l-5-5';
 };
 
-Promise.all([
-  (window.__PREL && window.__PREL.id === id) ? Promise.resolve({ listings: [window.__PREL] })
-    : fetch('/catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null),
-  fetch('/avail/' + id + '.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
-]).then(([d, av]) => {
+const availP = fetch('/avail/' + id + '.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+((window.__PREL && window.__PREL.id === id) ? Promise.resolve({ listings: [window.__PREL] })
+    : fetch('/catalogue.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+).then(d => {
   const all = (d && d.listings) || [];
   const p = all.find(x => x.id === id);
   document.getElementById('loading').classList.add('hidden');
   if (!p) { document.getElementById('notfound').classList.remove('hidden'); return; }
-  AVAIL = av;
   render(p);
+  availP.then(av => { if (av) { AVAIL = av; upgradeBooking(p); } });
 }).catch(() => { document.getElementById('loading').textContent = 'Erreur de chargement.'; });
+
+// Les disponibilités arrivent après le premier rendu : on active le calendrier sans re-rendre la page
+function upgradeBooking(p){
+  const days = (AVAIL && AVAIL.days) || {};
+  if (!Object.keys(days).length) return;
+  const first = Object.keys(days).sort()[0];
+  const fd = parseD(first);
+  calMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
+  const trig = document.getElementById('bk-dates');
+  trig.classList.remove('hidden');
+  trig.addEventListener('click', () => { document.getElementById('bk-cal').classList.toggle('hidden'); renderCal(p); });
+  quote(p);
+}
 
 function render(p) {
   PHOTOS = (p.photos && p.photos.length) ? p.photos : [p.cover];

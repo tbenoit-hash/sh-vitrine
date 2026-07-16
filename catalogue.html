@@ -216,7 +216,7 @@ function card(l){
   const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note5(l.rating)}</span>` : '';
   return `<a href="/bien/${l.id}/" class="grp block">
     <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
-      <img src="${l.cover}" alt="${esc(l.name)}" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+      <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${esc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">
       ${badge}
       <button type="button" class="heart absolute top-2.5 right-2.5 ${fav?'on':''}" data-id="${l.id}" aria-label="Enregistrer dans mes favoris">${heart}</button>
     </div>

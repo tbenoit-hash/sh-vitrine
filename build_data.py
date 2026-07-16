@@ -480,6 +480,17 @@ def localize_images(records):
             wanted.add(name)
             path = f"/img/l/{name}"
             if k == "c":
+                small = out.replace("-c.webp", "-c480.webp")
+                if not os.path.exists(small):
+                    try:
+                        im = Image.open(out)
+                        if im.width > 480:
+                            im = im.resize((480, round(im.height * 480 / im.width)), Image.LANCZOS)
+                        im.save(small, "WEBP", quality=76, method=6)
+                    except Exception:
+                        pass
+                if os.path.exists(small):
+                    wanted.add(os.path.basename(small))
                 r["cover"] = path
             else:
                 r["photos"][int(k)] = path
