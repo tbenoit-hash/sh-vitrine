@@ -1,5 +1,5 @@
 {
-  "count": 127,
+  "count": 128,
   "communes": 24,
   "adr": {
     "Studio": 45,
@@ -447,7 +447,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 81,
+      "reviewCount": 80,
       "reviews": [
         {
           "name": "Voyageur",
