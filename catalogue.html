@@ -43,6 +43,13 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   .heart svg{transition:transform .15s ease, fill .15s ease}
   .heart:hover svg{transform:scale(1.12)}
   .heart.on svg{fill:#E0AE2C !important;stroke:#FBF8F3 !important}
+  /* Mobile : après validation de la recherche, le grand formulaire se replie
+     en une barre compacte (sinon le bloc sticky masque les annonces). */
+  #search-recap{display:none}
+  @media (max-width:639px){
+    .search-collapsed #search-card{display:none}
+    .search-collapsed #search-recap{display:flex}
+  }
 </style>
 <script src="daterange.js" defer></script>
 <script src="destination.js" defer></script>
@@ -89,7 +96,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   <!-- Barre de recherche façon Airbnb : destination + dates + voyageurs -->
   <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
     <div class="max-w-3xl mx-auto">
-      <div class="flex flex-col sm:flex-row sm:items-stretch bg-cream border border-ecru rounded-3xl sm:rounded-full shadow-lg shadow-ink/5">
+      <div id="search-card" class="flex flex-col sm:flex-row sm:items-stretch bg-cream border border-ecru rounded-3xl sm:rounded-full shadow-lg shadow-ink/5">
         <label data-destpicker class="flex-1 px-5 py-2.5 hover:bg-sand/40 rounded-t-3xl sm:rounded-l-full sm:rounded-tr-none cursor-text">
           <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Destination</span>
           <input id="q" data-dest-input type="search" aria-label="Rechercher une ville ou un logement" placeholder="Où allez-vous ?" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
@@ -119,6 +126,11 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
             <span class="sm:hidden">Rechercher</span>
           </button>
         </div>
+      </div>
+      <!-- Barre compacte (mobile, après recherche) : résumé + bouton Modifier -->
+      <div id="search-recap" class="items-center justify-between gap-3 bg-cream border border-ecru rounded-full shadow-lg shadow-ink/5 px-5 py-3">
+        <span id="search-recap-txt" class="text-[13px] text-ink font-600 truncate"></span>
+        <button id="search-recap-edit" type="button" class="shrink-0 text-sm font-700 text-bronze underline underline-offset-2 cursor-pointer">Modifier</button>
       </div>
       <div id="dispo-note" class="hidden text-center text-sm text-bronze mt-3 font-600"></div>
       <div id="type-filters" class="flex flex-wrap justify-center gap-2.5 mt-4"></div>
@@ -290,12 +302,36 @@ function scrollToResults(){
   // scroll instantané : le "smooth" est ignoré sur certains navigateurs/configs
   if (Math.abs(window.scrollY - y) > 40) window.scrollTo(0, y);
 }
+// Replie le formulaire en barre compacte (mobile uniquement, via CSS) et
+// remplit le résumé « destination · dates · voyageurs ».
+function collapseSearch(){
+  const wrap = document.getElementById('search-card') && document.getElementById('search-card').closest('.sticky');
+  if (!wrap) return;
+  const inV = (document.getElementById('d-in') || {}).value || '';
+  const outV = (document.getElementById('d-out') || {}).value || '';
+  const dest = ((document.getElementById('q') || {}).value || '').trim();
+  const g = parseInt((document.getElementById('d-guests') || {}).value, 10) || 0;
+  const dd = s => s ? s.slice(8,10) + '/' + s.slice(5,7) : '';
+  const parts = [];
+  if (dest) parts.push(dest);
+  if (inV && outV) parts.push(dd(inV) + '→' + dd(outV));
+  if (g) parts.push(g + ' voyageur' + (g>1?'s':''));
+  document.getElementById('search-recap-txt').textContent = parts.join(' · ') || 'Tous les logements';
+  wrap.classList.add('search-collapsed');
+}
+function expandSearch(){
+  const wrap = document.getElementById('search-card') && document.getElementById('search-card').closest('.sticky');
+  if (wrap) wrap.classList.remove('search-collapsed');
+  hadDates = false;   // re-compléter les dates re-repliera et re-scrollera
+}
+document.getElementById('search-recap-edit').addEventListener('click', expandSearch);
 let hadDates = false;
 function maybeScrollToResults(){
   const inV = (document.getElementById('d-in') || {}).value || '';
   const outV = (document.getElementById('d-out') || {}).value || '';
   const ok = !!(inV && outV && outV > inV);
   if (ok && !hadDates) {
+    collapseSearch();    // mobile : le formulaire laisse la place aux résultats
     scrollToResults();   // la paire de dates vient d'être complétée
     // les polices/images chargées après coup décalent la page -> on recale
     if (document.readyState !== 'complete')
@@ -322,7 +358,7 @@ document.getElementById('theme-filters').addEventListener('click', e => {
     maybeScrollToResults();
   });
 });
-document.getElementById('search-btn').addEventListener('click', () => { render(); scrollToResults(); });
+document.getElementById('search-btn').addEventListener('click', () => { render(); collapseSearch(); scrollToResults(); });
 // cœur favoris (clic sans ouvrir la fiche)
 document.getElementById('grid').addEventListener('click', e => {
   const h = e.target.closest('.heart'); if (!h) return;
