@@ -14,6 +14,8 @@
   .font-display{font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif}
   .tracking-luxe{letter-spacing:.28em}
   a,button{transition:all .2s ease}
+  .wm-404::before { content: "404"; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; font-weight: 700; font-size: 7rem; line-height: 1; color: rgba(138,94,26,.25); }
+  @media (min-width: 640px) { .wm-404::before { font-size: 10rem; } }
 </style>
 </head>
 <body class="bg-cream text-ink antialiased min-h-screen flex flex-col">
@@ -35,7 +37,7 @@
 <main class="flex-1 flex items-center justify-center px-5 py-16">
   <div class="max-w-xl w-full text-center">
     <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-2">Erreur 404</p>
-    <p aria-hidden="true" class="font-display font-700 text-bronze/25 leading-none select-none text-[7rem] sm:text-[10rem]">404</p>
+    <div aria-hidden="true" class="wm-404 leading-none select-none"></div>
     <h1 class="font-display text-3xl sm:text-4xl font-600 leading-tight -mt-2">Cette page n’existe pas ou plus</h1>
     <p class="text-muted text-lg mt-5 leading-relaxed">Le lien que vous avez suivi est peut-être ancien, ou l’adresse contient une erreur. Pas d’inquiétude&nbsp;: retrouvez tout depuis l’accueil.</p>
 
