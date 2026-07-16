@@ -361,9 +361,9 @@ def generate_listing_pages(records):
         if len(desc) > 158:
             desc = desc[:158].rsplit(" ", 1)[0] + "…"
         if not desc:
-            desc = (f"{name} à {city} — jusqu'à {r.get('guests') or 2} voyageurs. Location de "
+            desc = (f"{name} à {city} : jusqu'à {r.get('guests') or 2} voyageurs. Location de "
                     f"tourisme en Bourgogne, réservation en direct sans frais de plateforme.")
-        title = f"{name} — {city}" + (f" · {typ}" if typ else "") + " | SH Développement"
+        title = f"{name} · {city}" + (f" · {typ}" if typ else "") + " | SH Développement"
         ld = {
             "@context": "https://schema.org", "@type": "LodgingBusiness",
             "name": name, "url": url, "image": ([cover] if cover else []),
@@ -400,7 +400,7 @@ def generate_listing_pages(records):
             + (f'<meta name="twitter:image" content="{e(cover)}">\n' if cover else '')
             + '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>'
         )
-        page = tpl.replace('<title>Logement — SH Développement</title>', head)
+        page = tpl.replace('<title>Logement | SH Développement</title>', head)
         page = page.replace(
             "const id = parseInt(new URLSearchParams(location.search).get('id'), 10);",
             f"const id = {lid};")

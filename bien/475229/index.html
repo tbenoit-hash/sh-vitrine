@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Leo Lagrange — Champforgeuil · T3 | SH Développement</title>
+<title>Leo Lagrange · Champforgeuil · T3 | SH Développement</title>
 <meta name="description" content="Passez un agréable séjour dans cet hébergement confortable, au 9éme étage (avec ascenseur), situé à 5 minutes du péage d&#x27;autoroute Chalon Nord. Cet…">
 <link rel="canonical" href="https://www.sh-developpement.fr/bien/475229/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SH Développement">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:title" content="Leo Lagrange — Champforgeuil · T3 | SH Développement">
+<meta property="og:title" content="Leo Lagrange · Champforgeuil · T3 | SH Développement">
 <meta property="og:description" content="Passez un agréable séjour dans cet hébergement confortable, au 9éme étage (avec ascenseur), situé à 5 minutes du péage d&#x27;autoroute Chalon Nord. Cet…">
 <meta property="og:url" content="https://www.sh-developpement.fr/bien/475229/">
 <meta property="og:image" content="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475229-2aRSGhol-wv-BSmD3IXgQ5CiiZrox6LzAX8MXzq39dk-69656897d8c99">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Leo Lagrange — Champforgeuil · T3 | SH Développement">
+<meta name="twitter:title" content="Leo Lagrange · Champforgeuil · T3 | SH Développement">
 <meta name="twitter:description" content="Passez un agréable séjour dans cet hébergement confortable, au 9éme étage (avec ascenseur), situé à 5 minutes du péage d&#x27;autoroute Chalon Nord. Cet…">
 <meta name="twitter:image" content="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475229-2aRSGhol-wv-BSmD3IXgQ5CiiZrox6LzAX8MXzq39dk-69656897d8c99">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LodgingBusiness", "name": "Leo Lagrange", "url": "https://www.sh-developpement.fr/bien/475229/", "image": ["https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475229-2aRSGhol-wv-BSmD3IXgQ5CiiZrox6LzAX8MXzq39dk-69656897d8c99"], "address": {"@type": "PostalAddress", "addressLocality": "Champforgeuil", "addressRegion": "Bourgogne-Franche-Comté", "addressCountry": "FR"}, "priceRange": "À partir de 50 € / nuit", "telephone": "+33659327710", "geo": {"@type": "GeoCoordinates", "latitude": 46.8131671, "longitude": 4.8432287}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": 8.3, "bestRating": 10, "worstRating": 0, "reviewCount": 31}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Wifi"}, {"@type": "LocationFeatureSpecification", "name": "Cuisine équipée"}, {"@type": "LocationFeatureSpecification", "name": "Parking gratuit"}, {"@type": "LocationFeatureSpecification", "name": "Télévision"}, {"@type": "LocationFeatureSpecification", "name": "Chauffage"}, {"@type": "LocationFeatureSpecification", "name": "Ascenseur"}, {"@type": "LocationFeatureSpecification", "name": "Linge & nécessaire"}, {"@type": "LocationFeatureSpecification", "name": "Fer à repasser"}, {"@type": "LocationFeatureSpecification", "name": "Micro-ondes"}, {"@type": "LocationFeatureSpecification", "name": "Four"}, {"@type": "LocationFeatureSpecification", "name": "Réfrigérateur"}, {"@type": "LocationFeatureSpecification", "name": "Séjours longue durée"}]}</script>
@@ -111,7 +111,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <footer class="bg-ink text-cream/70 py-10 mt-16">
   <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-    <span>© 2026 SH Développement — Conciergerie en Bourgogne</span>
+    <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/catalogue.html" class="hover:text-gold">Nos locations</a>
       <a href="/proprietaires.html" class="hover:text-gold">Propriétaires</a>
@@ -204,12 +204,12 @@ function render(p) {
             ${p.rating ? `<span class="inline-flex items-center gap-1 text-sm text-ink"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(+p.rating).toFixed(1)}/10</b>${p.reviewCount ? ` · ${p.reviewCount} avis` : ''}</span>` : ''}
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
-            ${p.reviews.map(rv => `<figure class="rounded-2xl border border-ecru bg-cream p-5"><div class="text-gold text-sm mb-2" aria-hidden="true">★★★★★</div><blockquote class="text-ink/85 text-sm leading-relaxed">« ${esc(rv.text)} »</blockquote><figcaption class="text-bronze text-sm font-600 mt-3">— ${esc(rv.name)}</figcaption></figure>`).join('')}
+            ${p.reviews.map(rv => `<figure class="rounded-2xl border border-ecru bg-cream p-5"><div class="text-gold text-sm mb-2" aria-hidden="true">★★★★★</div><blockquote class="text-ink/85 text-sm leading-relaxed">« ${esc(rv.text)} »</blockquote><figcaption class="text-bronze text-sm font-600 mt-3">${esc(rv.name)}</figcaption></figure>`).join('')}
           </div>
         </div>` : ''}
         <div class="py-6">
           <h2 class="font-display text-2xl font-600 mb-3">Où vous serez</h2>
-          <p class="text-muted mb-4">${esc(p.city)}, Saône-et-Loire — emplacement exact communiqué après réservation.</p>
+          <p class="text-muted mb-4">${esc(p.city)}, Saône-et-Loire (emplacement exact communiqué après réservation).</p>
           <div id="map" class="w-full h-[340px] rounded-2xl overflow-hidden border border-ecru bg-sand"></div>
         </div>
       </div>
@@ -240,7 +240,7 @@ function render(p) {
   // Module de réservation directe : calendrier (dispos réelles) + prix + checkout Hostaway
   initBooking(p);
   loadMap(p); // carte chargée à la demande (au scroll)
-  document.title = p.name + ' — SH Développement';
+  document.title = p.name + ' | SH Développement';
 }
 
 /* ===== Réservation directe : calendrier + prix + checkout ===== */
@@ -377,7 +377,7 @@ async function submitBooking(e, p, guests){
     Voyageurs: String(guests), 'Total estimé': (q.total!=null ? eur(q.total) : ''),
     Caution: (q.deposit ? eur(q.deposit) : ''), 'Lien fiche': location.href,
     Consentement: f.Consentement.checked ? 'Oui' : 'Non',
-    _subject: `Réservation — ${p.name} (${selIn} → ${selOut})`, _template: 'table'
+    _subject: `Réservation : ${p.name} (${selIn} → ${selOut})`, _template: 'table'
   };
   btn.disabled = true; btn.textContent = 'Envoi…';
   try {
@@ -391,7 +391,7 @@ async function submitBooking(e, p, guests){
   } catch (err) {
     btn.disabled = false; btn.textContent = 'Envoyer ma demande';
     const body = `Bonjour,%0D%0A%0D%0AJe souhaite réserver « ${p.name} » (${p.city}).%0D%0A• Arrivée : ${selIn}%0D%0A• Départ : ${selOut}%0D%0A• Voyageurs : ${guests}%0D%0A• Total estimé : ${q.total!=null?eur(q.total):'à confirmer'}`;
-    window.location.href = `mailto:contact@sh-developpement.fr?subject=${encodeURIComponent('Réservation — ' + p.name)}&body=${body}`;
+    window.location.href = `mailto:contact@sh-developpement.fr?subject=${encodeURIComponent('Réservation : ' + p.name)}&body=${body}`;
   }
 }
 
