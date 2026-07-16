@@ -119,6 +119,24 @@
     .reveal { opacity: 1 !important; transform: none !important; transition: none; }
     .card-img, a, button { transition: none !important; }
   }
+
+  /* ░░ Recherche repliée dans le header (façon Airbnb) ░░ */
+  .sh-navpill { display:flex; align-items:center; gap:10px; flex:1 1 auto; min-width:0; max-width:520px;
+    margin:0 14px; background:#FBF8F3; border:1px solid #ecdbc0; border-radius:999px;
+    padding:7px 7px 7px 18px; box-shadow:0 4px 16px rgba(46,36,16,.10); font-size:13.5px; color:#2E2410;
+    cursor:pointer; text-align:left; transition:box-shadow .2s ease, transform .2s ease; }
+  .sh-navpill:hover { box-shadow:0 7px 20px rgba(46,36,16,.17); transform:translateY(-1px); }
+  .np-seg { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#6B605C; font-weight:500; }
+  .np-strong { color:#2E2410; font-weight:600; }
+  .np-dot { width:1px; height:18px; background:#ecdbc0; flex:none; }
+  .np-lens { display:flex; align-items:center; justify-content:center; width:30px; height:30px;
+    border-radius:999px; background:#E0AE2C; color:#2E2410; flex:none; margin-left:auto; }
+  #nav.nav-collapsed #nav-links { display:none; }
+  @media (max-width:1023.5px) { #nav.nav-collapsed #logo-txt { display:none; } }
+  @media (max-width:639.5px) { .sh-navpill { margin:0 10px; padding-left:14px; } .np-seg { font-size:12.5px; } }
+  #nav-search-panel { animation:shpanel .22s ease; }
+  @keyframes shpanel { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+  #nav-search-panel #hero-search { margin:0 auto; box-shadow:0 10px 30px rgba(46,36,16,.14); }
 </style>
 <script src="daterange.js" defer></script>
 <script src="destination.js" defer></script>
@@ -144,6 +162,14 @@
         06 59 32 77 10
       </a>
     </nav>
+    <button id="nav-pill" type="button" aria-expanded="false" aria-controls="nav-search-panel" aria-label="Modifier la recherche" class="sh-navpill hidden">
+      <span id="np-q" class="np-seg np-strong">Où allez-vous ?</span>
+      <span class="np-dot" aria-hidden="true"></span>
+      <span id="np-dates" class="np-seg">Quand ?</span>
+      <span class="np-dot" aria-hidden="true"></span>
+      <span id="np-g" class="np-seg">Voyageurs</span>
+      <span class="np-lens" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+    </button>
     <div class="flex items-center gap-2">
       <a href="proprietaires.html#estimation" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-cream px-5 py-2.5 text-sm font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
         Estimer mes revenus
@@ -154,6 +180,9 @@
         <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
+  </div>
+  <div id="nav-search-panel" class="hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 py-4" id="nav-search-slot"></div>
   </div>
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
@@ -190,6 +219,7 @@
     <p class="text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
       Des maisons et appartements choisis avec soin, gérés avec exigence. Nous accueillons vos voyageurs et faisons fructifier votre bien, sans la moindre contrainte.
     </p>
+    <div id="hs-sentinel" aria-hidden="true"></div>
     <form id="hero-search" class="mt-8 w-full max-w-3xl bg-cream rounded-2xl sm:rounded-full shadow-2xl shadow-ink/40 flex flex-col sm:flex-row sm:items-stretch p-1.5">
       <label data-destpicker class="flex-1 px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-text">
         <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Destination</span>
@@ -672,6 +702,70 @@ function setMenu(open) {
 }
 menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+
+// ░░ Recherche repliée dans le header (façon Airbnb) ░░
+(function(){
+  const nav = document.getElementById('nav'), pill = document.getElementById('nav-pill'),
+        panel = document.getElementById('nav-search-panel'), slot = document.getElementById('nav-search-slot'),
+        form = document.getElementById('hero-search'), sentinel = document.getElementById('hs-sentinel');
+  if (!nav || !pill || !panel || !slot || !form || !sentinel) return;
+  const home = form.parentNode, homeNext = form.nextSibling;
+  const ph = document.createElement('div'); ph.style.display = 'none'; home.insertBefore(ph, form);
+  let collapsed = false, openPanelState = false;
+
+  const fmt = s => { if (!s) return null; const p = s.split('-'); return p[2] + '/' + p[1]; };
+  function pillSummary(){
+    const q = (form.elements.q.value || '').trim(), i = form.elements['in'].value,
+          o = form.elements['out'].value, g = form.elements.guests.value;
+    document.getElementById('np-q').textContent = q || 'Où allez-vous ?';
+    document.getElementById('np-dates').textContent = (i && o) ? (fmt(i) + ' au ' + fmt(o)) : 'Quand ?';
+    document.getElementById('np-g').textContent = g ? (g + ' voyageur' + (g > 1 ? 's' : '')) : 'Voyageurs';
+  }
+  form.addEventListener('input', pillSummary);
+  form.addEventListener('change', pillSummary);
+  pillSummary();
+
+  function openSearch(){
+    if (openPanelState) return; openPanelState = true;
+    ph.style.height = form.getBoundingClientRect().height + 'px'; ph.style.display = 'block';
+    form.classList.remove('mt-8');
+    slot.appendChild(form);
+    panel.classList.remove('hidden');
+    pill.setAttribute('aria-expanded', 'true');
+    const q = form.querySelector('[data-dest-input]'); if (q) q.focus({ preventScroll: true });
+    setTimeout(() => document.addEventListener('click', onDoc), 0);
+    document.addEventListener('keydown', onKey);
+  }
+  function closeSearch(){
+    if (!openPanelState) return; openPanelState = false;
+    panel.classList.add('hidden');
+    form.classList.add('mt-8');
+    home.insertBefore(form, homeNext);
+    ph.style.display = 'none';
+    pill.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onDoc);
+    document.removeEventListener('keydown', onKey);
+  }
+  function onDoc(e){
+    if (panel.contains(e.target) || pill.contains(e.target)) return;
+    if (e.target.closest && (e.target.closest('.dr-pop') || e.target.closest('.dp-pop'))) return;
+    closeSearch();
+  }
+  function onKey(e){ if (e.key === 'Escape') { closeSearch(); pill.focus(); } }
+  pill.addEventListener('click', () => openPanelState ? closeSearch() : openSearch());
+
+  function setCollapsed(c){
+    if (c === collapsed) return; collapsed = c;
+    nav.classList.toggle('nav-collapsed', c);
+    pill.classList.toggle('hidden', !c);
+    if (!c) closeSearch();
+  }
+  function checkScroll(){ setCollapsed(sentinel.getBoundingClientRect().top < 88); }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  window.addEventListener('resize', checkScroll, { passive: true });
+  checkScroll();
+})();
 
 // Simulateur de revenus — loyers médians réels par type (base : 119 logements Hostaway)
 let SIM_ADR = { 'Studio':45, 'T2':55, 'T3':75, 'T4':96, 'T5':250, 'T6+':350 };
