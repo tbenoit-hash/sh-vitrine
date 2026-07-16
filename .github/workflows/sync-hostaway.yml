@@ -26,11 +26,13 @@ jobs:
         env:
           HOSTAWAY_ACCOUNT_ID: ${{ secrets.HOSTAWAY_ACCOUNT_ID }}
           HOSTAWAY_API_KEY: ${{ secrets.HOSTAWAY_API_KEY }}
-        run: BUILD_DATE=$(date +%F) python3 build_data.py
+        run: |
+          pip install --quiet pillow
+          BUILD_DATE=$(date +%F) python3 build_data.py
 
       - name: Commit si changement
         run: |
-          git add data.json catalogue.json avail bien robots.txt sitemap.xml
+          git add data.json catalogue.json avail bien img/l robots.txt sitemap.xml
           if ! git diff --cached --quiet; then
             git config user.name "sh-sync-bot"
             git config user.email "bot@sh-developpement.fr"

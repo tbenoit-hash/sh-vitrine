@@ -56,31 +56,7 @@
 }
 </script>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
-      colors: {
-        cream:   '#FBF8F3',
-        sand:    '#F1E9DC',
-        ecru:    '#ecdbc0',
-        ink:     '#2E2410',
-        brown:   '#463618',
-        cocoa:   '#5c4636',
-        muted:   '#6B605C',
-        gold:    '#E0AE2C',
-        bronze:  '#8A5E1A',
-      },
-      fontFamily: {
-        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-      },
-      maxWidth: { content: '1200px' },
-    }
-  }
-}
-</script>
+<link rel="stylesheet" href="/site.css">
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
@@ -114,7 +90,7 @@ tailwind.config = {
 
 <!-- ░░ NAV ░░ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50 bg-cream/90 backdrop-blur shadow-sm shadow-ink/5 transition-all duration-300">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
     <a href="/" class="flex items-center gap-3 group" aria-label="SH Développement, accueil">
       <img src="/img/logo_gold.png" alt="" class="h-9 w-auto" id="logo-img">
       <span class="font-display text-2xl font-700 leading-none text-ink" id="logo-txt">SH&nbsp;<span class="text-bronze" id="logo-sub">Développement</span></span>
@@ -143,7 +119,7 @@ tailwind.config = {
   </div>
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
-    <nav class="max-w-content mx-auto px-5 py-4 flex flex-col">
+    <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
       <a href="/proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
       <a href="/catalogue.html?v=2" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos locations</a>
       <a href="/guides.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Guides</a>
@@ -166,21 +142,21 @@ tailwind.config = {
   <!-- En-tête de l'article -->
   <header class="pt-32 sm:pt-36 pb-8">
     <div class="max-w-3xl mx-auto px-5 sm:px-8">
-      <nav class="reveal text-sm text-muted mb-6" aria-label="Fil d'Ariane">
+      <nav class="text-sm text-muted mb-6" aria-label="Fil d'Ariane">
         <a href="/" class="dlink">Accueil</a> <span class="text-ecru">›</span>
         <a href="/guides.html" class="dlink">Guides</a> <span class="text-ecru">›</span>
         <span class="text-ink">Week-end dans les vignobles</span>
       </nav>
-      <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Œnotourisme · 2 à 3 jours</p>
-      <h1 class="reveal font-display text-4xl sm:text-5xl font-600 leading-[1.08]">Un week-end dans les vignobles, au départ de Chalon-sur-Saône</h1>
-      <p class="reveal text-muted text-lg mt-5 leading-relaxed">De la Côte chalonnaise aux grands climats de la Côte de Nuits, voici comment composer deux ou trois jours de pure Bourgogne, verre en main, sans jamais courir.</p>
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Œnotourisme · 2 à 3 jours</p>
+      <h1 class="font-display text-4xl sm:text-5xl font-600 leading-[1.08]">Un week-end dans les vignobles, au départ de Chalon-sur-Saône</h1>
+      <p class="text-muted text-lg mt-5 leading-relaxed">De la Côte chalonnaise aux grands climats de la Côte de Nuits, voici comment composer deux ou trois jours de pure Bourgogne, verre en main, sans jamais courir.</p>
     </div>
   </header>
 
   <!-- Image héro -->
   <div class="max-w-5xl mx-auto px-5 sm:px-8 mb-8">
     <figure class="reveal overflow-hidden rounded-2xl border border-ecru shadow-xl shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465404-UtCQdhC3rp8dY--92OhO-bL---hTJSv-f--5f3oLqkcXmk-6a25f8585469c" alt="Logement de charme au Château de Dracy, en plein cœur du vignoble bourguignon" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/f981ab779f.webp" alt="Logement de charme au Château de Dracy, en plein cœur du vignoble bourguignon" class="block w-full aspect-[16/9] object-cover" fetchpriority="high">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">Posez vos valises au cœur des vignes : l'une de nos maisons au Château de Dracy, près de la Côte chalonnaise.</figcaption>
     </figure>
   </div>
@@ -208,7 +184,7 @@ tailwind.config = {
     </ul>
 
     <figure class="reveal my-8 overflow-hidden rounded-2xl border border-ecru shadow-lg shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-H1wAJTTQemZCyN9sIVH34lY86aMiNuDzCNyW1Nbyui4-69613b7216395" alt="Gîte entouré de vignes à Givry, sur la Côte chalonnaise" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/fb3aecc932.webp" alt="Gîte entouré de vignes à Givry, sur la Côte chalonnaise" class="block w-full aspect-[16/9] object-cover" loading="lazy">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">Notre gîte à Givry, posé au milieu des vignes : un point de chute idéal pour la première journée.</figcaption>
     </figure>
 
@@ -221,7 +197,7 @@ tailwind.config = {
     <p class="reveal">On ne déguste pas forcément un grand cru à chaque arrêt (les prix s'envolent vite), mais arpenter ces coteaux, lire les noms sur les murets de pierre et s'arrêter dans un village vigneron suffit à comprendre pourquoi ce terroir est unique. Quelques domaines familiaux ouvrent leurs portes pour des dégustations plus accessibles : renseignez-vous auprès des offices de tourisme.</p>
 
     <figure class="reveal my-8 overflow-hidden rounded-2xl border border-ecru shadow-lg shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470537-hp9OVocbkHEspNn1YUrxUsa7jf7pUuHJsix--5IW6i1I-69554a72ae3ee" alt="Intérieur chaleureux d'une de nos maisons à Bligny-lès-Beaune, aux portes de Beaune" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/442e524107.webp" alt="Intérieur chaleureux d'une de nos maisons à Bligny-lès-Beaune, aux portes de Beaune" class="block w-full aspect-[16/9] object-cover" loading="lazy">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">Rentrer le soir dans un intérieur cosy : notre maison à Bligny-lès-Beaune, à quelques minutes des Hospices.</figcaption>
     </figure>
 
@@ -243,7 +219,7 @@ tailwind.config = {
     <div class="reveal grid sm:grid-cols-3 gap-5 mt-5 not-prose">
       <a href="/bien/474343/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-474343-dhwmIbuk3oWYmg45pd9jOOtlKlmmOMn3Feq2T7TM-hs-6963f1f233b2f" alt="Gîte entouré de vignes à Givry" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/1ea83f548e.webp" alt="Gîte entouré de vignes à Givry" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">Gîte entouré de vignes</p>
@@ -253,7 +229,7 @@ tailwind.config = {
       </a>
       <a href="/bien/470537/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-470537-Q0vo1Soa3aWwLklgJNFecWdopFX5ABToZNTIk6po9s4-69554a73d400f" alt="Maison Les Clés Bélinéenes à Bligny-lès-Beaune" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/4000dc1831.webp" alt="Maison Les Clés Bélinéenes à Bligny-lès-Beaune" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">Les Clés Bélinéenes</p>
@@ -263,7 +239,7 @@ tailwind.config = {
       </a>
       <a href="/bien/475236/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475236-6W44i-m--7-Gw9YWSRF0SyDDrizOiLm5JEzBEa3YM6HY-696566535bc17" alt="Appartement Évasion Élégante au Beau Site à Mâcon" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/412b33874b.webp" alt="Appartement Évasion Élégante au Beau Site à Mâcon" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">Évasion Élégante au Beau Site</p>
@@ -302,7 +278,7 @@ tailwind.config = {
 
 <!-- ░░ FOOTER ░░ -->
 <footer class="bg-ink text-cream/70 py-10 mt-16">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/" class="hover:text-gold">Accueil</a>

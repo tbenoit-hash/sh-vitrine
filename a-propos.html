@@ -49,31 +49,7 @@
   }
 }
 </script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
-      colors: {
-        cream:   '#FBF8F3',
-        sand:    '#F1E9DC',
-        ecru:    '#ecdbc0',
-        ink:     '#2E2410',
-        brown:   '#463618',
-        cocoa:   '#5c4636',
-        muted:   '#6B605C',
-        gold:    '#E0AE2C',
-        bronze:  '#8A5E1A',
-      },
-      fontFamily: {
-        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-      },
-      maxWidth: { content: '1200px' },
-    }
-  }
-}
-</script>
+<link rel="stylesheet" href="/site.css">
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
@@ -99,7 +75,7 @@ tailwind.config = {
 
 <!-- ░░ NAV ░░ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
     <a href="index.html#top" class="flex items-center gap-3 group" aria-label="SH Développement, accueil">
       <img src="img/logo_gold.png" alt="" class="h-9 w-auto" id="logo-img">
       <span class="font-display text-2xl font-700 leading-none text-cream" id="logo-txt">SH&nbsp;<span class="text-cream" id="logo-sub">Développement</span></span>
@@ -127,7 +103,7 @@ tailwind.config = {
   </div>
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
-    <nav class="max-w-content mx-auto px-5 py-4 flex flex-col">
+    <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
       <a href="index.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Accueil</a>
       <a href="a-propos.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze" aria-current="page">À propos</a>
       <a href="proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
@@ -147,15 +123,15 @@ tailwind.config = {
 <main id="contenu">
 <!-- ░░ HERO ░░ -->
 <section id="top" class="relative min-h-[78vh] flex items-end overflow-hidden">
-  <img src="img/hero.jpg" alt="L'agence SH Développement à l'angle d'une rue de Chalon-sur-Saône, vitrine de la conciergerie" class="absolute inset-0 w-full h-full object-cover object-center">
+  <img src="img/hero-1600.webp" srcset="img/hero-828.webp 828w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="926" fetchpriority="high" alt="L'agence SH Développement à l'angle d'une rue de Chalon-sur-Saône, vitrine de la conciergerie" class="absolute inset-0 w-full h-full object-cover object-center">
   <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/30"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"></div>
-  <div class="relative z-10 max-w-content mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
-    <p class="reveal text-gold text-xs sm:text-sm font-600 tracking-luxe uppercase mb-5">Qui sommes-nous</p>
-    <h1 class="reveal font-display text-cream text-5xl sm:text-6xl lg:text-7xl font-600 leading-[1.05] max-w-3xl">
+  <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
+    <p class="text-gold text-xs sm:text-sm font-600 tracking-luxe uppercase mb-5">Qui sommes-nous</p>
+    <h1 class="font-display text-cream text-5xl sm:text-6xl lg:text-7xl font-600 leading-[1.05] max-w-3xl">
       L'accueil bourguignon,<br><span class="text-gold">sans la moindre contrainte</span>
     </h1>
-    <p class="reveal text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
+    <p class="text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
       Conciergerie indépendante née en Saône-et-Loire, nous gérons des biens d'exception et accueillons vos voyageurs comme à la maison.
     </p>
   </div>
@@ -163,7 +139,7 @@ tailwind.config = {
 
 <!-- ░░ NOTRE HISTOIRE ░░ -->
 <section class="py-24 sm:py-32">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <div class="reveal">
         <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Notre histoire</p>
@@ -176,7 +152,7 @@ tailwind.config = {
       </div>
       <div class="reveal">
         <div class="relative overflow-hidden rounded-3xl border border-ecru shadow-xl shadow-ink/10 group">
-          <img src="img/hero-chateau.jpg" alt="Salon d'un château géré par SH Développement en Bourgogne, poutres anciennes et décor raffiné" loading="lazy" class="card-img block w-full h-full object-cover aspect-[4/5]">
+          <img src="img/hero-chateau.webp" width="1200" height="800" alt="Salon d'un château géré par SH Développement en Bourgogne, poutres anciennes et décor raffiné" loading="lazy" class="card-img block w-full h-full object-cover aspect-[4/5]">
         </div>
       </div>
     </div>
@@ -185,7 +161,7 @@ tailwind.config = {
 
 <!-- ░░ CHIFFRES CLÉS ░░ -->
 <section class="bg-ink text-cream">
-  <div class="max-w-content mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
     <div class="reveal py-10 px-4 text-center">
       <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-count">119</div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">logements gérés</div>
@@ -207,7 +183,7 @@ tailwind.config = {
 
 <!-- ░░ NOS ENGAGEMENTS ░░ -->
 <section class="py-24 sm:py-32">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal max-w-2xl mb-12">
       <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Nos engagements</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Le même soin, des deux côtés de la porte</h2>
@@ -256,9 +232,9 @@ tailwind.config = {
 
 <!-- ░░ L'AGENCE ░░ -->
 <section class="pb-24 sm:pb-28">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal relative overflow-hidden rounded-3xl">
-      <img src="img/agence-interieur.jpg" alt="L'intérieur de l'agence SH Développement à Chalon-sur-Saône, espace d'accueil" loading="lazy" class="block w-full h-full object-cover aspect-[16/9] sm:aspect-[21/9]">
+      <img src="img/agence-interieur.webp" width="1200" height="709" alt="L'intérieur de l'agence SH Développement à Chalon-sur-Saône, espace d'accueil" loading="lazy" class="block w-full h-full object-cover aspect-[16/9] sm:aspect-[21/9]">
       <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/45 to-ink/10"></div>
       <div class="absolute bottom-0 left-0 right-0 p-7 sm:p-12 text-cream max-w-2xl">
         <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-3">L'agence</p>
@@ -275,7 +251,7 @@ tailwind.config = {
 
 <!-- ░░ L'ÉQUIPE ░░ -->
 <section class="pb-24 sm:pb-28">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal rounded-3xl border border-ecru/70 bg-sand/60 px-8 sm:px-14 py-14 sm:py-16 text-center">
       <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">L'équipe</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight max-w-2xl mx-auto">Une équipe locale dédiée, joignable 7j/7</h2>
@@ -293,7 +269,7 @@ tailwind.config = {
 
 <!-- ░░ CTA DOUBLE ░░ -->
 <section class="pb-24 sm:pb-28">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal relative overflow-hidden rounded-3xl bg-brown text-cream px-8 sm:px-14 py-14 sm:py-16 text-center">
       <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 50% 0%, #E0AE2C 0, transparent 55%)"></div>
       <div class="relative">
@@ -322,7 +298,7 @@ tailwind.config = {
 
 <!-- ░░ FOOTER ░░ -->
 <footer class="bg-ink text-cream/70 py-10 mt-16">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/" class="hover:text-gold">Accueil</a>

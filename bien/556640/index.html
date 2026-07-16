@@ -19,18 +19,11 @@
 <meta name="twitter:description" content="Ce charmant T2 de 44 m² situé dans une copropriété calme se trouve dans le quartier de la gare, à deux pas du centre-ville. Aménagé avec soin, ce logement…">
 <meta name="twitter:image" content="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-556640-5rDG87LqXpFjEgygUl0HMtBZ8jeJemv437-M-F58x9U-6a268d0f188fb">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LodgingBusiness", "name": "Le Perchoir", "url": "https://www.sh-developpement.fr/bien/556640/", "image": ["https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-556640-5rDG87LqXpFjEgygUl0HMtBZ8jeJemv437-M-F58x9U-6a268d0f188fb"], "address": {"@type": "PostalAddress", "addressLocality": "Chalon-sur-Saône", "addressRegion": "Bourgogne-Franche-Comté", "addressCountry": "FR"}, "priceRange": "À partir de 350 € / nuit", "telephone": "+33659327710", "geo": {"@type": "GeoCoordinates", "latitude": 46.7820867, "longitude": 4.8573397}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Wifi"}, {"@type": "LocationFeatureSpecification", "name": "Cuisine équipée"}, {"@type": "LocationFeatureSpecification", "name": "Chauffage"}, {"@type": "LocationFeatureSpecification", "name": "Linge & nécessaire"}, {"@type": "LocationFeatureSpecification", "name": "Micro-ondes"}, {"@type": "LocationFeatureSpecification", "name": "Réfrigérateur"}, {"@type": "LocationFeatureSpecification", "name": "Séjours longue durée"}]}</script>
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/site.css">
 <link rel="icon" href="/img/logo_gold.png">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- MapLibre chargé à la demande (au scroll) — voir loadMap() — pour ne pas bloquer le rendu -->
 <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
-<script>
-tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
-  colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
-  fontFamily: { display:['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'], sans:['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'] },
-  maxWidth: { content:'1140px' }
-}}}
-</script>
 <style>
   body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif}
   .font-display{font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif}
@@ -44,7 +37,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 
 <!-- NAV -->
 <header class="border-b border-ecru/70 bg-cream/90 backdrop-blur sticky top-0 z-30">
-  <div class="max-w-content mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+  <div class="max-w-[1140px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
     <a href="/index.html" class="flex items-center gap-2.5">
       <img src="/img/logo_gold.png" alt="" class="h-7 w-auto">
       <span class="font-display text-lg font-700">SH <span class="text-bronze">Développement</span></span>
@@ -57,7 +50,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
   </div>
 </header>
 
-<main id="app" class="max-w-content mx-auto px-5 sm:px-8 py-8">
+<main id="app" class="max-w-[1140px] mx-auto px-5 sm:px-8 py-8">
   <div id="loading" class="py-32 text-center text-muted">Chargement du logement…</div>
   <div id="notfound" class="hidden py-32 text-center">
     <p class="font-display text-3xl">Logement introuvable</p>
@@ -107,7 +100,7 @@ tailwind.config = { theme: { extend: { fontWeight:{400:"400",500:"500",600:"600"
 </div>
 
 <footer class="bg-ink text-cream/70 py-10 mt-16">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+  <div class="max-w-[1140px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/catalogue.html" class="hover:text-gold">Nos locations</a>

@@ -357,6 +357,8 @@ def generate_listing_pages(records):
         typ = r.get("type") or ""
         url = f"{SITE}/bien/{lid}/"
         cover = r.get("cover") or ""
+        cover_abs = cover if str(cover).startswith("http") else (SITE + cover if cover else "")
+        photo0 = ((r.get("photos") or [None])[0]) or cover
         desc = re.sub(r"\s+", " ", (r.get("description") or "")).strip()
         if len(desc) > 158:
             desc = desc[:158].rsplit(" ", 1)[0] + "…"
@@ -366,7 +368,7 @@ def generate_listing_pages(records):
         title = f"{name} · {city}" + (f" · {typ}" if typ else "") + " | SH Développement"
         ld = {
             "@context": "https://schema.org", "@type": "LodgingBusiness",
-            "name": name, "url": url, "image": ([cover] if cover else []),
+            "name": name, "url": url, "image": ([cover_abs] if cover else []),
             "address": {"@type": "PostalAddress", "addressLocality": city,
                         "addressRegion": "Bourgogne-Franche-Comté", "addressCountry": "FR"},
             "priceRange": (f"À partir de {r.get('price')} € / nuit" if r.get("price") else "€€"),
@@ -393,17 +395,19 @@ def generate_listing_pages(records):
             f'<meta property="og:title" content="{e(title)}">\n'
             f'<meta property="og:description" content="{e(desc)}">\n'
             f'<meta property="og:url" content="{url}">\n'
-            + (f'<meta property="og:image" content="{e(cover)}">\n' if cover else '')
+            + (f'<meta property="og:image" content="{e(cover_abs)}">\n' if cover else '')
             + '<meta name="twitter:card" content="summary_large_image">\n'
             f'<meta name="twitter:title" content="{e(title)}">\n'
             f'<meta name="twitter:description" content="{e(desc)}">\n'
-            + (f'<meta name="twitter:image" content="{e(cover)}">\n' if cover else '')
+            + (f'<meta name="twitter:image" content="{e(cover_abs)}">\n' if cover else '')
+            + (f'<link rel="preload" as="image" href="{e(photo0)}" fetchpriority="high">\n' if photo0 else '')
             + '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>'
         )
         page = tpl.replace('<title>Logement | SH Développement</title>', head)
+        emb = json.dumps(r, ensure_ascii=False).replace('</', '<\\/')
         page = page.replace(
             "const id = parseInt(new URLSearchParams(location.search).get('id'), 10);",
-            f"const id = {lid};")
+            f"window.__PREL = {emb};\nconst id = {lid};")
         # chemins absolus (la page vit dans /bien/{id}/)
         page = page.replace('src="img/', 'src="/img/').replace('href="index.html', 'href="/index.html')
         noscript = (
@@ -436,6 +440,57 @@ def build_cities(records):
     print(f"cities.json : {len(cities)} villes")
 
 
+
+
+def localize_images(records):
+    """Auto-héberge en WebP optimisé la couverture + les 5 premières photos de chaque logement
+    (S3 Hostaway sert ~500 Ko/photo en HTTP/1.1 ; on sert ~60-120 Ko depuis notre domaine en HTTP/2).
+    Les URLs des records sont réécrites vers /img/l/{id}-{k}.webp ; le reste de la galerie reste sur S3."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print("Pillow absent : photos laissées sur S3"); return
+    import io, urllib.request
+    here = os.path.dirname(os.path.abspath(__file__))
+    d = os.path.join(here, "img", "l")
+    os.makedirs(d, exist_ok=True)
+    wanted, done, fail = set(), 0, 0
+    for r in records:
+        jobs = []
+        if r.get("cover"):
+            jobs.append(("c", r["cover"], 800))
+        for i, u in enumerate((r.get("photos") or [])[:5]):
+            jobs.append((str(i), u, 1200 if i == 0 else 700))
+        for k, u, width in jobs:
+            if not str(u).startswith("http"):
+                wanted.add(os.path.basename(str(u))); continue
+            name = f"{r['id']}-{k}.webp"
+            out = os.path.join(d, name)
+            if not os.path.exists(out):
+                try:
+                    data = urllib.request.urlopen(u, timeout=30).read()
+                    im = Image.open(io.BytesIO(data)).convert("RGB")
+                    if im.width > width:
+                        im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
+                    im.save(out, "WEBP", quality=78, method=6)
+                    done += 1
+                except Exception:
+                    fail += 1
+                    continue
+            wanted.add(name)
+            path = f"/img/l/{name}"
+            if k == "c":
+                r["cover"] = path
+            else:
+                r["photos"][int(k)] = path
+    for fn in os.listdir(d):
+        if fn.endswith(".webp") and fn not in wanted:
+            os.remove(os.path.join(d, fn))
+    print(f"img/l : {done} nouvelles images optimisées, {fail} échecs, {len(wanted)} référencées")
+
+
+
+
 def main():
     load_env()
     tok = get_token()
@@ -452,6 +507,7 @@ def main():
     # Tous les enregistrements (réutilisés pour la galerie ET le catalogue)
     records = [prop_record(l) for l in listings]
     byrec = {r["id"]: r for r in records}
+    localize_images(records)
 
     # Galerie « nos biens d'exception » : sélection CURÉE par le client (8 logements choisis à la
     # main), données rafraîchies chaque jour depuis Hostaway. Affichée par prix décroissant ;

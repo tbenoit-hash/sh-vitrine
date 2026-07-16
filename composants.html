@@ -5,14 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>SH Développement | Banque de composants</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = { theme: { extend: {
-  colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
-  fontFamily: { display:['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'], sans:['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'] },
-  maxWidth: { content:'1100px' }
-}}}
-</script>
+<link rel="stylesheet" href="/site.css">
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
   .font-display { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: -0.015em; }
@@ -23,7 +16,7 @@ tailwind.config = { theme: { extend: {
 <body class="bg-cream text-ink antialiased">
 
 <header class="border-b border-ecru/70 bg-cream/90 backdrop-blur sticky top-0 z-10">
-  <div class="max-w-content mx-auto px-6 py-5 flex items-center justify-between">
+  <div class="max-w-[1100px] mx-auto px-6 py-5 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <img src="img/logo_gold.png" alt="" class="h-8 w-auto">
       <span class="font-display text-xl font-700">SH <span class="text-bronze">Développement</span></span>
@@ -32,7 +25,7 @@ tailwind.config = { theme: { extend: {
   </div>
 </header>
 
-<main class="max-w-content mx-auto px-6 py-14">
+<main class="max-w-[1100px] mx-auto px-6 py-14">
   <div class="mb-14">
     <h1 class="font-display text-5xl font-600">Composants UI</h1>
     <p class="text-muted text-lg mt-3 max-w-2xl">Bibliothèque de blocs réutilisables pour la conciergerie, inspirée d'Airbnb, habillée de la charte brun&nbsp;/&nbsp;or SH. Copiez, réutilisez, déclinez.</p>

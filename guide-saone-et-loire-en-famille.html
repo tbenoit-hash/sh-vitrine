@@ -56,31 +56,7 @@
 }
 </script>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
-      colors: {
-        cream:   '#FBF8F3',
-        sand:    '#F1E9DC',
-        ecru:    '#ecdbc0',
-        ink:     '#2E2410',
-        brown:   '#463618',
-        cocoa:   '#5c4636',
-        muted:   '#6B605C',
-        gold:    '#E0AE2C',
-        bronze:  '#8A5E1A',
-      },
-      fontFamily: {
-        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-      },
-      maxWidth: { content: '1200px' },
-    }
-  }
-}
-</script>
+<link rel="stylesheet" href="/site.css">
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
@@ -114,7 +90,7 @@ tailwind.config = {
 
 <!-- ░░ NAV ░░ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50 bg-cream/90 backdrop-blur shadow-sm shadow-ink/5 transition-all duration-300">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
     <a href="/" class="flex items-center gap-3 group" aria-label="SH Développement, accueil">
       <img src="/img/logo_gold.png" alt="" class="h-9 w-auto" id="logo-img">
       <span class="font-display text-2xl font-700 leading-none text-ink" id="logo-txt">SH&nbsp;<span class="text-bronze" id="logo-sub">Développement</span></span>
@@ -143,7 +119,7 @@ tailwind.config = {
   </div>
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
-    <nav class="max-w-content mx-auto px-5 py-4 flex flex-col">
+    <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
       <a href="/proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
       <a href="/catalogue.html?v=2" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos locations</a>
       <a href="/guides.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Guides</a>
@@ -166,21 +142,21 @@ tailwind.config = {
   <!-- En-tête de l'article -->
   <header class="pt-32 sm:pt-36 pb-8">
     <div class="max-w-3xl mx-auto px-5 sm:px-8">
-      <nav class="reveal text-sm text-muted mb-6" aria-label="Fil d'Ariane">
+      <nav class="text-sm text-muted mb-6" aria-label="Fil d'Ariane">
         <a href="/" class="dlink">Accueil</a> <span class="text-ecru">›</span>
         <a href="/guides.html" class="dlink">Guides</a> <span class="text-ecru">›</span>
         <span class="text-ink">La Saône-et-Loire en famille</span>
       </nav>
-      <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">En famille · Idées sorties</p>
-      <h1 class="reveal font-display text-4xl sm:text-5xl font-600 leading-[1.08]">La Saône-et-Loire en famille</h1>
-      <p class="reveal text-muted text-lg mt-5 leading-relaxed">Zoo, grands sites naturels, vélo, baignade, accrobranche et châteaux : la Bourgogne du Sud regorge d'idées pour occuper petits et grands, du matin au soir.</p>
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">En famille · Idées sorties</p>
+      <h1 class="font-display text-4xl sm:text-5xl font-600 leading-[1.08]">La Saône-et-Loire en famille</h1>
+      <p class="text-muted text-lg mt-5 leading-relaxed">Zoo, grands sites naturels, vélo, baignade, accrobranche et châteaux : la Bourgogne du Sud regorge d'idées pour occuper petits et grands, du matin au soir.</p>
     </div>
   </header>
 
   <!-- Image héro -->
   <div class="max-w-5xl mx-auto px-5 sm:px-8 mb-8">
     <figure class="reveal overflow-hidden rounded-2xl border border-ecru shadow-xl shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63" alt="Grande maison familiale avec piscine en Saône-et-Loire, à Saint-Germain-du-Plain" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/ab6856f93b.webp" alt="Grande maison familiale avec piscine en Saône-et-Loire, à Saint-Germain-du-Plain" class="block w-full aspect-[16/9] object-cover" fetchpriority="high">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">De l'espace, un jardin et une piscine pour toute la tribu : l'une de nos grandes maisons familiales en Saône-et-Loire.</figcaption>
     </figure>
   </div>
@@ -212,7 +188,7 @@ tailwind.config = {
     <p class="reveal">La Saône-et-Loire est un paradis du vélo en famille grâce à sa <a href="https://www.google.com/search?q=Voie+Verte+Bourgogne+du+Sud+%C3%A0+v%C3%A9lo" target="_blank" rel="noopener">Voie Verte</a>, l'une des premières de France, aménagée sur d'anciennes voies ferrées. Le tracé est plat, goudronné et fermé aux voitures : parfait pour pédaler sereinement avec des enfants. Le tronçon entre <strong>Givry et Cluny</strong> traverse vignobles et villages, avec des aires de pique-nique régulières et des loueurs de vélos en chemin. On adapte la distance à l'âge de chacun et on s'arrête dès qu'une fontaine ou une place de village fait envie.</p>
 
     <figure class="reveal my-8 overflow-hidden rounded-2xl border border-ecru shadow-lg shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-0jycRI6y3HyH9O9--BeV8S--ZGmEsJT1JmaD-aJCxBntw-69eb64e5674af" alt="Piscine et extérieur d'une grande maison familiale en Saône-et-Loire" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/06758f3cd0.webp" alt="Piscine et extérieur d'une grande maison familiale en Saône-et-Loire" class="block w-full aspect-[16/9] object-cover" loading="lazy">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">Et pour se rafraîchir sans bouger : la piscine de l'une de nos maisons familiales, à Saint-Germain-du-Plain.</figcaption>
     </figure>
 
@@ -229,7 +205,7 @@ tailwind.config = {
     </ul>
 
     <figure class="reveal my-8 overflow-hidden rounded-2xl border border-ecru shadow-lg shadow-ink/10">
-      <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-482645-3yH3Rqw7nDOyAxdGox9Hoh4Ot1IIVwVSTHzQb6K0FVQ-69eb39fff1c44" alt="Séjour spacieux et lumineux d'une maison familiale à La Charmée, près de Chalon" class="block w-full aspect-[16/9] object-cover" loading="lazy">
+      <img src="/img/s/f4f69eb121.webp" alt="Séjour spacieux et lumineux d'une maison familiale à La Charmée, près de Chalon" class="block w-full aspect-[16/9] object-cover" loading="lazy">
       <figcaption class="bg-sand text-muted text-sm px-5 py-3 text-center">Un grand séjour pour se retrouver le soir : notre maison L'Orée du Bois, à La Charmée.</figcaption>
     </figure>
 
@@ -250,7 +226,7 @@ tailwind.config = {
     <div class="reveal grid sm:grid-cols-3 gap-5 mt-5 not-prose">
       <a href="/bien/465755/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465755-nMoUuVtyUn3CI-M1M0OQwd080FxnqMPBBW4amQReQy0-69eb65bee0e63" alt="Maison Les Vagastines 2 avec piscine à Saint-Germain-du-Plain" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/ab6856f93b.webp" alt="Maison Les Vagastines 2 avec piscine à Saint-Germain-du-Plain" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">Les Vagastines 2 · piscine</p>
@@ -260,7 +236,7 @@ tailwind.config = {
       </a>
       <a href="/bien/465754/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465754-yErgQuk2r6jZGqZc4CvwoflnlICif0BW6NzNNCvcHIk-693ea75e18b6c" alt="Maison Les Vagastines 1 avec piscine à Saint-Germain-du-Plain" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/7a4df616a8.webp" alt="Maison Les Vagastines 1 avec piscine à Saint-Germain-du-Plain" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">Les Vagastines 1 · piscine</p>
@@ -270,7 +246,7 @@ tailwind.config = {
       </a>
       <a href="/bien/482645/" class="group block overflow-hidden rounded-2xl bg-cream border border-ecru shadow-md shadow-ink/5 hover:shadow-xl hover:shadow-ink/10 hover:-translate-y-0.5 transition">
         <div class="overflow-hidden">
-          <img src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-482645-6e--gQCWam5HaDVX7S7Rnf0hT4Cw8oJaTIDcT3pfbZK0-6980b3135552f" alt="Maison L'Orée du Bois à La Charmée" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
+          <img src="/img/s/90bba37874.webp" alt="Maison L'Orée du Bois à La Charmée" class="block w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition duration-500" loading="lazy">
         </div>
         <div class="p-4">
           <p class="font-display text-xl font-600 text-ink leading-tight">L'Orée du Bois</p>
@@ -309,7 +285,7 @@ tailwind.config = {
 
 <!-- ░░ FOOTER ░░ -->
 <footer class="bg-ink text-cream/70 py-10 mt-16">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/" class="hover:text-gold">Accueil</a>

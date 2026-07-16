@@ -36,31 +36,7 @@
   "areaServed": "Saône-et-Loire, Bourgogne"
 }
 </script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: { fontWeight:{400:"400",500:"500",600:"600",700:"700"},
-      colors: {
-        cream:   '#FBF8F3',
-        sand:    '#F1E9DC',
-        ecru:    '#ecdbc0',
-        ink:     '#2E2410',
-        brown:   '#463618',
-        cocoa:   '#5c4636',
-        muted:   '#6B605C',
-        gold:    '#E0AE2C',
-        bronze:  '#8A5E1A',
-      },
-      fontFamily: {
-        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
-      },
-      maxWidth: { content: '1200px' },
-    }
-  }
-}
-</script>
+<link rel="stylesheet" href="/site.css">
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
@@ -85,7 +61,7 @@ tailwind.config = {
 
 <!-- ░░ NAV ░░ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
     <a href="index.html#top" class="flex items-center gap-3 group" aria-label="SH Développement, accueil">
       <img src="img/logo_gold.png" alt="" class="h-9 w-auto" id="logo-img">
       <span class="font-display text-2xl font-700 leading-none text-cream" id="logo-txt">SH&nbsp;<span class="text-cream" id="logo-sub">Développement</span></span>
@@ -114,7 +90,7 @@ tailwind.config = {
   </div>
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
-    <nav class="max-w-content mx-auto px-5 py-4 flex flex-col">
+    <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
       <a href="index.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Accueil</a>
       <a href="#conciergerie" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos services</a>
       <a href="#proprietaires" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Pourquoi nous</a>
@@ -139,15 +115,15 @@ tailwind.config = {
   <img src="img/hero.jpg" alt="L'agence SH Développement à Chalon-sur-Saône" class="absolute inset-0 w-full h-full object-cover object-center">
   <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/30"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"></div>
-  <div class="relative z-10 max-w-content mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
-    <p class="reveal text-gold text-xs sm:text-sm font-600 tracking-luxe uppercase mb-5">Espace propriétaires · Saône-et-Loire</p>
-    <h1 class="reveal font-display text-cream text-5xl sm:text-6xl lg:text-7xl font-600 leading-[1.05] max-w-3xl">
+  <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
+    <p class="text-gold text-xs sm:text-sm font-600 tracking-luxe uppercase mb-5">Espace propriétaires · Saône-et-Loire</p>
+    <h1 class="font-display text-cream text-5xl sm:text-6xl lg:text-7xl font-600 leading-[1.05] max-w-3xl">
       Confiez-nous votre bien,<br><span class="text-gold">on s'occupe de tout.</span>
     </h1>
-    <p class="reveal text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
+    <p class="text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
       De la mise en ligne de l'annonce à l'accueil des voyageurs, votre logement est géré de A à Z par notre équipe locale. Plus de revenus, zéro contrainte.
     </p>
-    <div class="reveal flex flex-wrap gap-4 mt-9">
+    <div class="flex flex-wrap gap-4 mt-9">
       <a href="#estimation" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-7 py-3.5 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
         Estimer mes revenus
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -161,7 +137,7 @@ tailwind.config = {
 
 <!-- ░░ TRUST BAR ░░ -->
 <section class="bg-ink text-cream">
-  <div class="max-w-content mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
     <div class="reveal py-9 px-4 text-center">
       <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-count">123</div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">logements gérés</div>
@@ -183,7 +159,7 @@ tailwind.config = {
 
 <!-- ░░ CONCIERGERIE ░░ -->
 <section id="conciergerie" class="py-24 sm:py-32 scroll-mt-20">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal max-w-2xl">
       <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">La conciergerie tout-en-un</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Vous possédez. Nous nous occupons de tout le reste.</h2>
@@ -239,10 +215,10 @@ tailwind.config = {
 
 <!-- ░░ PROPRIÉTAIRES ░░ -->
 <section id="proprietaires" class="py-24 sm:py-28 bg-sand/60 scroll-mt-20">
-  <div class="max-w-content mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
     <div class="reveal order-2 lg:order-1">
       <div class="relative">
-        <img src="img/agence-interieur.jpg" alt="L'accueil de l'agence SH Développement, espace conseil aux propriétaires" class="rounded-2xl w-full object-cover aspect-[4/3] shadow-xl shadow-ink/10">
+        <img src="img/agence-interieur.webp" width="1200" height="709" alt="L'accueil de l'agence SH Développement, espace conseil aux propriétaires" class="rounded-2xl w-full object-cover aspect-[4/3] shadow-xl shadow-ink/10">
         <div class="absolute -bottom-6 -right-4 sm:-right-6 bg-cream rounded-2xl shadow-lg shadow-ink/10 px-6 py-5 border border-ecru">
           <div class="font-display text-3xl font-600 text-bronze">jusqu'à −15 %</div>
           <div class="text-muted text-sm mt-0.5">de commission en moins<br>en réservation directe</div>
@@ -277,7 +253,7 @@ tailwind.config = {
 <!-- ░░ SIMULATEUR DE REVENUS ░░ -->
 <section id="estimation" class="py-24 sm:py-32 bg-ink text-cream relative overflow-hidden scroll-mt-20">
   <div class="absolute inset-0 opacity-[0.12]" style="background:radial-gradient(circle at 82% 8%, #E0AE2C 0, transparent 45%), radial-gradient(circle at 5% 90%, #E0AE2C 0, transparent 40%)"></div>
-  <div class="max-w-content mx-auto px-5 sm:px-8 relative">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 relative">
     <div class="reveal max-w-2xl">
       <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Simulateur de revenus</p>
       <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Combien votre bien peut-il vous rapporter ?</h2>
@@ -381,7 +357,7 @@ tailwind.config = {
 
 <!-- ░░ CONTACT ░░ -->
 <section id="contact" class="pb-24 scroll-mt-24">
-  <div class="max-w-content mx-auto px-5 sm:px-8">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
     <div class="reveal relative overflow-hidden rounded-3xl bg-brown text-cream px-6 sm:px-12 lg:px-16 py-12 sm:py-16">
       <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 50% 0%, #E0AE2C 0, transparent 55%)"></div>
       <div class="relative grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
@@ -448,7 +424,7 @@ tailwind.config = {
 
 <!-- ░░ FOOTER ░░ -->
 <footer class="bg-ink text-cream/70 py-10 mt-16">
-  <div class="max-w-content mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
     <span>© 2026 SH Développement · Conciergerie en Bourgogne</span>
     <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center">
       <a href="/" class="hover:text-gold">Accueil</a>
