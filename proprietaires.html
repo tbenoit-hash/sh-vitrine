@@ -36,9 +36,6 @@
   "areaServed": "Saône-et-Loire, Bourgogne"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -56,8 +53,8 @@ tailwind.config = {
         bronze:  '#8A5E1A',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
+        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
       },
       maxWidth: { content: '1200px' },
     }
@@ -66,8 +63,8 @@ tailwind.config = {
 </script>
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: Inter, system-ui, sans-serif; }
-  .font-display { font-family: "Cormorant Garamond", Georgia, serif; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
+  .font-display { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: -0.015em; }
   .tracking-luxe { letter-spacing: .28em; }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
   .reveal.in { opacity: 1; transform: none; }

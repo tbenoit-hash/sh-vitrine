@@ -5,20 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>SH Développement | Banque de composants</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = { theme: { extend: {
   colors: { cream:'#FBF8F3', sand:'#F1E9DC', ecru:'#ecdbc0', ink:'#2E2410', brown:'#463618', cocoa:'#5c4636', muted:'#6B605C', gold:'#E0AE2C', bronze:'#8A5E1A' },
-  fontFamily: { display:['"Cormorant Garamond"','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+  fontFamily: { display:['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'], sans:['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'] },
   maxWidth: { content:'1100px' }
 }}}
 </script>
 <style>
-  body { font-family: Inter, system-ui, sans-serif; }
-  .font-display { font-family: "Cormorant Garamond", Georgia, serif; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
+  .font-display { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: -0.015em; }
   .tracking-luxe { letter-spacing:.28em; }
   a,button { transition: all .2s ease; }
 </style>
@@ -169,7 +166,7 @@ tailwind.config = { theme: { extend: {
     </div>
   </section>
 
-  <p class="text-muted/70 text-sm mt-10 pt-6 border-t border-ecru/70">Tous les composants utilisent la charte SH (brun&nbsp;/&nbsp;or, Cormorant&nbsp;+&nbsp;Inter, icônes SVG). À enrichir : sélecteur de dates, filtres, galerie photo, modale, calendrier de disponibilité.</p>
+  <p class="text-muted/70 text-sm mt-10 pt-6 border-t border-ecru/70">Tous les composants utilisent la charte SH (brun&nbsp;/&nbsp;or, écriture système Apple (SF Pro), icônes SVG). À enrichir : sélecteur de dates, filtres, galerie photo, modale, calendrier de disponibilité.</p>
 </main>
 </body>
 </html>

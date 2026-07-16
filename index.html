@@ -43,9 +43,6 @@
   }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -63,8 +60,8 @@ tailwind.config = {
         bronze:  '#8A5E1A',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
+        sans:    ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"Helvetica Neue"','"Segoe UI"','Roboto','Arial','sans-serif'],
       },
       maxWidth: { content: '1200px' },
     }
@@ -73,8 +70,8 @@ tailwind.config = {
 </script>
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: Inter, system-ui, sans-serif; }
-  .font-display { font-family: "Cormorant Garamond", Georgia, serif; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
+  .font-display { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: -0.015em; }
   .tracking-luxe { letter-spacing: .28em; }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
   .reveal.in { opacity: 1; transform: none; }
@@ -108,13 +105,13 @@ tailwind.config = {
   .sh-mk:hover i, .sh-mk.hot i { transform: scale(1.55); background: #2E2410; }
   .sh-mk.feat i { box-shadow: 0 0 0 4px rgba(224,174,44,.35), 0 2px 6px rgba(46,36,16,.55); }
   /* Pastilles de prix façon Airbnb */
-  .sh-pin { display: inline-flex; align-items: center; gap: 4px; background: #FBF8F3; color: #2E2410; font: 700 12.5px/1 Inter, system-ui, sans-serif; padding: 6px 10px; border-radius: 999px; border: 1.5px solid rgba(46,36,16,.14); box-shadow: 0 3px 10px rgba(46,36,16,.32); cursor: pointer; white-space: nowrap; text-decoration: none; transition: transform .14s ease, background .14s ease, color .14s ease; }
+  .sh-pin { display: inline-flex; align-items: center; gap: 4px; background: #FBF8F3; color: #2E2410; font: 700 12.5px/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; padding: 6px 10px; border-radius: 999px; border: 1.5px solid rgba(46,36,16,.14); box-shadow: 0 3px 10px rgba(46,36,16,.32); cursor: pointer; white-space: nowrap; text-decoration: none; transition: transform .14s ease, background .14s ease, color .14s ease; }
   .sh-pin:hover, .sh-pin.hot { background: #2E2410; color: #FBF8F3; transform: scale(1.08); z-index: 6; }
   .sh-pin.feat { border-color: #E0AE2C; box-shadow: 0 0 0 2px rgba(224,174,44,.4), 0 3px 10px rgba(46,36,16,.32); }
   .sh-pin .h { color: #E0AE2C; font-size: 11px; line-height: 1; }
   .sh-pin:hover .h, .sh-pin.hot .h { color: #E0AE2C; }
   /* Bulles de regroupement */
-  .sh-clus { display: flex; align-items: center; justify-content: center; background: #2E2410; color: #FBF8F3; border: 2px solid #FBF8F3; border-radius: 50%; font: 700 13px/1 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 0 4px 13px rgba(46,36,16,.5); transition: transform .14s ease, background .14s ease; }
+  .sh-clus { display: flex; align-items: center; justify-content: center; background: #2E2410; color: #FBF8F3; border: 2px solid #FBF8F3; border-radius: 50%; font: 700 13px/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; cursor: pointer; box-shadow: 0 4px 13px rgba(46,36,16,.5); transition: transform .14s ease, background .14s ease; }
   .sh-clus:hover { transform: scale(1.09); background: #463618; }
   /* Carte illustrée : pastilles de villes cliquables */
   .sh-map { line-height: 0; }
@@ -123,21 +120,21 @@ tailwind.config = {
   .sh-town::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(224,174,44,.65); animation: shtown 2.1s ease-out infinite; }
   @keyframes shtown { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.7); opacity: 0; } }
   .sh-town:hover i, .sh-town:focus-visible i { transform: scale(1.35); background: #2E2410; }
-  .sh-town b { position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%) translateY(5px); background: #2E2410; color: #FBF8F3; font: 600 12px/1 Inter, sans-serif; padding: 6px 10px; border-radius: 9px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; box-shadow: 0 8px 22px rgba(46,36,16,.45); }
+  .sh-town b { position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%) translateY(5px); background: #2E2410; color: #FBF8F3; font: 600 12px/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; padding: 6px 10px; border-radius: 9px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; box-shadow: 0 8px 22px rgba(46,36,16,.45); }
   .sh-town:hover b, .sh-town:focus-visible b { opacity: 1; transform: translateX(-50%) translateY(0); }
   .sh-pop .maplibregl-popup-content { padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
   .sh-pop .maplibregl-popup-tip { display: none; }
   .sh-card { display: block; width: 218px; background: #FBF8F3; color: #2E2410; border-radius: 14px; overflow: hidden; text-decoration: none; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
   .sh-card img { width: 100%; height: 120px; object-fit: cover; display: block; background: #EFE6D4; }
   .sh-card .cb { display: block; padding: 9px 12px 11px; }
-  .sh-card .cb b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; line-height: 1.12; display: block; }
+  .sh-card .cb b { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; font-size: 17px; line-height: 1.12; display: block; }
   .sh-card .cb .m { font-size: 11.5px; color: #6B605C; margin-top: 3px; display: block; }
   .sh-card .cb .pr { font-size: 13px; font-weight: 700; margin-top: 6px; display: block; }
   .sh-card .cb .pr i { font-weight: 400; color: #6B605C; font-style: normal; }
   .sh-poi { width: 25px; height: 25px; border-radius: 50%; background: #FBF8F3; border: 2px solid var(--c, #8A5E1A); display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; cursor: pointer; box-shadow: 0 2px 6px rgba(46,36,16,.45); transition: transform .15s ease; }
   .sh-poi:hover, .sh-poi.hot { transform: scale(1.28); z-index: 5; }
   .sh-poic { width: 212px; background: #FBF8F3; color: #2E2410; border-radius: 12px; border-top: 3px solid var(--c, #8A5E1A); padding: 10px 13px 12px; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
-  .sh-poic b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 16.5px; line-height: 1.12; display: block; }
+  .sh-poic b { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; font-size: 16.5px; line-height: 1.12; display: block; }
   .sh-poic .m { font-size: 11.5px; color: #6B605C; margin-top: 4px; display: block; line-height: 1.35; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
