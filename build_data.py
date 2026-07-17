@@ -378,8 +378,8 @@ def generate_listing_pages(records):
             ld["geo"] = {"@type": "GeoCoordinates", "latitude": r["lat"], "longitude": r["lng"]}
         if r.get("rating"):
             ld["aggregateRating"] = {"@type": "AggregateRating",
-                                     "ratingValue": round(float(r["rating"]) / 2, 1),
-                                     "bestRating": 5, "worstRating": 0}
+                                     "ratingValue": round(float(r["rating"]), 1),
+                                     "bestRating": 10, "worstRating": 0}
             if r.get("reviewCount"):
                 ld["aggregateRating"]["reviewCount"] = r["reviewCount"]
         if r.get("amenities"):

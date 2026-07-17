@@ -290,7 +290,7 @@
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">communes</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
-      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">4,4<span class="text-2xl text-cream/50">/5</span></div>
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">8,8<span class="text-2xl text-cream/50">/10</span></div>
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">note voyageurs</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
@@ -618,7 +618,7 @@ const SHSTAR = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" s
 function renderGrid(){ grid.innerHTML = listings.map((l, i) => {
   const fav = SHFAV.has(l.id);
   const badge = (l.rating && l.rating >= 9.6) ? '<span class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-cream/95 text-ink text-[11.5px] font-700 px-2.5 py-1 rounded-full shadow-md"><svg width="11" height="11" viewBox="0 0 32 32" fill="#E0AE2C" style="display:block"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>Coup de cœur voyageurs</span>' : '';
-  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${SHSTAR} ${(l.rating/2).toFixed(2).replace('.', ',')}</span>` : '';
+  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${SHSTAR} ${(+l.rating).toFixed(1).replace('.', ',')}/10</span>` : '';
   return `<a href="/bien/${l.id}/" style="transition-delay:${i*55}ms" class="reveal group block">
     <div class="sh-photo relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
       <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${SHesc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">

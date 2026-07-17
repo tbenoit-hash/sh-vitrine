@@ -192,7 +192,7 @@ Promise.all([
 function render(p) {
   PHOTOS = (p.photos && p.photos.length) ? p.photos : [p.cover];
   const c = document.getElementById('content');
-  const rating = p.rating ? `<span class="inline-flex items-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(Math.round(p.rating*5)/10).toFixed(1).replace('.', ',')}/5</b></span> · ` : '';
+  const rating = p.rating ? `<span class="inline-flex items-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(+p.rating).toFixed(1).replace('.', ',')}/10</b></span> · ` : '';
   const beds = p.bedrooms ? `${p.bedrooms} chambre${p.bedrooms>1?'s':''}` : 'Studio';
   const gallery = `
     <div class="grid grid-cols-4 grid-rows-2 gap-2 rounded-2xl overflow-hidden h-[300px] sm:h-[460px]">
@@ -220,7 +220,7 @@ function render(p) {
         ${(p.reviews && p.reviews.length) ? `<div class="py-6 border-b border-ecru/70">
           <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
             <h2 class="font-display text-2xl font-600">Avis des voyageurs</h2>
-            ${p.rating ? `<span class="inline-flex items-center gap-1 text-sm text-ink"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(Math.round(p.rating*5)/10).toFixed(1).replace('.', ',')}/5</b>${p.reviewCount ? ` · ${p.reviewCount} avis` : ''}</span>` : ''}
+            ${p.rating ? `<span class="inline-flex items-center gap-1 text-sm text-ink"><svg width="15" height="15" viewBox="0 0 24 24" fill="#E0AE2C"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><b>${(+p.rating).toFixed(1).replace('.', ',')}/10</b>${p.reviewCount ? ` · ${p.reviewCount} avis` : ''}</span>` : ''}
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
             ${p.reviews.map(rv => `<figure class="rounded-2xl border border-ecru bg-cream p-5"><div class="text-gold text-sm mb-2" aria-hidden="true">★★★★★</div><blockquote class="text-ink/85 text-sm leading-relaxed">« ${esc(rv.text)} »</blockquote><figcaption class="text-bronze text-sm font-600 mt-3">${esc(rv.name)}</figcaption></figure>`).join('')}

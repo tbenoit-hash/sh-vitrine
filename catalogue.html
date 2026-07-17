@@ -197,7 +197,7 @@ const matchesTheme = (l, t) => {
 let LISTINGS = [], DISPO = null, SEL = { ok:false }, q = '', activeType = 'all', activeTheme = 'all';
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-const note5 = r => (r/2).toFixed(2).replace('.', ',');
+const note10 = r => (+r).toFixed(1).replace('.', ',') + '/10';
 const FAV = new Set(JSON.parse(localStorage.getItem('sh_fav') || '[]'));
 const heart = '<svg viewBox="0 0 32 32" width="24" height="24" style="display:block;fill:rgba(46,36,16,.35);stroke:#FBF8F3;stroke-width:2.4;overflow:visible"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>';
 const star = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" style="display:inline-block;vertical-align:-1px"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
@@ -244,7 +244,7 @@ function renderThemes(){
 function card(l){
   const fav = FAV.has(l.id);
   const badge = (l.rating && l.rating >= 9.6) ? `<span class="absolute top-3 left-3 bg-cream text-ink text-[12px] font-700 px-2.5 py-1 rounded-full shadow-sm">Coup de cœur voyageurs</span>` : '';
-  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note5(l.rating)}</span>` : '';
+  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note10(l.rating)}</span>` : '';
   return `<a href="/bien/${l.id}/" class="grp block">
     <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
       <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${esc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">
