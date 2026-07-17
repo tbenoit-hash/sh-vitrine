@@ -26,6 +26,10 @@ h3.font-display.text-2xl, h4.font-display, span.font-display.text-xl {
 #nav-links a[aria-current="page"] { position: relative; }
 #nav-links a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px;
   height: 2px; background: #E0AE2C; border-radius: 2px; }
+/* header : rien ne passe à la ligne, le logo ne rétrécit pas */
+#nav-links a { white-space: nowrap; }
+#nav a[aria-label="SH Développement, accueil"] { flex: none; white-space: nowrap; }
+.cta-ghost, .cta-caps { white-space: nowrap; }
 /* bouton discret du header (s'adapte au fond : transparent sur hero, crème au scroll) */
 .cta-ghost { color: #FBF8F3; border: 1px solid rgba(251,248,243,.45); }
 .cta-ghost:hover { border-color: #E0AE2C; color: #E0AE2C; }
