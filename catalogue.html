@@ -37,7 +37,7 @@
   .heart:hover svg{transform:scale(1.12)}
   .heart.on svg{fill:#E0AE2C !important;stroke:#FBF8F3 !important}
   /* Mobile : après validation de la recherche, le grand formulaire se replie
-     en une barre compacte (sinon le bloc sticky masque les annonces). */
+     en une barre compacte pour laisser la place aux annonces. */
   #search-recap{display:none}
   @media (max-width:639px){
     .search-collapsed #search-card{display:none}
@@ -87,7 +87,7 @@
   </div>
 
   <!-- Barre de recherche façon Airbnb : destination + dates + voyageurs -->
-  <div class="sticky top-16 z-20 bg-cream/95 backdrop-blur py-5 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8">
+  <div id="search-wrap" class="py-5 mb-8">
     <div class="max-w-3xl mx-auto">
       <div id="search-card" class="flex flex-col sm:flex-row sm:items-stretch bg-cream border border-ecru rounded-3xl sm:rounded-full shadow-lg shadow-ink/5">
         <label data-destpicker class="flex-1 px-5 py-2.5 hover:bg-sand/40 rounded-t-3xl sm:rounded-l-full sm:rounded-tr-none cursor-text">
@@ -327,7 +327,7 @@ function scrollToResults(){
 // Replie le formulaire en barre compacte (mobile uniquement, via CSS) et
 // remplit le résumé « destination · dates · voyageurs ».
 function collapseSearch(){
-  const wrap = document.getElementById('search-card') && document.getElementById('search-card').closest('.sticky');
+  const wrap = document.getElementById('search-wrap');
   if (!wrap) return;
   const inV = (document.getElementById('d-in') || {}).value || '';
   const outV = (document.getElementById('d-out') || {}).value || '';
@@ -342,7 +342,7 @@ function collapseSearch(){
   wrap.classList.add('search-collapsed');
 }
 function expandSearch(){
-  const wrap = document.getElementById('search-card') && document.getElementById('search-card').closest('.sticky');
+  const wrap = document.getElementById('search-wrap');
   if (wrap) wrap.classList.remove('search-collapsed');
   hadDates = false;   // re-compléter les dates re-repliera et re-scrollera
 }
