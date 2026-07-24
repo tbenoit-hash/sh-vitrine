@@ -1,11 +1,11 @@
 {
-  "count": 129,
-  "communes": 24,
+  "count": 130,
+  "communes": 23,
   "adr": {
     "Studio": 45,
     "T3": 75,
     "T2": 52,
-    "T5": 255,
+    "T5": 250,
     "T4": 92,
     "T6+": 350
   },
@@ -584,55 +584,6 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1
-    },
-    {
-      "id": 496304,
-      "name": "Le Megevand",
-      "city": "Demi-Quartier",
-      "guests": 8,
-      "bedrooms": 4,
-      "bathrooms": 3,
-      "price": 436,
-      "rating": 0,
-      "cover": "/img/l/496304-c.webp",
-      "photos": [
-        "/img/l/496304-0.webp",
-        "/img/l/496304-1.webp",
-        "/img/l/496304-2.webp",
-        "/img/l/496304-3.webp",
-        "/img/l/496304-4.webp",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-r0SUWjWKKsfMX9gdWoqiLdFOLBTdUCNyDrRARfazTp4-69b2961d150dd",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-ZYWgqtfyCWIhNLDOTqJpTTnp6O2VGx7X--6g1lj2Z1R0-69b2961ad54dd",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-lqhRHcA7H7mdbuSmDbuROksWEVcHzQnWhzAYP5OhCKs-69b2961fd9454",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-6p4Qp8PrXIyUlNeRfNF--BaB1H6fy0aY31MzezUZH4xY-69b29623645ff",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-9YLoPnEJkIs7iMGzLuBka7HQsneYdzwmoBTgx-c6p8I-69b296a3476c2",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-gOAZ151nOh3cyg7q-3QKxN--pk2bTy--yF8IOlXy9ifSs-69b2969cb85cb",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-496304-gH1bukK-SPUOFjKheWfM5TgwSS--3cEiQtHalWUQvuHw-69b29615b3fcc"
-      ],
-      "description": "Passez un agréable séjour dans cet hébergement confortable.",
-      "amenities": [
-        "Wifi",
-        "Cuisine équipée",
-        "Parking gratuit",
-        "Télévision",
-        "Chauffage",
-        "Cheminée",
-        "Linge & nécessaire",
-        "Micro-ondes",
-        "Réfrigérateur",
-        "Séjours longue durée"
-      ],
-      "lat": 45.8668478,
-      "lng": 6.6241973,
-      "mapx": null,
-      "mapy": null,
-      "type": "T5",
-      "cleaningFee": 300,
-      "deposit": 400,
-      "markup": 1.05,
-      "minNights": 7,
-      "currency": "EUR",
-      "instant": 1
     }
   ],
   "reviews": [
@@ -667,5 +618,5 @@
       "text": "Logement facile d’accès, très bien situé. Le propriétaire est à l’écoute, disponible et présent en cas de besoin. Le logement est propre, pratique et fonctionnel. Très bon rapport qualité/prix. Je recommande sans hésitation."
     }
   ],
-  "updated": "2026-07-23"
+  "updated": "2026-07-24"
 }
