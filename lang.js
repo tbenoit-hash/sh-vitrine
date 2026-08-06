@@ -74,6 +74,8 @@
       '.sh-lang-opt{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:9px 11px;font-size:13px;font-weight:500;color:#2E2410;cursor:pointer}' +
       '.sh-lang-opt:hover{background:#f1e7d4}' +
       '.sh-lang-opt[aria-current="true"]{font-weight:700;background:#f5eee2}' +
+      /* mobile : globe seul, plus petit et semi-transparent pour ne pas masquer le contenu */
+      '@media (max-width:639px){#sh-lang{left:10px;bottom:10px}#sh-lang-btn{padding:9px;opacity:.82}#sh-lang-btn span{display:none}#sh-lang.open #sh-lang-btn{opacity:1}}' +
       /* masque la bannière et l’infobulle Google Translate */
       'body{top:0 !important}' +
       '#gt_holder,.goog-te-banner-frame,.skiptranslate iframe,#goog-gt-tt,.goog-te-balloon-frame,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf{display:none !important}' +

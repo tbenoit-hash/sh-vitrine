@@ -315,6 +315,7 @@
       <p>© 2026 SH Développement · Conciergerie en Bourgogne</p>
       <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2" aria-label="Liens légaux">
         <a href="/mentions-legales.html" class="hover:text-cream">Mentions légales</a>
+        <a href="/cgv.html" class="hover:text-cream">CGV</a>
         <a href="/confidentialite.html" class="hover:text-cream">Confidentialité</a>
       </nav>
     </div>
@@ -341,6 +342,7 @@ function setMenu(open) {
 menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 </script>
+<script defer src="/analytics.js"></script>
 <script defer src="/lang.js"></script>
 </body>
 </html>

@@ -103,6 +103,13 @@ def prop_record(l):
             seen.add(fr); am_fr.append(fr)
     am_fr.sort(key=lambda x: PRIORITY_AM.index(x) if x in PRIORITY_AM else 99)
     desc = re.sub(r"\s+", " ", (l.get("description") or "")).strip()
+    if len(desc) > 1400:
+        # coupe propre : fin de phrase si possible, sinon fin de mot + points de suspension
+        cut = desc.rfind(". ", 0, 1400)
+        if cut > 800:
+            desc = desc[:cut + 1]
+        else:
+            desc = desc[:desc.rfind(" ", 0, 1400)].rstrip(",;:-· ") + "…"
     mx, my = map_pos(l.get("lat"), l.get("lng"))
     return {
         "id": l.get("id"),
@@ -115,7 +122,7 @@ def prop_record(l):
         "rating": l.get("averageReviewRating"),
         "cover": (photos[0] if photos else cover_url(l)),
         "photos": photos,
-        "description": desc[:1400],
+        "description": desc,
         "amenities": am_fr[:14],
         "lat": l.get("lat"),
         "lng": l.get("lng"),
@@ -125,6 +132,8 @@ def prop_record(l):
         "cleaningFee": int(round(l.get("cleaningFee") or 0)),
         "deposit": int(round(l.get("refundableDamageDeposit") or 0)),
         "markup": round(float(l.get("bookingEngineMarkup") or 1.0), 4),
+        # majoration Airbnb (lecture seule) : sert au prix barré « sur Airbnb » côté site
+        "amk": round(float(l.get("airbnbOfficialListingMarkup") or 1.0), 4),
         "minNights": int(l.get("minNights") or 1),
         "currency": l.get("currencyCode") or "EUR",
         "instant": 1 if l.get("instantBookable") else 0,
@@ -185,7 +194,7 @@ def aggregate_listing_reviews(all_reviews, per=3):
         for it in items:
             if it["name"] in seen:
                 continue
-            seen.add(it["name"]); picked.append({"name": it["name"], "text": it["text"]})
+            seen.add(it["name"]); picked.append({"name": it["name"], "text": it["text"], "rating": it["rating"] or None})
             if len(picked) >= per:
                 break
         out[lid] = {"count": c, "reviews": picked}
@@ -213,7 +222,7 @@ def pick_reviews(res, byid, n=6):
     for c in cands:
         if c["name"] in seen:
             continue
-        seen.add(c["name"]); out.append({k: c[k] for k in ("name", "place", "text")})
+        seen.add(c["name"]); out.append({k: c[k] for k in ("name", "place", "text", "rating")})
         if len(out) >= n:
             break
     return out
@@ -285,6 +294,22 @@ def fetch_availability(tok, records, days=400):
     return ok
 
 
+def patch_static_counts(count):
+    """Synchronise le nombre de logements codé en dur dans les métadonnées et
+    compteurs statiques d'index.html / catalogue.html avec le compte réel."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fn in ("index.html", "catalogue.html"):
+        p = os.path.join(here, fn)
+        s = open(p, encoding="utf-8").read()
+        s2 = re.sub(r"\b\d{2,4}(?=\s(?:locations|logements) d['’]exception)", str(count), s)
+        s2 = re.sub(r"(nos )\d{2,4}( locations)", rf"\g<1>{count}\g<2>", s2)
+        s2 = re.sub(r'(id="(?:stat-count|cat-count|sim-count)"[^>]*>)\d{2,4}', rf"\g<1>{count}", s2)
+        if s2 != s:
+            with open(p, "w", encoding="utf-8") as f:
+                f.write(s2)
+            print(f"{fn} : compteur logements mis à jour → {count}")
+
+
 def write_seo(records):
     """robots.txt + sitemap.xml (accueil, catalogue, propriétaires, légal + 1 URL/logement)."""
     import datetime
@@ -306,6 +331,7 @@ def write_seo(records):
     u("guide-cote-chalonnaise.html", "0.5", "monthly")
     u("mentions-legales.html", "0.2", "yearly")
     u("confidentialite.html", "0.2", "yearly")
+    u("cgv.html", "0.2", "yearly")
     for r in records:
         u(f"bien/{r['id']}/", "0.7", "weekly")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -577,8 +603,11 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(here, "data.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
+    # catalogue.json allégé : la page de recherche n'utilise ni description ni photos
+    # (les pages /bien/ ont leur propre copie complète inlinée via __PREL)
+    slim = [{k: v for k, v in r.items() if k not in ("description", "photos")} for r in catalogue]
     with open(os.path.join(here, "catalogue.json"), "w", encoding="utf-8") as f:
-        json.dump({"count": len(catalogue), "listings": catalogue}, f, ensure_ascii=False)
+        json.dump({"count": len(slim), "listings": slim}, f, ensure_ascii=False)
     print(f"data.json écrit : {out['count']} logements, {out['communes']} communes, "
           f"types={adr}, {len(featured)} en vedette, {len(reviews)} avis réels ; "
           f"catalogue.json : {len(catalogue)} fiches complètes")
@@ -592,6 +621,7 @@ def main():
     write_seo(records)
     build_dispo_index()
     build_cities(records)
+    patch_static_counts(len(catalogue))
     generate_listing_pages(records)
 
 
