@@ -8,7 +8,7 @@ Tourné chaque jour par GitHub Actions : un logement ajouté sur Hostaway met
 Identifiants : variables d'env HOSTAWAY_ACCOUNT_ID / HOSTAWAY_API_KEY
 (en local : lit le fichier ../.env s'il existe).
 """
-import os, re, json, statistics, urllib.parse, urllib.request
+import os, re, json, statistics, unicodedata, urllib.parse, urllib.request
 
 API = "https://api.hostaway.com/v1"
 SITE = "https://www.sh-developpement.fr"
@@ -434,7 +434,10 @@ def build_cities(records):
         c = (r.get("city") or "").strip()
         if c:
             cnt[c] = cnt.get(c, 0) + 1
-    cities = [{"name": k, "n": v} for k, v in sorted(cnt.items(), key=lambda kv: (-kv[1], kv[0]))]
+    def _alpha(name):
+        # tri alphabétique insensible aux accents (Mâcon entre L et N, pas après Z)
+        return unicodedata.normalize("NFD", name).encode("ascii", "ignore").decode().lower()
+    cities = [{"name": k, "n": v} for k, v in sorted(cnt.items(), key=lambda kv: _alpha(kv[0]))]
     with open("cities.json", "w", encoding="utf-8") as f:
         json.dump({"cities": cities}, f, ensure_ascii=False, separators=(",", ":"))
     print(f"cities.json : {len(cities)} villes")
