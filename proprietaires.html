@@ -595,5 +595,6 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
   if (d.adr && Object.keys(d.adr).length) { SIM_ADR = Object.assign({}, SIM_ADR, d.adr); if (typeof simCalc === 'function') simCalc(); }
 }).catch(() => {});
 </script>
+<script defer src="/lang.js"></script>
 </body>
 </html>
