@@ -1,22 +1,32 @@
 // =============================================================================
 //  SH-Développement — Serveur de paiement (Cloudflare Worker)
-//  Encaissement Payplug + création automatique de la réservation Hostaway.
+//  Encaissement Stripe Connect (paiement scindé) + création auto de la
+//  réservation Hostaway.
 //
-//  AUCUNE CLÉ n'est écrite ici. Tout vient des variables d'environnement
-//  (secrets Cloudflare) : voir paiement/README.md.
-//    PAYPLUG_SECRET_KEY   sk_test_... puis sk_live_...
-//    HOSTAWAY_ACCOUNT_ID  / HOSTAWAY_API_KEY
-//    SITE_ORIGIN          https://www.sh-developpement.fr
-//    WORKER_URL           https://paiement.sh-developpement.fr (URL publique de ce worker)
-//    SPLIT_ENABLED        "1" pour activer le paiement scindé (propriétaire payé en direct)
+//  CONFORMITÉ (décision Terence 06/08/2026) : l'argent de la LOCATION ne transite
+//  jamais par SH. Le paiement est scindé à la source par Stripe :
+//    · propriétaire  → hébergement × (1 − commission)   (virement direct Stripe)
+//    · SH            → commission + frais de dossier (markup) + ménage
+//  Un logement dont le propriétaire n'est pas enrôlé (pas de compte Stripe
+//  connecté) NE PEUT PAS être payé en ligne → le site garde le flux « demande ».
+//
+//  AUCUNE CLÉ n'est écrite ici. Secrets Cloudflare (wrangler secret put) :
+//    STRIPE_SECRET_KEY      sk_test_… puis sk_live_… (compte plateforme SH)
+//    STRIPE_WEBHOOK_SECRET  whsec_… (endpoint /webhook ; si absent, la
+//                           vérification repose uniquement sur le re-fetch GET)
+//    HOSTAWAY_ACCOUNT_ID / HOSTAWAY_API_KEY
+//  Binding KV : SPLIT_KV, clé "config" =
+//    { "default_commission": 0.20,
+//      "<listingId>": { "acct": "acct_…", "commission": 0.20 }, … }
+//  (poussé par paiement/onboard_proprietaires.py, jamais committé : les taux
+//   par logement ne doivent pas être publics.)
 //
 //  Le montant N'EST JAMAIS fait confiance depuis le navigateur : il est
 //  recalculé côté serveur depuis le calendrier Hostaway (anti-fraude).
 // =============================================================================
 
-const PAYPLUG_API = 'https://api.payplug.com/v1';
+const STRIPE_API = 'https://api.stripe.com/v1';
 const HOSTAWAY_API = 'https://api.hostaway.com/v1';
-const PAYPLUG_VERSION = '2019-08-06';
 const UNAVAILABLE = ['reserved', 'blocked', 'unavailable'];
 
 export default {
@@ -44,78 +54,112 @@ async function createPayment(request, env, cors) {
   if (!listingId || !startDate || !endDate || !customer || !customer.email || !customer.name)
     return json({ error: 'missing_fields' }, 400, cors);
 
+  // Propriétaire enrôlé ? Sans compte Stripe connecté, pas de paiement en ligne.
+  const split = await splitFor(env, listingId);
+  if (!split) return json({ error: 'owner_not_onboarded' }, 409, cors);
+
   const tok = await hostawayToken(env);
-  // Recalcul du prix DEPUIS Hostaway (on ne fait jamais confiance au montant envoyé par le client)
+  // Recalcul du prix DEPUIS Hostaway (on ne fait jamais confiance au montant du client)
   const quote = await computeQuote(env, tok, listingId, startDate, endDate);
   if (!quote.ok) return json({ error: 'unavailable', reason: quote.reason }, 409, cors);
 
-  const parts = String(customer.name).trim().split(/\s+/);
-  const first_name = parts.shift() || 'Client';
-  const last_name = parts.join(' ') || '-';
+  const totalCents = Math.round(quote.total * 100);
+  // Part propriétaire = hébergement brut × (1 − commission).
+  // SH garde : commission + frais de dossier (markup) + ménage = totalCents − part proprio.
+  const ownerCents = Math.round(quote.base * (1 - split.commission) * 100);
+  const feeCents = totalCents - ownerCents;
+  if (feeCents < 0 || ownerCents <= 0) return json({ error: 'bad_split' }, 500, cors);
 
-  const payload = buildPaymentPayload({
-    amountCents: Math.round(quote.total * 100), env,
-    customer: { first_name, last_name, email: customer.email, mobile_phone_number: customer.phone || null },
-    metadata: {
-      listingId: String(listingId), startDate, endDate, guests: String(guests || 1),
-      guestName: customer.name, guestPhone: customer.phone || ''
-    }
-  });
-
-  const r = await fetch(`${PAYPLUG_API}/payments`, {
-    method: 'POST', headers: payplugHeaders(env.PAYPLUG_SECRET_KEY), body: JSON.stringify(payload)
-  });
-  const pay = await r.json().catch(() => ({}));
-  if (!r.ok || !pay.hosted_payment || !pay.hosted_payment.payment_url)
-    return json({ error: 'payplug_error', detail: pay }, 502, cors);
-
-  return json({ payment_url: pay.hosted_payment.payment_url, payment_id: pay.id, amount: quote.total }, 200, cors);
-}
-
-function buildPaymentPayload({ amountCents, env, customer, metadata }) {
-  const base = {
-    amount: amountCents,
-    currency: 'EUR',
-    billing: {
-      first_name: customer.first_name, last_name: customer.last_name, email: customer.email,
-      mobile_phone_number: customer.mobile_phone_number, country: 'FR', language: 'fr'
-    },
-    shipping: {
-      first_name: customer.first_name, last_name: customer.last_name, email: customer.email,
-      country: 'FR', delivery_type: 'DIGITAL_GOODS'
-    },
-    hosted_payment: {
-      return_url: `${env.SITE_ORIGIN}/merci.html`,
-      cancel_url: `${env.SITE_ORIGIN}/bien/${metadata.listingId}/`
-    },
-    notification_url: `${env.WORKER_URL}/webhook`,
-    metadata,
-    force_3ds: true
+  const meta = {
+    listingId: String(listingId), startDate, endDate, guests: String(guests || 1),
+    guestName: customer.name, guestPhone: customer.phone || '', guestEmail: customer.email
   };
-  // ⚠️ PAIEMENT SCINDÉ (conformité — propriétaire payé en direct, SH ne garde que sa commission).
-  // À finaliser avec l'offre Payplug « marketplace » / Mangopay une fois le compte ouvert :
-  // le découpage bénéficiaires se branche ICI (la structure exacte dépend de l'offre Payplug).
-  // Tant que SPLIT_ENABLED !== '1', le paiement est encaissé en simple (à n'utiliser qu'en test).
-  // if (env.SPLIT_ENABLED === '1') base.payment_split = buildSplit(amountCents, metadata, env);
-  return base;
+  const session = await stripePost(env, '/checkout/sessions', {
+    mode: 'payment',
+    locale: 'fr',
+    customer_email: customer.email,
+    'line_items[0][quantity]': '1',
+    'line_items[0][price_data][currency]': 'eur',
+    'line_items[0][price_data][unit_amount]': String(totalCents),
+    'line_items[0][price_data][product_data][name]': `Séjour du ${startDate} au ${endDate} · ${quote.nights} nuit(s)`,
+    'payment_intent_data[application_fee_amount]': String(feeCents),
+    'payment_intent_data[transfer_data][destination]': split.acct,
+    'payment_intent_data[description]': `SH Développement · logement ${listingId} · ${startDate} → ${endDate}`,
+    'payment_method_options[card][request_three_d_secure]': 'any',
+    success_url: `${env.SITE_ORIGIN}/merci-reservation.html?s={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.SITE_ORIGIN}/bien/${listingId}/`,
+    ...Object.fromEntries(Object.entries(meta).map(([k, v]) => [`metadata[${k}]`, v]))
+  });
+  if (!session || !session.url) return json({ error: 'stripe_error', detail: session }, 502, cors);
+
+  return json({ payment_url: session.url, payment_id: session.id, amount: quote.total }, 200, cors);
 }
 
 // ---------------------------------------------------------------------------
-// 2) Webhook Payplug → on vérifie, puis on crée la réservation Hostaway
+// 2) Webhook Stripe → vérification, puis réservation Hostaway
 // ---------------------------------------------------------------------------
 async function handleWebhook(request, env) {
-  const note = await request.json().catch(() => ({}));
-  if (!note || !note.id) return json({ error: 'bad_notification' }, 400);
+  const raw = await request.text();
+  if (env.STRIPE_WEBHOOK_SECRET) {
+    const okSig = await verifyStripeSignature(raw, request.headers.get('Stripe-Signature') || '', env.STRIPE_WEBHOOK_SECRET);
+    if (!okSig) return json({ error: 'bad_signature' }, 400);
+  }
+  const event = safeParse(raw);
+  if (!event || !event.type) return json({ error: 'bad_notification' }, 400);
+  if (event.type !== 'checkout.session.completed') return json({ ok: true, ignored: event.type }, 200);
 
-  // On NE fait PAS confiance au POST : on re-récupère l'objet via GET HTTPS authentifié.
-  const r = await fetch(`${PAYPLUG_API}/payments/${note.id}`, { headers: payplugHeaders(env.PAYPLUG_SECRET_KEY) });
-  const pay = await r.json().catch(() => ({}));
-  if (!r.ok || !pay.id) return json({ error: 'verify_failed' }, 502);
-  if (!pay.is_paid) return json({ ok: true, ignored: 'not_paid' }, 200); // échec / expiration → on ignore
+  // On NE fait PAS confiance au POST : on re-récupère la session via GET authentifié.
+  const id = event.data && event.data.object && event.data.object.id;
+  if (!id) return json({ error: 'bad_notification' }, 400);
+  const session = await stripeGet(env, `/checkout/sessions/${id}`);
+  if (!session || !session.id) return json({ error: 'verify_failed' }, 502);
+  if (session.payment_status !== 'paid') return json({ ok: true, ignored: 'not_paid' }, 200);
 
   const tok = await hostawayToken(env);
-  await createHostawayReservation(env, tok, pay.metadata || {}, pay);
+  await createHostawayReservation(env, tok, session.metadata || {}, session);
   return json({ ok: true }, 200);
+}
+
+// ---------------------------------------------------------------------------
+// Répartition (KV) — { "default_commission": 0.20, "<id>": { acct, commission } }
+// ---------------------------------------------------------------------------
+async function splitFor(env, listingId) {
+  if (!env.SPLIT_KV) return null;
+  const cfg = safeParse(await env.SPLIT_KV.get('config')) || {};
+  const row = cfg[String(listingId)];
+  if (!row || !row.acct) return null;
+  const commission = Number(row.commission != null ? row.commission : cfg.default_commission);
+  if (!(commission >= 0 && commission < 1)) return null;
+  return { acct: row.acct, commission };
+}
+
+// ---------------------------------------------------------------------------
+// Stripe (REST, form-encodé)
+// ---------------------------------------------------------------------------
+async function stripePost(env, path, params) {
+  const r = await fetch(STRIPE_API + path, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(params).toString()
+  });
+  return r.json().catch(() => null);
+}
+async function stripeGet(env, path) {
+  const r = await fetch(STRIPE_API + path, { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` } });
+  return r.json().catch(() => null);
+}
+
+// Signature Stripe : Stripe-Signature = "t=…,v1=hmac_sha256(t + '.' + payload)"
+async function verifyStripeSignature(payload, header, secret, toleranceSec = 300) {
+  const parts = Object.fromEntries(header.split(',').map(p => p.split('=')));
+  const t = Number(parts.t), v1 = parts.v1;
+  if (!t || !v1) return false;
+  if (Math.abs(Date.now() / 1000 - t) > toleranceSec) return false;
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const mac = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`${t}.${payload}`));
+  const hex = [...new Uint8Array(mac)].map(b => b.toString(16).padStart(2, '0')).join('');
+  return hex === v1;
 }
 
 // ---------------------------------------------------------------------------
@@ -153,21 +197,21 @@ async function computeQuote(env, tok, listingId, startDate, endDate) {
   const l = ((await lr.json().catch(() => ({}))).result) || {};
   const markup = Number(l.bookingEngineMarkup) || 1;
   const cleaning = Number(l.cleaningFee) || 0;
-  return { ok: true, nights, cleaning, total: Math.round(base * markup) + cleaning };
+  // base = hébergement brut (assiette de la part propriétaire) ; total = payé par le voyageur
+  return { ok: true, nights, base, cleaning, total: Math.round(base * markup) + cleaning };
 }
 
-async function createHostawayReservation(env, tok, m, pay) {
-  const billing = pay.billing || {};
+async function createHostawayReservation(env, tok, m, session) {
   const payload = {
     listingMapId: Number(m.listingId),
     channelId: 2000,                         // 2000 = réservation directe (à vérifier sur le compte)
     arrivalDate: m.startDate,
     departureDate: m.endDate,
     numberOfGuests: Number(m.guests) || 1,
-    guestName: m.guestName || `${billing.first_name || ''} ${billing.last_name || ''}`.trim() || 'Voyageur',
-    guestEmail: billing.email || '',
+    guestName: m.guestName || 'Voyageur',
+    guestEmail: m.guestEmail || (session.customer_details && session.customer_details.email) || '',
     phone: m.guestPhone || '',
-    totalPrice: (Number(pay.amount) || 0) / 100,
+    totalPrice: (Number(session.amount_total) || 0) / 100,
     isPaid: 1,
     source: 'Site direct SH'
   };
@@ -183,9 +227,7 @@ async function createHostawayReservation(env, tok, m, pay) {
 // ---------------------------------------------------------------------------
 // Utilitaires
 // ---------------------------------------------------------------------------
-function payplugHeaders(key) {
-  return { Authorization: `Bearer ${key}`, 'PayPlug-Version': PAYPLUG_VERSION, 'Content-Type': 'application/json' };
-}
+function safeParse(s) { try { return JSON.parse(s); } catch { return null; } }
 function corsHeaders(env) {
   return {
     'Access-Control-Allow-Origin': env.SITE_ORIGIN || '*',

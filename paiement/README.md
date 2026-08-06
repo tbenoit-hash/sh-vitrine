@@ -1,73 +1,91 @@
-# Serveur de paiement SH-Développement (Payplug + Hostaway)
+# Serveur de paiement SH-Développement (Stripe Connect + Hostaway)
 
-Petit serveur (Cloudflare Worker) qui permet au voyageur de **payer sa réservation
-directement sur sh-developpement.fr**, puis crée **automatiquement la réservation
-dans Hostaway**. Les clés ne sont jamais dans le navigateur ; le prix est **recalculé
-côté serveur** (anti-fraude) ; la carte est gérée par Payplug (certifié PCI-DSS).
+Serveur (Cloudflare Worker) qui permet au voyageur de **payer sa réservation
+directement sur sh-developpement.fr** avec **paiement scindé** : la part
+« location » va **directement sur le compte bancaire du propriétaire**, SH
+reçoit uniquement **commission + frais de dossier + ménage**. La réservation est
+ensuite créée **automatiquement dans Hostaway**.
 
-> ⚠️ **État** : code **écrit et testé en local** (`npm test` = 18/18). Il devient
-> **actif une fois déployé avec tes clés**. Rien n'est encore branché sur le site
-> (l'interrupteur `PAY_API` dans `logement.html` est vide → le site reste sur le flux
-> « demande de réservation » actuel tant que tu n'as pas déployé).
+> **Conformité** : SH ne détient jamais l'argent des propriétaires. C'est Stripe
+> (établissement de paiement agréé) qui encaisse et répartit. Un logement dont le
+> propriétaire n'est pas enrôlé **ne peut pas être payé en ligne** (le site garde
+> alors le flux « demande de réservation »). Faire valider le montage une fois
+> par le conseil juridique avant la mise en production.
 
-## Pré-requis (à obtenir)
-1. **Compte Payplug** + clés API : `sk_test_…` (test) puis `sk_live_…` (production)
-   → via la Caisse d'Épargne / Payplug (cf. mémo Payplug). Idéalement l'offre
-   **marketplace (Mangopay)** pour le paiement scindé (voir « Conformité » plus bas).
-2. **Compte Cloudflare** (gratuit) — héberge ce worker.
-3. **Node.js** (déjà présent en local).
+## La répartition (décision du 06/08/2026)
 
-## Tester en local (sans aucune clé)
+Pour un séjour de 3 nuits × 200 € avec 300 € de ménage (frais de dossier 5 %) :
+
+| Qui | Reçoit | Détail |
+|---|---|---|
+| Voyageur paie | 930 € | 600 € hébergement × 1,05 + 300 € ménage |
+| → Propriétaire | 480 € | hébergement × (1 − commission 20 %) · **virement direct Stripe** |
+| → SH | 450 € | 120 € commission + 30 € frais de dossier + 300 € ménage |
+
+Les commissions par logement (20 % par défaut, 2 % Beguet…) sont dans
+`split-config.json` (**jamais committé**, poussé dans Cloudflare KV).
+
+> ⚠️ **État** : code **écrit et testé en local** (`npm test` = 25/25). Rien n'est
+> branché sur le site tant que `PAY_API` (logement.html) est vide.
+
+## Étapes de mise en service
+
+### 1. Activer Stripe Connect (action Terence, une fois, ~5 min)
+Dashboard Stripe → **Connect** → Get started (plateforme, France). C'est là que
+les conditions Connect sont acceptées ; personne d'autre ne peut le faire.
+
+### 2. Enrôler les propriétaires
+Créer `proprietaires.csv` (colonnes `email,nom,listings,commission` ;
+`listings` = IDs Hostaway séparés par des espaces ; `commission` vide = 20 %) puis :
+```bash
+STRIPE_SECRET_KEY=sk_test_… python3 onboard_proprietaires.py
+```
+→ crée les comptes Express + écrit `split-config.json` + `onboarding_links.csv`
+(un lien par proprio, à envoyer par email : chacun renseigne identité + IBAN
+chez Stripe, SH ne voit jamais l'IBAN). Liens valides ~15 min → regénérer au
+besoin avec `--links`.
+
+### 3. Déployer le worker
 ```bash
 cd paiement
-npm test          # simule Payplug + Hostaway et vérifie tout le flux
+wrangler login
+wrangler kv namespace create SPLIT_KV        # coller l'id dans wrangler.toml
+wrangler kv key put --binding SPLIT_KV config --path split-config.json --remote
+wrangler secret put STRIPE_SECRET_KEY        # sk_test_… d'abord
+wrangler secret put HOSTAWAY_ACCOUNT_ID      # 136426
+wrangler secret put HOSTAWAY_API_KEY
+wrangler deploy                              # → noter l'URL, la mettre dans WORKER_URL, redéployer
 ```
-
-## Déployer (≈ 15 min, une fois les comptes ouverts)
+Puis dashboard Stripe → Développeurs → **Webhooks** → ajouter
+`https://…workers.dev/webhook` (événement `checkout.session.completed`) et :
 ```bash
-cd paiement
-npm i -g wrangler            # ou: npx wrangler ...
-wrangler login              # connecte ton compte Cloudflare
-
-# 1) Secrets (chiffrés, jamais dans le code) :
-wrangler secret put PAYPLUG_SECRET_KEY     # colle sk_test_… (puis sk_live_… en prod)
-wrangler secret put HOSTAWAY_ACCOUNT_ID    # 136426
-wrangler secret put HOSTAWAY_API_KEY       # clé Hostaway
-
-# 2) Déploie une 1re fois pour obtenir l'URL du worker :
-wrangler deploy
-# → note l'URL renvoyée (ex. https://sh-paiement.toncompte.workers.dev)
-
-# 3) Mets cette URL dans wrangler.toml (WORKER_URL) puis redéploie :
-wrangler deploy
+wrangler secret put STRIPE_WEBHOOK_SECRET    # whsec_…
 ```
 
-## Brancher le site
-Dans `logement.html`, renseigne l'URL du worker :
-```js
-const PAY_API = "https://sh-paiement.toncompte.workers.dev";
-```
-Puis régénère + publie (`python3 build_data.py` puis commit/push). Le bouton de la
-fenêtre de réservation devient **« Payer et réserver »** et encaisse sur le site.
+### 4. Brancher le site
+Dans `logement.html` : `const PAY_API = "https://…workers.dev";` puis rebuild +
+push. Le bouton devient « Payer et réserver » pour les logements enrôlés.
 
-> Astuce : tu peux mapper un domaine propre `paiement.sh-developpement.fr` sur le worker
-> (Cloudflare → Triggers → Custom Domains) ; mets alors cette URL dans `PAY_API` **et** `WORKER_URL`.
+### 5. Tester puis passer en production
+Mode test (sk_test, carte 4242 4242 4242 4242) de bout en bout : paiement →
+webhook → réservation Hostaway → répartition visible dans Stripe. Ensuite
+remplacer par `sk_live_…` + webhook live, **après validation juridique**.
 
-## Conformité — le paiement scindé (important)
-Pour rester **hors carte G**, l'argent du propriétaire ne doit pas transiter par le
-compte de SH. Avec l'offre **Payplug marketplace / Mangopay**, le paiement est **scindé** :
-part propriétaire → son compte, commission → SH. Le branchement se fait dans
-`worker.js → buildPaymentPayload()` (bloc `payment_split`, marqué TODO) une fois que tu
-connais la structure exacte de l'offre, et après avoir **enregistré chaque propriétaire**
-comme bénéficiaire (identité + IBAN). Tant que `SPLIT_ENABLED="0"`, le paiement est
-encaissé en **simple** → **mode test uniquement** (à valider juridiquement avant la prod).
+## Endpoints
+- `POST /create-payment` — appelé par la fiche logement → `{ payment_url }` (Stripe Checkout).
+  Refuse (`409 owner_not_onboarded`) si le propriétaire n'est pas enrôlé.
+- `POST /webhook` — Stripe → vérification (signature + re-fetch GET) → réservation Hostaway.
+- `GET /health` — test de vie.
+
+## Garanties intégrées
+- Prix **recalculé côté serveur** depuis le calendrier Hostaway (anti-fraude),
+  disponibilité revérifiée au moment du paiement.
+- 3-D Secure demandé systématiquement.
+- Webhook : signature Stripe vérifiée (si `STRIPE_WEBHOOK_SECRET` posé) **et**
+  re-lecture authentifiée de la session (on ne fait jamais confiance au POST).
+- Page de retour voyageur : `/merci-reservation.html` (dédiée, ≠ merci.html propriétaires).
 
 ## À vérifier sur le compte Hostaway
-La création de réservation (`worker.js → createHostawayReservation`) utilise
-`channelId: 2000` (réservation directe) et un jeu de champs standard. À confirmer/ajuster
-selon la configuration Hostaway (en mode test d'abord).
-
-## Endpoints du worker
-- `POST /create-payment` — appelé par le site → renvoie `{ payment_url }`.
-- `POST /webhook` — appelé par Payplug → vérifie le paiement (GET re-fetch) puis crée la résa Hostaway.
-- `GET /health` — test de vie.
+`createHostawayReservation` utilise `channelId: 2000` (réservation directe) — à
+confirmer en mode test. La caution (empreinte) reste gérée comme aujourd'hui par
+l'équipe ; automatisation possible ensuite (Stripe `setup_future_usage`).

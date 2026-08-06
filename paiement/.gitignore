@@ -1,0 +1,6 @@
+# Jamais committés : données propriétaires + taux de commission par logement
+split-config.json
+proprietaires.csv
+onboarding_links.csv
+node_modules/
+.wrangler/

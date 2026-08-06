@@ -1,4 +1,4 @@
-# Configuration Cloudflare Worker — serveur de paiement SH-Développement
+# Configuration Cloudflare Worker — serveur de paiement SH-Développement (Stripe Connect)
 name = "sh-paiement"
 main = "worker.js"
 compatibility_date = "2024-11-01"
@@ -9,10 +9,18 @@ SITE_ORIGIN = "https://www.sh-developpement.fr"
 # À remplir avec l'URL du worker après le 1er `wrangler deploy`
 # (ex. https://sh-paiement.TON-COMPTE.workers.dev  ou un domaine perso paiement.sh-developpement.fr)
 WORKER_URL = "https://sh-paiement.example.workers.dev"
-# "1" pour activer le paiement scindé (propriétaire payé en direct) — voir README + offre marketplace
-SPLIT_ENABLED = "0"
+
+# Répartition par logement (comptes Stripe des propriétaires + commissions).
+# Créer le namespace puis coller son id ci-dessous :
+#   wrangler kv namespace create SPLIT_KV
+# Pousser la config (générée par onboard_proprietaires.py) :
+#   wrangler kv key put --binding SPLIT_KV config --path split-config.json --remote
+# [[kv_namespaces]]
+# binding = "SPLIT_KV"
+# id = "COLLER_ID_ICI"
 
 # Les SECRETS ne se mettent PAS ici. On les définit en ligne de commande (chiffrés) :
-#   wrangler secret put PAYPLUG_SECRET_KEY
-#   wrangler secret put HOSTAWAY_ACCOUNT_ID
+#   wrangler secret put STRIPE_SECRET_KEY       # sk_test_… puis sk_live_…
+#   wrangler secret put STRIPE_WEBHOOK_SECRET   # whsec_… (dashboard Stripe → Webhooks)
+#   wrangler secret put HOSTAWAY_ACCOUNT_ID     # 136426
 #   wrangler secret put HOSTAWAY_API_KEY

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Serveur de paiement SH-Développement (Cloudflare Worker) — Payplug + réservation Hostaway",
+  "description": "Serveur de paiement SH-Développement (Cloudflare Worker) — Stripe Connect (paiement scindé) + réservation Hostaway",
   "scripts": {
     "test": "node test-local.mjs",
     "dev": "wrangler dev",
