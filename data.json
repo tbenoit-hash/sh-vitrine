@@ -1,11 +1,11 @@
 {
-  "count": 133,
+  "count": 134,
   "communes": 23,
   "adr": {
     "Studio": 46,
     "T3": 75,
     "T2": 52,
-    "T5": 250,
+    "T5": 237,
     "T4": 92,
     "T6+": 350
   },
@@ -261,7 +261,7 @@
       "minNights": 2,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 42,
+      "reviewCount": 41,
       "reviews": [
         {
           "name": "Aurelien",
@@ -499,7 +499,7 @@
       "bedrooms": 2,
       "bathrooms": 1,
       "price": 120,
-      "rating": 9.8,
+      "rating": 9.7,
       "cover": "/img/l/465404-c.webp",
       "photos": [
         "/img/l/465404-0.webp",
@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 70,
+      "reviewCount": 72,
       "reviews": [
         {
           "name": "Fanny",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-07"
+  "updated": "2026-08-08"
 }
