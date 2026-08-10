@@ -1,11 +1,11 @@
 {
-  "count": 133,
+  "count": 132,
   "communes": 23,
   "adr": {
     "Studio": 46,
     "T3": 75,
     "T2": 53,
-    "T5": 237,
+    "T5": 250,
     "T4": 92,
     "T6+": 350
   },
@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 72,
+      "reviewCount": 73,
       "reviews": [
         {
           "name": "Fanny",
@@ -612,7 +612,7 @@
       "type": "T5",
       "cleaningFee": 300,
       "deposit": 400,
-      "markup": 0.9,
+      "markup": 1.05,
       "amk": 1.18,
       "minNights": 1,
       "currency": "EUR",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-09"
+  "updated": "2026-08-10"
 }
