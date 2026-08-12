@@ -1,5 +1,5 @@
 {
-  "count": 134,
+  "count": 133,
   "communes": 25,
   "adr": {
     "Studio": 46,
@@ -355,7 +355,7 @@
       "bedrooms": 3,
       "bathrooms": 2,
       "price": 250,
-      "rating": 9.5,
+      "rating": 9.4,
       "cover": "/img/l/468463-c.webp",
       "photos": [
         "/img/l/468463-0.webp",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-11"
+  "updated": "2026-08-12"
 }
