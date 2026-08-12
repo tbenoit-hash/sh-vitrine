@@ -543,6 +543,15 @@ def main():
         t = type_of(l.get("bedroomsNumber") or 0)
         by_type.setdefault(t, []).append(int(round(l["price"])))
     adr = {t: int(statistics.median(v)) for t, v in by_type.items() if v}
+    # T5 / T6+ : trop peu de biens, et médianes tirées vers le haut par quelques villas
+    # d'exception (250 et 350 €/nuit = ~3 000 et ~4 200 €/mois, incohérent face au T4).
+    # On les dérive du T4 avec un palier de +200 €/mois net propriétaire par typologie.
+    # Relatif et non figé : la médiane T4 bouge à chaque synchro, l'écart doit suivre.
+    # Le simulateur affiche adr x 30,4 j x occupation x 72 % ; palier calé sur 55 %.
+    STEP_ADR = 200 / (30.4 * 0.55 * 0.72)  # ~16,6 €/nuit = +200 €/mois
+    if adr.get("T4"):
+        adr["T5"] = round(adr["T4"] + STEP_ADR, 1)
+        adr["T6+"] = round(adr["T4"] + 2 * STEP_ADR, 1)
 
     # Tous les enregistrements (réutilisés pour la galerie ET le catalogue)
     records = [prop_record(l) for l in listings]
