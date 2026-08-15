@@ -1,0 +1,17 @@
+{
+  "_comment": "Conciergeries partenaires affichées sur le site (cross-listing « vitrine + renvoi »). PRÉFÉRÉ : feed_url = flux JSON public publié par le partenaire (même schéma que notre catalogue.json, avec un bookUrl par logement) — aucune clé échangée. REPLI : identifiants Hostaway en LECTURE dans les variables d'env account_env / key_env (secrets GitHub Actions ou ../.env) — JAMAIS ici, JAMAIS commités ; book_url_template = URL « Réserver » du moteur partenaire avec {id} = id Hostaway, sinon book_url_map { \"<id>\": \"<url>\" }, sinon fallback_book_url.",
+  "partners": [
+    {
+      "slug": "zenica",
+      "label": "Zenica Conciergerie",
+      "area": "Dijon & Côte-d'Or",
+      "url": "https://zenica-conciergerie.fr",
+      "feed_url": "",
+      "account_env": "ZENICA_ACCOUNT_ID",
+      "key_env": "ZENICA_API_KEY",
+      "book_url_template": "",
+      "book_url_map": {},
+      "fallback_book_url": "https://zenica-conciergerie.fr"
+    }
+  ]
+}

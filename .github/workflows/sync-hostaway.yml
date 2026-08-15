@@ -30,9 +30,12 @@ jobs:
           pip install --quiet pillow
           BUILD_DATE=$(date +%F) python3 build_data.py
 
+      - name: Régénérer les pages SEO propriétaires
+        run: python3 build_seo_pages.py
+
       - name: Commit si changement
         run: |
-          git add data.json catalogue.json cities.json dispo.json avail bien img/l robots.txt sitemap.xml index.html catalogue.html
+          git add data.json catalogue.json cities.json dispo.json avail bien img/l robots.txt sitemap.xml index.html catalogue.html conciergerie-*.html conseils-proprietaires.html conseils
           if ! git diff --cached --quiet; then
             git config user.name "sh-sync-bot"
             git config user.email "bot@sh-developpement.fr"

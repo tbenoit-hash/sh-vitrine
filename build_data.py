@@ -323,7 +323,21 @@ def write_seo(records):
                     f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>")
     u("", "1.0", "daily")
     u("catalogue.html", "0.9", "daily")
-    u("proprietaires.html", "0.8", "weekly")
+    u("proprietaires.html", "0.9", "weekly")
+    # Pages SEO propriétaires (générées par build_seo_pages.py)
+    for slug in ("conciergerie-chalon-sur-saone.html",
+                 "conciergerie-macon.html",
+                 "conciergerie-tournus.html",
+                 "conciergerie-beaune-chagny.html",
+                 "conciergerie-givry-cote-chalonnaise.html",
+                 "conciergerie-grand-chalon.html"):
+        u(slug, "0.9", "weekly")
+    u("conseils-proprietaires.html", "0.7", "weekly")
+    for slug in ("loi-le-meur-meuble-tourisme.html",
+                 "classement-meuble-tourisme-etoiles.html",
+                 "rentabilite-location-courte-duree-chalon.html",
+                 "choisir-sa-conciergerie-airbnb.html"):
+        u("conseils/" + slug, "0.7", "monthly")
     u("a-propos.html", "0.6", "monthly")
     u("guides.html", "0.6", "weekly")
     u("guide-week-end-vignobles.html", "0.5", "monthly")
