@@ -106,7 +106,11 @@ async function handleWebhook(request, env) {
   }
   const event = safeParse(raw);
   if (!event || !event.type) return json({ error: 'bad_notification' }, 400);
-  if (event.type !== 'checkout.session.completed') return json({ ok: true, ignored: event.type }, 200);
+  // `completed` couvre la carte ; `async_payment_succeeded` couvre les moyens de
+  // paiement différés (prélèvement, virement…), qui se règlent après le checkout.
+  // Sans ce second événement, une réservation payée en différé ne serait jamais créée.
+  const FULFILL = ['checkout.session.completed', 'checkout.session.async_payment_succeeded'];
+  if (!FULFILL.includes(event.type)) return json({ ok: true, ignored: event.type }, 200);
 
   // On NE fait PAS confiance au POST : on re-récupère la session via GET authentifié.
   const id = event.data && event.data.object && event.data.object.id;
@@ -115,8 +119,21 @@ async function handleWebhook(request, env) {
   if (!session || !session.id) return json({ error: 'verify_failed' }, 502);
   if (session.payment_status !== 'paid') return json({ ok: true, ignored: 'not_paid' }, 200);
 
+  // Idempotence : Stripe réémet un webhook tant qu'il n'a pas reçu de 2xx, et les
+  // deux événements ci-dessus peuvent tomber pour la même session. Sans garde, on
+  // créerait plusieurs fois la même réservation dans Hostaway.
+  const doneKey = `done:${session.id}`;
+  if (env.SPLIT_KV) {
+    const already = await env.SPLIT_KV.get(doneKey);
+    if (already) return json({ ok: true, ignored: 'already_fulfilled' }, 200);
+  }
+
   const tok = await hostawayToken(env);
-  await createHostawayReservation(env, tok, session.metadata || {}, session);
+  const res = await createHostawayReservation(env, tok, session.metadata || {}, session);
+  if (env.SPLIT_KV) {
+    // 90 jours : bien au-delà de la fenêtre de réémission de Stripe.
+    await env.SPLIT_KV.put(doneKey, String((res && (res.id || (res.result && res.result.id))) || 'ok'), { expirationTtl: 7776000 });
+  }
   return json({ ok: true }, 200);
 }
 
@@ -130,7 +147,38 @@ async function splitFor(env, listingId) {
   if (!row || !row.acct) return null;
   const commission = Number(row.commission != null ? row.commission : cfg.default_commission);
   if (!(commission >= 0 && commission < 1)) return null;
+  // Un compte créé n'est pas un compte prêt : tant que le propriétaire n'a pas
+  // terminé sa vérification, Stripe refuse le virement. On le détecte AVANT de
+  // créer le paiement, pour renvoyer owner_not_onboarded et laisser le site
+  // retomber sur la demande de réservation.
+  if (!(await canReceiveTransfers(env, row.acct))) return null;
   return { acct: row.acct, commission };
+}
+
+// Capacité v2 « recipient » : stripe_balance.stripe_transfers doit être active.
+// Résultat mis en cache 1 h : l'état ne change qu'au rythme des vérifications Stripe.
+async function canReceiveTransfers(env, acct) {
+  const key = `cap:${acct}`;
+  if (env.SPLIT_KV) {
+    const cached = await env.SPLIT_KV.get(key);
+    if (cached === '1') return true;
+    if (cached === '0') return false;
+  }
+  const r = await fetch(
+    `https://api.stripe.com/v2/core/accounts/${acct}?include=configuration.recipient`,
+    { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, 'Stripe-Version': '2026-07-29.preview' } }
+  );
+  const a = await r.json().catch(() => null);
+  const st = a && a.configuration && a.configuration.recipient
+    && a.configuration.recipient.capabilities
+    && a.configuration.recipient.capabilities.stripe_balance
+    && a.configuration.recipient.capabilities.stripe_balance.stripe_transfers
+    && a.configuration.recipient.capabilities.stripe_balance.stripe_transfers.status;
+  const ok = st === 'active';
+  // On ne met en cache un « non » que brièvement : le propriétaire peut finir
+  // son onboarding d'une minute à l'autre.
+  if (env.SPLIT_KV) await env.SPLIT_KV.put(key, ok ? '1' : '0', { expirationTtl: ok ? 3600 : 300 });
+  return ok;
 }
 
 // ---------------------------------------------------------------------------

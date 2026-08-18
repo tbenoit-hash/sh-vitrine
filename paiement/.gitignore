@@ -4,3 +4,4 @@ proprietaires.csv
 onboarding_links.csv
 node_modules/
 .wrangler/
+.stripe_key

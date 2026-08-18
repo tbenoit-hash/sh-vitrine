@@ -462,7 +462,7 @@ async function payNow(p, guests, f, btn){
     // Propriétaire pas encore enrôlé : ce logement n'est pas payable en ligne.
     // On bascule silencieusement sur la demande de réservation plutôt que
     // de laisser le voyageur devant un cul-de-sac.
-    if (j && j.error === 'owner_not_onboarded') {
+    if (j && (j.error === 'owner_not_onboarded' || j.error === 'stripe_error')) {
       const note = document.getElementById('bkm-note');
       if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.';
       btn.disabled = false; btn.textContent = 'Envoyer ma demande';

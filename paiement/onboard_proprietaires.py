@@ -51,14 +51,57 @@ def stripe(path, params=None):
         sys.exit(f"Stripe {path} → {e.code} : {err.get('error', {}).get('message', err)}")
 
 
+STRIPE_V2 = "https://api.stripe.com/v2/core"
+STRIPE_V2_VERSION = "2026-07-29.preview"
+
+
+def stripe_v2(path, payload):
+    """Appel Accounts v2 : corps JSON + en-tête de version, contrairement à v1."""
+    key = os.environ.get("STRIPE_SECRET_KEY")
+    if not key:
+        sys.exit("STRIPE_SECRET_KEY manquant (sk_test_… pour commencer).")
+    req = urllib.request.Request(
+        STRIPE_V2 + path,
+        data=json.dumps(payload).encode(),
+        headers={"Authorization": "Bearer " + key,
+                 "Stripe-Version": STRIPE_V2_VERSION,
+                 "Content-Type": "application/json"},
+    )
+    try:
+        return json.loads(urllib.request.urlopen(req, timeout=30).read())
+    except urllib.error.HTTPError as e:
+        err = json.loads(e.read() or b"{}")
+        msg = (err.get("error") or {}).get("message") or err
+        sys.exit(f"Stripe v2 {path} → {e.code} : {msg}")
+
+
 def load_config():
     if os.path.exists(CONFIG):
         return json.load(open(CONFIG, encoding="utf-8"))
     return {"default_commission": DEFAULT_COMMISSION}
 
 
+def _load_key():
+    """Clé Stripe : variable d'environnement, sinon fichier local .stripe_key
+    (jamais committé). Permet de la déposer une fois et de relancer le script
+    sans la retaper — y compris depuis un outil qui ne peut pas la saisir."""
+    k = (os.environ.get("STRIPE_SECRET_KEY") or "").strip()
+    if k:
+        return k
+    path = os.path.join(HERE, ".stripe_key")
+    if os.path.exists(path):
+        k = open(path, encoding="utf-8").read().strip()
+        if k:
+            os.environ["STRIPE_SECRET_KEY"] = k
+            return k
+    return ""
+
+
 def main():
     make_links = "--links" in sys.argv
+    if not _load_key():
+        sys.exit("Clé Stripe absente. Dépose-la une fois avec :\n"
+                 "  read -rs \"K?Clé Stripe : \" && printf '%s' \"$K\" > .stripe_key && chmod 600 .stripe_key && unset K")
     if "--push" in sys.argv:
         print("Pour pousser la config dans Cloudflare KV (après `wrangler kv namespace create SPLIT_KV`) :")
         print(f"  wrangler kv key put --binding SPLIT_KV config --path {CONFIG} --remote")
@@ -102,11 +145,23 @@ def main():
         memo = email + "|" + o["nom"]
         acct = known.get(memo, {}).get("acct")
         if not acct:
-            a = stripe("/accounts", {
-                "type": "express", "country": "FR", "email": email,
-                "capabilities[transfers][requested]": "true",
-                "business_profile[product_description]": "Location meublée de tourisme (part propriétaire, plateforme SH Développement)",
-                "metadata[nom]": o["nom"],
+            # Accounts v2, configuration « recipient » : le propriétaire reçoit des
+            # virements depuis le solde de la plateforme (paiement à destination).
+            # On ne demande PAS la configuration « merchant » : inutile ici, et elle
+            # allongerait l'onboarding.
+            a = stripe_v2("/accounts", {
+                "contact_email": email,
+                "display_name": o["nom"][:100],
+                "dashboard": "express",
+                "identity": {"country": "fr"},
+                "defaults": {"responsibilities": {
+                    "fees_collector": "application",   # SH supporte les frais Stripe
+                    "losses_collector": "application", # SH supporte les soldes négatifs
+                }},
+                "configuration": {"recipient": {"capabilities": {
+                    "stripe_balance": {"stripe_transfers": {"requested": True}}
+                }}},
+                "include": ["configuration.recipient", "identity", "requirements"],
             })
             acct = a["id"]
             print(f"[OK] compte créé {acct} · {o['nom']} <{email}>")
@@ -114,10 +169,20 @@ def main():
         for lid in o["listings"]:
             cfg[lid] = {"acct": acct, "commission": o["commission"]}
         if make_links or not known[memo].get("linked"):
-            link = stripe("/account_links", {
-                "account": acct, "type": "account_onboarding",
-                "refresh_url": SITE + "/proprietaires.html",
-                "return_url": SITE + "/merci.html",
+            # Onboarding « en amont » (eventually_due) : on collecte tout de suite
+            # tout ce que Stripe finira par exiger, pour éviter qu'un virement se
+            # bloque des mois plus tard faute d'une pièce manquante.
+            link = stripe_v2("/account_links", {
+                "account": acct,
+                "use_case": {
+                    "type": "account_onboarding",
+                    "account_onboarding": {
+                        "configurations": ["recipient"],
+                        "collection_options": {"fields": "eventually_due"},
+                        "refresh_url": SITE + "/proprietaires.html",
+                        "return_url": SITE + "/merci.html",
+                    },
+                },
             })
             links.append({"email": email, "nom": o["nom"], "url": link["url"]})
             known[email]["linked"] = True
