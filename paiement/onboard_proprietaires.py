@@ -67,22 +67,40 @@ def main():
     if not os.path.exists(CSV_IN):
         sys.exit(f"{CSV_IN} manquant. Colonnes attendues : email,nom,listings,commission")
     cfg = load_config()
-    owners = {}   # email -> {nom, listings[], commission, acct}
+    # Clé = (email, nom) et NON l'email seul : une même adresse peut porter
+    # plusieurs entités juridiques (ex. Savalli en perso + sa SCI), qui doivent
+    # recevoir sur deux comptes bancaires distincts. Regrouper par email seul
+    # écraserait silencieusement une des deux et perdrait ses logements.
+    owners = {}   # (email, nom) -> {nom, listings[], commission, acct}
     for row in csv.DictReader(open(CSV_IN, encoding="utf-8")):
         email = (row.get("email") or "").strip().lower()
+        nom = (row.get("nom") or "").strip()
         if not email:
             continue
-        owners[email] = {
-            "nom": (row.get("nom") or "").strip(),
+        raw = (row.get("commission") or "").strip()
+        commission = float(raw) if raw else DEFAULT_COMMISSION
+        if not (0 <= commission < 1):
+            sys.exit(f"Commission invalide pour {nom} <{email}> : {raw!r}. "
+                     f"Le taux s'écrit en décimal (0.02 pour 2 %, 0.20 pour 20 %), pas en pourcentage.")
+        key = (email, nom)
+        if key in owners:
+            sys.exit(f"Ligne en double dans {CSV_IN} pour {nom} <{email}> : fusionne-les d'abord.")
+        owners[key] = {
+            "nom": nom,
+            "email": email,
             "listings": [s for s in (row.get("listings") or "").split() if s.isdigit()],
-            "commission": float(row.get("commission")) if (row.get("commission") or "").strip() else DEFAULT_COMMISSION,
+            "commission": commission,
         }
+    attendus = sum(len(o["listings"]) for o in owners.values())
+    print(f"[i] {len(owners)} entités, {attendus} logements à couvrir")
 
     # comptes déjà créés (mémoire = split-config.json, champ _owners)
     known = cfg.get("_owners", {})
     links = []
-    for email, o in owners.items():
-        acct = known.get(email, {}).get("acct")
+    for key, o in owners.items():
+        email = o["email"]
+        memo = email + "|" + o["nom"]
+        acct = known.get(memo, {}).get("acct")
         if not acct:
             a = stripe("/accounts", {
                 "type": "express", "country": "FR", "email": email,
@@ -92,10 +110,10 @@ def main():
             })
             acct = a["id"]
             print(f"[OK] compte créé {acct} · {o['nom']} <{email}>")
-        known[email] = {"acct": acct, "nom": o["nom"]}
+        known[memo] = {"acct": acct, "nom": o["nom"]}
         for lid in o["listings"]:
             cfg[lid] = {"acct": acct, "commission": o["commission"]}
-        if make_links or not known[email].get("linked"):
+        if make_links or not known[memo].get("linked"):
             link = stripe("/account_links", {
                 "account": acct, "type": "account_onboarding",
                 "refresh_url": SITE + "/proprietaires.html",

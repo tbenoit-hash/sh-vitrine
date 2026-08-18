@@ -401,6 +401,12 @@ async function submitBooking(e, p, guests){
   const f = e.target, btn = document.getElementById('bkm-submit'), q = LASTQ || {};
   if (f._honey && f._honey.value) return; // honeypot anti-spam
   if (PAY_API) return payNow(p, guests, f, btn); // paiement en ligne branché → on encaisse sur le site
+  return sendRequest(f, p, guests, btn, q);
+}
+/* Demande de réservation : l'équipe confirme et encaisse. Sert aussi de repli
+   quand le paiement en ligne n'est pas disponible pour ce logement. */
+async function sendRequest(f, p, guests, btn, q){
+  q = q || LASTQ || {};
   const data = {
     Nom: f.Nom.value, Email: f.Email.value, 'Téléphone': f['Téléphone'].value, Message: f.Message.value,
     Logement: `${p.name} (réf ${p.id})`, Ville: p.city || '', 'Arrivée': selIn, 'Départ': selOut,
@@ -426,7 +432,7 @@ async function submitBooking(e, p, guests){
 }
 
 /* Paiement en ligne (quand PAY_API est renseigné) : crée le paiement côté serveur puis
-   redirige vers la page sécurisée Payplug. Le serveur recalcule le prix (anti-fraude). */
+   redirige vers la page de paiement sécurisée Stripe. Le serveur recalcule le prix (anti-fraude). */
 async function payNow(p, guests, f, btn){
   btn.disabled = true; btn.textContent = 'Redirection vers le paiement sécurisé…';
   try {
@@ -436,6 +442,15 @@ async function payNow(p, guests, f, btn){
     });
     const j = await r.json().catch(() => ({}));
     if (j && j.payment_url) { window.location.href = j.payment_url; return; }
+    // Propriétaire pas encore enrôlé : ce logement n'est pas payable en ligne.
+    // On bascule silencieusement sur la demande de réservation plutôt que
+    // de laisser le voyageur devant un cul-de-sac.
+    if (j && j.error === 'owner_not_onboarded') {
+      const note = document.getElementById('bkm-note');
+      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.';
+      btn.disabled = false; btn.textContent = 'Envoyer ma demande';
+      return sendRequest(f, p, guests, btn, LASTQ || {});
+    }
     throw new Error((j && j.error) || 'pay');
   } catch (err) {
     btn.disabled = false; btn.textContent = 'Payer et réserver';
