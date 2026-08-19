@@ -5,3 +5,10 @@ onboarding_links.csv
 node_modules/
 .wrangler/
 .stripe_key
+onboard_tokens.json
+kv_onboard_bulk.json
+liens_proprietaires.csv
+envois_stripe.json
+apercu_mail_stripe.html
+*.live.json
+*.live.csv

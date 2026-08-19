@@ -31,8 +31,14 @@ import os, sys, csv, json, urllib.parse, urllib.request
 STRIPE_API = "https://api.stripe.com/v1"
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSV_IN = os.path.join(HERE, "proprietaires.csv")
-CONFIG = os.path.join(HERE, "split-config.json")
-LINKS = os.path.join(HERE, "onboarding_links.csv")
+# --live : les comptes de test et les comptes réels ne doivent JAMAIS se
+# mélanger (un acct_ de test dans la config live = paiement refusé, et un
+# propriétaire qui saisit son vrai IBAN dans un formulaire de test le fait pour
+# rien). Chaque mode a donc ses propres fichiers.
+LIVE = "--live" in sys.argv
+SUF = ".live" if LIVE else ""
+CONFIG = os.path.join(HERE, f"split-config{SUF}.json")
+LINKS = os.path.join(HERE, f"onboarding_links{SUF}.csv")
 SITE = "https://www.sh-developpement.fr"
 DEFAULT_COMMISSION = 0.20
 

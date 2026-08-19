@@ -37,6 +37,8 @@ export default {
     try {
       if (url.pathname === '/create-payment' && request.method === 'POST') return await createPayment(request, env, cors);
       if (url.pathname === '/webhook' && request.method === 'POST') return await handleWebhook(request, env);
+      if (url.pathname === '/onboard' && request.method === 'GET') return await onboardRedirect(request, env);
+      if (url.pathname === '/onboard/retour' && request.method === 'GET') return onboardPage('retour');
       if (url.pathname === '/health') return json({ ok: true }, 200, cors);
       return json({ error: 'not_found' }, 404, cors);
     } catch (e) {
@@ -85,6 +87,12 @@ async function createPayment(request, env, cors) {
     'line_items[0][price_data][currency]': 'eur',
     'line_items[0][price_data][unit_amount]': String(totalCents),
     'line_items[0][price_data][product_data][name]': `Séjour du ${startDate} au ${endDate} · ${quote.nights} nuit(s)`,
+    'line_items[0][price_data][product_data][description]': 'Tarif non remboursable',
+    // Politique d'annulation (décision Terence 19/08/2026) : non remboursable.
+    // Affichée sur la page Stripe ET acceptée explicitement (case à cocher) :
+    // indispensable pour défendre une contestation « credit not processed ».
+    'custom_text[terms_of_service_acceptance][message]': `Séjour à [tarif non remboursable](${env.SITE_ORIGIN}/cgv.html) : aucune annulation remboursée (CGV, art. 5).`,
+    'consent_collection[terms_of_service]': 'required',
     'payment_intent_data[application_fee_amount]': String(feeCents),
     'payment_intent_data[transfer_data][destination]': split.acct,
     'payment_intent_data[description]': `SH Développement · logement ${listingId} · ${startDate} → ${endDate}`,
@@ -192,6 +200,75 @@ async function canReceiveTransfers(env, acct) {
   // son onboarding d'une minute à l'autre.
   if (env.SPLIT_KV) await env.SPLIT_KV.put(key, ok ? '1' : '0', { expirationTtl: ok ? 3600 : 300 });
   return ok;
+}
+
+// ---------------------------------------------------------------------------
+// 1 bis) Enrôlement du propriétaire — lien d'invitation PERMANENT
+//
+// Les liens Stripe (AccountLink) expirent en quelques minutes : impossible de
+// les envoyer par mail. Le propriétaire reçoit donc une URL stable
+//   https://…/onboard?k=<jeton>
+// et c'est le worker qui fabrique un lien Stripe FRAIS à chaque clic. Stripe
+// rappelle lui-même cette URL (refresh_url) si le lien expire pendant le
+// parcours, donc le propriétaire ne tombe jamais sur « lien expiré ».
+//
+// KV : `onb:<jeton>` = { "acct": "acct_…", "nom": "…" } (écrit par
+// liens_proprietaires.py). Le jeton est aléatoire (32 hex) et ne donne accès
+// qu'au formulaire Stripe du propriétaire concerné.
+// ---------------------------------------------------------------------------
+async function onboardRedirect(request, env) {
+  const url = new URL(request.url);
+  const token = (url.searchParams.get('k') || '').trim();
+  if (!/^[a-f0-9]{16,64}$/.test(token) || !env.SPLIT_KV) return onboardPage('inconnu');
+
+  const row = safeParse(await env.SPLIT_KV.get(`onb:${token}`));
+  if (!row || !row.acct) return onboardPage('inconnu');
+
+  // Déjà vérifié : inutile de renvoyer le propriétaire dans le formulaire.
+  if (await canReceiveTransfers(env, row.acct)) return onboardPage('deja', row.nom);
+
+  const base = env.WORKER_URL || url.origin;
+  const link = await stripePost(env, '/account_links', {
+    account: row.acct,
+    type: 'account_onboarding',
+    refresh_url: `${base}/onboard?k=${token}`,
+    return_url: `${base}/onboard/retour`,
+    'collection_options[fields]': 'eventually_due'
+  });
+  if (!link || !link.url) return onboardPage('erreur', row.nom);
+  return new Response(null, { status: 302, headers: { Location: link.url, 'Cache-Control': 'no-store' } });
+}
+
+// Petites pages de service (charte brun/or), servies par le worker pour ne pas
+// dépendre d'un déploiement du site.
+function onboardPage(cas, nom) {
+  const T = {
+    retour: ['Merci, c’est enregistré',
+      'Vos informations ont été transmises à Stripe. La vérification prend en général quelques minutes, parfois 24 h. Dès qu’elle est validée, vos logements peuvent être réservés et payés en direct, et votre part vous est versée automatiquement.'],
+    deja: ['Votre compte est déjà validé',
+      'Rien de plus à faire : votre compte de versement est actif. Les réservations en direct vous sont versées automatiquement.'],
+    inconnu: ['Lien non reconnu',
+      'Ce lien n’est plus valable ou a été mal recopié. Écrivez à contact@sh-developpement.fr et nous vous en renvoyons un.'],
+    erreur: ['Petit contretemps',
+      'Stripe n’a pas répondu correctement. Réessayez dans quelques minutes ou écrivez à contact@sh-developpement.fr.']
+  }[cas] || ['', ''];
+  const bonjour = nom ? `<p style="margin:0 0 10px;color:#6b5b4a;">Bonjour ${escapeHtml(nom)},</p>` : '';
+  const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>${T[0]} · SH Développement</title></head>
+<body style="margin:0;background:#fbf9f4;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#3a2f25;">
+<div style="max-width:560px;margin:8vh auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 18px rgba(0,0,0,.06);">
+  <div style="background:#463618;padding:22px 26px;">
+    <div style="color:#FFD549;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">SH Développement</div>
+    <div style="color:#f4ead6;font-size:20px;font-weight:700;margin-top:6px;">${T[0]}</div>
+  </div>
+  <div style="padding:22px 26px;font-size:15px;line-height:1.6;">${bonjour}<p style="margin:0;">${T[1]}</p></div>
+  <div style="padding:14px 26px;background:#fbf9f4;color:#9a8a78;font-size:12px;">SH Développement · contact@sh-developpement.fr</div>
+</div></body></html>`;
+  return new Response(html, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 // ---------------------------------------------------------------------------
