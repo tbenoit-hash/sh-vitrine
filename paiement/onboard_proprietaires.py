@@ -53,9 +53,10 @@ def stripe(path, params=None):
 
 STRIPE_V2 = "https://api.stripe.com/v2/core"
 STRIPE_V2_VERSION = "2026-07-29.preview"
+USE_V2 = {"on": True}   # bascule sur False si Accounts v2 n'est pas ouvert sur le compte
 
 
-def stripe_v2(path, payload):
+def stripe_v2(path, payload, soft=False):
     """Appel Accounts v2 : corps JSON + en-tête de version, contrairement à v1."""
     key = os.environ.get("STRIPE_SECRET_KEY")
     if not key:
@@ -72,6 +73,8 @@ def stripe_v2(path, payload):
     except urllib.error.HTTPError as e:
         err = json.loads(e.read() or b"{}")
         msg = (err.get("error") or {}).get("message") or err
+        if soft:
+            return {"_error": str(msg)}
         sys.exit(f"Stripe v2 {path} → {e.code} : {msg}")
 
 
@@ -133,6 +136,9 @@ def main():
             "email": email,
             "listings": [s for s in (row.get("listings") or "").split() if s.isdigit()],
             "commission": commission,
+            # 1 = les frais de ménage encaissés du voyageur reviennent au
+            # propriétaire (SH les lui refacture par ailleurs). Cas Auberger.
+            "menage_proprio": str(row.get("menage_proprio") or "").strip() in ("1", "true", "oui"),
         }
     attendus = sum(len(o["listings"]) for o in owners.values())
     print(f"[i] {len(owners)} entités, {attendus} logements à couvrir")
@@ -149,7 +155,9 @@ def main():
             # virements depuis le solde de la plateforme (paiement à destination).
             # On ne demande PAS la configuration « merchant » : inutile ici, et elle
             # allongerait l'onboarding.
-            a = stripe_v2("/accounts", {
+            a = None
+            if USE_V2["on"]:
+                a = stripe_v2("/accounts", {
                 "contact_email": email,
                 "display_name": o["nom"][:100],
                 "dashboard": "express",
@@ -162,12 +170,28 @@ def main():
                     "stripe_balance": {"stripe_transfers": {"requested": True}}
                 }}},
                 "include": ["configuration.recipient", "identity", "requirements"],
-            })
+                }, soft=True)
+                if a.get("_error"):
+                    # Accounts v2 n'est pas ouvert sur ce compte : on retombe sur
+                    # l'API historique, qui reste fonctionnelle. Migration à refaire
+                    # le jour où Stripe active v2 sur le compte.
+                    print(f"[i] Accounts v2 indisponible ({a['_error'][:80]}…) → bascule sur l'API v1")
+                    USE_V2["on"] = False
+                    a = None
+            if a is None:
+                a = stripe("/accounts", {
+                    "type": "express", "country": "FR", "email": email,
+                    "capabilities[transfers][requested]": "true",
+                    "business_profile[product_description]": "Location meublee de tourisme (part proprietaire, plateforme SH Developpement)",
+                    "metadata[nom]": o["nom"],
+                })
             acct = a["id"]
             print(f"[OK] compte créé {acct} · {o['nom']} <{email}>")
         known[memo] = {"acct": acct, "nom": o["nom"]}
         for lid in o["listings"]:
             cfg[lid] = {"acct": acct, "commission": o["commission"]}
+            if o["menage_proprio"]:
+                cfg[lid]["menage_proprio"] = True
         if make_links or not known[memo].get("linked"):
             # Onboarding « en amont » (eventually_due) : on collecte tout de suite
             # tout ce que Stripe finira par exiger, pour éviter qu'un virement se
@@ -183,9 +207,13 @@ def main():
                         "return_url": SITE + "/merci.html",
                     },
                 },
+            }) if USE_V2["on"] else stripe("/account_links", {
+                "account": acct, "type": "account_onboarding",
+                "refresh_url": SITE + "/proprietaires.html",
+                "return_url": SITE + "/merci.html",
             })
             links.append({"email": email, "nom": o["nom"], "url": link["url"]})
-            known[email]["linked"] = True
+            known[memo]["linked"] = True
 
     cfg["_owners"] = known
     cfg["default_commission"] = DEFAULT_COMMISSION

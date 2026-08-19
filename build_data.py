@@ -130,7 +130,10 @@ def prop_record(l):
         "mapy": my,
         "type": type_of(l.get("bedroomsNumber") or 0),
         "cleaningFee": int(round(l.get("cleaningFee") or 0)),
-        "deposit": int(round(l.get("refundableDamageDeposit") or 0)),
+        # Caution supprimée sur la réservation directe (décision Terence, 19/08/2026) :
+        # on ne l'exporte plus vers le site, même si Hostaway en porte encore une.
+        # Pour la rétablir un jour : remettre int(round(l.get("refundableDamageDeposit") or 0)).
+        "deposit": 0,
         "markup": round(float(l.get("bookingEngineMarkup") or 1.0), 4),
         # majoration Airbnb (lecture seule) : sert au prix barré « sur Airbnb » côté site
         "amk": round(float(l.get("airbnbOfficialListingMarkup") or 1.0), 4),

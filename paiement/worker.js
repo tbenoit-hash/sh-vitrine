@@ -32,7 +32,7 @@ const UNAVAILABLE = ['reserved', 'blocked', 'unavailable'];
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const cors = corsHeaders(env);
+    const cors = corsHeaders(env, request);
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
     try {
       if (url.pathname === '/create-payment' && request.method === 'POST') return await createPayment(request, env, cors);
@@ -64,9 +64,12 @@ async function createPayment(request, env, cors) {
   if (!quote.ok) return json({ error: 'unavailable', reason: quote.reason }, 409, cors);
 
   const totalCents = Math.round(quote.total * 100);
-  // Part propriétaire = hébergement brut × (1 − commission).
-  // SH garde : commission + frais de dossier (markup) + ménage = totalCents − part proprio.
-  const ownerCents = Math.round(quote.base * (1 - split.commission) * 100);
+  // Part propriétaire = hébergement brut × (1 − commission), plus les frais de
+  // ménage lorsque le contrat prévoit qu'ils lui reviennent (SH les lui
+  // refacture alors séparément : cas Auberger).
+  // SH garde le reste : commission + frais de dossier (markup) [+ ménage].
+  const ownerCents = Math.round(quote.base * (1 - split.commission) * 100)
+    + (split.menageProprio ? Math.round(quote.cleaning * 100) : 0);
   const feeCents = totalCents - ownerCents;
   if (feeCents < 0 || ownerCents <= 0) return json({ error: 'bad_split' }, 500, cors);
 
@@ -152,7 +155,7 @@ async function splitFor(env, listingId) {
   // créer le paiement, pour renvoyer owner_not_onboarded et laisser le site
   // retomber sur la demande de réservation.
   if (!(await canReceiveTransfers(env, row.acct))) return null;
-  return { acct: row.acct, commission };
+  return { acct: row.acct, commission, menageProprio: row.menage_proprio === true };
 }
 
 // Capacité v2 « recipient » : stripe_balance.stripe_transfers doit être active.
@@ -164,17 +167,27 @@ async function canReceiveTransfers(env, acct) {
     if (cached === '1') return true;
     if (cached === '0') return false;
   }
+  // Accounts v2 d'abord ; si la plateforme n'y a pas droit (ou si le compte a été
+  // créé en v1), on lit la capacité `transfers` de l'API historique.
+  let ok = false;
   const r = await fetch(
     `https://api.stripe.com/v2/core/accounts/${acct}?include=configuration.recipient`,
     { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, 'Stripe-Version': '2026-07-29.preview' } }
   );
-  const a = await r.json().catch(() => null);
+  const a = r.ok ? await r.json().catch(() => null) : null;
   const st = a && a.configuration && a.configuration.recipient
     && a.configuration.recipient.capabilities
     && a.configuration.recipient.capabilities.stripe_balance
     && a.configuration.recipient.capabilities.stripe_balance.stripe_transfers
     && a.configuration.recipient.capabilities.stripe_balance.stripe_transfers.status;
-  const ok = st === 'active';
+  if (st) {
+    ok = st === 'active';
+  } else {
+    const r1 = await fetch(`https://api.stripe.com/v1/accounts/${acct}`,
+      { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` } });
+    const a1 = r1.ok ? await r1.json().catch(() => null) : null;
+    ok = !!(a1 && a1.capabilities && a1.capabilities.transfers === 'active');
+  }
   // On ne met en cache un « non » que brièvement : le propriétaire peut finir
   // son onboarding d'une minute à l'autre.
   if (env.SPLIT_KV) await env.SPLIT_KV.put(key, ok ? '1' : '0', { expirationTtl: ok ? 3600 : 300 });
@@ -276,9 +289,14 @@ async function createHostawayReservation(env, tok, m, session) {
 // Utilitaires
 // ---------------------------------------------------------------------------
 function safeParse(s) { try { return JSON.parse(s); } catch { return null; } }
-function corsHeaders(env) {
+function corsHeaders(env, request) {
+  // Le site de production, plus l'aperçu local servi sur localhost pendant les
+  // tests. Aucune autre origine n'est autorisée à créer un paiement.
+  const site = env.SITE_ORIGIN || '';
+  const origin = (request && request.headers.get('Origin')) || '';
+  const localhost = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
   return {
-    'Access-Control-Allow-Origin': env.SITE_ORIGIN || '*',
+    'Access-Control-Allow-Origin': localhost ? origin : (site || '*'),
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type'
   };
