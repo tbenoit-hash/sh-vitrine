@@ -34,6 +34,15 @@
   a,button{transition:all .2s ease}
   .lb-img{transition:transform .4s ease}
   .gal-item:hover .lb-img{transform:scale(1.04)}
+  /* Barre mobile de réservation : la pastille de langue et le bandeau cookies remontent
+     au-dessus, et le bas de page reste atteignable (liens légaux du footer) */
+  @media (max-width:1023px){
+    body.bkbar-on #sh-lang{ bottom:86px !important }
+    body.bkbar-on #sh-consent{ bottom:90px !important }
+    body.bkbar-on{ padding-bottom:calc(84px + env(safe-area-inset-bottom)) }
+  }
+  /* Fenêtres peu hautes : le calendrier défile au lieu d'être coupé */
+  #bk-cal{ max-height:min(360px, calc(100vh - 290px)); overflow-y:auto }
 </style>
 </head>
 <body class="bg-cream text-ink antialiased">
@@ -210,7 +219,7 @@ function upgradeBooking(p){
   calMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
   const trig = document.getElementById('bk-dates');
   trig.classList.remove('hidden');
-  trig.addEventListener('click', () => { document.getElementById('bk-cal').classList.toggle('hidden'); renderCal(p); });
+  bindCalTrigger(p);
   quote(p);
 }
 
@@ -258,25 +267,40 @@ function render(p) {
         </div>
       </div>
       <aside class="lg:col-span-1">
-        <div class="lg:sticky lg:top-24 rounded-2xl border border-ecru shadow-xl shadow-ink/10 p-6 bg-cream">
+        <div id="bk-card" class="lg:sticky lg:top-24 rounded-2xl border border-ecru shadow-xl shadow-ink/10 p-6 bg-cream">
           <p class="mb-1"><span class="text-muted text-sm">À partir de</span> ${(p.amk||1) > 1.05 ? `<s class="text-muted text-lg font-400">${eur(Math.round(p.price*p.amk))}</s>` : ''} <span class="font-display text-3xl font-700">${eur(p.price)}</span> <span class="text-muted">/ nuit</span></p>
           ${(p.amk||1) > 1.05 ? `<p class="text-muted text-xs mb-1">${eur(Math.round(p.price*p.amk))} / nuit sur Airbnb : réservez ici au meilleur prix</p>` : ''}
-          <p class="text-bronze text-xs font-600 mb-4 inline-flex items-center gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <p class="text-bronze text-xs font-600 mb-1.5 flex items-center gap-1.5">
+            <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
             Réservation en direct, sans frais de plateforme
           </p>
-          <button id="bk-dates" type="button" class="w-full grid grid-cols-2 rounded-xl border border-ecru overflow-hidden mb-2 text-left hover:border-bronze">
-            <span class="px-3 py-2.5"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span><span id="bk-in" class="text-sm text-ink">Choisir</span></span>
-            <span class="px-3 py-2.5 border-l border-ecru"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span><span id="bk-out" class="text-sm text-ink">Choisir</span></span>
-          </button>
-          <div id="bk-cal" class="hidden rounded-xl border border-ecru p-3 mb-2 bg-white/50"></div>
+          <p class="text-bronze text-xs font-600 mb-4 flex items-start gap-1.5">
+            <svg class="shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Linge de lit, draps de bain et ménage de fin de séjour inclus</span>
+          </p>
+          <div class="relative mb-2">
+            <button id="bk-dates" type="button" aria-haspopup="dialog" aria-expanded="false" class="w-full grid grid-cols-2 rounded-xl border border-ecru overflow-hidden text-left hover:border-bronze">
+              <span class="px-3 py-2.5"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span><span id="bk-in" class="text-sm text-ink">Choisir</span></span>
+              <span class="px-3 py-2.5 border-l border-ecru"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span><span id="bk-out" class="text-sm text-ink">Choisir</span></span>
+            </button>
+            <!-- Calendrier en surcouche : il n'allonge plus la carte, le bouton Réserver reste visible -->
+            <div id="bk-cal" role="dialog" aria-label="Calendrier des disponibilités" class="hidden absolute left-0 right-0 top-full mt-1.5 z-20 rounded-xl border border-ecru p-3 bg-cream shadow-2xl shadow-ink/25"></div>
+          </div>
           <label class="block rounded-xl border border-ecru px-3 py-2 mb-3"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span><input id="bk-guests" type="number" min="1" max="${p.guests}" value="2" class="w-full bg-transparent text-base text-ink outline-none"></label>
           <div id="bk-quote" class="hidden text-sm text-ink/85 mb-3 space-y-1.5"></div>
           <button id="bk-go" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Vérifier les dates</button>
           <p id="bk-note" class="text-muted text-xs text-center mt-3">Sans frais de plateforme · <a href="/cgv.html" class="underline underline-offset-2 hover:text-bronze">tarif non remboursable</a> · notre équipe vous confirme et vous envoie le lien de paiement sécurisé.</p>
-          <div id="bk-msg" class="hidden text-center text-sm text-bronze mt-2"></div>
+          <div id="bk-msg" aria-live="polite" class="hidden text-center text-sm text-bronze mt-2"></div>
         </div>
       </aside>
+    </div>
+    <!-- Barre mobile fixe : sur téléphone la carte est en bas de page, prix + Réserver restent visibles -->
+    <div id="bk-bar" class="lg:hidden fixed inset-x-0 bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-ecru px-5 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center justify-between gap-4">
+      <div class="min-w-0">
+        <p id="bkbar-price" class="font-700 text-ink leading-tight"></p>
+        <p id="bkbar-sub" class="text-muted text-xs truncate"></p>
+      </div>
+      <button id="bkbar-go" type="button" class="shrink-0 rounded-full bg-gold text-ink px-6 py-3 font-700 cursor-pointer hover:bg-bronze hover:text-cream">Réserver</button>
     </div>`;
   c.classList.remove('hidden');
 
@@ -296,11 +320,41 @@ const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(
 const nights = (a,b) => Math.round((parseD(b)-parseD(a))/86400000);
 const addDay = d => new Date(d.getTime()+86400000);
 
+/* Le calendrier est une surcouche (popover) : ouvrir/fermer ne change pas la
+   hauteur de la carte, donc le bouton « Réserver en direct » reste toujours visible. */
+let calTimer = null;
+function openCal(p){
+  const el = document.getElementById('bk-cal');
+  if (!el || !calMonth) return; // pas de calendrier pré-chargé → rien à ouvrir
+  el.classList.remove('hidden');
+  const trig = document.getElementById('bk-dates');
+  if (trig) trig.setAttribute('aria-expanded', 'true');
+  renderCal(p);
+}
+function closeCal(){
+  const el = document.getElementById('bk-cal');
+  if (!el || el.classList.contains('hidden')) return;
+  el.classList.add('hidden');
+  const trig = document.getElementById('bk-dates');
+  if (trig){
+    trig.setAttribute('aria-expanded', 'false');
+    // Rend le focus au déclencheur si le clavier était dans le calendrier (détruit au re-rendu)
+    if (document.activeElement === document.body || el.contains(document.activeElement)) trig.focus();
+  }
+}
+function bindCalTrigger(p){
+  const trig = document.getElementById('bk-dates');
+  if (!trig || trig.dataset.bound) return;
+  trig.dataset.bound = '1';
+  trig.addEventListener('click', () => {
+    const el = document.getElementById('bk-cal');
+    el.classList.contains('hidden') ? openCal(p) : closeCal();
+  });
+}
+
 function initBooking(p){
   const days = (AVAIL && AVAIL.days) || {};
   const has = Object.keys(days).length > 0;
-  const note = document.getElementById('bk-note');
-  note.textContent = 'Réservation en direct sur notre site · paiement sécurisé par carte ou virement, sans frais de plateforme.';
   if (!has) {
     // Pas de calendrier pré-chargé → demande simple, sans cul-de-sac
     document.getElementById('bk-dates').classList.add('hidden');
@@ -308,13 +362,43 @@ function initBooking(p){
     const first = Object.keys(days).sort()[0];
     const fd = parseD(first);
     calMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
-    const trig = document.getElementById('bk-dates');
-    trig.addEventListener('click', () => { document.getElementById('bk-cal').classList.toggle('hidden'); renderCal(p); });
+    bindCalTrigger(p);
   }
   document.getElementById('bk-guests').addEventListener('input', () => quote(p));
   document.getElementById('bk-go').addEventListener('click', () => checkout(p));
+
+  // Barre mobile : prix + Réserver toujours à l'écran ; masquée quand la carte est visible
+  const bar = document.getElementById('bk-bar'), card = document.getElementById('bk-card');
+  if (bar && card){
+    document.body.classList.add('bkbar-on');
+    document.getElementById('bkbar-go').addEventListener('click', () => {
+      if (selIn && selOut) return checkout(p);
+      // Défilement instantané : le smooth est ignoré par certains navigateurs embarqués
+      window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - 76);
+      if (Object.keys((AVAIL && AVAIL.days) || {}).length) openCal(p);
+    });
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(es => {
+        const vis = es[es.length - 1].isIntersecting;
+        bar.classList.toggle('hidden', vis);
+        document.body.classList.toggle('bkbar-on', !vis);
+      }, { rootMargin: '0px 0px -60px 0px' }).observe(card);
+    }
+  }
   quote(p);
 }
+
+// Fermeture du calendrier : clic en dehors ou touche Échap
+document.addEventListener('click', e => {
+  const el = document.getElementById('bk-cal');
+  if (!el || el.classList.contains('hidden')) return;
+  // Un clic sur un jour reconstruit le calendrier : la cellule cliquée est alors
+  // détachée du DOM au moment où l'événement remonte — ce n'est pas un clic extérieur.
+  if (!(e.target instanceof Node) || !document.contains(e.target)) return;
+  if (e.target.closest && e.target.closest('#bk-cal,#bk-dates,#bk-bar,#bk-go')) return;
+  closeCal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCal(); });
 
 function rangeOk(days, a, b){ let d = parseD(a); while (ymd(d) < b){ if (!(ymd(d) in days)) return false; d = addDay(d); } return true; }
 
@@ -332,8 +416,12 @@ function renderCal(p){
     const isEnd = ds===selIn || ds===selOut, inR = selIn && selOut && ds>selIn && ds<selOut;
     let cls = 'h-9 flex items-center justify-center text-sm rounded-lg ';
     cls += isEnd ? 'bg-ink text-cream font-700' : inR ? 'bg-gold/25 text-ink' : avail ? 'text-ink hover:bg-sand cursor-pointer' : 'text-muted/40 line-through cursor-not-allowed';
-    cells += `<button type="button" data-d="${ds}" ${avail?'':'disabled'} class="${cls}">${d}</button>`;
+    cells += `<button type="button" data-d="${ds}" aria-label="${d} ${FR_MONTHS[m]} ${y}" aria-pressed="${(isEnd||inR)?'true':'false'}" ${avail?'':'disabled'} class="${cls}">${d}</button>`;
   }
+  // Le re-rendu détruit l'élément focalisé : on retient où était le clavier pour l'y remettre
+  const af = document.activeElement;
+  const afDay = (af && af.dataset && af.dataset.d) || null;
+  const afNav = (af && (af.id === 'cal-prev' || af.id === 'cal-next')) ? af.id : null;
   cal.innerHTML = `
     <div class="flex items-center justify-between mb-2">
       <button type="button" id="cal-prev" class="w-8 h-8 rounded-lg hover:bg-sand text-bronze" aria-label="Mois précédent">‹</button>
@@ -345,6 +433,8 @@ function renderCal(p){
   cal.querySelector('#cal-prev').addEventListener('click', ()=>{ calMonth = new Date(y, m-1, 1); renderCal(p); });
   cal.querySelector('#cal-next').addEventListener('click', ()=>{ calMonth = new Date(y, m+1, 1); renderCal(p); });
   cal.querySelectorAll('button[data-d]').forEach(b => b.addEventListener('click', ()=> pick(p, b.dataset.d)));
+  if (afDay){ const nb = cal.querySelector(`button[data-d="${afDay}"]`); if (nb) nb.focus(); }
+  else if (afNav){ const nb = cal.querySelector('#' + afNav); if (nb) nb.focus(); }
 }
 
 function pick(p, ds){
@@ -361,13 +451,17 @@ function pick(p, ds){
   document.getElementById('bk-in').textContent = fmt(selIn);
   document.getElementById('bk-out').textContent = fmt(selOut);
   renderCal(p); quote(p);
+  // Séjour complet choisi → on referme le calendrier : total et bouton immédiatement visibles.
+  // Timer annulable : un nouveau clic pendant les 250 ms relance une sélection sans fermeture parasite.
+  clearTimeout(calTimer);
+  if (selIn && selOut) calTimer = setTimeout(() => { if (selIn && selOut) closeCal(); }, 250);
 }
 
 function quote(p){
   const days = (AVAIL && AVAIL.days) || {};
   const q = document.getElementById('bk-quote'), go = document.getElementById('bk-go');
   const label = 'Réserver en direct';
-  if (!selIn || !selOut){ q.classList.add('hidden'); LASTQ = null; go.textContent = (selIn ? 'Choisir la date de départ' : label); return; }
+  if (!selIn || !selOut){ q.classList.add('hidden'); LASTQ = null; go.textContent = (selIn ? 'Choisir la date de départ' : label); updateBar(p); return; }
   const markup = (AVAIL && AVAIL.markup) || 1, clean = (AVAIL && AVAIL.cleaningFee) || 0, deposit = (AVAIL && AVAIL.deposit) || 0;
   let base = 0, d = parseD(selIn);
   while (ymd(d) < selOut){ base += days[ymd(d)] || 0; d = addDay(d); }
@@ -375,41 +469,60 @@ function quote(p){
   const airbnbTotal = Math.round(base*(p.amk||1)) + clean, saving = airbnbTotal - total;
   LASTQ = { nights: n, accommodation, clean, total, deposit };
   q.innerHTML = `
-    <div class="flex justify-between"><span>Hébergement · ${n} nuit${n>1?'s':''}</span><span>${eur(accommodation)}</span></div>
-    ${clean?`<div class="flex justify-between"><span>Frais de ménage</span><span>${eur(clean)}</span></div>`:''}
+    <div class="flex justify-between"><span>${eur(total/n)} / nuit · tout compris</span><span>${n} nuit${n>1?'s':''}</span></div>
     <div class="flex justify-between font-700 text-ink border-t border-ecru pt-1.5 mt-1.5"><span>Total</span><span>${saving > total*0.05 ? `<s class="text-muted font-400 mr-1">${eur(airbnbTotal)}</s>` : ''}${eur(total)}</span></div>
     ${saving > total*0.05 ? `<div class="flex justify-between text-xs text-bronze font-600"><span>Économie vs Airbnb</span><span>−${eur(saving)}</span></div>` : ''}
     ${deposit?`<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(deposit)}</span></div>`:''}`;
   q.classList.remove('hidden');
   go.textContent = label;
+  updateBar(p);
+}
+
+/* Texte de la barre mobile : prix d'appel, puis total dès que les dates sont choisies */
+function updateBar(p){
+  const bp = document.getElementById('bkbar-price'), bs = document.getElementById('bkbar-sub');
+  if (!bp || !bs) return;
+  if (LASTQ && selIn && selOut){
+    const fmt = s => parseD(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+    bp.textContent = eur(LASTQ.total) + ' total';
+    bs.textContent = `${LASTQ.nights} nuit${LASTQ.nights>1?'s':''} · ${fmt(selIn)} → ${fmt(selOut)}`;
+  } else {
+    bp.textContent = 'À partir de ' + eur(p.price) + ' / nuit';
+    bs.textContent = 'En direct, sans frais de plateforme';
+  }
 }
 
 function flash(msg){ const e = document.getElementById('bk-msg'); e.textContent = msg; e.classList.remove('hidden'); setTimeout(()=>e.classList.add('hidden'), 4000); }
 
 function checkout(p){
-  if (!selIn || !selOut){ document.getElementById('bk-cal').classList.remove('hidden'); renderCal(p); flash('Choisissez vos dates de séjour.'); return; }
+  if (!selIn || !selOut){
+    // Pas de calendrier pré-chargé (dispos absentes) → demande simple, sans cul-de-sac
+    if (!Object.keys((AVAIL && AVAIL.days) || {}).length) return openBooking(p);
+    openCal(p); flash('Choisissez vos dates de séjour.'); return;
+  }
   openBooking(p);
 }
 
 /* Réservation 100 % sur NOTRE site : modale + envoi à l'équipe. AUCUNE redirection externe. */
 function openBooking(p){
   const guests = document.getElementById('bk-guests').value || 2;
-  const fmt = s => parseD(s).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  const fmt = s => s ? parseD(s).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }) : null;
   const q = LASTQ || {};
   document.getElementById('bkm-title').textContent = p.name;
   document.getElementById('bkm-recap').innerHTML =
-    `<div class="flex justify-between gap-3"><span>Séjour</span><span class="font-600 text-right">${fmt(selIn)} → ${fmt(selOut)}</span></div>` +
-    `<div class="flex justify-between"><span>${q.nights||''} nuit${(q.nights||0)>1?'s':''} · ${guests} voyageur${guests>1?'s':''}</span><span></span></div>` +
+    `<div class="flex justify-between gap-3"><span>Séjour</span><span class="font-600 text-right">${(selIn && selOut) ? fmt(selIn) + ' → ' + fmt(selOut) : 'Dates à définir avec notre équipe'}</span></div>` +
+    `<div class="flex justify-between"><span>${q.nights ? q.nights + ' nuit' + (q.nights>1?'s':'') + ' · ' : ''}${guests} voyageur${guests>1?'s':''}</span><span></span></div>` +
     (q.total!=null ? `<div class="flex justify-between border-t border-ecru pt-1.5 mt-1.5 font-700 text-ink"><span>Total estimé</span><span>${eur(q.total)}</span></div>` : '') +
-    (q.deposit ? `<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(q.deposit)}</span></div>` : '');
+    (q.deposit ? `<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(q.deposit)}</span></div>` : '') +
+    `<div class="text-xs text-muted pt-1">Linge de lit, draps de bain et ménage de fin de séjour inclus.</div>`;
   document.getElementById('bkm-success').classList.add('hidden');
   document.getElementById('bkm-body').classList.remove('hidden');
   document.getElementById('bkm-form').reset();
   const m = document.getElementById('bkmodal'); m.classList.remove('hidden'); m.classList.add('flex');
   document.getElementById('bkm-submit').textContent = PAY_API ? 'Payer et réserver' : 'Envoyer ma demande';
   document.getElementById('bkm-note').textContent = PAY_API
-    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · sans frais de plateforme.'
-    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.';
+    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · sans frais de plateforme · tarif non remboursable (voir CGV).'
+    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme · tarif non remboursable (voir CGV).';
   document.getElementById('bkm-form').onsubmit = e => submitBooking(e, p, guests);
 }
 function closeBooking(){ const m = document.getElementById('bkmodal'); m.classList.add('hidden'); m.classList.remove('flex'); }
@@ -417,7 +530,7 @@ async function submitBooking(e, p, guests){
   e.preventDefault();
   const f = e.target, btn = document.getElementById('bkm-submit'), q = LASTQ || {};
   if (f._honey && f._honey.value) return; // honeypot anti-spam
-  if (PAY_API) return payNow(p, guests, f, btn); // paiement en ligne branché → on encaisse sur le site
+  if (PAY_API && selIn && selOut) return payNow(p, guests, f, btn); // paiement en ligne branché → on encaisse sur le site (dates requises)
   return sendRequest(f, p, guests, btn, q);
 }
 /* Demande de réservation : l'équipe confirme et encaisse. Sert aussi de repli
@@ -426,11 +539,11 @@ async function sendRequest(f, p, guests, btn, q){
   q = q || LASTQ || {};
   const data = {
     Nom: f.Nom.value, Email: f.Email.value, 'Téléphone': f['Téléphone'].value, Message: f.Message.value,
-    Logement: `${p.name} (réf ${p.id})`, Ville: p.city || '', 'Arrivée': selIn, 'Départ': selOut,
+    Logement: `${p.name} (réf ${p.id})`, Ville: p.city || '', 'Arrivée': selIn || 'à définir', 'Départ': selOut || 'à définir',
     Voyageurs: String(guests), 'Total estimé': (q.total!=null ? eur(q.total) : ''),
     Caution: (q.deposit ? eur(q.deposit) : ''), 'Lien fiche': location.href,
     Consentement: f.Consentement.checked ? 'Oui' : 'Non',
-    _subject: `Réservation : ${p.name} (${selIn} → ${selOut})`, _template: 'table'
+    _subject: `Réservation : ${p.name}` + (selIn && selOut ? ` (${selIn} → ${selOut})` : ' (dates à définir)'), _template: 'table'
   };
   btn.disabled = true; btn.textContent = 'Envoi…';
   try {
@@ -464,7 +577,7 @@ async function payNow(p, guests, f, btn){
     // de laisser le voyageur devant un cul-de-sac.
     if (j && (j.error === 'owner_not_onboarded' || j.error === 'stripe_error')) {
       const note = document.getElementById('bkm-note');
-      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme.';
+      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme · tarif non remboursable (voir CGV).';
       btn.disabled = false; btn.textContent = 'Envoyer ma demande';
       return sendRequest(f, p, guests, btn, LASTQ || {});
     }
