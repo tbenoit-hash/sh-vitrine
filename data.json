@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 74,
+      "reviewCount": 73,
       "reviews": [
         {
           "name": "Fanny",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-22"
+  "updated": "2026-08-23"
 }
