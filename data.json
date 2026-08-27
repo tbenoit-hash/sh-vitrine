@@ -162,7 +162,7 @@
       "bedrooms": 4,
       "bathrooms": 2,
       "price": 350,
-      "rating": 9.5,
+      "rating": 9.4,
       "cover": "/img/l/570611-c.webp",
       "photos": [
         "/img/l/570611-0.webp",
@@ -216,7 +216,7 @@
       "bedrooms": 4,
       "bathrooms": 3,
       "price": 250,
-      "rating": 9.5,
+      "rating": 9.6,
       "cover": "/img/l/475670-c.webp",
       "photos": [
         "/img/l/475670-0.webp",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-26"
+  "updated": "2026-08-27"
 }
