@@ -1,13 +1,13 @@
 {
-  "count": 141,
-  "communes": 25,
+  "count": 131,
+  "communes": 24,
   "adr": {
     "Studio": 47,
-    "T3": 75,
-    "T2": 53,
-    "T5": 112.6,
-    "T4": 96,
-    "T6+": 129.2
+    "T3": 77,
+    "T2": 55,
+    "T5": 116.6,
+    "T4": 100,
+    "T6+": 133.2
   },
   "featured": [
     {
@@ -63,7 +63,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 25,
+      "reviewCount": 27,
       "reviews": [
         {
           "name": "Marie",
@@ -261,7 +261,7 @@
       "minNights": 2,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 44,
+      "reviewCount": 45,
       "reviews": [
         {
           "name": "Aurelien",
@@ -333,7 +333,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 2,
+      "reviewCount": 3,
       "reviews": [
         {
           "name": "Martin",
@@ -400,7 +400,7 @@
       "minNights": 3,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 10,
+      "reviewCount": 11,
       "reviews": [
         {
           "name": "Voyageur",
@@ -472,7 +472,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 81,
+      "reviewCount": 84,
       "reviews": [
         {
           "name": "Voyageur",
@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 74,
+      "reviewCount": 80,
       "reviews": [
         {
           "name": "Fanny",
@@ -551,13 +551,13 @@
           "rating": 10
         },
         {
-          "name": "Francine",
-          "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable.",
+          "name": "Arnaud",
+          "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région.",
           "rating": 10
         },
         {
-          "name": "Voyageur",
-          "text": "Un très bon week-end passé chez Anthony, le château est calme et agréable. Nous reviendrons avec plaisir.",
+          "name": "Francine",
+          "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable.",
           "rating": 10
         }
       ]
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-27"
+  "updated": "2026-08-28"
 }
