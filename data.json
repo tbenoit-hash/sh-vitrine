@@ -427,7 +427,7 @@
       "bedrooms": 2,
       "bathrooms": 1,
       "price": 120,
-      "rating": 9.7,
+      "rating": 9.6,
       "cover": "/img/l/474343-c.webp",
       "photos": [
         "/img/l/474343-0.webp",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-29"
+  "updated": "2026-08-30"
 }
