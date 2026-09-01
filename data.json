@@ -1,13 +1,13 @@
 {
-  "count": 131,
+  "count": 130,
   "communes": 24,
   "adr": {
     "Studio": 47,
     "T3": 77,
     "T2": 55,
-    "T5": 116.6,
-    "T4": 100,
-    "T6+": 133.2
+    "T5": 121.6,
+    "T4": 105,
+    "T6+": 138.2
   },
   "featured": [
     {
@@ -216,7 +216,7 @@
       "bedrooms": 4,
       "bathrooms": 3,
       "price": 250,
-      "rating": 9.6,
+      "rating": 9.5,
       "cover": "/img/l/475670-c.webp",
       "photos": [
         "/img/l/475670-0.webp",
@@ -261,7 +261,7 @@
       "minNights": 2,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 45,
+      "reviewCount": 46,
       "reviews": [
         {
           "name": "Aurelien",
@@ -427,7 +427,7 @@
       "bedrooms": 2,
       "bathrooms": 1,
       "price": 120,
-      "rating": 9.6,
+      "rating": 9.7,
       "cover": "/img/l/474343-c.webp",
       "photos": [
         "/img/l/474343-0.webp",
@@ -499,7 +499,7 @@
       "bedrooms": 2,
       "bathrooms": 1,
       "price": 120,
-      "rating": 9.8,
+      "rating": 9.7,
       "cover": "/img/l/465404-c.webp",
       "photos": [
         "/img/l/465404-0.webp",
@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 80,
+      "reviewCount": 82,
       "reviews": [
         {
           "name": "Fanny",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-08-31"
+  "updated": "2026-09-01"
 }
