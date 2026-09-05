@@ -63,7 +63,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 27,
+      "reviewCount": 26,
       "reviews": [
         {
           "name": "Marie",
@@ -543,7 +543,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 81,
+      "reviewCount": 82,
       "reviews": [
         {
           "name": "Fanny",
@@ -659,5 +659,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-09-04"
+  "updated": "2026-09-05"
 }
