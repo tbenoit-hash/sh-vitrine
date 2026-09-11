@@ -1,5 +1,5 @@
 {
-  "count": 130,
+  "count": 129,
   "communes": 24,
   "adr": {
     "Studio": 47,
@@ -63,7 +63,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 26,
+      "reviewCount": 27,
       "reviews": [
         {
           "name": "Marie",
@@ -209,74 +209,65 @@
       "instant": 1
     },
     {
-      "id": 475670,
-      "name": "La Cave des Miracles",
-      "city": "Dracy-le-Fort",
-      "guests": 8,
-      "bedrooms": 4,
-      "bathrooms": 3,
-      "price": 250,
-      "rating": 9.5,
-      "cover": "/img/l/475670-c.webp",
+      "id": 465564,
+      "name": "Panorama des Neiges",
+      "city": "Les Belleville",
+      "guests": 6,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "price": 350,
+      "rating": 8.9,
+      "cover": "/img/l/465564-c.webp",
       "photos": [
-        "/img/l/475670-0.webp",
-        "/img/l/475670-1.webp",
-        "/img/l/475670-2.webp",
-        "/img/l/475670-3.webp",
-        "/img/l/475670-4.webp",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-sbQqdfVyniQcCuYNoIPVtVCQCpEfTHfhYI1nmoUu5v4-6967bc521796d",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-KeP3e8dQTcdqcv1MH7bM--xG9eJxUqy8Ho6jEPPjHdT8-696742642eb77",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-xrH-TW5AlVW9M3BJIOkGyBjedc05qTicljurb-pRDDc-696820680cde9",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-8Juh37Fxyp5PFQEF3q5FKO0zKV7oZjIe3f42xI01qss-6967bc4e07e1d",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-mF1U52SpV1cT9fU5oal7V9LTH9hQ63s-I5Cnzn4TXmo-6967fe30dad5e",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-bILBSmspHPQvyQqGWqovh0rKLxWK7R5AQF--3gvuTZWk-6967bc4eed9c4",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-475670-EanJr7REYfLEhXJJN9Nfo8blhsijVaN2jMW53Ojmpcc-6967426a6a43f"
+        "/img/l/465564-0.webp",
+        "/img/l/465564-1.webp",
+        "/img/l/465564-2.webp",
+        "/img/l/465564-3.webp",
+        "/img/l/465564-4.webp",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564--qJ--I1x3qbYxwS--l50UycvPOOfpsHrYcCp0Ehpn3N0E-693d562cd8b9c",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-3IY0synngKV790zyTBe3xSgSjKuNgmjRQw--WO3CnBLw-693d5dcc2c6a5",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-CkOlYQuJsD9KvHp0u3j1ypg-fBppg--FZWKy0KOvcmoY-693d561f9a245",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-UzjR8--k9zUvw6igRRALY--CtXQj2kvnOWXqRSczogweA-693d562bcdf53",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-oOHQNAoqXlvD--QjjyPG32oJpfD3Jqi6EHf4FWBQAQUo-693d562973484",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-NSEUCEazZhG2QGF6--hiAlroX6KHL9lrRLXATQI6xVc4-693d562e1c7eb",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-QuQMkhl3fp2Gt5x62Ge0kjdU56bUK54GB-ycUycfVzw-693d563d62a7b"
       ],
-      "description": "Découvrez et savourez le charme unique de Dracy-le-Fort de part notre maison de 150m2. Parfait pour accueillir confortablement une famille, des amis ou encore des voyageurs d'affaires. L’emplacement est idéal si vous êtes en quête d’inspiration, d'aventure ou de détente. Proche des plus grands domaines viticoles de France, venez vivre un magnifique séjour ! Franchissez le seuil de la maison et laissez-vous envelopper par une atmosphère à la fois authentique et contemporaine, où chaque détail semble avoir été pensé pour le confort et la sérénité. Le mariage subtil entre les murs en pierre, le parquet chaleureux et les teintes naturelles instaure dès l’entrée une ambiance douce et apaisante, propice à la détente. L’espace de vie s’articule autour d’une cuisine entièrement équipée, ouverte et conviviale. Ses lignes sobres et modernes contrastent élégamment avec la pierre apparente, créant un équilibre parfait entre tradition et modernité. Vous y trouverez tout le nécessaire pour préparer vos repas dans un cadre inspirant, baigné d’une lumière naturelle qui traverse généreusement la pièce. Dans le prolongement, un salon raffiné vous invite à la détente. Ses assises confortables, ses touches de décoration soigneusement sélectionnées et la chaleur du bois en font un lieu idéal pour partager un moment en famille ou entre amis.",
+      "description": "Découvrez et profitez en toute sérénité de notre appartement de 52m², situé dans un cadre idyllique avec vue sur les montagnes. Parfait pour accueillir confortablement une petite famille ou des amis, cet espace lumineux et chaleureux vous offrira tout le confort nécessaire. Cet emplacement est idéal. INTÉRIEUR : En entrant dans cet appartement, vous serez accueilli par un couloir qui vous guide directement vers l’espace de vie principal. Ce salon spacieux et lumineux est doté d’une CUISINE OUVERTE sur le séjour, créant un espace convivial. Vous y trouverez un CANAPÉ 3 PLACES CONVERTIBLE, équipé d’un matelas de qualité pour un confort optimal, ainsi qu’une GRANDE TABLE À MANGER pouvant accueillir jusqu’à six personnes. Les deux BALCONS et les grandes fenêtres inondent la pièce de lumière naturelle tout en offrant une VUE PANORAMIQUE IMPRENABLE sur les montagnes environnantes. Le salon est également équipé d'une TÉLÉVISION CONNECTÉE et d’un LIT SUPERPOSÉ, idéal pour les enfants ou les invités. Si vous ne vous dirigez pas immédiatement vers le salon, vous trouverez à gauche de l’entrée un WC indépendant pour plus de commodité. En poursuivant dans le couloir, vous accédez à une SALLE DE BAIN moderne, équipée d’une BAIGNOIRE, d’un meuble DOUBLE VASQUE et d’un sèche-serviette.",
       "amenities": [
         "Wifi",
         "Cuisine équipée",
-        "Parking gratuit",
-        "Climatisation",
         "Lave-vaisselle",
         "Télévision",
         "Chauffage",
-        "Jardin",
-        "Linge & nécessaire",
-        "Fer à repasser",
-        "Animaux acceptés",
+        "Balcon",
+        "Ascenseur",
         "Micro-ondes",
         "Four",
         "Réfrigérateur"
       ],
-      "lat": 46.7964801,
-      "lng": 4.7644667,
-      "mapx": 75.92,
-      "mapy": 69.99,
-      "type": "T5",
-      "cleaningFee": 140,
+      "lat": 45.295468,
+      "lng": 6.585734,
+      "mapx": null,
+      "mapy": null,
+      "type": "T2",
+      "cleaningFee": 150,
       "deposit": 0,
       "markup": 1.05,
       "amk": 1.25,
-      "minNights": 2,
+      "minNights": 7,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 46,
+      "reviewCount": 7,
       "reviews": [
         {
-          "name": "Aurelien",
-          "text": "Logement correspondant parfaitement à la description. Décoré avec goût, cave magnifique, pièce de vie très agréable à vivre. Juste dommage qu il n y est pas 8 verres à vin afin de profiter pleinement de cette fabuleuse cave.",
+          "name": "Lena",
+          "text": "Appartement très beau, propre, bien agencé, beaucoup d’espace et de lumière. L’arrivé autonome est parfaite avec des instructions claires. L’appartement est très bien placé dans la station dans une zone tranquille. À l’année prochaine",
           "rating": 10
         },
         {
-          "name": "Voyageur",
-          "text": "Maison idéale pour plusieurs couples d’amis ou une famille, tout était pratique et confortable. Petite attention locale à l’arrivée. On n’hésitera pas à y revenir si nous sommes dans le coin.",
-          "rating": 10
-        },
-        {
-          "name": "Claire",
-          "text": "Très belle maison dans un charmant village avec de belles balades à faire Bonne literie et espaces bien délimités nous avons passé un bon WE",
-          "rating": 10
+          "name": "Olivia",
+          "text": "L’emplacement top, appartement assez spacieux et bien agencé avec de la place pour ranger .globalement l’appartement est vraiment très sympa à proximité de tout, des pistes, supermarchés, restaurants…et très bon rapport qualité / prix",
+          "rating": 9
         }
       ]
     },
@@ -543,7 +534,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 82,
+      "reviewCount": 84,
       "reviews": [
         {
           "name": "Fanny",
@@ -659,5 +650,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-09-10"
+  "updated": "2026-09-11"
 }
