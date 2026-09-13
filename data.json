@@ -1,5 +1,5 @@
 {
-  "count": 129,
+  "count": 128,
   "communes": 24,
   "adr": {
     "Studio": 47,
@@ -534,8 +534,13 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 84,
+      "reviewCount": 86,
       "reviews": [
+        {
+          "name": "Lea",
+          "text": "J’ai passé 2 nuits dans le logement et je le recommande à 100% ! Tout était parfait et conforme aux photos. Le logement était impeccable et très propre ! C’était également très très calme ! La communication avec Éric était très agréable",
+          "rating": 10
+        },
         {
           "name": "Fanny",
           "text": "Endroit très joli, agréable et calme! L'environnement était sublime et près de tout (épicerie, vignoble, activités). A recommander les yeux fermés!",
@@ -544,11 +549,6 @@
         {
           "name": "Arnaud",
           "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région.",
-          "rating": 10
-        },
-        {
-          "name": "Francine",
-          "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable.",
           "rating": 10
         }
       ]
@@ -650,5 +650,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-09-12"
+  "updated": "2026-09-13"
 }
