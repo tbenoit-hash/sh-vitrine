@@ -1,13 +1,13 @@
 {
-  "count": 127,
+  "count": 128,
   "communes": 23,
   "adr": {
     "Studio": 47,
     "T3": 77,
     "T2": 55,
-    "T5": 121.6,
-    "T4": 105,
-    "T6+": 138.2
+    "T5": 126.6,
+    "T4": 110,
+    "T6+": 143.2
   },
   "featured": [
     {
@@ -18,7 +18,7 @@
       "bedrooms": 5,
       "bathrooms": 3,
       "price": 460,
-      "rating": 9,
+      "rating": 9.1,
       "cover": "/img/l/470939-c.webp",
       "photos": [
         "/img/l/470939-0.webp",
@@ -534,13 +534,8 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 86,
+      "reviewCount": 85,
       "reviews": [
-        {
-          "name": "Lea",
-          "text": "J’ai passé 2 nuits dans le logement et je le recommande à 100% ! Tout était parfait et conforme aux photos. Le logement était impeccable et très propre ! C’était également très très calme ! La communication avec Éric était très agréable",
-          "rating": 10
-        },
         {
           "name": "Fanny",
           "text": "Endroit très joli, agréable et calme! L'environnement était sublime et près de tout (épicerie, vignoble, activités). A recommander les yeux fermés!",
@@ -549,6 +544,11 @@
         {
           "name": "Arnaud",
           "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région.",
+          "rating": 10
+        },
+        {
+          "name": "Francine",
+          "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable.",
           "rating": 10
         }
       ]
@@ -650,5 +650,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-09-14"
+  "updated": "2026-09-15"
 }
