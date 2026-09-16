@@ -63,22 +63,22 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 27,
+      "reviewCount": 19,
       "reviews": [
-        {
-          "name": "Marie",
-          "text": "Gite idéal pour retrouvailles entre amies, bien au frais à l'intérieur, dans l'immense salon-cuisine climatisé et accueillant. Jardin au Sud-Ouest ideal pour prise de petit déjeuné ! Hôte réactif et arrangeant. Merci beaucoup !",
-          "rating": 10
-        },
         {
           "name": "Voyageur",
           "text": "Le logement est parfait pour accueillir grande famille ou bande de copains. Spacieux, organisé et propre. Une belle météo nous à permis de profiter de l'extérieur. Je recommande sans problème. Merci Anthony et à bientôt 👍",
           "rating": 10
         },
         {
-          "name": "Mohammed",
-          "text": "Très beau séjour. Maison très spacieuse et très agréable à vivre. La cuisine, le salon, les chambres; tout est grand, propre et neuf. Je recommande.",
-          "rating": 10
+          "name": "Charles",
+          "text": "Logement conforme à la description, propre et bien équipé. Idéal pour rassemblement entre amis ou famille. Hôte arrangeant lorsque possible.",
+          "rating": 8
+        },
+        {
+          "name": "Mathias",
+          "text": "Super logement manque juste une troisième salle d’eau pour le nombre de voyageurs possible",
+          "rating": 8
         }
       ]
     },
@@ -135,7 +135,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 11,
+      "reviewCount": 8,
       "reviews": [
         {
           "name": "Voyageur",
@@ -145,11 +145,6 @@
         {
           "name": "Valerie",
           "text": "Maison tres bien agencée, joliment décorée, pas loin du centre ville Ideal pour des vacances en famille ou entre amis. Nous reviendrons Merci",
-          "rating": 10
-        },
-        {
-          "name": "Jonathan",
-          "text": "Le logement correspond totalement à l’annonce, c’est très propre et de bon goût, je recommande !",
           "rating": 10
         }
       ]
@@ -257,17 +252,12 @@
       "minNights": 7,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 7,
+      "reviewCount": 5,
       "reviews": [
         {
           "name": "Lena",
           "text": "Appartement très beau, propre, bien agencé, beaucoup d’espace et de lumière. L’arrivé autonome est parfaite avec des instructions claires. L’appartement est très bien placé dans la station dans une zone tranquille. À l’année prochaine",
           "rating": 10
-        },
-        {
-          "name": "Olivia",
-          "text": "L’emplacement top, appartement assez spacieux et bien agencé avec de la place pour ranger .globalement l’appartement est vraiment très sympa à proximité de tout, des pistes, supermarchés, restaurants…et très bon rapport qualité / prix",
-          "rating": 9
         }
       ]
     },
@@ -324,7 +314,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 3,
+      "reviewCount": 2,
       "reviews": [
         {
           "name": "Martin",
@@ -391,7 +381,7 @@
       "minNights": 3,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 11,
+      "reviewCount": 8,
       "reviews": [
         {
           "name": "Voyageur",
@@ -399,14 +389,9 @@
           "rating": 10
         },
         {
-          "name": "Olivier",
-          "text": "Excellent séjour, très au calme. Quelques ajustements au debut mais le propriétaire a été très réactif.",
-          "rating": 10
-        },
-        {
-          "name": "Mohammed",
-          "text": "Merci pour ce séjour très agréable. Tout a été parfait. Je recommande fortement. Merci",
-          "rating": 10
+          "name": "Morgane",
+          "text": "Un super séjour à la campagne, très calme. Le logement est fonctionnel et la literie impeccable.",
+          "rating": 8
         }
       ]
     },
@@ -463,7 +448,7 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 84,
+      "reviewCount": 68,
       "reviews": [
         {
           "name": "Voyageur",
@@ -471,14 +456,14 @@
           "rating": 10
         },
         {
-          "name": "Leonard",
-          "text": "Un très beau week-end au calme dans ce logement qui correspond aux attentes. Décoré avec goût et soin.",
-          "rating": 10
-        },
-        {
           "name": "Celine",
           "text": "Jolie maison de village, très bien équipée.",
           "rating": 10
+        },
+        {
+          "name": "Anne-marie",
+          "text": "Le lieu, la vue, le calme et l’harmonie de la déco sont de vrais atouts. C’est fait avec goût et personnalité.",
+          "rating": 8
         }
       ]
     },
@@ -534,21 +519,16 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
-      "reviewCount": 85,
+      "reviewCount": 63,
       "reviews": [
-        {
-          "name": "Fanny",
-          "text": "Endroit très joli, agréable et calme! L'environnement était sublime et près de tout (épicerie, vignoble, activités). A recommander les yeux fermés!",
-          "rating": 10
-        },
-        {
-          "name": "Arnaud",
-          "text": "Très bel endroit, facile d’accès, arrivée facile et autonome. Sur ma liste pour mes prochains séjours dans la région.",
-          "rating": 10
-        },
         {
           "name": "Francine",
           "text": "Très beau logement, équipements au top, linges de lit de très bonnes qualités. La propreté est irréprochable.",
+          "rating": 10
+        },
+        {
+          "name": "Voyageur",
+          "text": "Un très bon week-end passé chez Anthony, le château est calme et agréable. Nous reviendrons avec plaisir.",
           "rating": 10
         }
       ]
@@ -607,9 +587,7 @@
       "amk": 1.18,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1,
-      "reviewCount": 1,
-      "reviews": []
+      "instant": 1
     }
   ],
   "reviews": [
@@ -620,35 +598,35 @@
       "rating": 10
     },
     {
-      "name": "Veronique",
-      "place": "Fragnes-La Loyère",
-      "text": "Nous avons passé un excellent séjour. Christian est un hôte très sympathique. L appartement correspond bien au descriptif. Literie très confortable. L endroit est très paisible et propice aux ballades . Vue magnifique sur le canal",
-      "rating": 10
-    },
-    {
-      "name": "Carlos",
-      "place": "La Charmée",
-      "text": "Maison conforme à la description, très propre, bien rangé et parfaitement équipé (très complet) dans un écrin de verdure et extrêmement paisible. Véronique s'est montrée extrêmement accueillante et à l'écoute. Nous recommandons !",
-      "rating": 10
-    },
-    {
       "name": "Martha",
       "place": "Mâcon",
       "text": "Logement très agréable et spacieux. Bon emplacement pour accéder au centre ville et bords de Saône. Arrivée autonome sans encombre. Nous nous sommes garés sur le parking gratuit de la gare, il n'y avait pas de place dans la rue.",
       "rating": 10
     },
     {
-      "name": "Christine",
-      "place": "La Charmée",
-      "text": "Très beau logement. Bien agencé, très soigné, matelas super. Nous avons dormi comme des bébés, pas un bruit ! Nous étions invités à un mariage dans un château tout proche, nous avons regretté de n être pas resté plus longtemps.",
+      "name": "Mariane",
+      "place": "Chalon-sur-Saône",
+      "text": "Nous avons loué ce logement à 2 reprises pour 3 de nos employés en déplacement dans la région. Ils ont beaucoup apprécié l’appartement. Celui-ci est bien équipé, et bien décoré. Nous le recommandons aux futurs voyageurs.",
       "rating": 10
     },
     {
-      "name": "Marie",
-      "place": "Saint-Loup-de-Varennes",
-      "text": "Gite idéal pour retrouvailles entre amies, bien au frais à l'intérieur, dans l'immense salon-cuisine climatisé et accueillant. Jardin au Sud-Ouest ideal pour prise de petit déjeuné ! Hôte réactif et arrangeant. Merci beaucoup !",
+      "name": "Anne",
+      "place": "Chalon-sur-Saône",
+      "text": "Une très bonne surprise. L'immeuble ne paye pas de mine mais l'appartement est magnifique, très grand, très bien équipé, décoré avec soin. Les petites attentions sont très agréables pour les petits gourmands.",
+      "rating": 10
+    },
+    {
+      "name": "Philippe",
+      "place": "Mâcon",
+      "text": "Appartement très beau. prestations de qualité. Conciergerie réactive et à l'écoute. Nous étions en vélo. Il est proche de la voie bleue. Nous les avons stationné dans la cour intérieure. Nous recommandons.",
+      "rating": 10
+    },
+    {
+      "name": "Emmanuelle",
+      "place": "La Charmée",
+      "text": "Un séjour très agréable au calme dans un logement correspondant à nos attentes. On s'est senti comme à la maison avec tout le nécessaire pour passer un très bon moment entre amis. Nous recommandons !",
       "rating": 10
     }
   ],
-  "updated": "2026-09-15"
+  "updated": "2026-09-16"
 }
