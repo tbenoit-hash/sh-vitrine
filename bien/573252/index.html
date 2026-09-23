@@ -99,7 +99,7 @@
         <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Message (facultatif)</span><textarea name="Message" rows="2" class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></textarea></label>
         <label class="flex items-start gap-2 text-xs text-ink/80"><input type="checkbox" name="Consentement" required class="mt-0.5"> <span>J'accepte les <a href="/cgv.html" class="underline text-bronze" target="_blank" rel="noopener">conditions générales de vente</a> et d'être recontacté(e) au sujet de ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
         <button type="submit" id="bkm-submit" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Envoyer ma demande</button>
-        <p id="bkm-note" class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme · tarif non remboursable (voir CGV).</p>
+        <p id="bkm-note" class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).</p>
       </form>
     </div>
     <div id="bkm-success" class="hidden text-center py-6">
@@ -167,13 +167,32 @@ const WA = "33659327710";
 // part à l'équipe (flux actuel). Une fois Payplug + le worker déployés, mettre ici son URL
 // (ex. "https://paiement.sh-developpement.fr") → le voyageur paie directement sur le site.
 const PAY_API = "";
-window.__PREL = {"id": 573252, "name": "Canopée 2", "city": "Chalon-sur-Saône", "guests": 4, "bedrooms": 1, "bathrooms": 1, "price": 200, "rating": 10, "cover": "/img/l/573252-c.webp", "photos": ["/img/l/573252-0.webp", "/img/l/573252-1.webp", "/img/l/573252-2.webp", "/img/l/573252-3.webp", "/img/l/573252-4.webp", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-3sXvjDwD-TuoxRBWNimhwVlyFPI--oofv--gIQtFg5F4E-6a61f4e03ef0f", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-uZXwihjCvDx-6KQ1JOc8CIiYJ2igFvLYxTwOyDi3n4c-6a61ed53c4c14", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-3H0L---o--VGipzXuJ7JHTfeiV8wNyyoNudhtBkOiYO54-6a61fc6984b20", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-HcvGOa3M2ea0UE2jXx2Iy3OgfpTVr7uT2b9CgnQJs-g-6a61fc6899c47", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-8FBT8B64yhTWZGMO42NlEB6ov5LAFjDB6PgTvCWxACA-6a6211f677304", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-X4mNQEKybjz9AwBj2OgBjgWdM3WR-PLHozsqkZh69YE-6a634ca67b031", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-62sQQWqHLECGDZpHzDplydQ-m5O5DSVHcjXJ2QtcBUs-6a61ed5122656"], "description": "Canopée 2, perché à la hauteur de la cime des grands platanes de l’avenue-Rempart Sainte-Marie, profite d’une lumière naturelle exceptionnelle et d’un rideau végétal apaisant. Ce 3 pièces traversant offre chambres au Nord-Est et séjour au Sud-Ouest, baignés de lumière toute la journée. Situé au cœur de Chalon-sur-Saône, il résonne avec la cathédrale Saint-Vincent et la Saône, dans un environnement calme, à deux pas de la place Saint-Vincent, de ses marchés, commerces et promenades. Ancré au cœur de Chalon sur Saône, ce logement entre en résonance avec 2 symboles de notre ville : les tours de la cathédrale Saint Vincent à l’ouest, et à l’est la Saône visible depuis les chambres en regardant vers la droite. L’environnement est calme et à 2 pas de la Place Saint Vincent, cœur battant de la ville avec ses marchés et commerces, et des quais de Saône qui se prolongent par des promenades vers la campagne. Histoire d’une rénovation globale : Le quartier Sainte-Marie est l’un des plus anciens faubourgs de Chalon, traditionnellement habité par pêcheurs et mariniers. Il a été protégé par des ouvrages fortifiés qui ont structuré l’urbanisme local (bastion, remparts, Place Sainte-Marie). La maison édifiée sur 2 étages, combles et caves, est un « immeuble de rapport » qui date de 1870 de style « Napoléon III » et d’architecture « Haussmannienne » : façade ordonnancée, ornée d’un balcon.", "amenities": ["Wifi", "Cuisine équipée", "Télévision", "Chauffage", "Entrée privée", "Linge & nécessaire", "Fer à repasser", "Micro-ondes", "Four", "Réfrigérateur", "Séjours longue durée"], "lat": 46.78261989, "lng": 4.86053992, "mapx": 78.05, "mapy": 70.57, "type": "T2", "cleaningFee": 50, "deposit": 0, "markup": 1.0, "amk": 1.2, "minNights": 1, "currency": "EUR", "instant": 1};
+// Moteur de réservation Hostaway (paiement carte immédiat), utilisé tant que PAY_API est vide.
+// Le voyageur choisit ses dates ICI, puis règle sur le moteur avec les mêmes dates (?start=&end=).
+// VIDE = retour au flux « demande de réservation » par mail.
+const BOOKING_ENGINE = "https://136426-1.thebookingportal.com/fr/listings/";
+window.__PREL = {"id": 573252, "name": "Canopée 2", "city": "Chalon-sur-Saône", "guests": 4, "bedrooms": 1, "bathrooms": 1, "price": 200, "rating": 10, "cover": "/img/l/573252-c.webp", "photos": ["/img/l/573252-0.webp", "/img/l/573252-1.webp", "/img/l/573252-2.webp", "/img/l/573252-3.webp", "/img/l/573252-4.webp", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-3sXvjDwD-TuoxRBWNimhwVlyFPI--oofv--gIQtFg5F4E-6a61f4e03ef0f", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-uZXwihjCvDx-6KQ1JOc8CIiYJ2igFvLYxTwOyDi3n4c-6a61ed53c4c14", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-3H0L---o--VGipzXuJ7JHTfeiV8wNyyoNudhtBkOiYO54-6a61fc6984b20", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-HcvGOa3M2ea0UE2jXx2Iy3OgfpTVr7uT2b9CgnQJs-g-6a61fc6899c47", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-8FBT8B64yhTWZGMO42NlEB6ov5LAFjDB6PgTvCWxACA-6a6211f677304", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-X4mNQEKybjz9AwBj2OgBjgWdM3WR-PLHozsqkZh69YE-6a634ca67b031", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-573252-62sQQWqHLECGDZpHzDplydQ-m5O5DSVHcjXJ2QtcBUs-6a61ed5122656"], "description": "Canopée 2, perché à la hauteur de la cime des grands platanes de l’avenue-Rempart Sainte-Marie, profite d’une lumière naturelle exceptionnelle et d’un rideau végétal apaisant. Ce 3 pièces traversant offre chambres au Nord-Est et séjour au Sud-Ouest, baignés de lumière toute la journée. Situé au cœur de Chalon-sur-Saône, il résonne avec la cathédrale Saint-Vincent et la Saône, dans un environnement calme, à deux pas de la place Saint-Vincent, de ses marchés, commerces et promenades. Ancré au cœur de Chalon sur Saône, ce logement entre en résonance avec 2 symboles de notre ville : les tours de la cathédrale Saint Vincent à l’ouest, et à l’est la Saône visible depuis les chambres en regardant vers la droite. L’environnement est calme et à 2 pas de la Place Saint Vincent, cœur battant de la ville avec ses marchés et commerces, et des quais de Saône qui se prolongent par des promenades vers la campagne. Histoire d’une rénovation globale : Le quartier Sainte-Marie est l’un des plus anciens faubourgs de Chalon, traditionnellement habité par pêcheurs et mariniers. Il a été protégé par des ouvrages fortifiés qui ont structuré l’urbanisme local (bastion, remparts, Place Sainte-Marie). La maison édifiée sur 2 étages, combles et caves, est un « immeuble de rapport » qui date de 1870 de style « Napoléon III » et d’architecture « Haussmannienne » : façade ordonnancée, ornée d’un balcon.", "amenities": ["Wifi", "Cuisine équipée", "Télévision", "Chauffage", "Entrée privée", "Linge & nécessaire", "Fer à repasser", "Micro-ondes", "Four", "Réfrigérateur", "Séjours longue durée"], "lat": 46.78261989, "lng": 4.86053992, "mapx": 78.05, "mapy": 70.57, "type": "T2", "cleaningFee": 50, "deposit": 0, "markup": 1.0, "amk": 1.2, "minNights": 1, "currency": "EUR", "instant": 1, "fees": [{"t": "Frais CB", "a": 2.62, "p": 1, "r": 1}, {"t": "Frais caution", "a": 2.0, "p": 0, "r": 1}, {"t": "Frais de plateforme", "a": 5.0, "p": 1, "r": 0}]};
 const id = 573252;
 // Ancienne URL logement.html?id=… : on redirige vers la page statique /bien/{id}/
 // (meilleur SEO, données complètes inlinées). Les pages /bien/ ont __PREL, pas de query.
 if (id && !window.__PREL && /logement\.html$/.test(location.pathname)) location.replace('/bien/' + id + '/');
 let AVAIL = null, calMonth = null, selIn = null, selOut = null, LASTQ = null;
 const eur = n => (Math.round(n)).toLocaleString('fr-FR') + ' €';
+const eur2 = n => (Math.round(n*100)/100).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' €';
+/* Frais de la réservation en direct (mêmes règles que le moteur de paiement Hostaway) :
+   les frais fixes s'ajoutent au sous-total (nuits + ménage), les pourcentages s'appliquent
+   sur ce sous-total ; r=1 → fondu dans le prix/nuit, r=0 → ligne séparée (Frais de plateforme). */
+function feeCalc(base, clean, fees){
+  fees = fees || [];
+  const flat = fees.filter(f => !f.p).reduce((s, f) => s + f.a, 0);
+  const sub = base + clean + flat;
+  let inRent = fees.filter(f => !f.p && f.r).reduce((s, f) => s + f.a, 0), lines = [];
+  let pct = 0;
+  for (const f of fees.filter(f => f.p)){ const v = Math.round(sub * f.a) / 100; pct += v; if (f.r) inRent += v; else lines.push({ t: f.t + ' (' + f.a.toLocaleString('fr-FR') + ' %)', v }); }
+  for (const f of fees.filter(f => !f.p && !f.r)) lines.push({ t: f.t, v: f.a });
+  const total = Math.round((sub + pct) * 100) / 100;
+  return { inRent, lines, total };
+}
 let PHOTOS = [], lbIndex = 0;
 
 const amenityIcon = a => {
@@ -272,7 +291,7 @@ function render(p) {
           ${(p.amk||1) > 1.05 ? `<p class="text-muted text-xs mb-1">${eur(Math.round(p.price*p.amk))} / nuit sur Airbnb : réservez ici au meilleur prix</p>` : ''}
           <p class="text-bronze text-xs font-600 mb-1.5 flex items-center gap-1.5">
             <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Réservation en direct, sans frais de plateforme
+            Réservation en direct, moins cher que sur Airbnb et Booking
           </p>
           <p class="text-bronze text-xs font-600 mb-4 flex items-start gap-1.5">
             <svg class="shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -289,7 +308,8 @@ function render(p) {
           <label class="block rounded-xl border border-ecru px-3 py-2 mb-3"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span><input id="bk-guests" type="number" min="1" max="${p.guests}" value="2" class="w-full bg-transparent text-base text-ink outline-none"></label>
           <div id="bk-quote" class="hidden text-sm text-ink/85 mb-3 space-y-1.5"></div>
           <button id="bk-go" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Vérifier les dates</button>
-          <p id="bk-note" class="text-muted text-xs text-center mt-3">Sans frais de plateforme · <a href="/cgv.html" class="underline underline-offset-2 hover:text-bronze">tarif non remboursable</a> · notre équipe vous confirme et vous envoie le lien de paiement sécurisé.</p>
+          <p id="bk-note" class="text-muted text-xs text-center mt-3">Paiement sécurisé par carte, confirmation immédiate · <a href="/cgv.html" class="underline underline-offset-2 hover:text-bronze">tarif non remboursable</a>.</p>
+          <p class="text-center mt-2"><button type="button" id="bk-ask" class="text-xs text-bronze underline underline-offset-2 hover:text-ink cursor-pointer">Une question avant de réserver ? Écrivez-nous</button></p>
           <div id="bk-msg" aria-live="polite" class="hidden text-center text-sm text-bronze mt-2"></div>
         </div>
       </aside>
@@ -366,6 +386,7 @@ function initBooking(p){
   }
   document.getElementById('bk-guests').addEventListener('input', () => quote(p));
   document.getElementById('bk-go').addEventListener('click', () => checkout(p));
+  const ask = document.getElementById('bk-ask'); if (ask) ask.addEventListener('click', () => openBooking(p));
 
   // Barre mobile : prix + Réserver toujours à l'écran ; masquée quand la carte est visible
   const bar = document.getElementById('bk-bar'), card = document.getElementById('bk-card');
@@ -460,17 +481,20 @@ function pick(p, ds){
 function quote(p){
   const days = (AVAIL && AVAIL.days) || {};
   const q = document.getElementById('bk-quote'), go = document.getElementById('bk-go');
-  const label = 'Réserver en direct';
+  const label = payOnEngine() ? 'Réserver et payer' : 'Réserver en direct';
   if (!selIn || !selOut){ q.classList.add('hidden'); LASTQ = null; go.textContent = (selIn ? 'Choisir la date de départ' : label); updateBar(p); return; }
   const markup = (AVAIL && AVAIL.markup) || 1, clean = (AVAIL && AVAIL.cleaningFee) || 0, deposit = (AVAIL && AVAIL.deposit) || 0;
   let base = 0, d = parseD(selIn);
   while (ymd(d) < selOut){ base += days[ymd(d)] || 0; d = addDay(d); }
-  const n = nights(selIn, selOut), accommodation = Math.round(base*markup), total = accommodation + clean;
+  const n = nights(selIn, selOut), accommodation = base*markup;
+  const fc = feeCalc(accommodation, clean, AVAIL && AVAIL.fees), total = fc.total;
   const airbnbTotal = Math.round(base*(p.amk||1)) + clean, saving = airbnbTotal - total;
   LASTQ = { nights: n, accommodation, clean, total, deposit };
   q.innerHTML = `
-    <div class="flex justify-between"><span>${eur(total/n)} / nuit · tout compris</span><span>${n} nuit${n>1?'s':''}</span></div>
-    <div class="flex justify-between font-700 text-ink border-t border-ecru pt-1.5 mt-1.5"><span>Total</span><span>${saving > total*0.05 ? `<s class="text-muted font-400 mr-1">${eur(airbnbTotal)}</s>` : ''}${eur(total)}</span></div>
+    <div class="flex justify-between"><span>${eur2((accommodation + fc.inRent)/n)} / nuit</span><span>${n} nuit${n>1?'s':''}</span></div>
+    ${clean ? `<div class="flex justify-between"><span>Ménage de fin de séjour</span><span>${eur(clean)}</span></div>` : ''}
+    ${fc.lines.map(l => `<div class="flex justify-between"><span>${l.t}</span><span>${eur2(l.v)}</span></div>`).join('')}
+    <div class="flex justify-between font-700 text-ink border-t border-ecru pt-1.5 mt-1.5"><span>Total</span><span>${saving > total*0.05 ? `<s class="text-muted font-400 mr-1">${eur(airbnbTotal)}</s>` : ''}${eur2(total)}</span></div>
     ${saving > total*0.05 ? `<div class="flex justify-between text-xs text-bronze font-600"><span>Économie vs Airbnb</span><span>−${eur(saving)}</span></div>` : ''}
     ${deposit?`<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(deposit)}</span></div>`:''}`;
   q.classList.remove('hidden');
@@ -484,11 +508,11 @@ function updateBar(p){
   if (!bp || !bs) return;
   if (LASTQ && selIn && selOut){
     const fmt = s => parseD(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-    bp.textContent = eur(LASTQ.total) + ' total';
+    bp.textContent = eur2(LASTQ.total) + ' total';
     bs.textContent = `${LASTQ.nights} nuit${LASTQ.nights>1?'s':''} · ${fmt(selIn)} → ${fmt(selOut)}`;
   } else {
     bp.textContent = 'À partir de ' + eur(p.price) + ' / nuit';
-    bs.textContent = 'En direct, sans frais de plateforme';
+    bs.textContent = 'En direct, moins cher que sur les plateformes';
   }
 }
 
@@ -500,7 +524,14 @@ function checkout(p){
     if (!Object.keys((AVAIL && AVAIL.days) || {}).length) return openBooking(p);
     openCal(p); flash('Choisissez vos dates de séjour.'); return;
   }
+  if (payOnEngine()) return goEngine(p);
   openBooking(p);
+}
+/* Paiement sur le moteur Hostaway tant que le paiement Stripe du site n'est pas branché */
+function payOnEngine(){ return !PAY_API && !!BOOKING_ENGINE; }
+function goEngine(p){
+  const g = document.getElementById('bk-guests').value || 2;
+  window.location.href = BOOKING_ENGINE + p.id + '?start=' + selIn + '&end=' + selOut + '&numberOfGuests=' + g;
 }
 
 /* Réservation 100 % sur NOTRE site : modale + envoi à l'équipe. AUCUNE redirection externe. */
@@ -512,7 +543,7 @@ function openBooking(p){
   document.getElementById('bkm-recap').innerHTML =
     `<div class="flex justify-between gap-3"><span>Séjour</span><span class="font-600 text-right">${(selIn && selOut) ? fmt(selIn) + ' → ' + fmt(selOut) : 'Dates à définir avec notre équipe'}</span></div>` +
     `<div class="flex justify-between"><span>${q.nights ? q.nights + ' nuit' + (q.nights>1?'s':'') + ' · ' : ''}${guests} voyageur${guests>1?'s':''}</span><span></span></div>` +
-    (q.total!=null ? `<div class="flex justify-between border-t border-ecru pt-1.5 mt-1.5 font-700 text-ink"><span>Total estimé</span><span>${eur(q.total)}</span></div>` : '') +
+    (q.total!=null ? `<div class="flex justify-between border-t border-ecru pt-1.5 mt-1.5 font-700 text-ink"><span>Total estimé</span><span>${eur2(q.total)}</span></div>` : '') +
     (q.deposit ? `<div class="flex justify-between text-xs text-muted"><span>Caution (récupérable)</span><span>${eur(q.deposit)}</span></div>` : '') +
     `<div class="text-xs text-muted pt-1">Linge de lit, draps de bain et ménage de fin de séjour inclus.</div>`;
   document.getElementById('bkm-success').classList.add('hidden');
@@ -521,8 +552,8 @@ function openBooking(p){
   const m = document.getElementById('bkmodal'); m.classList.remove('hidden'); m.classList.add('flex');
   document.getElementById('bkm-submit').textContent = PAY_API ? 'Payer et réserver' : 'Envoyer ma demande';
   document.getElementById('bkm-note').textContent = PAY_API
-    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · sans frais de plateforme · tarif non remboursable (voir CGV).'
-    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme · tarif non remboursable (voir CGV).';
+    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · tarif non remboursable (voir CGV).'
+    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).';
   document.getElementById('bkm-form').onsubmit = e => submitBooking(e, p, guests);
 }
 function closeBooking(){ const m = document.getElementById('bkmodal'); m.classList.add('hidden'); m.classList.remove('flex'); }
@@ -577,7 +608,7 @@ async function payNow(p, guests, f, btn){
     // de laisser le voyageur devant un cul-de-sac.
     if (j && (j.error === 'owner_not_onboarded' || j.error === 'stripe_error')) {
       const note = document.getElementById('bkm-note');
-      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Sans frais de plateforme · tarif non remboursable (voir CGV).';
+      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).';
       btn.disabled = false; btn.textContent = 'Envoyer ma demande';
       return sendRequest(f, p, guests, btn, LASTQ || {});
     }

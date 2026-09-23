@@ -240,6 +240,27 @@ def family_key(name):
     return (n.strip() or (name or "")).lower()
 
 
+def fetch_fees(tok, records):
+    """Frais du canal « réservation en direct » (moteur Hostaway, channelId 0) par logement,
+    exportés en compact dans chaque fiche : t=titre, a=montant, p=1 si pourcentage, r=1 si
+    fondu dans le prix/nuit (displayInRent). Le site recalcule ainsi EXACTEMENT le total que
+    le voyageur paiera sur le moteur (Frais de plateforme 5 %, Frais CB 2,62 %, caution 2 €)."""
+    import time
+    n = 0
+    for r in records:
+        try:
+            res = api_get(f"/listingFeeSettings/{r['id']}", tok).get("result") or []
+        except Exception as e:
+            print(f"  frais {r['id']} échoués: {e}"); r["fees"] = []; continue
+        r["fees"] = [{"t": f.get("feeTitle") or "Frais", "a": float(f.get("amount") or 0),
+                      "p": 1 if f.get("amountType") == "percent" else 0, "r": 1 if f.get("displayInRent") else 0}
+                     for f in res if f.get("channelId") == 0 and f.get("amount")
+                     and "bookingEngine" in (f.get("appearsIn") or [])]
+        n += 1
+        time.sleep(0.08)
+    print(f"frais direct : {n}/{len(records)} logements lus")
+
+
 def fetch_availability(tok, records, days=400):
     """Pré-charge dispo + prix/nuit par logement via /listings/{id}/calendar.
     Écrit avail/{id}.json compact (jours dispo → prix de base). Le token reste
@@ -281,6 +302,7 @@ def fetch_availability(tok, records, days=400):
             "cleaningFee": r.get("cleaningFee") or 0,
             "deposit": r.get("deposit") or 0,
             "markup": r.get("markup") or 1.0,
+            "fees": r.get("fees") or [],
             "minNights": r.get("minNights") or 1,
             "instant": r.get("instant") or 0,
             "guests": r.get("guests") or 0,
@@ -407,7 +429,7 @@ def generate_listing_pages(records):
             desc = desc[:158].rsplit(" ", 1)[0] + "…"
         if not desc:
             desc = (f"{name} à {city} : jusqu'à {r.get('guests') or 2} voyageurs. Location de "
-                    f"tourisme en Bourgogne, réservation en direct sans frais de plateforme.")
+                    f"tourisme en Bourgogne, réservation en direct moins cher que sur Airbnb et Booking.")
         title = f"{name} · {city}" + (f" · {typ}" if typ else "") + " | SH Développement"
         ld = {
             "@context": "https://schema.org", "@type": "LodgingBusiness",
@@ -467,7 +489,21 @@ def generate_listing_pages(records):
         with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
         n += 1
-    print(f"bien/ : {n} pages logement statiques générées (SEO + Open Graph + JSON-LD)")
+    # Logements sortis du parc : leur page /bien/{id}/ ne doit plus présenter une offre
+    # (prix, calendrier, bouton payer) → remplacée par une redirection vers le catalogue.
+    keep = {str(r["id"]) for r in records}
+    out_dir = os.path.join(here, "bien")
+    gone = 0
+    for d in sorted(os.listdir(out_dir)):
+        if d in keep or not os.path.isdir(os.path.join(out_dir, d)):
+            continue
+        with open(os.path.join(out_dir, d, "index.html"), "w", encoding="utf-8") as f:
+            f.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>SH Développement</title>'
+                    '<meta name="robots" content="noindex, follow"><link rel="canonical" href="/catalogue.html">'
+                    '<meta http-equiv="refresh" content="0; url=/catalogue.html"><script>location.replace("/catalogue.html")</script>'
+                    '</head><body><p>Ce logement n\'est plus proposé. <a href="/catalogue.html">Voir nos logements</a></p></body></html>\n')
+        gone += 1
+    print(f"bien/ : {n} pages logement statiques générées (SEO + Open Graph + JSON-LD) ; {gone} logements sortis → redirection catalogue")
 
 
 def build_cities(records):
@@ -573,6 +609,7 @@ def main():
     # Tous les enregistrements (réutilisés pour la galerie ET le catalogue)
     records = [prop_record(l) for l in listings]
     byrec = {r["id"]: r for r in records}
+    fetch_fees(tok, records)
     localize_images(records)
 
     # Galerie « nos biens d'exception » : sélection CURÉE par le client (8 logements choisis à la

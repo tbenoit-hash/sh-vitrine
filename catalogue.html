@@ -7,20 +7,20 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="index, follow">
 <title>Nos locations en Bourgogne | SH Développement</title>
-<meta name="description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, sans frais de plateforme.">
+<meta name="description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, moins cher que sur Airbnb et Booking.">
 <link rel="canonical" href="https://www.sh-developpement.fr/catalogue.html">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SH Développement">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="Nos locations en Bourgogne | SH Développement">
-<meta property="og:description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, sans frais de plateforme.">
+<meta property="og:description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, moins cher que sur Airbnb et Booking.">
 <meta property="og:url" content="https://www.sh-developpement.fr/catalogue.html">
 <meta property="og:image" content="https://www.sh-developpement.fr/img/hero.jpg">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nos locations en Bourgogne | SH Développement">
-<meta name="twitter:description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, sans frais de plateforme.">
+<meta name="twitter:description" content="Parcourez nos 129 locations d'exception en Saône-et-Loire et en Bourgogne : réservation en direct, moins cher que sur Airbnb et Booking.">
 <meta name="twitter:image" content="https://www.sh-developpement.fr/img/hero.jpg">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/marcellus-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-latin.woff2" crossorigin>
@@ -295,8 +295,11 @@ function stayTotal(l, inStr, outStr){
   if (off < 0 || nights < 1) return null;
   let sum = 0;
   for (let i = 0; i < nights; i++){ const p = arr[off + i]; if (!p) return null; sum += p; }
-  return { nights, total: Math.round(sum * (l.markup || 1)) + (l.cleaningFee || 0),
-           airbnb: Math.round(sum * (l.amk || 1)) + (l.cleaningFee || 0) };
+  // Total identique au moteur de paiement : nuits + ménage + frais fixes, puis pourcentages sur ce sous-total
+  const base = sum * (l.markup || 1), clean = (l.cleaningFee || 0), fees = l.fees || [];
+  const sub = base + clean + fees.filter(f => !f.p).reduce((s, f) => s + f.a, 0);
+  const total = Math.round(sub + fees.filter(f => f.p).reduce((s, f) => s + sub * f.a / 100, 0));
+  return { nights, total, airbnb: Math.round(sum * (l.amk || 1)) + clean };
 }
 /* Prix barré : ce que coûterait le même séjour sur Airbnb (majoration réelle
    du canal, champ amk). Affiché seulement si l'écart est significatif. */

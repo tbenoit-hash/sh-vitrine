@@ -1,1 +1,1 @@
-{"id":557285,"name":"Cocon urbain (2)","currency":"EUR","cleaningFee":44,"deposit":0,"markup":1.0,"minNights":3,"instant":1,"guests":2,"updated":"2026-09-23","days":{"2027-04-21":41},"minStay":{"2027-04-21":3}}
+{"id":557285,"name":"Cocon urbain (2)","currency":"EUR","cleaningFee":44,"deposit":0,"markup":1.0,"fees":[{"t":"Frais CB","a":2.62,"p":1,"r":1},{"t":"Frais caution","a":2.0,"p":0,"r":1},{"t":"Frais de plateforme","a":5.0,"p":1,"r":0}],"minNights":3,"instant":1,"guests":2,"updated":"2026-09-23","days":{"2027-04-21":41},"minStay":{"2027-04-21":3}}

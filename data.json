@@ -63,6 +63,26 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 19,
       "reviews": [
         {
@@ -135,6 +155,26 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 8,
       "reviews": [
         {
@@ -201,7 +241,27 @@
       "amk": 1.25,
       "minNights": 2,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ]
     },
     {
       "id": 465564,
@@ -252,6 +312,26 @@
       "minNights": 7,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 5,
       "reviews": [
         {
@@ -314,6 +394,26 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 2,
       "reviews": [
         {
@@ -381,6 +481,26 @@
       "minNights": 3,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 8,
       "reviews": [
         {
@@ -448,6 +568,26 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 68,
       "reviews": [
         {
@@ -519,6 +659,26 @@
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ],
       "reviewCount": 63,
       "reviews": [
         {
@@ -587,7 +747,27 @@
       "amk": 1.18,
       "minNights": 1,
       "currency": "EUR",
-      "instant": 1
+      "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
+        }
+      ]
     }
   ],
   "reviews": [
