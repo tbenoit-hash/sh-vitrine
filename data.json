@@ -264,84 +264,6 @@
       ]
     },
     {
-      "id": 465564,
-      "name": "Panorama des Neiges",
-      "city": "Les Belleville",
-      "guests": 6,
-      "bedrooms": 1,
-      "bathrooms": 1,
-      "price": 350,
-      "rating": 8.9,
-      "cover": "/img/l/465564-c.webp",
-      "photos": [
-        "/img/l/465564-0.webp",
-        "/img/l/465564-1.webp",
-        "/img/l/465564-2.webp",
-        "/img/l/465564-3.webp",
-        "/img/l/465564-4.webp",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564--qJ--I1x3qbYxwS--l50UycvPOOfpsHrYcCp0Ehpn3N0E-693d562cd8b9c",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-3IY0synngKV790zyTBe3xSgSjKuNgmjRQw--WO3CnBLw-693d5dcc2c6a5",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-CkOlYQuJsD9KvHp0u3j1ypg-fBppg--FZWKy0KOvcmoY-693d561f9a245",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-UzjR8--k9zUvw6igRRALY--CtXQj2kvnOWXqRSczogweA-693d562bcdf53",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-oOHQNAoqXlvD--QjjyPG32oJpfD3Jqi6EHf4FWBQAQUo-693d562973484",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-NSEUCEazZhG2QGF6--hiAlroX6KHL9lrRLXATQI6xVc4-693d562e1c7eb",
-        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-465564-QuQMkhl3fp2Gt5x62Ge0kjdU56bUK54GB-ycUycfVzw-693d563d62a7b"
-      ],
-      "description": "Découvrez et profitez en toute sérénité de notre appartement de 52m², situé dans un cadre idyllique avec vue sur les montagnes. Parfait pour accueillir confortablement une petite famille ou des amis, cet espace lumineux et chaleureux vous offrira tout le confort nécessaire. Cet emplacement est idéal. INTÉRIEUR : En entrant dans cet appartement, vous serez accueilli par un couloir qui vous guide directement vers l’espace de vie principal. Ce salon spacieux et lumineux est doté d’une CUISINE OUVERTE sur le séjour, créant un espace convivial. Vous y trouverez un CANAPÉ 3 PLACES CONVERTIBLE, équipé d’un matelas de qualité pour un confort optimal, ainsi qu’une GRANDE TABLE À MANGER pouvant accueillir jusqu’à six personnes. Les deux BALCONS et les grandes fenêtres inondent la pièce de lumière naturelle tout en offrant une VUE PANORAMIQUE IMPRENABLE sur les montagnes environnantes. Le salon est également équipé d'une TÉLÉVISION CONNECTÉE et d’un LIT SUPERPOSÉ, idéal pour les enfants ou les invités. Si vous ne vous dirigez pas immédiatement vers le salon, vous trouverez à gauche de l’entrée un WC indépendant pour plus de commodité. En poursuivant dans le couloir, vous accédez à une SALLE DE BAIN moderne, équipée d’une BAIGNOIRE, d’un meuble DOUBLE VASQUE et d’un sèche-serviette.",
-      "amenities": [
-        "Wifi",
-        "Cuisine équipée",
-        "Lave-vaisselle",
-        "Télévision",
-        "Chauffage",
-        "Balcon",
-        "Ascenseur",
-        "Micro-ondes",
-        "Four",
-        "Réfrigérateur"
-      ],
-      "lat": 45.295468,
-      "lng": 6.585734,
-      "mapx": null,
-      "mapy": null,
-      "type": "T2",
-      "cleaningFee": 150,
-      "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
-      "minNights": 7,
-      "currency": "EUR",
-      "instant": 1,
-      "fees": [
-        {
-          "t": "Frais CB",
-          "a": 2.62,
-          "p": 1,
-          "r": 1
-        },
-        {
-          "t": "Frais caution",
-          "a": 2.0,
-          "p": 0,
-          "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
-        }
-      ],
-      "reviewCount": 5,
-      "reviews": [
-        {
-          "name": "Lena",
-          "text": "Appartement très beau, propre, bien agencé, beaucoup d’espace et de lumière. L’arrivé autonome est parfaite avec des instructions claires. L’appartement est très bien placé dans la station dans une zone tranquille. À l’année prochaine",
-          "rating": 10
-        }
-      ]
-    },
-    {
       "id": 465755,
       "name": "Les Vagastines 2",
       "city": "Saint-Germain-du-Plain",
@@ -512,6 +434,80 @@
           "name": "Morgane",
           "text": "Un super séjour à la campagne, très calme. Le logement est fonctionnel et la literie impeccable.",
           "rating": 8
+        }
+      ]
+    },
+    {
+      "id": 591916,
+      "name": "Le loft bourguignon",
+      "city": "Saint-Rémy",
+      "guests": 7,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "price": 220,
+      "rating": 9.8,
+      "cover": "/img/l/591916-c.webp",
+      "photos": [
+        "/img/l/591916-0.webp",
+        "/img/l/591916-1.webp",
+        "/img/l/591916-2.webp",
+        "/img/l/591916-3.webp",
+        "/img/l/591916-4.webp",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-bqHs2Cz27cfSpIs16Y0QyInpBHhKyfgTytrW9ABIK-g-6aa910c2bbfd1",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-Z0G6frBRVPo3fwmMp1Ld0lFfEyULk1nbSouMCfuzCPo-6aa910c1b9883",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-DK84pV4WFba--y5VznmI2cNW-Dsj8zCRCO--PnSBMntgU-6aa917dd0f410",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-NTpW5-JQDN-05UzxyT-u--NH2Qtye6bVorI---tPo-hio-6aa917dc2c56b",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-NNuMUw0CE6ottOW9uXpKy4NHC8soY3W6wMHuBNL6OU4-6aa910c00d87f",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-7bm5VNcmptqh--DjzxIAdQRH7Nomao4HvxOzehMDkJ20-6aa917db99253",
+        "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-591916-lL--GMZ9PXKKq7--oN4wrTGJWPYj5A3VG6BTeG4k7LieA-6aa917daa520a"
+      ],
+      "description": "Au cœur de la Bourgogne, dans le paisible village de Taisey, à seulement 10 minutes du centre-ville de Chalon-sur-Saône et 15 minutes des plus grands vignobles de la Côte Chalonnaise, découvrez cette magnifique maison de caractère entièrement rénovée, alliant authenticité et modernité. Nichée dans un environnement calme et résidentiel, cette maison est un véritable havre de paix, idéal pour les familles, les couples ou les voyageurs en quête de confort, de sérénité et de charme bourguignon. Dès l’entrée, le ton est donné : poutres apparentes, finitions élégantes, lumière naturelle et décoration soignée. Le mélange subtil entre matériaux nobles et touches contemporaines crée une atmosphère à la fois chaleureuse et raffinée. Sur la gauche, la cuisine entièrement équipée s’impose comme un véritable lieu de vie. Les lignes modernes, les finitions noires mates et le mobilier en bois naturel s’accordent parfaitement avec le cachet du plafond en poutres. Un grand îlot central invite à partager un moment de convivialité autour d’un repas ou d’un bon vin de Bourgogne. Vous y trouverez tout le nécessaire pour cuisiner comme à la maison : four encastré, micro-ondes, plaques de cuisson, hotte design, machine à café, bouilloire, vaisselle complète et nombreux rangements.",
+      "amenities": [
+        "Wifi",
+        "Cuisine équipée",
+        "Parking gratuit",
+        "Climatisation",
+        "Lave-vaisselle",
+        "Télévision",
+        "Chauffage",
+        "Jardin",
+        "Balcon",
+        "Entrée privée",
+        "Linge & nécessaire",
+        "Fer à repasser",
+        "Micro-ondes",
+        "Four"
+      ],
+      "lat": 46.7666238,
+      "lng": 4.819091,
+      "mapx": 77.13,
+      "mapy": 71.23,
+      "type": "T4",
+      "cleaningFee": 60,
+      "deposit": 0,
+      "markup": 1.05,
+      "amk": 1.25,
+      "minNights": 1,
+      "currency": "EUR",
+      "instant": 1,
+      "fees": [
+        {
+          "t": "Frais CB",
+          "a": 2.62,
+          "p": 1,
+          "r": 1
+        },
+        {
+          "t": "Frais caution",
+          "a": 2.0,
+          "p": 0,
+          "r": 1
+        },
+        {
+          "t": "Frais de plateforme",
+          "a": 5.0,
+          "p": 1,
+          "r": 0
         }
       ]
     },

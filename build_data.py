@@ -620,7 +620,7 @@ def main():
         465573,  # Chalon Hacienda
         570611,  # Le Chai des Écluses gîtes 4* (Saint-Léger-sur-Dheune / CHASSIGNEUX)
         465755,  # Les Vagastines 2
-        475670,  # La Cave des Miracles (Dracy)
+        591916,  # Le loft bourguignon (Saint-Rémy / Le Jeloux) — remplace La Cave des Miracles (sortie du parc) et évince Panorama des Neiges (demande Terence 23/09/2026)
         468463,  # Les Vignes Rouges (Givry / Russilly)
         474343,  # Charmant gîte 3* — 25 Russilly (Givry)
         465404,  # Château de Dracy – L'Élégante
