@@ -18,7 +18,7 @@
       "bedrooms": 5,
       "bathrooms": 3,
       "price": 460,
-      "rating": 9.1,
+      "rating": 9,
       "cover": "/img/l/470939-c.webp",
       "photos": [
         "/img/l/470939-0.webp",
@@ -83,7 +83,7 @@
           "r": 0
         }
       ],
-      "reviewCount": 19,
+      "reviewCount": 20,
       "reviews": [
         {
           "name": "Voyageur",
@@ -91,13 +91,13 @@
           "rating": 10
         },
         {
-          "name": "Charles",
-          "text": "Logement conforme à la description, propre et bien équipé. Idéal pour rassemblement entre amis ou famille. Hôte arrangeant lorsque possible.",
+          "name": "Clemence",
+          "text": "Logement très agréable et très spacieux. Néanmoins le logement mérite un petit rafraîchissement (porte de douche cassée, robinet de la cuisine en mauvais état)",
           "rating": 8
         },
         {
-          "name": "Mathias",
-          "text": "Super logement manque juste une troisième salle d’eau pour le nombre de voyageurs possible",
+          "name": "Charles",
+          "text": "Logement conforme à la description, propre et bien équipé. Idéal pour rassemblement entre amis ou famille. Hôte arrangeant lorsque possible.",
           "rating": 8
         }
       ]
@@ -804,5 +804,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-09-26"
+  "updated": "2026-09-27"
 }
