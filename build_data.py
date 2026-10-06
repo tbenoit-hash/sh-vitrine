@@ -617,7 +617,7 @@ def main():
     # complétée par les plus chers si un id venait à manquer (logement retiré / sans prix).
     FEATURED_PINNED = [
         470939,  # Le Verger Secret (Saint-Loup-de-Varennes)
-        465573,  # Chalon Hacienda
+        470947,  # Paradis Bord de Saône (Chalon) — remplace Chalon Hacienda (demande Terence 07/10/2026)
         570611,  # Le Chai des Écluses gîtes 4* (Saint-Léger-sur-Dheune / CHASSIGNEUX)
         465755,  # Les Vagastines 2
         591916,  # Le loft bourguignon (Saint-Rémy / Le Jeloux) — remplace La Cave des Miracles (sortie du parc) et évince Panorama des Neiges (demande Terence 23/09/2026)
