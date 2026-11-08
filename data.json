@@ -1,10 +1,10 @@
 {
-  "count": 126,
-  "communes": 23,
+  "count": 121,
+  "communes": 22,
   "adr": {
-    "Studio": 48,
+    "Studio": 49,
     "T3": 80,
-    "T2": 54,
+    "T2": 53,
     "T4": 117,
     "T6+": 150.2,
     "T5": 133.6
@@ -714,6 +714,12 @@
       "rating": 10
     },
     {
+      "name": "Pierre",
+      "place": "Chagny",
+      "text": "Logement propre, bien situé en plein centre ville avec place de parking. l'hôte a été très réactif et s'est montré arrangeant suite a une modification de mes dates de voyage. je recommande donc particulièrement ce logement!",
+      "rating": 10
+    },
+    {
       "name": "Philippe",
       "place": "Mâcon",
       "text": "Appartement très beau. prestations de qualité. Conciergerie réactive et à l'écoute. Nous étions en vélo. Il est proche de la voie bleue. Nous les avons stationné dans la cour intérieure. Nous recommandons.",
@@ -724,13 +730,7 @@
       "place": "La Charmée",
       "text": "Un séjour très agréable au calme dans un logement correspondant à nos attentes. On s'est senti comme à la maison avec tout le nécessaire pour passer un très bon moment entre amis. Nous recommandons !",
       "rating": 10
-    },
-    {
-      "name": "Citron",
-      "place": "Chalon-sur-Saône",
-      "text": "Tout s'est bien passé dans le logement, situé idéalement sur la presqu'ile de Chalon. Les propriétaires ont été très flexibles et réactifs quand à notre demande. La literie est très confort. Merci",
-      "rating": 10
     }
   ],
-  "updated": "2026-11-07"
+  "updated": "2026-11-08"
 }
