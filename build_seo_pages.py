@@ -160,7 +160,7 @@ FOOTER = """<footer class="bg-ink text-cream/70 mt-16">
         <ul class="space-y-2.5 text-sm">
           <li><a href="tel:__TEL__" class="hover:text-gold">__TELH__</a></li>
           <li><a href="mailto:__MAIL__" class="hover:text-gold">__MAIL__</a></li>
-          <li><span>1 rue Georges Duny<br>71100 Chalon-sur-Saône</span></li>
+          <li><span>50 avenue Monnot<br>71100 Chalon-sur-Saône</span></li>
         </ul>
       </div>
     </div>
@@ -741,7 +741,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         "priceRange": "€€",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": cfg.get("agency", {}).get("street", "1 rue Georges Duny"),
+            "streetAddress": cfg.get("agency", {}).get("street", "50 avenue Monnot"),
             "postalCode": cfg.get("agency", {}).get("postal", "71100"),
             "addressLocality": cfg.get("agency", {}).get("city", "Chalon-sur-Saône"),
             "addressRegion": "Bourgogne-Franche-Comté",
