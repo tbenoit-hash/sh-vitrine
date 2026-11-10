@@ -487,6 +487,7 @@ def city_form(place):
     <input type="hidden" name="_next" value="https://www.sh-developpement.fr/merci.html">
     <input type="hidden" name="_autoresponse" value="Bonjour, merci pour votre demande d'estimation. Nous l'avons bien reçue et revenons vers vous sous 24 h. L'équipe SH Développement">
     <input type="hidden" name="Secteur" value="{place}">
+    <input type="hidden" name="Source" value="Site internet">
     <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <div class="grid sm:grid-cols-2 gap-4">
       <label class="block"><span class="{lab}">Nom et prénom *</span><input name="Nom" type="text" required autocomplete="name" class="{inp}"></label>
@@ -497,6 +498,7 @@ def city_form(place):
     <label class="flex items-start gap-2 text-sm text-ink/80 mt-5"><input type="checkbox" name="consentement" required class="mt-1"> <span>J'accepte que mes données soient utilisées par SH Développement pour traiter ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze">politique de confidentialité</a>.</span></label>
     <button type="submit" class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-brown cursor-pointer">Recevoir mon estimation gratuite</button>
   </form>
+  <script>(function(){{try{{if(!/[?&](gclid|gbraid|wbraid)=/.test(location.search))return;var f=document.querySelector('#estimation-ville form');f.elements['Source'].value='Google Ads';f.elements['_subject'].value+=' [Google Ads]';}}catch(e){{}}}})();</script>
 </section>"""
 
 # ─────────────────────────────────────────────────────────────────────────────
