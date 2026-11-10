@@ -290,7 +290,17 @@ def breadcrumb_html(trail):
             + '<span aria-hidden="true">›</span>'.join(parts) + "</nav>")
 
 
-def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=None, image="/img/hero.jpg"):
+CTA_BLOCK = """<section class="mt-16 rounded-3xl bg-sand/70 p-8 sm:p-10 text-center">
+  <h2 class="font-display text-3xl mt-0 mb-3">Parlons de votre bien</h2>
+  <p class="text-ink/75 max-w-[52ch] mx-auto">Estimation gratuite et sans engagement : nous étudions votre logement, son emplacement et son potentiel, puis nous vous envoyons une projection chiffrée.</p>
+  <div class="mt-7 flex flex-wrap gap-3 justify-center">
+    <a href="/proprietaires.html#contact" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 font-600 hover:bg-brown">Demander mon estimation</a>
+    <a href="/proprietaires.html#estimation" class="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-600 hover:border-bronze hover:text-bronze">Utiliser le simulateur</a>
+  </div>
+</section>"""
+
+
+def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=None, image="/img/hero.jpg", form_html=None):
     url = f"{SITE}/{slug}"
     lds = [ld_breadcrumb(trail)]
     if faq:
@@ -347,14 +357,7 @@ def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=No
 {body}
 {faq_html(faq) if faq else ""}
 
-<section class="mt-16 rounded-3xl bg-sand/70 p-8 sm:p-10 text-center">
-  <h2 class="font-display text-3xl mt-0 mb-3">Parlons de votre bien</h2>
-  <p class="text-ink/75 max-w-[52ch] mx-auto">Estimation gratuite et sans engagement : nous étudions votre logement, son emplacement et son potentiel, puis nous vous envoyons une projection chiffrée.</p>
-  <div class="mt-7 flex flex-wrap gap-3 justify-center">
-    <a href="/proprietaires.html#contact" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 font-600 hover:bg-brown">Demander mon estimation</a>
-    <a href="/proprietaires.html#estimation" class="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-600 hover:border-bronze hover:text-bronze">Utiliser le simulateur</a>
-  </div>
-</section>
+{form_html if form_html else CTA_BLOCK}
 </article>
 
 </main>
@@ -363,7 +366,11 @@ def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=No
 </body>
 </html>
 """
-    return html
+    city_links = "".join(
+        f'<li><a href="/{c["slug"]}" class="hover:text-gold">Conciergerie {c["nav_label"]}</a></li>'
+        for c in CITY_PAGES
+    )
+    return html.replace("__CITYLINKS__", city_links)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -390,7 +397,7 @@ def revenue_table(block, place):
 
 
 SERVICES = """<h2>Ce que nous prenons en charge</h2>
-<p>Notre modèle est simple : vous gardez la propriété et la maîtrise de votre bien, nous absorbons la totalité de l'exploitation. Concrètement, une fois le mandat signé, vous n'avez plus rien à faire.</p>
+<p>Notre modèle est simple : vous gardez la propriété et la maîtrise de votre bien, nous absorbons la totalité de l'exploitation. Concrètement, une fois le contrat signé, vous n'avez plus rien à faire.</p>
 <ul>
 <li><strong>Création et optimisation de l'annonce</strong> : photographies professionnelles, description rédigée, équipements renseignés, diffusion sur Airbnb, Booking.com, Abritel et sur notre propre site de réservation directe (sans commission de plateforme).</li>
 <li><strong>Tarification dynamique</strong> : les prix sont recalculés chaque jour selon la saison, le taux de remplissage, les événements locaux et la concurrence. C'est le levier qui fait le plus de différence sur une année complète.</li>
@@ -411,9 +418,86 @@ def why_local(place):
 
 
 TRANSPARENCE = """<h2>Notre engagement de transparence</h2>
-<p>Nous appliquons une commission unique sur le montant encaissé, sans frais de dossier, sans abonnement mensuel et sans frais de mise en service. Le ménage est facturé au voyageur, pas à vous. Vous recevez chaque mois un relevé détaillé qui reprend séjour par séjour le montant encaissé, les frais et ce qui vous est reversé.</p>
-<p>Le mandat est sans durée d'engagement contraignante : si le partenariat ne vous convient pas, vous récupérez votre bien et vos annonces. Nous préférons garder des propriétaires qui restent parce qu'ils gagnent plus, pas parce qu'ils sont bloqués par un contrat.</p>"""
+<p>Deux formules au choix : Standard à 20 % TTC ou Premium à 25 % TTC du montant des locations, avec la création de l'annonce et les consommables inclus en Premium. Le détail des frais figure au contrat. Le ménage est facturé au voyageur, pas à vous. Vous recevez chaque mois un relevé détaillé qui reprend séjour par séjour le montant encaissé, les frais et ce qui vous est reversé.</p>
+<p>Le contrat reste résiliable à tout moment avec un mois de préavis et sans indemnité : si le partenariat ne vous convient pas, vous récupérez votre bien et vos annonces. Nous préférons garder des propriétaires qui restent parce qu'ils gagnent plus, pas parce qu'ils sont bloqués par un contrat.</p>"""
 
+
+
+# ────────────────────────────────────────────────────────
+#  Chiffres réels par secteur et formulaire de page ville
+# ────────────────────────────────────────────────────────
+CITY_STATS = {}
+_cs = os.path.join(HERE, "seo_city_stats.json")
+if os.path.exists(_cs):
+    with open(_cs, encoding="utf-8") as f:
+        CITY_STATS = json.load(f)
+
+
+def _fr(n):
+    return f"{int(n):,}".replace(",", " ")
+
+
+def local_stats(cfg, place):
+    s = CITY_STATS.get(cfg["slug"])
+    if not s:
+        return ""
+    stay = str(s["stay"]).replace(".", ",")
+    if s["stay"] >= 4:
+        a = (f"Avec {stay} nuits en moyenne, les voyageurs restent assez longtemps ici : moins de rotations, "
+             "donc moins de ménages et moins d'usure pour un même revenu.")
+    elif s["stay"] >= 2.8:
+        a = (f"La durée moyenne de {stay} nuits montre un équilibre entre week-ends et séjours en semaine : "
+             "le calendrier doit être piloté finement pour éviter les nuits isolées invendues.")
+    else:
+        a = (f"Avec {stay} nuits en moyenne, les séjours sont courts : le ménage et l'accueil reviennent souvent, "
+             "et c'est là qu'une équipe locale fait la différence.")
+    b = (f"L'écart entre {s['best']} et {s['worst']} rappelle aussi qu'un prix fixe toute l'année laisse de l'argent "
+         "sur la table : nos tarifs évoluent chaque jour selon la demande.")
+    return f"""<h2>Ce que nos logements ont réalisé à {place} en 12 mois</h2>
+<p>Ces chiffres viennent directement de nos réservations du {s["period"]}, sur les {s["n"]} logements de ce secteur présents durant toute la période.</p>
+<table>
+<thead><tr><th>Indicateur</th><th>Résultat</th></tr></thead>
+<tbody>
+<tr><td>Nuits vendues au total</td><td>{_fr(s["nights"])}</td></tr>
+<tr><td>Taux d'occupation médian</td><td>{s["occ"]} %</td></tr>
+<tr><td>Montant médian encaissé par logement, hors ménage</td><td>{_fr(s["rev"])} €</td></tr>
+<tr><td>Durée moyenne d'un séjour</td><td>{stay} nuits</td></tr>
+<tr><td>Mois le plus rempli</td><td>{s["best"]}</td></tr>
+<tr><td>Mois le plus calme</td><td>{s["worst"]}</td></tr>
+</tbody>
+</table>
+<p class="text-sm text-ink/60">Montants avant commission et avant charges. Les résultats passés ne garantissent pas les résultats à venir : ils dépendent du logement, de son emplacement et de son équipement.</p>
+<p>{a} {b}</p>"""
+
+
+SERVICES_SHORT = """<h2>Ce que nous prenons en charge</h2>
+<p>Annonce et photos, diffusion sur Airbnb et Booking, prix ajustés chaque jour, échanges avec les voyageurs, remise des clés, ménage et linge, petite maintenance, relevé mensuel : vous gardez votre bien, nous nous occupons de son exploitation. Le détail de chaque prestation et des formules est présenté sur la page <a href="/proprietaires.html">Propriétaires</a>.</p>"""
+
+
+def city_form(place):
+    inp = "mt-1.5 w-full rounded-xl border border-ecru bg-white px-4 py-3 text-base text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+    lab = "text-[11px] font-700 text-cocoa uppercase tracking-wide"
+    return f"""<section id="estimation-ville" class="mt-16 rounded-3xl bg-sand/70 p-6 sm:p-10 not-prose scroll-mt-24">
+  <h2 class="font-display text-3xl mt-0 mb-3">Combien pourrait vous rapporter votre logement à {place} ?</h2>
+  <p class="text-ink/75 mb-6">Estimation gratuite et sans engagement. Nous revenons vers vous sous 24 h.</p>
+  <form action="https://formsubmit.co/contact@sh-developpement.fr" method="POST">
+    <input type="hidden" name="_subject" value="Nouvelle demande d'estimation (page {place})">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://www.sh-developpement.fr/merci.html">
+    <input type="hidden" name="_autoresponse" value="Bonjour, merci pour votre demande d'estimation. Nous l'avons bien reçue et revenons vers vous sous 24 h. L'équipe SH Développement">
+    <input type="hidden" name="Secteur" value="{place}">
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <label class="block"><span class="{lab}">Nom et prénom *</span><input name="Nom" type="text" required autocomplete="name" class="{inp}"></label>
+      <label class="block"><span class="{lab}">Téléphone *</span><input name="Téléphone" type="tel" required autocomplete="tel" class="{inp}"></label>
+      <label class="block"><span class="{lab}">Email *</span><input name="Email" type="email" required autocomplete="email" class="{inp}"></label>
+      <label class="block"><span class="{lab}">Type de bien</span><select name="Type de bien" class="{inp}"><option>Studio</option><option>T2</option><option selected>T3</option><option>T4</option><option>T5 et +</option><option>Maison</option><option>Autre</option></select></label>
+    </div>
+    <label class="flex items-start gap-2 text-sm text-ink/80 mt-5"><input type="checkbox" name="consentement" required class="mt-1"> <span>J'accepte que mes données soient utilisées par SH Développement pour traiter ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze">politique de confidentialité</a>.</span></label>
+    <button type="submit" class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-brown cursor-pointer">Recevoir mon estimation gratuite</button>
+  </form>
+</section>"""
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Pages villes
@@ -424,7 +508,7 @@ CITY_PAGES = [
         "cities": ["Chalon-sur-Saône"],
         "place": "Chalon-sur-Saône",
         "nav_label": "Chalon-sur-Saône",
-        "title": "Conciergerie Airbnb à Chalon-sur-Saône (71100) | SH Développement",
+        "title": "Conciergerie Airbnb à Chalon-sur-Saône (71100) · Gestion courte durée | SH Développement",
         "desc": "Conciergerie Airbnb et location courte durée à Chalon-sur-Saône. Gestion complète, ménage hôtelier, tarification dynamique. Estimation gratuite de vos revenus.",
         "kicker": "Conciergerie · Chalon-sur-Saône",
         "h1": "Conciergerie Airbnb à Chalon-sur-Saône",
@@ -446,15 +530,17 @@ CITY_PAGES = [
     },
     {
         "slug": "conciergerie-macon.html",
+        "agency": {"street": "39 rue Philibert Laguiche", "postal": "71000", "city": "Mâcon"},
+        "agency_html": "<h2>Notre agence à Mâcon</h2><p>Notre équipe mâconnaise vous reçoit au 39 rue Philibert Laguiche, 71000 Mâcon. Vous parlez à des personnes qui connaissent votre quartier et qui interviennent sur place.</p>",
         "cities": ["Mâcon"],
         "place": "Mâcon",
         "nav_label": "Mâcon",
-        "title": "Conciergerie Airbnb à Mâcon (71000) | SH Développement",
+        "title": "Conciergerie Airbnb à Mâcon (71000) · Gestion courte durée | SH Développement",
         "desc": "Conciergerie Airbnb et gestion locative courte durée à Mâcon. Annonces optimisées, ménage hôtelier, prix pilotés au quotidien. Estimation gratuite.",
         "kicker": "Conciergerie · Mâcon",
         "h1": "Conciergerie Airbnb à Mâcon",
         "intro": """<h2>Louer en courte durée à Mâcon</h2>
-<p>Mâcon occupe une position que peu de villes de sa taille peuvent revendiquer : une gare TGV à Mâcon-Loché qui met Paris à moins d'une heure quarante, l'autoroute A6 en bord de ville, et une porte d'entrée directe sur trois territoires viticoles majeurs — le Mâconnais, le Beaujolais et, plus au nord, la Bourgogne des grands crus.</p>
+<p>Mâcon occupe une position que peu de villes de sa taille peuvent revendiquer : une gare TGV à Mâcon-Loché qui met Paris à moins d'une heure quarante, l'autoroute A6 en bord de ville, et une porte d'entrée directe sur trois territoires viticoles majeurs : le Mâconnais, le Beaujolais et, plus au nord, la Bourgogne des grands crus.</p>
 <p>Cette situation crée une demande de passage très régulière. Beaucoup de voyageurs ne viennent pas pour Mâcon en tant que telle : ils y font étape sur l'axe Paris-Méditerranée, ou ils en font leur camp de base pour rayonner vers la Roche de Solutré, les caveaux de Pouilly-Fuissé, Cluny ou la Voie Bleue le long de la Saône. Ce sont des séjours de une à trois nuits, réservés souvent à court terme, et pour lesquels la réactivité de la réponse fait toute la différence.</p>
 <p>S'y ajoute une clientèle professionnelle et une demande liée aux événements : salons, congrès, épreuves sportives, vendanges. Le marché mâconnais est moins profond que celui de Chalon en volume, mais les prix moyens y sont légèrement supérieurs et la saison utile s'étire plus longtemps, d'avril à octobre.</p>
 <p>Le piège classique à Mâcon est de rester bloqué sur un tarif « moyenne saison » toute l'année. Les week-ends de printemps et les périodes de vendanges supportent des prix nettement plus élevés que ce que la plupart des propriétaires osent afficher.</p>""",
@@ -471,7 +557,7 @@ CITY_PAGES = [
         "cities": ["Tournus"],
         "place": "Tournus",
         "nav_label": "Tournus",
-        "title": "Conciergerie Airbnb à Tournus (71700) | SH Développement",
+        "title": "Conciergerie Airbnb à Tournus (71700) · Gestion courte durée | SH Développement",
         "desc": "Conciergerie et gestion de location courte durée à Tournus. Clientèle patrimoine et gastronomie, prix pilotés, ménage hôtelier. Estimation gratuite.",
         "kicker": "Conciergerie · Tournus",
         "h1": "Conciergerie Airbnb à Tournus",
@@ -492,7 +578,7 @@ CITY_PAGES = [
         "cities": ["Chagny", "Bligny-lès-Beaune"],
         "place": "Beaune et Chagny",
         "nav_label": "Beaune et Chagny",
-        "title": "Conciergerie Airbnb à Beaune et Chagny | SH Développement",
+        "title": "Conciergerie Airbnb à Beaune et Chagny · Gestion courte durée | SH Développement",
         "desc": "Conciergerie Airbnb aux portes de Beaune : Chagny, Bligny-lès-Beaune, Côte de Beaune. Gestion complète et tarification adaptée à un marché sous tension.",
         "kicker": "Conciergerie · Côte de Beaune",
         "h1": "Conciergerie Airbnb à Beaune et Chagny",
@@ -520,7 +606,7 @@ CITY_PAGES = [
         "kicker": "Conciergerie · Côte chalonnaise",
         "h1": "Conciergerie Airbnb en Côte chalonnaise",
         "intro": """<h2>L'œnotourisme, un marché qui se construit</h2>
-<p>La Côte chalonnaise — Givry, Mercurey, Rully, Bouzeron, Buxy, Montagny — a longtemps été le vignoble discret de la Bourgogne. Elle ne l'est plus. À mesure que les prix de la Côte de Nuits et de la Côte de Beaune deviennent inaccessibles, une clientèle œnotouristique exigeante mais moins fortunée descend vers le sud et découvre des appellations d'un excellent rapport qualité-prix, à quinze minutes de Chalon-sur-Saône.</p>
+<p>La Côte chalonnaise (Givry, Mercurey, Rully, Bouzeron, Buxy, Montagny) a longtemps été le vignoble discret de la Bourgogne. Elle ne l'est plus. À mesure que les prix de la Côte de Nuits et de la Côte de Beaune deviennent inaccessibles, une clientèle œnotouristique exigeante mais moins fortunée descend vers le sud et découvre des appellations d'un excellent rapport qualité-prix, à quinze minutes de Chalon-sur-Saône.</p>
 <p>Cette clientèle a un profil précis et très favorable au propriétaire : elle réserve des séjours plus longs que la moyenne, souvent trois à cinq nuits, elle voyage en couple ou entre amis, elle vient en voiture, et elle privilégie systématiquement la maison de village avec extérieur au studio urbain.</p>
 <p>Un second flux s'y superpose : le cyclotourisme. La Voie Verte qui relie Givry à Cluny, l'une des toutes premières de France, draine chaque année des milliers de cyclistes en itinérance. Un logement qui propose un local à vélos sécurisé, un point de lavage et un séchage se distingue immédiatement de ses concurrents et peut afficher un tarif supérieur.</p>
 <p>La saison utile s'étend d'avril à octobre, avec un pic aux vendanges. L'hiver est réel, mais il peut être partiellement comblé par la clientèle professionnelle de Chalon, qui est à portée immédiate.</p>""",
@@ -563,8 +649,7 @@ def city_faq(place, block):
             if n else "Nous intervenons sur ce secteur")
     return [
         (f"Combien coûte une conciergerie à {place} ?",
-         "Nous appliquons une commission unique sur le montant des séjours encaissés, "
-         "sans frais de dossier, sans abonnement et sans frais de mise en service. "
+         "Deux formules au choix : Standard à 20 % TTC ou Premium à 25 % TTC du montant des locations, avec la création de l'annonce et les consommables inclus en Premium. Le détail des frais figure au contrat. "
          "Le ménage est facturé au voyageur et non au propriétaire. Le taux exact dépend "
          "du niveau de service retenu et du volume : il vous est communiqué chiffré, "
          "par écrit, lors de l'estimation gratuite."),
@@ -631,10 +716,12 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         "la façon dont ils sont pilotés. Les ordres de grandeur ci-dessous sont calculés "
         "à partir des prix réellement pratiqués sur notre parc, et actualisés automatiquement.</p>",
         revenue_table(block, place),
+        local_stats(cfg, place),
         parc_para,
-        SERVICES,
-        why_local(place),
-        TRANSPARENCE,
+        cfg.get("agency_html", ""),
+        SERVICES if cfg["slug"] == "conciergerie-chalon-sur-saone.html" else SERVICES_SHORT,
+        why_local(place) if cfg["slug"] == "conciergerie-chalon-sur-saone.html" else "",
+        TRANSPARENCE if cfg["slug"] == "conciergerie-chalon-sur-saone.html" else "",
         f'<h2>Nos autres secteurs</h2><ul>{others}</ul>'
         f'<p>Vous cherchez plutôt à comprendre le fonctionnement général de notre offre ? '
         f'Tout est détaillé sur la page <a href="/proprietaires.html">Propriétaires</a>, '
@@ -645,7 +732,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
     ld_local = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "@id": f"{SITE}/#organisation",
+        "@id": f"{SITE}/{cfg['slug']}#agence" if cfg.get("agency") else f"{SITE}/#organisation",
         "name": "SH Développement",
         "url": f"{SITE}/{cfg['slug']}",
         "telephone": TEL,
@@ -654,9 +741,9 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         "priceRange": "€€",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "1 rue Georges Duny",
-            "postalCode": "71100",
-            "addressLocality": "Chalon-sur-Saône",
+            "streetAddress": cfg.get("agency", {}).get("street", "1 rue Georges Duny"),
+            "postalCode": cfg.get("agency", {}).get("postal", "71100"),
+            "addressLocality": cfg.get("agency", {}).get("city", "Chalon-sur-Saône"),
             "addressRegion": "Bourgogne-Franche-Comté",
             "addressCountry": "FR",
         },
@@ -674,7 +761,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
             "nous nous occupons du reste.")
 
     return page(cfg["slug"], cfg["title"], cfg["desc"], cfg["kicker"], cfg["h1"],
-                lede, body, city_faq(place, block), trail, ld_local)
+                lede, body, city_faq(place, block), trail, ld_local, form_html=city_form(place))
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -701,7 +788,7 @@ def articles(stats):
 <h2>1. Le numéro d'enregistrement devient la règle partout</h2>
 <p>Jusqu'ici, la déclaration en mairie avec attribution d'un numéro d'enregistrement ne s'imposait que dans certaines communes, principalement les grandes villes et les zones tendues. La loi Le Meur généralise le principe : la déclaration devient la norme sur l'ensemble du territoire, et le numéro obtenu doit figurer sur chaque annonce, quelle que soit la plateforme.</p>
 <p>Le numéro national d'enregistrement comporte treize caractères. Les plateformes ont l'obligation de le collecter, de le vérifier et de retirer les annonces qui n'en disposent pas. Autrement dit, le risque n'est pas seulement l'amende : c'est la désactivation pure et simple de l'annonce, avec les réservations en cours.</p>
-<p>Les sanctions prévues sont substantielles — jusqu'à 20 000 € en cas de défaut d'enregistrement. Le calendrier de mise en œuvre a été décalé à plusieurs reprises et le déploiement complet du téléservice national s'étale sur 2026 : il est donc essentiel de vérifier auprès de sa propre mairie l'état d'avancement du dispositif, plutôt que de se fier à une date générale.</p>
+<p>Les sanctions prévues sont substantielles : jusqu'à 20 000 € en cas de défaut d'enregistrement. Le calendrier de mise en œuvre a été décalé à plusieurs reprises et le déploiement complet du téléservice national s'étale sur 2026 : il est donc essentiel de vérifier auprès de sa propre mairie l'état d'avancement du dispositif, plutôt que de se fier à une date générale.</p>
 <p><strong>Ce que cela implique en pratique :</strong> si votre logement n'est pas encore déclaré, faites-le maintenant. La démarche est gratuite, elle se fait auprès de la mairie de la commune où se situe le bien, et elle prend quelques minutes. Ne pas l'avoir faite ne fait gagner strictement rien.</p>
 
 <h2>2. Le DPE entre dans le jeu</h2>
@@ -774,7 +861,7 @@ def articles(stats):
 <tr><td>Base imposable</td><td>9 000 €</td><td>Bascule au régime réel</td></tr>
 </tbody>
 </table>
-<p>Le meublé classé reste au micro-BIC, simple et sans comptabilité. Le meublé non classé, lui, dépasse le plafond et doit passer au régime réel : bilan, liasse fiscale, honoraires de comptable. Le régime réel n'est pas une mauvaise chose en soi — il permet d'amortir le bien et se révèle souvent plus favorable — mais il doit être un choix, pas une contrainte subie.</p>
+<p>Le meublé classé reste au micro-BIC, simple et sans comptabilité. Le meublé non classé, lui, dépasse le plafond et doit passer au régime réel : bilan, liasse fiscale, honoraires de comptable. Le régime réel n'est pas une mauvaise chose en soi (il permet d'amortir le bien et se révèle souvent plus favorable) mais il doit être un choix, pas une contrainte subie.</p>
 <p>Rapporté au coût de la visite de classement, généralement de l'ordre de 150 à 300 € pour cinq ans, l'arbitrage se passe de commentaire.</p>
 
 <h2>Les autres bénéfices, moins connus</h2>
@@ -870,7 +957,7 @@ def articles(stats):
 <h2>Courte durée ou location classique : le bon comparatif</h2>
 <p>À Chalon-sur-Saône, un T2 correct se loue en bail classique dans une fourchette de 450 à 600 € par mois, charges non comprises. La courte durée bien pilotée dépasse généralement ce montant, souvent nettement, mais elle n'est pas comparable terme à terme.</p>
 <p>Ce que la courte durée apporte réellement : un revenu supérieur, la disponibilité du bien pour un usage personnel, l'absence de risque d'impayé, un logement inspecté toutes les semaines donc entretenu, et une sortie facile en cas de vente.</p>
-<p>Ce qu'elle coûte : une charge de travail réelle, une variabilité saisonnière, et une exposition à la réglementation locale. La conciergerie supprime la première, lisse la deuxième et prend en charge la troisième — c'est exactement sa raison d'être.</p>
+<p>Ce qu'elle coûte : une charge de travail réelle, une variabilité saisonnière, et une exposition à la réglementation locale. La conciergerie supprime la première, lisse la deuxième et prend en charge la troisième : c'est exactement sa raison d'être.</p>
 
 <h2>Obtenir un chiffre pour votre bien</h2>
 <p>Les ordres de grandeur ci-dessus vous situent, ils ne remplacent pas une étude. Notre <a href="/proprietaires.html#estimation">simulateur de revenus</a> vous donne une première projection en une minute, à partir du type de bien et d'une hypothèse d'occupation. Pour un chiffre sérieux, demandez-nous une estimation : nous regardons l'adresse exacte, l'étage, les extérieurs, l'équipement et la concurrence directe, et nous vous envoyons une projection écrite, gratuite et sans engagement.</p>""",
@@ -940,7 +1027,7 @@ def articles(stats):
 
 <h2>Nos réponses, en une ligne chacune</h2>
 <ul>
-<li><strong>Commission</strong> : taux unique sur le montant encaissé, communiqué par écrit lors de l'estimation, sans frais de dossier, d'abonnement ni de mise en service.</li>
+<li><strong>Commission</strong> : 20 % TTC en formule Standard ou 25 % TTC en formule Premium, sur le montant des locations. Les autres frais sont détaillés au contrat avant la signature.</li>
 <li><strong>Ménage</strong> : facturé au voyageur, réalisé par nos équipes salariées ou partenaires, contrôlé après chaque intervention.</li>
 <li><strong>Engagement</strong> : pas de durée bloquante ; vous récupérez votre bien et vos annonces si vous partez.</li>
 <li><strong>Diffusion</strong> : Airbnb, Booking.com, Abritel et notre propre site de réservation directe, sans commission de plateforme.</li>

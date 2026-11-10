@@ -1,0 +1,52 @@
+{
+ "conciergerie-chalon-sur-saone.html": {
+  "n": 46,
+  "nights": 9571,
+  "occ": 61,
+  "rev": 12100,
+  "stay": 4.3,
+  "best": "août",
+  "worst": "novembre",
+  "period": "1er novembre 2025 au 31 octobre 2026"
+ },
+ "conciergerie-macon.html": {
+  "n": 10,
+  "nights": 2277,
+  "occ": 65,
+  "rev": 14200,
+  "stay": 3.1,
+  "best": "juillet",
+  "worst": "novembre",
+  "period": "1er novembre 2025 au 31 octobre 2026"
+ },
+ "conciergerie-tournus.html": {
+  "n": 4,
+  "nights": 655,
+  "occ": 43,
+  "rev": 8600,
+  "stay": 4.7,
+  "best": "août",
+  "worst": "novembre",
+  "period": "1er novembre 2025 au 31 octobre 2026"
+ },
+ "conciergerie-givry-cote-chalonnaise.html": {
+  "n": 10,
+  "nights": 1273,
+  "occ": 36,
+  "rev": 21500,
+  "stay": 2.0,
+  "best": "août",
+  "worst": "novembre",
+  "period": "1er novembre 2025 au 31 octobre 2026"
+ },
+ "conciergerie-grand-chalon.html": {
+  "n": 9,
+  "nights": 1408,
+  "occ": 42,
+  "rev": 27500,
+  "stay": 3.7,
+  "best": "juillet",
+  "worst": "novembre",
+  "period": "1er novembre 2025 au 31 octobre 2026"
+ }
+}
