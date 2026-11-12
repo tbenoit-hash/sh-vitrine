@@ -1,13 +1,13 @@
 {
-  "count": 123,
-  "communes": 22,
+  "count": 120,
+  "communes": 23,
   "adr": {
     "Studio": 49,
     "T3": 80,
-    "T2": 53,
-    "T4": 117,
-    "T6+": 150.2,
-    "T5": 133.6
+    "T2": 52,
+    "T4": 132,
+    "T6+": 165.2,
+    "T5": 148.6
   },
   "featured": [
     {
@@ -83,7 +83,7 @@
           "r": 0
         }
       ],
-      "reviewCount": 21,
+      "reviewCount": 22,
       "reviews": [
         {
           "name": "Voyageur",
@@ -732,5 +732,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-11-11"
+  "updated": "2026-11-12"
 }
