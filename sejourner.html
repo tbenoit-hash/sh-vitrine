@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Séjourner en Bourgogne : nos locations à réserver en direct | SH Développement</title>
+<meta name="description" content="Réservez en direct nos 130 locations en Saône-et-Loire et en Bourgogne : appartements, maisons et gîtes gérés par notre équipe locale de Chalon-sur-Saône.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.sh-developpement.fr/sejourner.html">
+<link rel="icon" href="img/logo_gold.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SH Développement">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Séjourner en Bourgogne : nos locations à réserver en direct | SH Développement">
+<meta property="og:description" content="Réservez en direct nos 130 locations en Saône-et-Loire et en Bourgogne : appartements, maisons et gîtes gérés par notre équipe locale de Chalon-sur-Saône.">
+<meta property="og:url" content="https://www.sh-developpement.fr/sejourner.html">
+<meta property="og:image" content="https://www.sh-developpement.fr/img/hero.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Séjourner en Bourgogne : nos locations à réserver en direct | SH Développement">
+<meta name="twitter:description" content="Réservez en direct nos 130 locations en Saône-et-Loire et en Bourgogne : appartements, maisons et gîtes gérés par notre équipe locale de Chalon-sur-Saône.">
+<meta name="twitter:image" content="https://www.sh-developpement.fr/img/hero.jpg">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "SH Développement",
+  "url": "https://www.sh-developpement.fr/",
+  "image": "https://www.sh-developpement.fr/img/hero.jpg",
+  "telephone": "+33659327710",
+  "email": "contact@sh-developpement.fr",
+  "description": "Conciergerie de location courte durée à Chalon-sur-Saône et en Saône-et-Loire : gestion locative clé en main et locations en Bourgogne.",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "50 avenue Monnot",
+    "postalCode": "71100",
+    "addressLocality": "Chalon-sur-Saône",
+    "addressRegion": "Bourgogne-Franche-Comté",
+    "addressCountry": "FR"
+  },
+  "geo": {"@type": "GeoCoordinates", "latitude": 46.7806, "longitude": 4.8537},
+  "sameAs": [
+    "https://www.facebook.com/Stayhomedvp/",
+    "https://fr.linkedin.com/company/stayhome-developpement"
+  ],
+  "areaServed": [
+    {"@type": "City", "name": "Chalon-sur-Saône"},
+    {"@type": "City", "name": "Mâcon"},
+    {"@type": "City", "name": "Tournus"},
+    {"@type": "City", "name": "Chagny"},
+    {"@type": "City", "name": "Givry"},
+    {"@type": "City", "name": "Beaune"},
+    {"@type": "City", "name": "Le Creusot"},
+    {"@type": "AdministrativeArea", "name": "Saône-et-Loire"}
+  ]
+}
+</script>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/marcellus-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-latin.woff2" crossorigin>
+<link rel="stylesheet" href="/site.css">
+<link rel="preload" as="image" imagesrcset="img/hero-828.webp 828w, img/hero-1120.webp 1120w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+<style>
+  html { scroll-behavior: smooth; }
+  .tracking-luxe { letter-spacing: .28em; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
+  .reveal.in { opacity: 1; transform: none; }
+  .hairline { background: linear-gradient(90deg, transparent, #E0AE2C, transparent); }
+  .card-img { transition: transform .6s cubic-bezier(.2,.6,.2,1); }
+  .group:hover .card-img { transform: scale(1.06); }
+  .sh-photo { box-shadow: 0 6px 22px -10px rgba(46,36,16,.28); transition: transform .35s ease, box-shadow .35s ease; }
+  .group:hover .sh-photo { transform: translateY(-5px); box-shadow: 0 22px 46px -16px rgba(46,36,16,.45); }
+  .heart { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  .heart svg { transition: transform .15s ease, fill .15s ease; }
+  .heart:hover svg { transform: scale(1.12); }
+  .heart.on svg { fill:#E0AE2C !important; stroke:#FBF8F3 !important; }
+  a, button { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+  .dlink { text-decoration: underline; text-decoration-color: rgba(138,94,26,.35); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .dlink:hover { color: #8A5E1A; text-decoration-color: #8A5E1A; }
+  details.faq > summary { list-style: none; cursor: pointer; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq .faq-chev { transition: transform .25s ease; }
+  details.faq[open] .faq-chev { transform: rotate(180deg); }
+  /* Carte 3D (MapLibre) */
+  #map3d { width: 100%; height: clamp(440px, 64vh, 660px); border-radius: 24px; background: linear-gradient(#bcd0e8 0%, #e6dcc6 45%, #f1e6d0 78%, #e7d9c0 100%); }
+  #map3d canvas, #map3d .maplibregl-canvas-container, #map3d .maplibregl-canvas { border-radius: 24px; }
+  #map3d .maplibregl-ctrl-group { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(46,36,16,.28); }
+  #map3d .maplibregl-ctrl-attrib { font-size: 10px; background: rgba(251,248,243,.8); }
+  #map3d .maplibregl-ctrl-attrib a { color: #5c4636; }
+  #map3d-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #5c4636; font-size: 14px; font-weight: 500; background: linear-gradient(#dfe6ec, #f1e6d0); border-radius: 24px; transition: opacity .5s ease; }
+  #map3d-loading.gone { opacity: 0; pointer-events: none; }
+  #map3d-loading .spin { width: 18px; height: 18px; border: 2.5px solid #d9c79f; border-top-color: #E0AE2C; border-radius: 50%; animation: shspin .8s linear infinite; }
+  @keyframes shspin { to { transform: rotate(360deg); } }
+  .sh-mk { width: 16px; height: 16px; cursor: pointer; display: block; }
+  .sh-mk i { display: block; width: 14px; height: 14px; border-radius: 50%; background: #E0AE2C; border: 2.5px solid #FBF8F3; box-shadow: 0 2px 6px rgba(46,36,16,.55); transition: transform .15s ease, background .15s ease; }
+  .sh-mk:hover i, .sh-mk.hot i { transform: scale(1.55); background: #2E2410; }
+  .sh-mk.feat i { box-shadow: 0 0 0 4px rgba(224,174,44,.35), 0 2px 6px rgba(46,36,16,.55); }
+  /* Pastilles de prix façon Airbnb */
+  .sh-pin { display: inline-flex; align-items: center; gap: 4px; background: #FBF8F3; color: #2E2410; font: 700 12.5px/1 Figtree, -apple-system, "Helvetica Neue", Arial, sans-serif; padding: 6px 10px; border-radius: 999px; border: 1.5px solid rgba(46,36,16,.14); box-shadow: 0 3px 10px rgba(46,36,16,.32); cursor: pointer; white-space: nowrap; text-decoration: none; transition: transform .14s ease, background .14s ease, color .14s ease; }
+  .sh-pin:hover, .sh-pin.hot { background: #2E2410; color: #FBF8F3; transform: scale(1.08); z-index: 6; }
+  .sh-pin.feat { border-color: #E0AE2C; box-shadow: 0 0 0 2px rgba(224,174,44,.4), 0 3px 10px rgba(46,36,16,.32); }
+  .sh-pin .h { color: #E0AE2C; font-size: 11px; line-height: 1; }
+  .sh-pin:hover .h, .sh-pin.hot .h { color: #E0AE2C; }
+  /* Bulles de regroupement */
+  .sh-clus { display: flex; align-items: center; justify-content: center; background: #2E2410; color: #FBF8F3; border: 2px solid #FBF8F3; border-radius: 50%; font: 700 13px/1 Figtree, -apple-system, "Helvetica Neue", Arial, sans-serif; cursor: pointer; box-shadow: 0 4px 13px rgba(46,36,16,.5); transition: transform .14s ease, background .14s ease; }
+  .sh-clus:hover { transform: scale(1.09); background: #463618; }
+  /* Carte illustrée : pastilles de villes cliquables */
+  .sh-map { line-height: 0; }
+  .sh-town { position: absolute; transform: translate(-50%, -50%); width: 16px; height: 16px; z-index: 2; }
+  .sh-town i { position: absolute; inset: 0; border-radius: 50%; background: #E0AE2C; border: 2px solid #FBF8F3; box-shadow: 0 1px 5px rgba(46,36,16,.55); transition: transform .15s ease, background .15s ease; }
+  .sh-town::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(224,174,44,.65); animation: shtown 2.1s ease-out infinite; }
+  @keyframes shtown { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.7); opacity: 0; } }
+  .sh-town:hover i, .sh-town:focus-visible i { transform: scale(1.35); background: #2E2410; }
+  .sh-town b { position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%) translateY(5px); background: #2E2410; color: #FBF8F3; font: 600 12px/1 Figtree, -apple-system, "Helvetica Neue", Arial, sans-serif; padding: 6px 10px; border-radius: 9px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; box-shadow: 0 8px 22px rgba(46,36,16,.45); }
+  .sh-town:hover b, .sh-town:focus-visible b { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .sh-pop .maplibregl-popup-content { padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
+  .sh-pop .maplibregl-popup-tip { display: none; }
+  .sh-card { display: block; width: 218px; background: #FBF8F3; color: #2E2410; border-radius: 14px; overflow: hidden; text-decoration: none; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
+  .sh-card img { width: 100%; height: 120px; object-fit: cover; display: block; background: #EFE6D4; }
+  .sh-card .cb { display: block; padding: 9px 12px 11px; }
+  .sh-card .cb b { font-family: Marcellus, Georgia, serif; font-size: 17px; line-height: 1.12; display: block; }
+  .sh-card .cb .m { font-size: 11.5px; color: #6B605C; margin-top: 3px; display: block; }
+  .sh-card .cb .pr { font-size: 13px; font-weight: 700; margin-top: 6px; display: block; }
+  .sh-card .cb .pr i { font-weight: 400; color: #6B605C; font-style: normal; }
+  .sh-poi { width: 25px; height: 25px; border-radius: 50%; background: #FBF8F3; border: 2px solid var(--c, #8A5E1A); display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; cursor: pointer; box-shadow: 0 2px 6px rgba(46,36,16,.45); transition: transform .15s ease; }
+  .sh-poi:hover, .sh-poi.hot { transform: scale(1.28); z-index: 5; }
+  .sh-poic { width: 212px; background: #FBF8F3; color: #2E2410; border-radius: 12px; border-top: 3px solid var(--c, #8A5E1A); padding: 10px 13px 12px; box-shadow: 0 14px 36px rgba(46,36,16,.42); }
+  .sh-poic b { font-family: Marcellus, Georgia, serif; font-size: 16.5px; line-height: 1.12; display: block; }
+  .sh-poic .m { font-size: 11.5px; color: #6B605C; margin-top: 4px; display: block; line-height: 1.35; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+    .card-img, a, button { transition: none !important; }
+  }
+
+  /* ░░ Recherche repliée dans le header (façon Airbnb) ░░ */
+  .sh-navpill { display:flex; align-items:center; gap:10px; flex:1 1 auto; min-width:0; max-width:520px;
+    margin:0 14px; background:#FBF8F3; border:1px solid #ecdbc0; border-radius:999px;
+    padding:7px 7px 7px 18px; box-shadow:0 4px 16px rgba(46,36,16,.10); font-size:13.5px; color:#2E2410;
+    cursor:pointer; text-align:left; transition:box-shadow .2s ease, transform .2s ease; }
+  .sh-navpill:hover { box-shadow:0 7px 20px rgba(46,36,16,.17); transform:translateY(-1px); }
+  .sh-navpill.hidden { display:none; }
+  #nav-links a { white-space:nowrap; }
+  #nav-links a[href^="tel"] { white-space:nowrap; }
+  .np-seg { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#6B605C; font-weight:500; }
+  .np-strong { color:#2E2410; font-weight:600; }
+  .np-dot { width:1px; height:18px; background:#ecdbc0; flex:none; }
+  .np-lens { display:flex; align-items:center; justify-content:center; width:30px; height:30px;
+    border-radius:999px; background:#E0AE2C; color:#2E2410; flex:none; margin-left:auto; }
+  #nav.nav-collapsed #nav-links { display:none; }
+  @media (max-width:1023.5px) { #nav.nav-collapsed #logo-txt { display:none; } }
+  @media (max-width:639.5px) { .sh-navpill { margin:0 10px; padding-left:14px; } .np-seg { font-size:12.5px; } }
+  #nav-search-panel { animation:shpanel .22s ease; }
+  @keyframes shpanel { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+  #nav-search-panel #hero-search { margin:0 auto; box-shadow:0 10px 30px rgba(46,36,16,.14); }
+</style>
+<script src="daterange.js" defer></script>
+<script src="destination.js" defer></script>
+</head>
+<body class="bg-cream text-ink antialiased">
+<a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-ink text-cream px-4 py-2 rounded z-50">Aller au contenu</a>
+
+<!-- ░░ NAV ░░ -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 flex items-center justify-between gap-5 h-20">
+    <a href="#top" class="flex items-center gap-3 group" aria-label="SH Développement, accueil">
+      <img src="img/logo_gold.png" alt="" class="h-9 w-auto" id="logo-img">
+      <span class="font-display text-2xl font-700 leading-none text-cream" id="logo-txt">SH&nbsp;<span class="text-cream" id="logo-sub">Développement</span></span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-5 text-sm font-500 text-cream" id="nav-links">
+      <a href="/catalogue.html" class="hover:text-bronze">Nos locations</a>
+      <a href="/guides.html" class="hover:text-bronze">Guides</a>
+      <a href="/a-propos.html" class="hover:text-bronze">À propos</a>
+      <a href="/" class="hover:text-bronze">Propriétaires</a>
+      <a href="tel:+33659327710" class="hidden lg:inline-flex items-center p-2 -m-1 hover:text-bronze" aria-label="Nous appeler au 06 59 32 77 10">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </nav>
+    <button id="nav-pill" type="button" aria-expanded="false" aria-controls="nav-search-panel" aria-label="Modifier la recherche" class="sh-navpill hidden">
+      <span id="np-q" class="np-seg np-strong">Où allez-vous ?</span>
+      <span class="np-dot" aria-hidden="true"></span>
+      <span id="np-dates" class="np-seg">Quand ?</span>
+      <span class="np-dot" aria-hidden="true"></span>
+      <span id="np-g" class="np-seg">Voyageurs</span>
+      <span class="np-lens" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+    </button>
+    <div class="flex items-center gap-2.5">
+      <a href="/#estimation" class="cta-ghost hidden xl:inline-flex items-center whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-600 cursor-pointer transition-colors">Estimer mes revenus</a>
+      <a href="/catalogue.html" class="cta-caps hidden sm:inline-flex items-center whitespace-nowrap gap-2 rounded-full bg-gold text-ink px-5 py-3 hover:bg-[#f0c244] cursor-pointer">Réserver en direct</a>
+      <button id="menu-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl text-cream hover:bg-cream/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="nav-search-panel" class="hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 py-4" id="nav-search-slot"></div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
+    <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
+      <a href="/" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
+      <a href="catalogue.html?v=2" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos locations</a>
+      <a href="guides.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Guides</a>
+      <a href="a-propos.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">À propos</a>
+      <a href="#decouvrir" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">À découvrir</a>
+      <a href="#zone" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Notre région</a>
+      <a href="tel:+33659327710" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze inline-flex items-center gap-2" aria-label="Nous appeler au 06 59 32 77 10">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Nous appeler
+      </a>
+      <a href="/catalogue.html" class="cta-caps mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink px-5 py-3.5 cursor-pointer">Réserver en direct</a>
+      <a href="/#estimation" class="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-5 py-3 font-600 hover:bg-brown cursor-pointer">
+        Estimer mes revenus
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+<!-- ░░ HERO ░░ -->
+<section id="top" class="relative min-h-dvh flex items-end overflow-hidden">
+  <img src="img/hero-1600.webp" srcset="img/hero-828.webp 828w, img/hero-1120.webp 1120w, img/hero-1280.webp 1280w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="926" fetchpriority="high" alt="L'agence SH Développement à l'angle d'une rue de Chalon-sur-Saône, vitrine de la conciergerie" class="absolute inset-0 w-full h-full object-cover object-center">
+  <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/30"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"></div>
+  <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
+    <p class="text-gold text-xs sm:text-sm font-600 tracking-luxe uppercase mb-5">Conciergerie · Saône-et-Loire · Bourgogne</p>
+    <h1 class="font-display text-cream text-5xl sm:text-6xl lg:text-7xl font-600 leading-[1.05] max-w-3xl">
+      L'art de séjourner<br><span class="text-gold">en Bourgogne</span>
+    </h1>
+    <p class="text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
+      Des maisons et appartements choisis avec soin, gérés avec exigence. Nous accueillons vos voyageurs et faisons fructifier votre bien, sans la moindre contrainte.
+    </p>
+    <div id="hs-sentinel" aria-hidden="true"></div>
+    <form id="hero-search" class="mt-8 w-full max-w-3xl bg-cream rounded-2xl sm:rounded-full shadow-2xl shadow-ink/40 flex flex-col sm:flex-row sm:items-stretch p-1.5">
+      <label data-destpicker class="flex-1 px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-text">
+        <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Destination</span>
+        <input name="q" data-dest-input type="search" aria-label="Destination" placeholder="Où allez-vous ?" class="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
+      </label>
+      <div class="hidden sm:block w-px bg-ecru my-2"></div>
+      <div data-rangepicker class="contents">
+        <button type="button" data-dr-trigger="in" class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0 text-left">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Arrivée</span>
+          <span data-dr-disp-in data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+        </button>
+        <div class="hidden sm:block w-px bg-ecru my-2"></div>
+        <button type="button" data-dr-trigger="out" class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-pointer border-t border-ecru/50 sm:border-t-0 text-left">
+          <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Départ</span>
+          <span data-dr-disp-out data-empty="Quand ?" class="block text-sm w-[8.5rem]" style="color:#6B605C">Quand ?</span>
+        </button>
+        <input type="hidden" name="in" id="hs-in" data-dr-in>
+        <input type="hidden" name="out" id="hs-out" data-dr-out>
+      </div>
+      <div class="hidden sm:block w-px bg-ecru my-2"></div>
+      <label class="px-5 py-2.5 rounded-full hover:bg-sand/50 cursor-text border-t border-ecru/50 sm:border-t-0">
+        <span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span>
+        <input name="guests" type="number" min="1" aria-label="Nombre de voyageurs" placeholder="Tous" class="w-20 bg-transparent text-sm text-ink outline-none placeholder:text-muted/60">
+      </label>
+      <button type="submit" class="m-1 inline-flex items-center justify-center gap-2 cta-caps rounded-full bg-gold text-ink px-6 py-3.5 hover:bg-bronze hover:text-cream cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Valider
+      </button>
+    </form>
+    <script>
+      (function(){
+        var f = document.getElementById('hero-search'); if (!f) return;
+        var t = new Date().toISOString().slice(0,10), a = document.getElementById('hs-in'), b = document.getElementById('hs-out');
+        if (a) a.min = t; if (b) b.min = t;
+        if (a) a.addEventListener('change', function(){ if (b && a.value) b.min = a.value; });
+        f.addEventListener('submit', function(e){
+          e.preventDefault();
+          var el = f.elements, p = new URLSearchParams();
+          if (el.q.value.trim()) p.set('q', el.q.value.trim());
+          if (el['in'].value) p.set('in', el['in'].value);
+          if (el['out'].value) p.set('out', el['out'].value);
+          if (el.guests.value) p.set('guests', el.guests.value);
+          var qs = p.toString();
+          location.href = 'catalogue.html' + (qs ? '?' + qs : '');
+        });
+      })();
+    </script>
+    <div class="flex flex-wrap gap-4 mt-9">
+      <a href="#locations" class="cta-caps inline-flex items-center gap-2 rounded-full bg-gold text-ink px-7 py-3.5 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
+        Découvrir nos locations
+      </a>
+      <a href="/" class="inline-flex items-center gap-2 rounded-full border border-cream/40 text-cream px-7 py-3.5 font-600 hover:bg-cream/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+        Je confie mon bien
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ TRUST BAR ░░ -->
+<section class="bg-ink text-cream">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 divide-x divide-cream/10">
+    <div class="reveal py-9 px-4 text-center">
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-count">130</div>
+      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">logements gérés</div>
+    </div>
+    <div class="reveal py-9 px-4 text-center">
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold"><span class="sh-annees">6</span> ans</div>
+      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">à Chalon-sur-Saône</div>
+    </div>
+    <div class="reveal py-9 px-4 text-center">
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">8,8<span class="text-2xl text-cream/50">/10</span></div>
+      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">note voyageurs</div>
+    </div>
+    <div class="reveal py-9 px-4 text-center">
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold">7j/7</div>
+      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">accueil & assistance</div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ LOCATIONS ░░ -->
+<section id="locations" class="py-24 sm:py-32">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6 mb-12">
+      <div class="max-w-2xl">
+        <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Nos locations</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Une sélection à réserver en direct</h2>
+        <p class="text-muted text-lg mt-4">Du studio en cœur de ville au château pour grandes tablées : réservez moins cher que sur Airbnb et Booking.</p>
+      </div>
+      <a href="catalogue.html?v=2" class="hidden sm:inline-flex items-center gap-2 text-bronze font-600 hover:text-ink cursor-pointer">Voir les <span id="cat-count" class="contents">130</span>&nbsp;logements <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-9" id="grid">
+      <!-- listing cards injected below -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░ ÉVASION (hors région) ░░ -->
+<section class="pb-24 sm:pb-28">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="reveal mb-9">
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-3">Évasion</p>
+      <h3 class="font-display text-3xl sm:text-4xl font-600">Au-delà de la Bourgogne</h3>
+      <p class="text-muted text-lg mt-3">Nous gérons aussi quelques biens ailleurs en France.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-7">
+      <a href="/bien/497952/" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+        <img src="/img/s/d874c51ddc.webp" alt="La Croix Du Sud, villa avec piscine à débordement dans le Var" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent"></div>
+        <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-cream/95 text-ink px-3 py-1.5 text-xs font-700">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+          Bord de mer · Var
+        </span>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-cream">
+          <h4 class="font-display text-2xl font-600">La Croix Du Sud</h4>
+          <p class="text-cream/80 text-sm mt-1">La Londe-les-Maures · 8 voyageurs · piscine à débordement</p>
+          <p class="mt-2.5 font-600">à partir de 2 000 € <span class="text-cream/70 font-400">/ nuit</span></p>
+        </div>
+      </a>
+      <a href="/bien/496304/" class="reveal group block relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+        <img src="/img/s/8611dd8cb6.webp" alt="Le Megevand, chalet à Megève" loading="lazy" class="card-img absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent"></div>
+        <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-cream/95 text-ink px-3 py-1.5 text-xs font-700">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 14H2L8 3z"/></svg>
+          Montagne · Megève
+        </span>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-cream">
+          <h4 class="font-display text-2xl font-600">Le Megevand</h4>
+          <p class="text-cream/80 text-sm mt-1">Megève · 8 voyageurs · chalet au cœur des Alpes</p>
+          <p class="mt-2.5 font-600">à partir de 436 € <span class="text-cream/70 font-400">/ nuit</span></p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ TÉMOIGNAGES ░░ -->
+<section class="py-24 bg-ink text-cream relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 20% 20%, #E0AE2C 0, transparent 40%), radial-gradient(circle at 85% 80%, #E0AE2C 0, transparent 45%)"></div>
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 relative">
+    <p class="reveal text-gold text-sm font-600 tracking-luxe uppercase mb-12 text-center">Ils nous ont fait confiance</p>
+    <div class="grid md:grid-cols-3 gap-8 items-start" id="testimonials-grid">
+      <figure class="reveal">
+        <div class="flex gap-1 text-gold mb-4" role="img" aria-label="5 sur 5"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+        <blockquote class="font-display text-2xl leading-snug text-cream/95">« Magnifique logement, très bien situé et décoré avec beaucoup de goût. Très calme. C'était vraiment top&nbsp;! »</blockquote>
+        <figcaption class="text-cream/60 text-sm mt-5">Elodie, Mâcon</figcaption>
+      </figure>
+      <figure class="reveal">
+        <div class="flex gap-1 text-gold mb-4" role="img" aria-label="5 sur 5"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+        <blockquote class="font-display text-2xl leading-snug text-cream/95">« Le château est très bien entretenu. Le logement est propre et confortable. »</blockquote>
+        <figcaption class="text-cream/60 text-sm mt-5">David, Dracy-le-Fort</figcaption>
+      </figure>
+      <figure class="reveal">
+        <div class="flex gap-1 text-gold mb-4" role="img" aria-label="5 sur 5"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+        <blockquote class="font-display text-2xl leading-snug text-cream/95">« Appartement fait avec beaucoup de goût. Spacieux, calme, équipements au top, propriétaire très réactif. »</blockquote>
+        <figcaption class="text-cream/60 text-sm mt-5">Emmanuel, Chalon-sur-Saône</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ COLLECTIONS ░░ -->
+<section class="pb-4 sm:pb-10">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="reveal text-center max-w-2xl mx-auto mb-10">
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Trouvez en un clin d'œil</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">Explorez par envie</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <a href="catalogue.html?theme=piscine" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
+        <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(70,120,150,.14);color:rgb(70,120,150)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M224,168v40c-24,0-24,16-48,16s-24-16-48-16-24,16-48,16-24-16-48-16V168c24,0,24,16,48,16s24-16,48-16,24,16,48,16S200,168,224,168Z" opacity="0.2"/><path d="M88,149.39a8,8,0,0,0,8-8V128h64v15.29a8,8,0,0,0,16,0V32a8,8,0,0,0-16,0V48H96V32a8,8,0,0,0-16,0V141.39A8,8,0,0,0,88,149.39ZM96,112V96h64v16Zm64-48V80H96V64ZM24,168a8,8,0,0,1,8-8c14.42,0,22.19,5.18,28.44,9.34C66,173.06,70.42,176,80,176s14-2.94,19.56-6.66c6.24-4.16,14-9.34,28.43-9.34s22.2,5.18,28.44,9.34c5.58,3.72,10,6.66,19.57,6.66s14-2.94,19.56-6.66c6.25-4.16,14-9.34,28.44-9.34a8,8,0,0,1,0,16c-9.58,0-14,2.94-19.56,6.66-6.25,4.16-14,9.34-28.44,9.34s-22.2-5.18-28.44-9.34C142,178.94,137.57,176,128,176s-14,2.94-19.56,6.66c-6.24,4.16-14,9.34-28.43,9.34s-22.19-5.18-28.44-9.34C46,178.94,41.58,176,32,176A8,8,0,0,1,24,168Zm208,40a8,8,0,0,1-8,8c-9.58,0-14,2.94-19.56,6.66-6.25,4.16-14,9.34-28.44,9.34s-22.2-5.18-28.44-9.34C142,218.94,137.57,216,128,216s-14,2.94-19.56,6.66c-6.24,4.16-14,9.34-28.43,9.34s-22.19-5.18-28.44-9.34C46,218.94,41.58,216,32,216a8,8,0,0,1,0-16c14.42,0,22.19,5.18,28.44,9.34C66,213.06,70.42,216,80,216s14-2.94,19.56-6.66c6.24-4.16,14-9.34,28.43-9.34s22.2,5.18,28.44,9.34c5.58,3.72,10,6.66,19.57,6.66s14-2.94,19.56-6.66c6.25-4.16,14-9.34,28.44-9.34A8,8,0,0,1,232,208Z"/></svg></span>
+        <span><span class="block font-display text-xl font-600 text-ink leading-tight">Avec piscine</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </a>
+      <a href="catalogue.html?theme=jacuzzi" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
+        <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(184,146,74,.16);color:rgb(163,124,52)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M240,104v40a48,48,0,0,1-48,48H64a48,48,0,0,1-48-48V104H136v40h64V104Z" opacity="0.2"/><path d="M240,96H208a8,8,0,0,0-8-8H136a8,8,0,0,0-8,8H64V52A12,12,0,0,1,76,40a12.44,12.44,0,0,1,12.16,9.59,8,8,0,0,0,15.68-3.18A28.32,28.32,0,0,0,76,24,28,28,0,0,0,48,52V96H16a8,8,0,0,0-8,8v40a56.06,56.06,0,0,0,56,56v16a8,8,0,0,0,16,0V200h96v16a8,8,0,0,0,16,0V200a56.06,56.06,0,0,0,56-56V104A8,8,0,0,0,240,96Zm-48,8v32H144V104Zm40,40a40,40,0,0,1-40,40H64a40,40,0,0,1-40-40V112H128v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V112h24Z"/></svg></span>
+        <span><span class="block font-display text-xl font-600 text-ink leading-tight">Avec jacuzzi</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </a>
+      <a href="catalogue.html?theme=groupes" class="reveal group rounded-2xl border border-ecru/70 bg-cream p-6 hover:shadow-xl hover:shadow-ink/5 flex items-center gap-4">
+        <span class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:rgba(150,100,40,.13);color:rgb(150,100,40)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M112,168a32,32,0,1,1-32-32A32,32,0,0,1,112,168ZM80,32a32,32,0,1,0,32,32A32,32,0,0,0,80,32Zm96,104a32,32,0,1,0,32,32A32,32,0,0,0,176,136Zm0-40a32,32,0,1,0-32-32A32,32,0,0,0,176,96Z" opacity="0.2"/><path d="M27.2,126.4a8,8,0,0,0,11.2-1.6,52,52,0,0,1,83.2,0,8,8,0,0,0,11.2,1.59,7.73,7.73,0,0,0,1.59-1.59h0a52,52,0,0,1,83.2,0,8,8,0,0,0,12.8-9.61A67.85,67.85,0,0,0,203,93.51a40,40,0,1,0-53.94,0,67.27,67.27,0,0,0-21,14.31,67.27,67.27,0,0,0-21-14.31,40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,25.6,115.2,8,8,0,0,0,27.2,126.4ZM176,40a24,24,0,1,1-24,24A24,24,0,0,1,176,40ZM80,40A24,24,0,1,1,56,64,24,24,0,0,1,80,40ZM203,197.51a40,40,0,1,0-53.94,0,67.27,67.27,0,0,0-21,14.31,67.27,67.27,0,0,0-21-14.31,40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,25.6,219.2a8,8,0,1,0,12.8,9.6,52,52,0,0,1,83.2,0,8,8,0,0,0,11.2,1.59,7.73,7.73,0,0,0,1.59-1.59h0a52,52,0,0,1,83.2,0,8,8,0,0,0,12.8-9.61A67.85,67.85,0,0,0,203,197.51ZM80,144a24,24,0,1,1-24,24A24,24,0,0,1,80,144Zm96,0a24,24,0,1,1-24,24A24,24,0,0,1,176,144Z"/></svg></span>
+        <span><span class="block font-display text-xl font-600 text-ink leading-tight">Groupes & familles</span><span class="text-bronze text-sm font-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ ZONE ░░ -->
+<section id="zone" class="py-24 sm:py-28">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 text-center">
+    <p class="reveal text-bronze text-sm font-600 tracking-luxe uppercase mb-4">Notre terrain de jeu</p>
+    <h2 class="reveal font-display text-4xl sm:text-5xl font-600 leading-tight max-w-3xl mx-auto">Ancrés en Saône-et-Loire, au cœur des vignobles</h2>
+    <p class="reveal text-muted text-lg mt-5 max-w-2xl mx-auto">Séjournez à deux pas des trésors de la Bourgogne : nos logements sont idéalement placés près des sites incontournables.</p>
+    <div class="mt-9 reveal">
+      <div class="sh-map relative overflow-hidden rounded-3xl border border-ecru shadow-xl shadow-ink/10">
+        <img src="img/carte-bourgogne.webp" width="1450" height="966" alt="Carte illustrée de la Bourgogne : vignobles, villages, châteaux et sites à visiter" class="block w-full h-auto" loading="lazy">
+        <a class="sh-town" style="left:66%;top:64.5%" href="catalogue.html?q=Chalon-sur-Sa%C3%B4ne" aria-label="Nos logements à Chalon-sur-Saône"><i></i><b>Chalon-sur-Saône</b></a>
+        <a class="sh-town" style="left:57.5%;top:90%" href="catalogue.html?q=M%C3%A2con" aria-label="Nos logements à Mâcon"><i></i><b>Mâcon</b></a>
+        <a class="sh-town" style="left:56%;top:74%" href="catalogue.html?q=Tournus" aria-label="Nos logements à Tournus"><i></i><b>Tournus</b></a>
+        <a class="sh-town" style="left:67%;top:48.5%" href="catalogue.html?q=Beaune" aria-label="Nos logements vers Beaune"><i></i><b>Beaune &amp; environs</b></a>
+      </div>
+      <p class="reveal text-muted/80 text-xs mt-4 text-center">Survolez une pastille dorée pour repérer la ville, cliquez pour découvrir nos logements du secteur. Retrouvez <a href="catalogue.html?v=2" class="text-bronze hover:text-ink font-600">toutes nos locations</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ À DÉCOUVRIR EN BOURGOGNE ░░ -->
+<section id="decouvrir" class="pb-24 sm:pb-28 scroll-mt-20">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="reveal max-w-2xl mb-12">
+      <p class="text-bronze text-sm font-600 tracking-luxe uppercase mb-4">À ne pas manquer</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight">La Bourgogne à vivre, à deux pas de nos logements</h2>
+      <p class="text-muted text-lg mt-5 leading-relaxed">Grands crus et tables étoilées, marchés du terroir et spécialités, sorties en famille, balades au fil de la Saône, patrimoine millénaire et grands espaces… de quoi remplir chaque séjour.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Vignobles -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(123,46,70,.1);color:rgb(123,46,70)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M182.48,162.5a79.77,79.77,0,0,1-109,0A55.86,55.86,0,0,1,58.3,105.93l1.57-5.31h0C72.49,95.21,95.2,91.4,128,108c35.86,18.16,59.67,11.89,71.42,5.84h0A55.72,55.72,0,0,1,182.48,162.5Z" opacity="0.2"/><path d="M205.33,103.67,183.56,29.74A8,8,0,0,0,175.89,24H80.11a8,8,0,0,0-7.67,5.74L50.67,103.67a63.46,63.46,0,0,0,17.42,64.67A87.41,87.41,0,0,0,120,191.63V232H88a8,8,0,1,0,0,16h80a8,8,0,1,0,0-16H136V191.63a87.39,87.39,0,0,0,51.91-23.29A63.48,63.48,0,0,0,205.33,103.67ZM86.09,40h83.82L190,108.19c.09.3.17.6.25.9-21.42,7.68-45.54-1.6-58.63-8.23C106.43,88.11,86.43,86.49,71.68,88.93ZM177,156.65a71.69,71.69,0,0,1-98,0,47.55,47.55,0,0,1-13-48.46l.45-1.52c12-4.06,31.07-5.14,57.93,8.47,11.15,5.65,29.16,12.85,48.43,12.85a68.64,68.64,0,0,0,19.05-2.6A47.2,47.2,0,0,1,177,156.65Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Vignobles & Grands Crus</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=Beaune+vins+de+Bourgogne" target="_blank" rel="noopener">Beaune</a>, capitale des vins de Bourgogne</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+du+Clos+de+Vougeot" target="_blank" rel="noopener">Clos de Vougeot</a> · <a class="dlink" href="https://www.google.com/search?q=C%C3%B4te+de+Nuits+vignoble" target="_blank" rel="noopener">Côte de Nuits</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Pommard+vin" target="_blank" rel="noopener">Pommard</a> · <a class="dlink" href="https://www.google.com/search?q=Meursault+vin" target="_blank" rel="noopener">Meursault</a> · <a class="dlink" href="https://www.google.com/search?q=Puligny-Montrachet+vin" target="_blank" rel="noopener">Puligny-Montrachet</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Givry+vin+C%C3%B4te+chalonnaise" target="_blank" rel="noopener">Givry</a> · <a class="dlink" href="https://www.google.com/search?q=Mercurey+vin" target="_blank" rel="noopener">Mercurey</a> · <a class="dlink" href="https://www.google.com/search?q=Rully+Bourgogne+vin" target="_blank" rel="noopener">Rully</a> <span class="text-bronze">(Côte chalonnaise)</span></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Pouilly-Fuiss%C3%A9+vin" target="_blank" rel="noopener">Pouilly-Fuissé</a> · vignobles du <a class="dlink" href="https://www.google.com/search?q=vignobles+du+M%C3%A2connais" target="_blank" rel="noopener">Mâconnais</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Circuit+Lamartine+M%C3%A2connais" target="_blank" rel="noopener">Circuit Lamartine</a> · caveaux de <a class="dlink" href="https://www.google.com/search?q=Cave+des+vignerons+de+Buxy" target="_blank" rel="noopener">Buxy</a> & <a class="dlink" href="https://www.google.com/search?q=Cave+de+Lugny" target="_blank" rel="noopener">Lugny</a></li>
+        </ul>
+      </article>
+
+      <!-- Patrimoine -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(138,94,26,.12);color:rgb(138,94,26)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M208,48V92.69a8,8,0,0,1-2.34,5.65L192,112V224H152V168a24,24,0,0,0-48,0v56H64V112L50.34,98.34A8,8,0,0,1,48,92.69V48a8,8,0,0,1,8-8H80V72h32V40h32V72h32V40h24A8,8,0,0,1,208,48Z" opacity="0.2"/><path d="M216,216H200V115.31L211.31,104A15.86,15.86,0,0,0,216,92.69V48a16,16,0,0,0-16-16H176a8,8,0,0,0-8,8V64H152V40a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8V64H88V40a8,8,0,0,0-8-8H56A16,16,0,0,0,40,48V92.69A15.86,15.86,0,0,0,44.69,104L56,115.31V216H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM69.66,106.34,56,92.69V48H72V72a8,8,0,0,0,8,8h32a8,8,0,0,0,8-8V48h16V72a8,8,0,0,0,8,8h32a8,8,0,0,0,8-8V48h16V92.69l-13.66,13.65A8,8,0,0,0,184,112V216H160V168a32,32,0,0,0-64,0v48H72V112A8,8,0,0,0,69.66,106.34ZM144,216H112V168a16,16,0,0,1,32,0Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Patrimoine & visites</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=Hospices+de+Beaune" target="_blank" rel="noopener">Hospices de Beaune</a> & ses toits vernissés</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Abbaye+de+Cluny" target="_blank" rel="noopener">Abbaye de Cluny</a> · <a class="dlink" href="https://www.google.com/search?q=Abbaye+Saint-Philibert+Tournus" target="_blank" rel="noopener">Abbaye de Tournus</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+de+Cormatin" target="_blank" rel="noopener">Château de Cormatin</a> · <a class="dlink" href="https://www.google.com/search?q=Brancion+cit%C3%A9+m%C3%A9di%C3%A9vale" target="_blank" rel="noopener">cité de Brancion</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Autun+tourisme" target="_blank" rel="noopener">Autun la romaine</a> · <a class="dlink" href="https://www.google.com/search?q=Ch%C3%A2teau+de+Sully+Bourgogne" target="_blank" rel="noopener">château de Sully</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Palais+des+Ducs+de+Bourgogne+Dijon" target="_blank" rel="noopener">Palais des Ducs</a> & vieille ville de Dijon</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Mus%C3%A9e+Nic%C3%A9phore+Ni%C3%A9pce+Chalon-sur-Sa%C3%B4ne" target="_blank" rel="noopener">Musée Nicéphore Niépce</a> · Chalon (berceau de la photo)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Paray-le-Monial+basilique" target="_blank" rel="noopener">Paray-le-Monial</a> · <a class="dlink" href="https://www.google.com/search?q=Semur-en-Brionnais+plus+beaux+villages+de+France" target="_blank" rel="noopener">Semur-en-Brionnais</a> · <a class="dlink" href="https://www.google.com/search?q=Le+Creusot+Ch%C3%A2teau+de+la+Verrerie+%C3%A9comus%C3%A9e" target="_blank" rel="noopener">Le Creusot</a></li>
+        </ul>
+      </article>
+
+      <!-- Bonnes tables -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(180,69,47,.1);color:rgb(180,69,47)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Bonnes tables</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=Maison+Lameloise+Chagny" target="_blank" rel="noopener">Maison Lameloise</a> <span class="text-bronze">★★★</span> · Chagny</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Restaurant+Greuze+Tournus" target="_blank" rel="noopener">Greuze</a> & <a class="dlink" href="https://www.google.com/search?q=Aux+Terrasses+Tournus+restaurant" target="_blank" rel="noopener">Aux Terrasses</a> · Tournus</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Restaurant+L%27Amaryllis+Saint-R%C3%A9my+71" target="_blank" rel="noopener">L'Amaryllis</a> (C. Burtin) · Saint-Rémy</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Le+B%C3%A9naton+Beaune" target="_blank" rel="noopener">Le Bénaton</a> & <a class="dlink" href="https://www.google.com/search?q=Loiseau+des+Vignes+Beaune" target="_blank" rel="noopener">Loiseau des Vignes</a> · Beaune</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=caveaux+d%C3%A9gustation+vignerons+Bourgogne" target="_blank" rel="noopener">Bistrots de terroir & caveaux de vignerons</a></li>
+          <li>À goûter : <a class="dlink" href="https://www.google.com/search?q=poulet+de+Bresse+AOP" target="_blank" rel="noopener">poulet de Bresse</a>, <a class="dlink" href="https://www.google.com/search?q=b%C5%93uf+charolais" target="_blank" rel="noopener">bœuf charolais</a>, escargots & gougères</li>
+        </ul>
+      </article>
+
+      <!-- Activités & nature -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(79,122,58,.12);color:rgb(79,122,58)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M232,176a32,32,0,1,1-32-32A32,32,0,0,1,232,176ZM56,144a32,32,0,1,0,32,32A32,32,0,0,0,56,144Z" opacity="0.2"/><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm36,96a40,40,0,1,0,40,40A40,40,0,0,0,200,136Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,200,200ZM56,136a40,40,0,1,0,40,40A40,40,0,0,0,56,136Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,56,200Zm136-80H152a8,8,0,0,1-5.66-2.34L120,91.31,99.31,112l34.35,34.34A8,8,0,0,1,136,152v48a8,8,0,0,1-16,0V155.31L82.34,117.66a8,8,0,0,1,0-11.32l32-32a8,8,0,0,1,11.32,0L155.31,104H192a8,8,0,0,1,0,16Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Activités & nature</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=Voie+Verte+Bourgogne+du+Sud+%C3%A0+v%C3%A9lo" target="_blank" rel="noopener">Voie Verte à vélo</a> (Givry · Cluny · Mâconnais)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Roche+de+Solutr%C3%A9" target="_blank" rel="noopener">Roche de Solutré</a> · <a class="dlink" href="https://www.google.com/search?q=Roche+de+Vergisson+randonn%C3%A9e" target="_blank" rel="noopener">Vergisson</a> · grands sites</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=montgolfi%C3%A8re+Bourgogne+vignes" target="_blank" rel="noopener">Montgolfière au-dessus des vignes</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Lac+des+Settons+Morvan" target="_blank" rel="noopener">Baignade & rando · lac des Settons</a>, Morvan</li>
+        </ul>
+      </article>
+
+      <!-- Saveurs & terroir -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(184,146,74,.16);color:rgb(163,124,52)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M184,40,24,88v24h8a24,24,0,0,1,24,23.54C56.25,149,44.91,160,31.46,160H24v32H80v-8a32,32,0,0,1,64,0v8h80a8,8,0,0,0,8-8V88A48,48,0,0,0,184,40Zm-16,96a32,32,0,0,1-27.72-48h55.44A32,32,0,0,1,168,136Z" opacity="0.2"/><path d="M184,32a7.81,7.81,0,0,0-2.3.34l-160,48h0A8,8,0,0,0,16,88v24a8,8,0,0,0,8,8h8a16.08,16.08,0,0,1,16,15.69A15.6,15.6,0,0,1,43.42,147a16.87,16.87,0,0,1-12,5.05H24a8,8,0,0,0-8,8v32a8,8,0,0,0,8,8H224a16,16,0,0,0,16-16V88A56.06,56.06,0,0,0,184,32Zm1.12,16a40.06,40.06,0,0,1,38.07,32H78.51ZM192,104a24,24,0,1,1-46.62-8h45.24A23.86,23.86,0,0,1,192,104ZM88,184a24,24,0,0,1,48,0Zm136,0H152a40,40,0,0,0-80,0H32V168a33,33,0,0,0,22.84-9.85A31.39,31.39,0,0,0,64,135.38,32.15,32.15,0,0,0,32,104V96h96.81a40,40,0,1,0,78.38,0H224Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Saveurs & terroir</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=March%C3%A9+de+Louhans+Bresse+halles" target="_blank" rel="noopener">Marché de Louhans</a> (Bresse, halles classées)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=poulet+de+Bresse+AOP" target="_blank" rel="noopener">Poulet de Bresse AOP</a> · <a class="dlink" href="https://www.google.com/search?q=b%C5%93uf+charolais+Charolles" target="_blank" rel="noopener">bœuf charolais</a></li>
+          <li>Fromages : <a class="dlink" href="https://www.google.com/search?q=%C3%89poisses+fromage" target="_blank" rel="noopener">Époisses</a>, <a class="dlink" href="https://www.google.com/search?q=fromage+Charolais+AOP" target="_blank" rel="noopener">Charolais</a> & <a class="dlink" href="https://www.google.com/search?q=fromage+M%C3%A2connais+AOP" target="_blank" rel="noopener">Mâconnais</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=escargots+de+Bourgogne" target="_blank" rel="noopener">Escargots de Bourgogne</a> · <a class="dlink" href="https://www.google.com/search?q=cr%C3%A8me+de+cassis+de+Dijon" target="_blank" rel="noopener">crème de cassis</a></li>
+          <li>Marchés de <a class="dlink" href="https://www.google.com/search?q=march%C3%A9+Chalon-sur-Sa%C3%B4ne" target="_blank" rel="noopener">Chalon</a>, <a class="dlink" href="https://www.google.com/search?q=march%C3%A9+Tournus" target="_blank" rel="noopener">Tournus</a> & <a class="dlink" href="https://www.google.com/search?q=march%C3%A9+M%C3%A2con" target="_blank" rel="noopener">Mâcon</a></li>
+        </ul>
+      </article>
+
+      <!-- En famille -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(170,110,70,.13);color:rgb(170,110,70)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M232,112H144V48a8,8,0,0,1,8-8h8A72,72,0,0,1,232,112Z" opacity="0.2"/><path d="M160,32h-8a16,16,0,0,0-16,16v56H55.2A40.07,40.07,0,0,0,16,72a8,8,0,0,0,0,16,24,24,0,0,1,24,24,80.09,80.09,0,0,0,80,80h40a80,80,0,0,0,0-160Zm63.48,72H166.81l41.86-33.49A63.73,63.73,0,0,1,223.48,104ZM160,48a63.59,63.59,0,0,1,36.69,11.61L152,95.35V48Zm0,128H120a64.09,64.09,0,0,1-63.5-56h167A64.09,64.09,0,0,1,160,176Zm-56,48a16,16,0,1,1-16-16A16,16,0,0,1,104,224Zm104,0a16,16,0,1,1-16-16A16,16,0,0,1,208,224Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">En famille</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=Touroparc+Zoo+Roman%C3%A8che-Thorins" target="_blank" rel="noopener">Touroparc Zoo</a> · Romanèche-Thorins</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=Parc+des+Combes+Le+Creusot" target="_blank" rel="noopener">Parc des Combes</a> · Le Creusot (petit train)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=accrobranche+Givry" target="_blank" rel="noopener">Accrobranche & aventure</a> · Givry</li>
+          <li>Baignade · <a class="dlink" href="https://www.google.com/search?q=lac+de+Laives+baignade" target="_blank" rel="noopener">lac de Laives</a></li>
+          <li><a class="dlink" href="https://www.google.com/search?q=ferme+p%C3%A9dagogique+Sa%C3%B4ne-et-Loire" target="_blank" rel="noopener">Fermes pédagogiques</a> & cueillette</li>
+        </ul>
+      </article>
+
+      <!-- Au fil de l'eau -->
+      <article class="reveal rounded-2xl border border-ecru/70 bg-cream p-7 hover:shadow-xl hover:shadow-ink/5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5" style="background:rgba(70,120,150,.14);color:rgb(70,120,150)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M240,176l-29.6,37a8,8,0,0,1-6.24,3H51.84a8,8,0,0,1-6.24-3L16,176ZM136,8,32,136H136Z" opacity="0.2"/><path d="M247.21,172.53A8,8,0,0,0,240,168H144V144h72a8,8,0,0,0,5.92-13.38L144,44.91V8a8,8,0,0,0-14.21-5l-104,128A8,8,0,0,0,32,144h96v24H16a8,8,0,0,0-6.25,13l29.6,37a15.93,15.93,0,0,0,12.49,6H204.16a15.93,15.93,0,0,0,12.49-6l29.6-37A8,8,0,0,0,247.21,172.53ZM197.92,128H144V68.69ZM48.81,128,128,30.53V128Zm155.35,80H51.84l-19.2-24H223.36Z"/></svg></div>
+        <h3 class="font-display text-2xl font-600">Au fil de l'eau</h3>
+        <ul class="mt-4 space-y-2.5 text-muted text-sm leading-relaxed">
+          <li><a class="dlink" href="https://www.google.com/search?q=croisi%C3%A8re+Sa%C3%B4ne+Chalon-sur-Sa%C3%B4ne" target="_blank" rel="noopener">Croisière sur la Saône</a> (Chalon · Tournus)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=location+bateau+sans+permis+canal+du+Centre" target="_blank" rel="noopener">Bateau sans permis</a> · canal du Centre</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=La+Voie+Bleue+v%C3%A9loroute+Sa%C3%B4ne" target="_blank" rel="noopener">La Voie Bleue</a> à vélo (le long de la Saône)</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=guinguette+bord+de+Sa%C3%B4ne" target="_blank" rel="noopener">Guinguettes</a> & plages de Saône</li>
+          <li><a class="dlink" href="https://www.google.com/search?q=port+de+plaisance+Chalon-sur-Sa%C3%B4ne" target="_blank" rel="noopener">Port de plaisance</a> de Chalon</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="reveal text-muted/70 text-xs mt-6">Sélection d'incontournables du secteur, à titre indicatif. Sur place, notre équipe conseille volontiers vos voyageurs selon leurs envies.</p>
+  </div>
+</section>
+
+<!-- ░░ BANDEAU PROPRIÉTAIRES ░░ -->
+<section class="pb-24 sm:pb-28">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="reveal relative overflow-hidden rounded-3xl bg-brown text-cream px-8 sm:px-14 py-14 sm:py-16 text-center">
+      <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 50% 0%, #E0AE2C 0, transparent 55%)"></div>
+      <div class="relative">
+        <p class="text-gold text-sm font-600 tracking-luxe uppercase mb-4">Vous êtes propriétaire ?</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-600 leading-tight max-w-2xl mx-auto">Confiez-nous votre bien, on s'occupe de tout.</h2>
+        <p class="text-cream/80 text-lg mt-5 max-w-xl mx-auto">Conciergerie clé en main, revenus optimisés, zéro contrainte. Estimation gratuite et sans engagement.</p>
+        <a href="/" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-8 py-4 mt-9 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
+          Découvrir l'espace propriétaires
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ░░ FOOTER ░░ -->
+<footer class="bg-ink text-cream/70 mt-16">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8 pt-14 pb-8">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3" aria-label="SH Développement, accueil">
+          <img src="/img/logo_gold.png" alt="" width="294" height="445" class="h-9 w-auto">
+          <span class="font-display text-xl font-700 text-cream leading-none">SH&nbsp;Développement</span>
+        </a>
+        <p class="text-sm leading-relaxed mt-4 max-w-xs">L'art de séjourner en Bourgogne : conciergerie et locations de courte durée en Saône-et-Loire.</p>
+      </div>
+      <nav aria-label="Explorer">
+        <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Explorer</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/catalogue.html" class="hover:text-gold">Nos locations</a></li>
+          <li><a href="/guides.html" class="hover:text-gold">Guides de séjour</a></li>
+          <li><a href="/a-propos.html" class="hover:text-gold">À propos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Propriétaires">
+        <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Propriétaires</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/" class="hover:text-gold">Devenir partenaire</a></li>
+          <li><a href="/#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
+          <li><a href="/#faq" class="hover:text-gold">Questions fréquentes</a></li>
+          <li><a href="/conseils-proprietaires.html" class="hover:text-gold">Conseils propriétaires</a></li>
+          <li><a href="/conciergerie-chalon-sur-saone.html" class="hover:text-gold">Conciergerie Chalon-sur-Saône</a></li>
+          <li><a href="/conciergerie-macon.html" class="hover:text-gold">Conciergerie Mâcon</a></li>
+          <li><a href="/#secteurs" class="hover:text-gold">Tous nos secteurs</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Contact</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="tel:+33659327710" class="inline-flex items-center gap-2.5 hover:text-gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true" class="shrink-0 text-gold"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>06 59 32 77 10</a></li>
+          <li><a href="mailto:contact@sh-developpement.fr" class="inline-flex items-center gap-2.5 hover:text-gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true" class="shrink-0 text-gold"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>contact@sh-developpement.fr</a></li>
+          <li><span class="inline-flex items-start gap-2.5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true" class="shrink-0 text-gold"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg><span>50 avenue Monnot<br>71100 Chalon-sur-Saône</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t border-cream/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-cream/60">
+      <p>© 2026 SH Développement · Conciergerie en Bourgogne</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2" aria-label="Liens légaux">
+        <a href="/mentions-legales.html" class="hover:text-cream">Mentions légales</a>
+        <a href="/cgv.html" class="hover:text-cream">CGV</a>
+        <a href="/confidentialite.html" class="hover:text-cream">Confidentialité</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Logements en vedette (valeurs de repli ; data.json les rafraîchit chaque jour)
+let listings = [
+  {id:465405, name:"Château de Dracy - La Nomade", city:"Dracy-le-Fort", guests:3, bedrooms:0, price:75, rating:9.9, cover:"/img/s/aec8910e66.webp"},
+  {id:475670, name:"La Cave des Miracles", city:"Dracy-le-Fort", guests:8, bedrooms:4, price:250, rating:9.5, cover:"/img/s/63f929f17c.webp"},
+  {id:465573, name:"Chalon Hacienda", city:"Chalon-sur-Saône", guests:8, bedrooms:4, price:400, rating:9.3, cover:"/img/s/8e21e6c009.webp"},
+  {id:468463, name:"Les Vignes Rouges", city:"Givry", guests:8, bedrooms:3, price:250, rating:9.5, cover:"/img/s/36b900aa62.webp"},
+  {id:470948, name:"Wine & Saône", city:"Chalon-sur-Saône", guests:6, bedrooms:3, price:180, rating:9.8, cover:"/img/s/29713a2553.webp"},
+  {id:465755, name:"Les Vagastines 2", city:"Saint-Germain-du-Plain", guests:10, bedrooms:8, price:250, rating:10, cover:"/img/s/ab6856f93b.webp"},
+];
+const grid = document.getElementById('grid');
+const SHesc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+const SHFAV = new Set(JSON.parse(localStorage.getItem('sh_fav') || '[]'));
+const SHHEART = '<svg viewBox="0 0 32 32" width="22" height="22" style="display:block;fill:rgba(46,36,16,.35);stroke:#FBF8F3;stroke-width:2.4;overflow:visible"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>';
+const SHSTAR = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E2410" style="display:inline-block;vertical-align:-1px"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
+function renderGrid(){ grid.innerHTML = listings.map((l, i) => {
+  const fav = SHFAV.has(l.id);
+  const badge = (l.rating && l.rating >= 9.6) ? '<span class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-cream/95 text-ink text-[11.5px] font-700 px-2.5 py-1 rounded-full shadow-md"><svg width="11" height="11" viewBox="0 0 32 32" fill="#E0AE2C" style="display:block"><path d="M16 28c.5 0 .8-.2 1.2-.4C24 23.4 30 17.9 30 11.6 30 7.4 26.8 4 22.8 4c-2.7 0-4.9 1.5-6.8 4-1.9-2.5-4.1-4-6.8-4C5.2 4 2 7.4 2 11.6c0 6.3 6 11.8 12.8 16 .4.2.7.4 1.2.4z"/></svg>Coup de cœur voyageurs</span>' : '';
+  const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${SHSTAR} ${(+l.rating).toFixed(1).replace('.', ',')}/10</span>` : '';
+  return `<a href="/bien/${l.id}/" style="transition-delay:${i*55}ms" class="reveal group block">
+    <div class="sh-photo relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
+      <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${SHesc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">
+      ${badge}
+      <button type="button" class="heart absolute top-2.5 right-2.5 ${fav?'on':''}" data-id="${l.id}" aria-label="Enregistrer en favori">${SHHEART}</button>
+    </div>
+    <div class="mt-2.5">
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="font-600 text-ink leading-tight truncate">${SHesc(l.name)}</h3>
+        ${rate}
+      </div>
+      <p class="text-muted text-sm leading-snug truncate">${SHesc(l.city)} · ${l.guests} voyageurs · ${l.bedrooms ? l.bedrooms+' ch.' : 'Studio'}</p>
+      <p class="mt-1.5 text-ink"><span class="font-700">${l.price} €</span> <span class="text-muted">/ nuit</span></p>
+    </div>
+  </a>`;
+}).join('');
+  // ANTI PAGE BLANCHE : les cartes sont (re)injectées dynamiquement (repli puis data.json), et
+  // l'observateur de défilement n'observe que les .reveal présents au chargement. On rend donc
+  // les cartes visibles IMMÉDIATEMENT et de façon inconditionnelle — sans dépendre de l'observer
+  // ni de requestAnimationFrame (qui peut être gelé dans un onglet en arrière-plan).
+  grid.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+grid.addEventListener('click', e => {
+  const h = e.target.closest('.heart'); if (!h) return;
+  e.preventDefault(); e.stopPropagation();
+  const id = +h.dataset.id;
+  if (SHFAV.has(id)) SHFAV.delete(id); else SHFAV.add(id);
+  h.classList.toggle('on');
+  localStorage.setItem('sh_fav', JSON.stringify([...SHFAV]));
+});
+renderGrid();
+
+// Scroll reveal (respects reduced-motion via CSS)
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Sticky nav background on scroll
+const nav = document.getElementById('nav');
+const logoTxt = document.getElementById('logo-txt');
+const logoSub = document.getElementById('logo-sub');
+const navLinks = document.getElementById('nav-links');
+const menuBtnEl = document.getElementById('menu-btn');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const heroImg = document.querySelector('#top img');
+const onScroll = () => {
+  const scrolled = window.scrollY > 40;
+  if (heroImg && !reduceMotion && window.scrollY < 1000) {
+    heroImg.style.transform = 'translate3d(0,' + (window.scrollY * 0.25) + 'px,0) scale(1.18)';
+  }
+  nav.classList.toggle('bg-cream/90', scrolled);
+  nav.classList.toggle('backdrop-blur', scrolled);
+  nav.classList.toggle('shadow-sm', scrolled);
+  nav.classList.toggle('shadow-ink/5', scrolled);
+  // logo + links: cream over the hero, ink once the cream bar appears
+  logoTxt.classList.toggle('text-cream', !scrolled);
+  logoTxt.classList.toggle('text-ink', scrolled);
+  logoSub.classList.toggle('text-cream', !scrolled);
+  logoSub.classList.toggle('text-bronze', scrolled);
+  navLinks.classList.toggle('text-cream', !scrolled);
+  navLinks.classList.toggle('text-ink', scrolled);
+  menuBtnEl.classList.toggle('text-cream', !scrolled);
+  menuBtnEl.classList.toggle('hover:bg-cream/10', !scrolled);
+  menuBtnEl.classList.toggle('text-ink', scrolled);
+  menuBtnEl.classList.toggle('hover:bg-ink/5', scrolled);
+};
+window.addEventListener('scroll', onScroll); onScroll();
+
+// Mobile menu toggle
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const iconOpen = document.getElementById('icon-open');
+const iconClose = document.getElementById('icon-close');
+function setMenu(open) {
+  mobileMenu.classList.toggle('hidden', !open);
+  iconOpen.classList.toggle('hidden', open);
+  iconClose.classList.toggle('hidden', !open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+}
+menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+
+// ░░ Recherche repliée dans le header (façon Airbnb) ░░
+(function(){
+  const nav = document.getElementById('nav'), pill = document.getElementById('nav-pill'),
+        panel = document.getElementById('nav-search-panel'), slot = document.getElementById('nav-search-slot'),
+        form = document.getElementById('hero-search'), sentinel = document.getElementById('hs-sentinel');
+  if (!nav || !pill || !panel || !slot || !form || !sentinel) return;
+  const home = form.parentNode, homeNext = form.nextSibling;
+  const ph = document.createElement('div'); ph.style.display = 'none'; home.insertBefore(ph, form);
+  let collapsed = false, openPanelState = false;
+
+  const fmt = s => { if (!s) return null; const p = s.split('-'); return p[2] + '/' + p[1]; };
+  function pillSummary(){
+    const q = (form.elements.q.value || '').trim(), i = form.elements['in'].value,
+          o = form.elements['out'].value, g = form.elements.guests.value;
+    document.getElementById('np-q').textContent = q || 'Où allez-vous ?';
+    document.getElementById('np-dates').textContent = (i && o) ? (fmt(i) + ' au ' + fmt(o)) : 'Quand ?';
+    document.getElementById('np-g').textContent = g ? (g + ' voyageur' + (g > 1 ? 's' : '')) : 'Voyageurs';
+  }
+  form.addEventListener('input', pillSummary);
+  form.addEventListener('change', pillSummary);
+  pillSummary();
+
+  function openSearch(){
+    if (openPanelState) return; openPanelState = true;
+    ph.style.height = form.getBoundingClientRect().height + 'px'; ph.style.display = 'block';
+    form.classList.remove('mt-8');
+    slot.appendChild(form);
+    panel.classList.remove('hidden');
+    pill.setAttribute('aria-expanded', 'true');
+    const q = form.querySelector('[data-dest-input]'); if (q) q.focus({ preventScroll: true });
+    setTimeout(() => document.addEventListener('click', onDoc), 0);
+    document.addEventListener('keydown', onKey);
+  }
+  function closeSearch(){
+    if (!openPanelState) return; openPanelState = false;
+    panel.classList.add('hidden');
+    form.classList.add('mt-8');
+    home.insertBefore(form, homeNext);
+    ph.style.display = 'none';
+    pill.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onDoc);
+    document.removeEventListener('keydown', onKey);
+  }
+  function onDoc(e){
+    if (panel.contains(e.target) || pill.contains(e.target)) return;
+    if (e.target.closest && (e.target.closest('.dr-pop') || e.target.closest('.dp-pop'))) return;
+    closeSearch();
+  }
+  function onKey(e){ if (e.key === 'Escape') { closeSearch(); pill.focus(); } }
+  pill.addEventListener('click', () => openPanelState ? closeSearch() : openSearch());
+
+  function setCollapsed(c){
+    if (c === collapsed) return; collapsed = c;
+    nav.classList.toggle('nav-collapsed', c);
+    pill.classList.toggle('hidden', !c);
+    if (!c) closeSearch();
+  }
+  function checkScroll(){ setCollapsed(sentinel.getBoundingClientRect().top < 88); }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  window.addEventListener('resize', checkScroll, { passive: true });
+  checkScroll();
+})();
+
+// Simulateur de revenus — loyers médians réels par type (base : 119 logements Hostaway)
+let SIM_ADR = { 'Studio':45, 'T2':55, 'T3':75, 'T4':96, 'T5':112.6, 'T6+':129.2 };
+const SIM_ORDER = ['Studio','T2','T3','T4','T5','T6+'];
+const SIM_AMEN = [
+  { key:'jardin',   label:'Extérieur / Jardin', mult:1.07 },
+  { key:'terrasse', label:'Balcon / Terrasse',  mult:1.04 },
+  { key:'jacuzzi',  label:'Jacuzzi',            mult:1.12 },
+  { key:'piscine',  label:'Piscine',            mult:1.20 },
+  { key:'sauna',    label:'Sauna',              mult:1.06 },
+  { key:'vue',      label:'Vue exceptionnelle', mult:1.05 },
+];
+const OWNER_FACTOR = 0.72; // part propriétaire estimée après commissions plateforme + conciergerie
+let simType = 'T3';
+const simSel = new Set();
+const simTypesBox = document.getElementById('sim-types');
+const simAmenBox = document.getElementById('sim-amen');
+const simOcc = document.getElementById('sim-occ');
+const eur = n => (Math.round(n/10)*10).toLocaleString('fr-FR') + ' €';
+function simRenderTags(){
+  simTypesBox.innerHTML = SIM_ORDER.map(t => {
+    const on = t === simType;
+    return `<button type="button" data-t="${t}" class="rounded-full border px-5 py-2.5 font-600 cursor-pointer ${on ? 'bg-gold text-ink border-gold' : 'border-cream/20 text-cream/80 hover:border-gold/60 hover:text-cream'}">${t}</button>`;
+  }).join('');
+}
+function simRenderAmen(){
+  simAmenBox.innerHTML = SIM_AMEN.map(a => {
+    const on = simSel.has(a.key); const pct = '+' + Math.round((a.mult-1)*100) + '%';
+    return `<button type="button" data-a="${a.key}" class="inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-500 cursor-pointer ${on ? 'bg-gold text-ink border-gold' : 'border-cream/20 text-cream/75 hover:border-gold/60 hover:text-cream'}">${a.label}<span class="text-xs font-700 ${on ? 'text-ink/70' : 'text-gold/80'}">${pct}</span></button>`;
+  }).join('');
+}
+function simCalc(){
+  if (!simOcc) return;   // pas de simulateur sur l'accueil (déplacé sur proprietaires.html)
+  const adr = SIM_ADR[simType];
+  const occ = parseInt(simOcc.value, 10) / 100;
+  let mult = 1; SIM_AMEN.forEach(a => { if (simSel.has(a.key)) mult *= a.mult; });
+  const netM = adr * mult * 30.4 * occ * OWNER_FACTOR;
+  document.getElementById('sim-occ-val').textContent = simOcc.value + ' %';
+  document.getElementById('sim-month').textContent = eur(netM);
+  document.getElementById('sim-range').textContent = eur(netM * 0.88) + ' – ' + eur(netM * 1.12);
+  document.getElementById('sim-year').textContent = eur(netM * 12);
+  const boost = mult > 1 ? ` · atouts +${Math.round((mult-1)*100)} %` : '';
+  document.getElementById('sim-assump').textContent = `Base : loyer médian ${simType} ≈ ${Math.round(adr)} €/nuit${boost} · part propriétaire ~${Math.round(OWNER_FACTOR*100)} % des revenus.`;
+}
+if (simTypesBox && simOcc && simAmenBox) {
+  simTypesBox.addEventListener('click', e => { const b = e.target.closest('button[data-t]'); if(!b) return; simType = b.dataset.t; simRenderTags(); simCalc(); });
+  simAmenBox.addEventListener('click', e => { const b = e.target.closest('button[data-a]'); if(!b) return; const k = b.dataset.a; simSel.has(k) ? simSel.delete(k) : simSel.add(k); simRenderAmen(); simCalc(); });
+  simOcc.addEventListener('input', simCalc);
+  simRenderTags(); simRenderAmen(); simCalc();
+}
+
+
+// Données live — rafraîchies chaque jour depuis Hostaway (data.json généré par GitHub Action)
+const loadData = () => fetch('data.json').then(r => r.ok ? r.json() : null).then(d => {
+  if (!d) return;
+  const setTxt = (id, v) => { const e = document.getElementById(id); if (e && v != null) e.textContent = v; };
+  setTxt('stat-count', d.count); setTxt('sim-count', d.count); setTxt('cat-count', d.count);
+  setTxt('stat-communes', d.communes);
+  if (d.adr && Object.keys(d.adr).length) { SIM_ADR = Object.assign({}, SIM_ADR, d.adr); if (typeof simCalc === 'function') simCalc(); }
+  if (Array.isArray(d.featured) && d.featured.length) { listings = d.featured; renderGrid(); }
+  if (Array.isArray(d.reviews) && d.reviews.length) {
+    const tg = document.getElementById('testimonials-grid');
+    if (tg) {
+      const star = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>';
+      const esc = s => String(s).replace(/[&<>]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[c]));
+      // étoiles = vraie note de l'avis (rating /10 → /5) ; sans note, pas de rangée d'étoiles
+      const stars5 = r10 => Math.max(1, Math.min(5, Math.round(r10 / 2)));
+      tg.innerHTML = d.reviews.slice(0, 3).map(r => `
+      <figure>
+        ${r.rating ? `<div class="flex gap-1 text-gold mb-4" role="img" aria-label="${stars5(r.rating)} sur 5">${star.repeat(stars5(r.rating))}</div>` : ''}
+        <blockquote class="font-display text-2xl leading-snug text-cream/95">« ${esc(r.text)} »</blockquote>
+        <figcaption class="text-cream/60 text-sm mt-5">${esc(r.name)}${r.place ? ', ' + esc(r.place) : ''}</figcaption>
+      </figure>`).join('');
+    }
+  }
+}).catch(() => {});;
+if (document.readyState === 'complete') loadData(); else window.addEventListener('load', loadData);
+</script>
+<script defer src="/analytics.js"></script>
+<script defer src="/lang.js"></script>
+<script>document.querySelectorAll(".sh-annees").forEach(function(e){ e.textContent = Math.max(6, new Date().getFullYear() - 2020); });</script>
+</body>
+</html>

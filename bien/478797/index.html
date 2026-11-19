@@ -56,7 +56,7 @@
     </a>
     <nav class="flex items-center gap-4 sm:gap-5 text-sm font-600">
       <a href="tel:+33659327710" aria-label="Nous appeler au 06 59 32 77 10" class="hidden sm:inline-flex items-center gap-1.5 p-2 -m-1 text-bronze hover:text-ink"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-      <a href="/proprietaires.html" class="hidden sm:inline text-bronze hover:text-ink">Propriétaires</a>
+      <a href="/" class="hidden sm:inline text-bronze hover:text-ink">Propriétaires</a>
       <a href="/catalogue.html" class="inline-flex items-center gap-1.5 text-bronze hover:text-ink"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Nos locations</a>
     </nav>
   </div>
@@ -66,7 +66,7 @@
   <div id="loading" class="py-32 text-center text-muted">Chargement du logement…</div>
   <div id="notfound" class="hidden py-32 text-center">
     <p class="font-display text-3xl">Logement introuvable</p>
-    <a href="/index.html#locations" class="inline-block mt-4 rounded-full bg-ink text-cream px-6 py-3 font-600">Voir nos locations</a>
+    <a href="/sejourner.html#locations" class="inline-block mt-4 rounded-full bg-ink text-cream px-6 py-3 font-600">Voir nos locations</a>
   </div>
   <div id="content" class="hidden"></div>
   <noscript><div class="py-8"><h1 class="font-display text-4xl font-600">Les mimandes</h1><p class="text-muted mt-2">Chalon-sur-Saône, Bourgogne · 4 voyageurs</p><img src="/img/l/478797-c.webp" alt="Les mimandes" class="rounded-2xl mt-4 w-full max-w-2xl"><p class="mt-4 max-w-2xl leading-relaxed">Découvrez notre superbe T3 de 74 m² situé rue des Mimandes, proche du cœur de Chalon-sur-Saône. Idéal pour une famille ou des voyageurs d’affaires, ce…</p><p class="mt-4"><a class="underline" href="/catalogue.html">Voir toutes nos locations</a> · <a class="underline" href="tel:+33659327710">06 59 32 77 10</a></p></div></noscript>
@@ -132,13 +132,13 @@
       <nav aria-label="Propriétaires">
         <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Propriétaires</p>
         <ul class="space-y-2.5 text-sm">
-          <li><a href="/proprietaires.html" class="hover:text-gold">Devenir partenaire</a></li>
-          <li><a href="/proprietaires.html#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
-          <li><a href="/proprietaires.html#faq" class="hover:text-gold">Questions fréquentes</a></li>
+          <li><a href="/" class="hover:text-gold">Devenir partenaire</a></li>
+          <li><a href="/#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
+          <li><a href="/#faq" class="hover:text-gold">Questions fréquentes</a></li>
           <li><a href="/conseils-proprietaires.html" class="hover:text-gold">Conseils propriétaires</a></li>
           <li><a href="/conciergerie-chalon-sur-saone.html" class="hover:text-gold">Conciergerie Chalon-sur-Saône</a></li>
           <li><a href="/conciergerie-macon.html" class="hover:text-gold">Conciergerie Mâcon</a></li>
-          <li><a href="/proprietaires.html#secteurs" class="hover:text-gold">Tous nos secteurs</a></li>
+          <li><a href="/#secteurs" class="hover:text-gold">Tous nos secteurs</a></li>
         </ul>
       </nav>
       <div>
@@ -258,7 +258,7 @@ function render(p) {
       <span class="text-ink/90">${esc(a)}</span>
     </div>`).join('');
   c.innerHTML = `
-    <nav class="text-sm text-muted mb-4"><a href="/index.html#locations" class="hover:text-bronze">Locations</a> <span class="mx-1">›</span> ${esc(p.city)} <span class="mx-1">›</span> <span class="text-ink">${esc(p.name)}</span></nav>
+    <nav class="text-sm text-muted mb-4"><a href="/sejourner.html#locations" class="hover:text-bronze">Locations</a> <span class="mx-1">›</span> ${esc(p.city)} <span class="mx-1">›</span> <span class="text-ink">${esc(p.name)}</span></nav>
     <h1 class="font-display text-4xl sm:text-5xl font-600 leading-tight">${esc(p.name)}</h1>
     <p class="text-muted mt-2">${rating}${esc(p.city)}, Bourgogne · ${p.guests} voyageurs · ${beds} · ${p.bathrooms||1} salle${(p.bathrooms||1)>1?'s':''} de bain</p>
     <div class="mt-6">${gallery}</div>

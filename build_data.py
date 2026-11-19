@@ -348,7 +348,7 @@ def write_seo(records):
                     f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>")
     u("", "1.0", "daily")
     u("catalogue.html", "0.9", "daily")
-    u("proprietaires.html", "0.9", "weekly")
+    u("sejourner.html", "0.9", "daily")
     # Pages SEO propriétaires (générées par build_seo_pages.py)
     for slug in ("conciergerie-chalon-sur-saone.html",
                  "conciergerie-macon.html",

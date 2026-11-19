@@ -101,16 +101,16 @@ NAV = """<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all durat
     </a>
     <nav class="hidden lg:flex items-center gap-9 text-sm font-500 text-cream" id="nav-links">
       <a href="/" class="hover:text-bronze">Accueil</a>
-      <a href="/proprietaires.html" class="hover:text-bronze">Propriétaires</a>
+      <a href="/" class="hover:text-bronze">Propriétaires</a>
       <a href="/conseils-proprietaires.html" class="hover:text-bronze">Conseils</a>
       <a href="/catalogue.html" class="hover:text-bronze">Nos locations</a>
-      <a href="/proprietaires.html#estimation" class="hover:text-bronze">Simulateur</a>
+      <a href="/#estimation" class="hover:text-bronze">Simulateur</a>
     </nav>
     <div class="flex items-center gap-2">
       <a href="tel:__TEL__" class="hidden md:inline-flex items-center p-2 -m-1 text-cream hover:text-bronze" id="nav-phone" aria-label="Nous appeler au __TELH__">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
-      <a href="/proprietaires.html#contact" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-cream px-5 py-2.5 text-sm font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
+      <a href="/#contact" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-cream px-5 py-2.5 text-sm font-600 hover:bg-brown cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
         Demander une estimation
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -123,11 +123,11 @@ NAV = """<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all durat
   <div id="mobile-menu" class="hidden lg:hidden border-t border-ecru/60 bg-cream/95 backdrop-blur">
     <nav class="max-w-[1200px] mx-auto px-5 py-4 flex flex-col">
       <a href="/" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Accueil</a>
-      <a href="/proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
+      <a href="/" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Propriétaires</a>
       <a href="/conseils-proprietaires.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Conseils</a>
       <a href="/catalogue.html" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nos locations</a>
       <a href="tel:__TEL__" class="py-3 border-b border-ecru/40 font-500 text-ink hover:text-bronze">Nous appeler</a>
-      <a href="/proprietaires.html#contact" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-5 py-3 font-600 hover:bg-brown cursor-pointer">Demander une estimation</a>
+      <a href="/#contact" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-5 py-3 font-600 hover:bg-brown cursor-pointer">Demander une estimation</a>
     </nav>
   </div>
 </header>""".replace("__TEL__", TEL).replace("__TELH__", TEL_H)
@@ -149,8 +149,8 @@ FOOTER = """<footer class="bg-ink text-cream/70 mt-16">
       <nav aria-label="Propriétaires">
         <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Propriétaires</p>
         <ul class="space-y-2.5 text-sm">
-          <li><a href="/proprietaires.html" class="hover:text-gold">Devenir partenaire</a></li>
-          <li><a href="/proprietaires.html#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
+          <li><a href="/" class="hover:text-gold">Devenir partenaire</a></li>
+          <li><a href="/#estimation" class="hover:text-gold">Estimer mes revenus</a></li>
           <li><a href="/conseils-proprietaires.html" class="hover:text-gold">Conseils propriétaires</a></li>
           <li><a href="/catalogue.html" class="hover:text-gold">Nos locations</a></li>
         </ul>
@@ -294,8 +294,8 @@ CTA_BLOCK = """<section class="mt-16 rounded-3xl bg-sand/70 p-8 sm:p-10 text-cen
   <h2 class="font-display text-3xl mt-0 mb-3">Parlons de votre bien</h2>
   <p class="text-ink/75 max-w-[52ch] mx-auto">Estimation gratuite et sans engagement : nous étudions votre logement, son emplacement et son potentiel, puis nous vous envoyons une projection chiffrée.</p>
   <div class="mt-7 flex flex-wrap gap-3 justify-center">
-    <a href="/proprietaires.html#contact" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 font-600 hover:bg-brown">Demander mon estimation</a>
-    <a href="/proprietaires.html#estimation" class="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-600 hover:border-bronze hover:text-bronze">Utiliser le simulateur</a>
+    <a href="/#contact" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 font-600 hover:bg-brown">Demander mon estimation</a>
+    <a href="/#estimation" class="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-600 hover:border-bronze hover:text-bronze">Utiliser le simulateur</a>
   </div>
 </section>"""
 
@@ -346,7 +346,7 @@ def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=No
     <h1 class="font-display text-4xl sm:text-5xl leading-tight mb-6">{h1}</h1>
     <p class="text-cream/80 text-lg leading-relaxed max-w-[62ch]">{lede}</p>
     <div class="mt-9 flex flex-wrap gap-3">
-      <a href="/proprietaires.html#contact" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-6 py-3 font-600 hover:bg-cream">Demander une estimation gratuite</a>
+      <a href="/#contact" class="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-6 py-3 font-600 hover:bg-cream">Demander une estimation gratuite</a>
       <a href="tel:{TEL}" class="inline-flex items-center gap-2 rounded-full border border-cream/40 px-6 py-3 font-600 hover:border-gold hover:text-gold">{TEL_H}</a>
     </div>
   </div>
@@ -393,7 +393,7 @@ def revenue_table(block, place):
 <thead><tr><th>Type de bien</th><th>Prix médian / nuit</th><th>Revenus nets / mois à 55 % d'occupation</th><th>à 70 % d'occupation</th></tr></thead>
 <tbody>{rows}</tbody>
 </table>
-<p class="text-sm text-ink/60">Prix médians réellement pratiqués sur les logements que nous gérons.{star} Les montants indiqués sont ce qui vous revient <em>après</em> commissions de plateforme et frais de conciergerie, hors charges, taxe de séjour et fiscalité. Ce sont des ordres de grandeur : seule une étude de votre bien permet une projection fiable. <a href="/proprietaires.html#estimation">Affinez avec le simulateur</a>.</p>"""
+<p class="text-sm text-ink/60">Prix médians réellement pratiqués sur les logements que nous gérons.{star} Les montants indiqués sont ce qui vous revient <em>après</em> commissions de plateforme et frais de conciergerie, hors charges, taxe de séjour et fiscalité. Ce sont des ordres de grandeur : seule une étude de votre bien permet une projection fiable. <a href="/#estimation">Affinez avec le simulateur</a>.</p>"""
 
 
 SERVICES = """<h2>Ce que nous prenons en charge</h2>
@@ -471,7 +471,7 @@ def local_stats(cfg, place):
 
 
 SERVICES_SHORT = """<h2>Ce que nous prenons en charge</h2>
-<p>Annonce et photos, diffusion sur Airbnb et Booking, prix ajustés chaque jour, échanges avec les voyageurs, remise des clés, ménage et linge, petite maintenance, relevé mensuel : vous gardez votre bien, nous nous occupons de son exploitation. Le détail de chaque prestation et des formules est présenté sur la page <a href="/proprietaires.html">Propriétaires</a>.</p>"""
+<p>Annonce et photos, diffusion sur Airbnb et Booking, prix ajustés chaque jour, échanges avec les voyageurs, remise des clés, ménage et linge, petite maintenance, relevé mensuel : vous gardez votre bien, nous nous occupons de son exploitation. Le détail de chaque prestation et des formules est présenté sur la page <a href="/">Propriétaires</a>.</p>"""
 
 
 def city_form(place):
@@ -659,7 +659,7 @@ def city_faq(place, block):
          f"Sur notre parc, le prix médian constaté sur ce secteur s'établit autour de {med} la nuit, "
          "mais le revenu réel dépend surtout du taux d'occupation, donc de la qualité de l'annonce "
          "et du pilotage des prix. Le plus simple est d'utiliser notre "
-         '<a href="/proprietaires.html#estimation">simulateur de revenus</a> puis de nous '
+         '<a href="/#estimation">simulateur de revenus</a> puis de nous '
          "demander une estimation personnalisée : elle est gratuite et sans engagement."),
         ("Dois-je déclarer mon logement en mairie ?",
          "Oui. Toute location d'un meublé de tourisme doit faire l'objet d'une déclaration en mairie, "
@@ -726,7 +726,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         TRANSPARENCE if cfg["slug"] == "conciergerie-chalon-sur-saone.html" else "",
         f'<h2>Nos autres secteurs</h2><ul>{others}</ul>'
         f'<p>Vous cherchez plutôt à comprendre le fonctionnement général de notre offre ? '
-        f'Tout est détaillé sur la page <a href="/proprietaires.html">Propriétaires</a>, '
+        f'Tout est détaillé sur la page <a href="/">Propriétaires</a>, '
         f'et nos <a href="/conseils-proprietaires.html">conseils aux propriétaires</a> '
         f'abordent la fiscalité, le classement et la réglementation.</p>',
     ])
@@ -753,7 +753,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         "description": cfg["desc"],
     }
 
-    trail = [("Accueil", "/"), ("Propriétaires", "/proprietaires.html"),
+    trail = [("Accueil", "/"),
              (f"Conciergerie à {cfg['nav_label']}", "/" + cfg["slug"])]
 
     lede = (f"Nous gérons {n} logement{'s' if n > 1 else ''} sur ce secteur, de la mise en ligne "
@@ -962,7 +962,7 @@ def articles(stats):
 <p>Ce qu'elle coûte : une charge de travail réelle, une variabilité saisonnière, et une exposition à la réglementation locale. La conciergerie supprime la première, lisse la deuxième et prend en charge la troisième : c'est exactement sa raison d'être.</p>
 
 <h2>Obtenir un chiffre pour votre bien</h2>
-<p>Les ordres de grandeur ci-dessus vous situent, ils ne remplacent pas une étude. Notre <a href="/proprietaires.html#estimation">simulateur de revenus</a> vous donne une première projection en une minute, à partir du type de bien et d'une hypothèse d'occupation. Pour un chiffre sérieux, demandez-nous une estimation : nous regardons l'adresse exacte, l'étage, les extérieurs, l'équipement et la concurrence directe, et nous vous envoyons une projection écrite, gratuite et sans engagement.</p>""",
+<p>Les ordres de grandeur ci-dessus vous situent, ils ne remplacent pas une étude. Notre <a href="/#estimation">simulateur de revenus</a> vous donne une première projection en une minute, à partir du type de bien et d'une hypothèse d'occupation. Pour un chiffre sérieux, demandez-nous une estimation : nous regardons l'adresse exacte, l'étage, les extérieurs, l'équipement et la concurrence directe, et nous vous envoyons une projection écrite, gratuite et sans engagement.</p>""",
         "faq": [
             ("Quel taux d'occupation viser à Chalon-sur-Saône ?",
              "Sur l'année, un logement bien positionné et piloté quotidiennement se situe le plus souvent "
@@ -1072,7 +1072,7 @@ def build_article(art, nav_links):
     body = art["body"] + (
         f'<h2>À lire également</h2><ul>{others}</ul>'
         f'<p>Vous souhaitez déléguer la gestion complète de votre logement ? '
-        f'Découvrez <a href="/proprietaires.html">notre offre de conciergerie</a> '
+        f'Découvrez <a href="/">notre offre de conciergerie</a> '
         f'ou notre présence à <a href="/conciergerie-chalon-sur-saone.html">Chalon-sur-Saône</a>, '
         f'<a href="/conciergerie-macon.html">Mâcon</a>, '
         f'<a href="/conciergerie-tournus.html">Tournus</a>, '
