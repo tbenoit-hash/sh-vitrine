@@ -143,11 +143,11 @@ tailwind.config = { theme: { extend: {
     <div class="reveal max-w-2xl">
       <p class="text-bronze text-sm font-semibold tracking-luxe uppercase mb-4">Des résultats réels, pas des promesses</p>
       <h2 class="font-display text-4xl sm:text-5xl leading-tight">Nos logements à 15 km autour de Chalon-sur-Saône, sur les 12 derniers mois.</h2>
-      <p class="text-muted text-lg mt-5">Chiffres tirés de notre logiciel de gestion, sur les logements que nous gérons réellement dans un rayon de 15 km, de novembre 2025 à octobre 2026. Remplissage calculé sur les nuits ouvertes à la location.</p>
+      <p class="text-muted text-lg mt-5">Chiffres tirés de notre logiciel de gestion, sur les logements que nous gérons réellement dans un rayon de 15 km, de novembre 2025 à octobre 2026. Remplissage médian calculé sur nos 45 logements de Chalon-sur-Saône loués toute l'année, sur les nuits ouvertes à la location.</p>
     </div>
     <div class="reveal grid sm:grid-cols-3 gap-4 mt-12">
       <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">16 488</div><p class="text-muted mt-1">nuits louées en 12 mois</p></div>
-      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">72 %</div><p class="text-muted mt-1">de remplissage, ou plus, pour plus d'un logement sur trois</p></div>
+      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">72 %</div><p class="text-muted mt-1">de remplissage médian à Chalon-sur-Saône même</p></div>
       <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">14 000 €</div><p class="text-muted mt-1">de loyers par logement sur l'année (médiane, hors ménage)</p></div>
     </div>
     <p class="reveal text-muted text-sm mt-5">Détail par type de logement et par quartier sur notre page <a href="/conciergerie-chalon-sur-saone.html" class="text-bronze underline underline-offset-4">conciergerie à Chalon-sur-Saône</a>.</p>
@@ -199,9 +199,9 @@ tailwind.config = { theme: { extend: {
       <div>
         <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa">Type de logement</p>
         <div id="sim-types" class="flex flex-wrap gap-2 mt-3"></div>
-        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa mt-6">Taux de remplissage : <span id="sim-occ-val">60 %</span></p>
-        <input id="sim-occ" type="range" min="35" max="85" value="60" class="w-full mt-3 accent-[#8A5E1A]">
-        <p class="text-muted text-xs mt-2">60 % = le remplissage médian de nos logements à 15 km de Chalon sur 12 mois ; plus d'un sur trois dépasse 72 %.</p>
+        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa mt-6">Taux de remplissage : <span id="sim-occ-val">72 %</span></p>
+        <input id="sim-occ" type="range" min="35" max="85" value="72" class="w-full mt-3 accent-[#8A5E1A]">
+        <p class="text-muted text-xs mt-2">72 % = le remplissage médian de nos logements à Chalon-sur-Saône sur 12 mois (nuits ouvertes à la location).</p>
       </div>
       <div class="rounded-2xl bg-sand/60 p-6 flex flex-col justify-center">
         <p class="text-muted">Revenu net estimé pour vous, par mois</p>
