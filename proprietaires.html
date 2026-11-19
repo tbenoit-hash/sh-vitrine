@@ -183,7 +183,7 @@
       Confiez-nous votre bien,<br><span class="text-gold">on s'occupe de tout.</span>
     </h1>
     <p class="text-cream/85 text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
-      De la mise en ligne de l'annonce à l'accueil des voyageurs, votre logement est géré de A à Z par notre équipe locale. Plus de revenus, zéro contrainte.
+      De la mise en ligne de l'annonce à l'accueil des voyageurs, votre logement est géré de A à Z par notre équipe locale, présente à Chalon-sur-Saône depuis <span class="sh-annees">6</span> ans. Plus de revenus, zéro contrainte.
     </p>
     <div class="flex flex-wrap gap-4 mt-9">
       <a href="#estimation" class="cta-caps inline-flex items-center gap-2 rounded-full bg-gold text-ink px-7 py-3.5 font-600 hover:bg-[#f0c244] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cream">
@@ -205,8 +205,8 @@
       <div class="text-cream/70 text-sm mt-1.5 tracking-wide">logements gérés</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
-      <div class="font-display text-4xl sm:text-5xl font-600 text-gold" id="stat-communes">23</div>
-      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">communes</div>
+      <div class="font-display text-4xl sm:text-5xl font-600 text-gold"><span class="sh-annees">6</span> ans</div>
+      <div class="text-cream/70 text-sm mt-1.5 tracking-wide">à Chalon-sur-Saône</div>
     </div>
     <div class="reveal py-9 px-4 text-center">
       <div class="font-display text-4xl sm:text-5xl font-600 text-gold">8,8<span class="text-2xl text-cream/50">/10</span></div>
@@ -600,7 +600,7 @@
           <img src="/img/logo_gold.png" alt="" width="294" height="445" class="h-9 w-auto">
           <span class="font-display text-xl font-700 text-cream leading-none">SH&nbsp;Développement</span>
         </a>
-        <p class="text-sm leading-relaxed mt-4 max-w-xs">L'art de séjourner en Bourgogne : locations d'exception et conciergerie sur mesure en Saône-et-Loire.</p>
+        <p class="text-sm leading-relaxed mt-4 max-w-xs">L'art de séjourner en Bourgogne : conciergerie et locations de courte durée en Saône-et-Loire.</p>
       </div>
       <nav aria-label="Explorer">
         <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Explorer</p>
@@ -781,5 +781,6 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
 </script>
 <script defer src="/analytics.js"></script>
 <script defer src="/lang.js"></script>
+<script>document.querySelectorAll(".sh-annees").forEach(function(e){ e.textContent = Math.max(6, new Date().getFullYear() - 2020); });</script>
 </body>
 </html>

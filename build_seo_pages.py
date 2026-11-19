@@ -140,7 +140,7 @@ FOOTER = """<footer class="bg-ink text-cream/70 mt-16">
           <img src="/img/logo_gold.png" alt="" width="294" height="445" class="h-9 w-auto">
           <span class="font-display text-xl font-700 text-cream leading-none">SH&nbsp;Développement</span>
         </a>
-        <p class="text-sm leading-relaxed mt-4 max-w-xs">L'art de séjourner en Bourgogne : locations d'exception et conciergerie sur mesure en Saône-et-Loire.</p>
+        <p class="text-sm leading-relaxed mt-4 max-w-xs">L'art de séjourner en Bourgogne : conciergerie et locations de courte durée en Saône-et-Loire.</p>
       </div>
       <nav aria-label="Conciergerie par ville">
         <p class="text-cream/60 text-xs font-600 uppercase tracking-wide mb-4">Conciergerie</p>
