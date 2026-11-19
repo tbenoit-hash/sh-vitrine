@@ -1,0 +1,107 @@
+{
+ "maj": "2026-11-19",
+ "periode": [
+  "2025-11-01",
+  "2026-10-31"
+ ],
+ "logements": 99,
+ "nuits": 18527,
+ "part_proprietaire": 0.654,
+ "base": {
+  "Studio": 19.48,
+  "T2": 21.81,
+  "T3": 32.24,
+  "T4": 46.73,
+  "T5": 56.67,
+  "T6+": 66.62
+ },
+ "zones": [
+  {
+   "k": "chalon",
+   "label": "Chalon-sur-Saône",
+   "mult": 1.0,
+   "occ": 0.726,
+   "saison": "ville",
+   "n": 58
+  },
+  {
+   "k": "agglo",
+   "label": "Autour de Chalon (Grand Chalon)",
+   "mult": 0.947,
+   "occ": 0.507,
+   "saison": "ville",
+   "n": 11
+  },
+  {
+   "k": "cote",
+   "label": "Côte chalonnaise, Givry, Chagny",
+   "mult": 1.228,
+   "occ": 0.494,
+   "saison": "campagne",
+   "n": 13
+  },
+  {
+   "k": "macon",
+   "label": "Mâcon et Mâconnais",
+   "mult": 1.075,
+   "occ": 0.65,
+   "saison": "ville",
+   "n": 10
+  },
+  {
+   "k": "tournus",
+   "label": "Tournus",
+   "mult": 0.809,
+   "occ": 0.504,
+   "saison": "campagne",
+   "n": 3
+  },
+  {
+   "k": "autre",
+   "label": "Autre commune",
+   "mult": 0.945,
+   "occ": 0.487,
+   "saison": "campagne",
+   "n": 4
+  }
+ ],
+ "finition": {
+  "simple": 0.843,
+  "soigne": 1.024,
+  "haut": 1.205
+ },
+ "fourchette": [
+  0.784,
+  1.177
+ ],
+ "saison": {
+  "ville": [
+   0.909,
+   0.906,
+   0.918,
+   1.01,
+   1.065,
+   1.089,
+   1.202,
+   1.158,
+   0.987,
+   0.92,
+   0.918,
+   0.916
+  ],
+  "campagne": [
+   0.73,
+   0.595,
+   0.601,
+   0.922,
+   1.173,
+   1.148,
+   1.397,
+   1.487,
+   1.173,
+   0.955,
+   0.926,
+   0.893
+  ]
+ }
+}

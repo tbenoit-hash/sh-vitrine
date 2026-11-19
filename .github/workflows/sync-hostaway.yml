@@ -33,9 +33,21 @@ jobs:
       - name: Régénérer les pages SEO propriétaires
         run: python3 build_seo_pages.py
 
+      - name: Recalculer le simulateur de revenus (le 2 de chaque mois)
+        continue-on-error: true
+        env:
+          HOSTAWAY_ACCOUNT_ID: ${{ secrets.HOSTAWAY_ACCOUNT_ID }}
+          HOSTAWAY_API_KEY: ${{ secrets.HOSTAWAY_API_KEY }}
+        run: |
+          if [ "$(date +%d)" = "02" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python3 build_simulateur.py > /dev/null && echo "simulateur.json recalculé."
+          else
+            echo "Simulateur : recalcul seulement le 2 du mois."
+          fi
+
       - name: Commit si changement
         run: |
-          git add data.json catalogue.json cities.json dispo.json avail bien img/l robots.txt sitemap.xml index.html catalogue.html conciergerie-*.html conseils-proprietaires.html conseils
+          git add data.json simulateur.json catalogue.json cities.json dispo.json avail bien img/l robots.txt sitemap.xml index.html catalogue.html conciergerie-*.html conseils-proprietaires.html conseils
           if ! git diff --cached --quiet; then
             git config user.name "sh-sync-bot"
             git config user.email "bot@sh-developpement.fr"

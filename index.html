@@ -328,25 +328,91 @@
 
 <!-- ░░ SIMULATEUR ░░ -->
 <section id="estimation" class="py-24 sm:py-28 scroll-mt-24">
-  <div class="max-w-[1000px] mx-auto px-5 sm:px-8">
+  <div class="max-w-[1100px] mx-auto px-5 sm:px-8">
     <div class="reveal text-center max-w-2xl mx-auto">
       <p class="text-bronze text-sm font-semibold tracking-luxe uppercase mb-4">Simulateur</p>
       <h2 class="font-display text-4xl sm:text-5xl leading-tight">Combien votre logement peut-il vous rapporter ?</h2>
+      <p class="text-muted mt-4">Calculé sur les vrais résultats des logements que nous gérons, secteur par secteur et mois par mois.</p>
     </div>
-    <div class="reveal mt-10 rounded-3xl border border-ecru bg-white p-6 sm:p-10 grid md:grid-cols-2 gap-8">
-      <div>
-        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa">Type de logement</p>
-        <div id="sim-types" class="flex flex-wrap gap-2 mt-3"></div>
-        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa mt-6">Taux de remplissage : <span id="sim-occ-val">72 %</span></p>
-        <input id="sim-occ" type="range" aria-label="Taux de remplissage" min="35" max="85" value="72" class="w-full mt-3 accent-[#8A5E1A]">
-        <p class="text-muted text-xs mt-2">72 % = le remplissage médian de nos logements à Chalon-sur-Saône sur 12 mois (nuits ouvertes à la location).</p>
+    <div class="reveal mt-10 rounded-3xl border border-ecru bg-white p-6 sm:p-10 grid lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-10">
+      <div id="sim-choix">
+        <fieldset>
+          <legend class="text-[11px] font-bold uppercase tracking-wide text-cocoa">1. Où se trouve votre logement ?</legend>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="chalon" class="peer sr-only" checked><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Chalon-sur-Saône</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="agglo" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Autour de Chalon</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="cote" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Côte chalonnaise, Givry, Chagny</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="macon" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Mâcon et Mâconnais</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="tournus" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Tournus</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-zone" value="autre" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Autre commune</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="mt-7">
+          <legend class="text-[11px] font-bold uppercase tracking-wide text-cocoa">2. Type de logement</legend>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="Studio" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Studio</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="T2" class="peer sr-only" checked><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">T2</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="T3" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">T3</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="T4" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">T4</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="T5" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">T5</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-type" value="T6+" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Maison, T6 et +</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="mt-7">
+          <legend class="text-[11px] font-bold uppercase tracking-wide text-cocoa">3. Niveau de finition</legend>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <label class="cursor-pointer"><input type="radio" name="sim-fin" value="simple" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Simple</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-fin" value="soigne" class="peer sr-only" checked><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Soigné</span></label>
+            <label class="cursor-pointer"><input type="radio" name="sim-fin" value="haut" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-4 py-2 text-sm peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Haut de gamme</span></label>
+          </div>
+          <p id="sim-fin-aide" class="text-muted text-xs mt-2">Soigné : décoré, bien équipé, comme la plupart de nos logements.</p>
+        </fieldset>
+        <dl class="grid grid-cols-2 gap-3 mt-8">
+          <div class="rounded-2xl border border-ecru p-4"><dt class="text-muted text-xs">Remplissage estimé</dt><dd id="sim-occ" class="font-display text-2xl mt-1">…</dd></div>
+          <div class="rounded-2xl border border-ecru p-4"><dt class="text-muted text-xs">Prix moyen d'une nuit</dt><dd id="sim-adr" class="font-display text-2xl mt-1">…</dd></div>
+        </dl>
       </div>
-      <div class="rounded-2xl bg-sand/60 p-6 flex flex-col justify-center">
-        <p class="text-muted">Revenu net estimé pour vous, par mois</p>
-        <p id="sim-mois" class="font-display text-5xl text-ink mt-1">…</p>
-        <p class="text-muted mt-2">soit environ <b id="sim-an" class="text-ink">…</b> par an, après notre commission</p>
-        <a href="#contact" class="inline-flex justify-center items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 mt-6 font-semibold hover:bg-brown">Recevoir une estimation précise</a>
-        <p class="text-muted text-xs mt-3">Estimation indicative, à partir des prix médians réellement pratiqués sur notre parc.</p>
+      <div class="rounded-2xl bg-sand/60 p-6 sm:p-8 flex flex-col" aria-live="polite">
+        <p class="text-muted">Revenu net estimé pour vous, par an</p>
+        <p id="sim-an" class="font-display text-5xl sm:text-6xl text-ink mt-1">…</p>
+        <p class="text-muted mt-2">soit <b id="sim-mois" class="text-ink">…</b> par mois en moyenne</p>
+        <p id="sim-fourchette" class="text-sm text-ink/80 mt-1">…</p>
+        <div class="mt-6">
+          <div id="sim-barres" class="flex items-end gap-1.5 h-28" role="img" aria-label="Revenu net par mois"></div>
+          <div class="flex gap-1.5 mt-1.5 text-[11px] text-muted text-center" aria-hidden="true"><span class="flex-1">J</span><span class="flex-1">F</span><span class="flex-1">M</span><span class="flex-1">A</span><span class="flex-1">M</span><span class="flex-1">J</span><span class="flex-1">J</span><span class="flex-1">A</span><span class="flex-1">S</span><span class="flex-1">O</span><span class="flex-1">N</span><span class="flex-1">D</span></div>
+          <p id="sim-saison" class="text-xs text-muted mt-2">…</p>
+        </div>
+        <button type="button" id="sim-etude-btn" class="inline-flex justify-center items-center gap-2 rounded-full bg-ink text-cream px-6 py-3.5 mt-6 font-semibold hover:bg-brown" aria-expanded="false" aria-controls="etude-form">Recevoir mon étude détaillée, gratuite</button>
+        <form id="etude-form" action="https://formsubmit.co/contact@sh-developpement.fr" method="POST" class="hidden mt-5 rounded-2xl bg-white border border-ecru p-5">
+          <input type="hidden" name="_subject" value="Demande d'étude détaillée (simulateur du site)">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://www.sh-developpement.fr/merci.html">
+          <input type="hidden" name="_autoresponse" value="Bonjour, merci pour votre demande d'étude détaillée. Nous l'avons bien reçue et revenons vers vous sous 24 h. L'équipe SH Développement">
+          <input type="hidden" name="Simulation" id="etude-sim">
+          <input type="hidden" name="Atouts" id="etude-atouts">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <p class="text-sm font-semibold">Les atouts de votre logement</p>
+          <div id="etude-atouts-choix" class="flex flex-wrap gap-2 mt-2">
+            <label class="cursor-pointer"><input type="checkbox" value="Extérieur (jardin, terrasse, balcon)" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Jardin, terrasse</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Parking" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Parking</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Climatisation" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Climatisation</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Piscine ou spa" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Piscine, spa</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Vue ou cachet" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Vue, cachet</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Proche gare ou centre" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Proche gare, centre</span></label>
+            <label class="cursor-pointer"><input type="checkbox" value="Déjà en location courte durée" class="peer sr-only"><span class="inline-block rounded-full border border-ecru px-3 py-1.5 text-xs peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:ring-2 peer-focus-visible:ring-gold">Déjà loué sur Airbnb</span></label>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-3 mt-4">
+            <input name="Nom" required autocomplete="name" aria-label="Nom et prénom" placeholder="Nom et prénom *" class="rounded-xl border border-ecru bg-white px-4 py-3 text-sm">
+            <input name="Commune" autocomplete="address-level2" aria-label="Commune du logement" placeholder="Commune du logement" class="rounded-xl border border-ecru bg-white px-4 py-3 text-sm">
+            <input name="Téléphone" type="tel" autocomplete="tel" aria-label="Téléphone" placeholder="Téléphone" class="rounded-xl border border-ecru bg-white px-4 py-3 text-sm">
+            <input name="Email" type="email" autocomplete="email" aria-label="E-mail" placeholder="E-mail" class="rounded-xl border border-ecru bg-white px-4 py-3 text-sm">
+          </div>
+          <p id="etude-info" class="text-xs text-muted mt-2">Téléphone ou e-mail : l'un des deux suffit. Nous comparons votre logement aux plus proches de notre parc et vous répondons sous 24 h.</p>
+          <button class="w-full mt-4 rounded-full bg-gold text-ink py-3.5 font-semibold hover:brightness-95">Envoyer ma demande</button>
+          <p class="text-muted text-xs mt-3">Vos informations servent uniquement à vous recontacter. <a href="/confidentialite.html" class="underline">Confidentialité</a>.</p>
+        </form>
+        <p id="sim-source" class="text-muted text-xs mt-4">Estimation indicative pour un logement ouvert à la location toute l'année : net pour vous après les commissions des plateformes et notre commission de 20 % TTC, hors charges du logement et impôts.</p>
       </div>
     </div>
   </div>
@@ -520,16 +586,48 @@ fetch('/data.json').then(function(r){return r.json();}).then(function(d){
     a.innerHTML='<div class="aspect-[4/3] overflow-hidden"><img src="'+f.cover+'" loading="lazy" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div><div class="p-5"><p class="font-display text-xl leading-tight">'+f.name.replace(/</g,'')+'</p><p class="text-muted text-sm mt-1">'+f.city+(f.rating?' · ★ '+String(f.rating).replace('.',',')+'/10':'')+'</p></div>';
     g.appendChild(a);
   });
-  // simulateur : prix médians par type, part propriétaire 80 %, 30 jours
-  var adr=d.adr||{}, ordre=['Studio','T2','T3','T4','T5','T6+'], types=Object.keys(adr).sort(function(a,b){ return (ordre.indexOf(a)<0?99:ordre.indexOf(a))-(ordre.indexOf(b)<0?99:ordre.indexOf(b)); }), box=document.getElementById('sim-types'), occ=document.getElementById('sim-occ'), sel=types.indexOf('T2')>=0?'T2':types[0];
-  function maj(){ var p=adr[sel]||60, o=occ.value/100, net=p*30*o*0.8; document.getElementById('sim-occ-val').textContent=occ.value+' %';
-    document.getElementById('sim-mois').textContent=Math.round(net/10)*10+' €'; document.getElementById('sim-an').textContent=(Math.round(net*12/100)*100).toLocaleString('fr-FR')+' €'; }
-  types.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.textContent=t; b.className='rounded-full border border-ecru px-4 py-2 text-sm'; b.onclick=function(){ sel=t; [].forEach.call(box.children,function(x){ x.classList.remove('bg-ink','text-cream'); }); b.classList.add('bg-ink','text-cream'); maj(); }; if(t===sel) b.classList.add('bg-ink','text-cream'); box.appendChild(b); });
-  occ.oninput=maj; maj();
 }).catch(function(){});
 fetch('/cities.json').then(function(r){return r.json();}).then(function(d){ var c=(d.cities||[]).filter(function(x){return x.name==='Chalon-sur-Saône';})[0]; if(c) document.getElementById('chalon-count').textContent=c.n; }).catch(function(){});
+// simulateur : vrais résultats du parc (simulateur.json, généré par build_simulateur.py)
+(function(){
+  var S=null, MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'], J=[31,28,31,30,31,30,31,31,30,31,30,31];
+  var AIDE={simple:'Simple : fonctionnel, équipement de base.',soigne:'Soigné : décoré, bien équipé, comme la plupart de nos logements.',haut:'Haut de gamme : cachet, belles prestations, extérieur ou vue.'};
+  var FIN={simple:'simple',soigne:'soigné',haut:'haut de gamme'};
+  function $(i){ return document.getElementById(i); }
+  function val(n){ var e=document.querySelector('input[name="'+n+'"]:checked'); return e?e.value:null; }
+  function e10(x){ return (Math.round(x/10)*10).toLocaleString('fr-FR')+' €'; }
+  function e100(x){ return (Math.round(x/100)*100).toLocaleString('fr-FR')+' €'; }
+  function moisAn(s){ var d=new Date(s+'T12:00:00'); return MOIS[d.getMonth()]+' '+d.getFullYear(); }
+  function maj(){
+    if(!S) return;
+    var z=S.zones.filter(function(x){ return x.k===val('sim-zone'); })[0]||S.zones[0], t=val('sim-type')||'T2', f=val('sim-fin')||'soigne';
+    var rpn=S.base[t]*z.mult*S.finition[f], sa=S.saison[z.saison];
+    var mois=sa.map(function(c,i){ return rpn*c*J[i]; }), an=mois.reduce(function(a,b){ return a+b; },0);
+    $('sim-an').textContent=e100(an); $('sim-mois').textContent=e10(an/12);
+    $('sim-fourchette').textContent='Selon le logement : de '+e100(an*S.fourchette[0])+' à '+e100(an*S.fourchette[1])+' par an.';
+    $('sim-occ').textContent=Math.floor(z.occ*100)+' %';
+    $('sim-adr').textContent=Math.round(rpn/(z.occ*S.part_proprietaire))+' €';
+    var mx=Math.max.apply(null,mois), mn=Math.min.apply(null,mois), b=$('sim-barres'); b.innerHTML='';
+    mois.forEach(function(v,i){ var d=document.createElement('div'); d.className='flex-1 rounded-t-md '+(v===mx?'bg-gold':'bg-gold/40'); d.style.height=Math.max(6,Math.round(v/mx*100))+'%'; d.title=MOIS[i]+' : '+e10(v); b.appendChild(d); });
+    var txt='Revenu net par mois : '+e10(mx)+' en '+MOIS[mois.indexOf(mx)]+', '+e10(mn)+' en '+MOIS[mois.indexOf(mn)]+'.';
+    $('sim-saison').textContent=txt; b.setAttribute('aria-label',txt);
+    $('sim-fin-aide').textContent=AIDE[f];
+    var resume=z.label+', '+t+', '+FIN[f]+' : environ '+e100(an)+' net par an, soit '+e10(an/12)+' par mois';
+    $('etude-sim').value=resume; var es=$('estim-sim'); if(es) es.value='Simulateur : '+resume;
+  }
+  $('sim-choix').addEventListener('change',maj);
+  fetch('/simulateur.json').then(function(r){ return r.json(); }).then(function(d){
+    S=d;
+    $('sim-source').textContent='Estimation indicative, calculée sur '+d.logements+' logements que nous gérons et '+d.nuits.toLocaleString('fr-FR')+' nuits louées de '+moisAn(d.periode[0])+' à '+moisAn(d.periode[1])+', pour un logement ouvert à la location toute l’année. Net pour vous après les commissions des plateformes et notre commission de 20 % TTC, hors charges du logement et impôts.';
+    maj();
+  }).catch(function(){});
+  $('sim-etude-btn').addEventListener('click',function(){ var f=$('etude-form'); f.classList.remove('hidden'); this.setAttribute('aria-expanded','true'); this.classList.add('hidden'); f.querySelector('input[name="Nom"]').focus(); });
+  $('etude-form').addEventListener('submit',function(e){ var f=e.target;
+    $('etude-atouts').value=[].map.call(f.querySelectorAll('#etude-atouts-choix input:checked'),function(x){ return x.value; }).join(', ')||'Non précisé';
+    if(!f['Téléphone'].value.trim() && !f.Email.value.trim()){ e.preventDefault(); var i=$('etude-info'); i.style.color='#b91c1c'; i.textContent='Indiquez un téléphone ou un e-mail pour que nous puissions vous répondre.'; } });
+})();
 // formulaire : téléphone ou e-mail
-document.querySelector('#contact form').addEventListener('submit',function(e){ var f=e.target; try{ var es=document.getElementById('estim-sim'); if(es) es.value='Simulateur : '+document.getElementById('sim-occ-val').textContent+' de remplissage, ~'+document.getElementById('sim-mois').textContent+' net/mois'; }catch(_){} if(!f['Téléphone'].value.trim() && !f.Email.value.trim()){ e.preventDefault(); var i=document.getElementById('info-contact'); i.style.color='#b91c1c'; i.textContent='Indiquez un téléphone ou un e-mail pour que nous puissions vous répondre.'; } });
+document.querySelector('#contact form').addEventListener('submit',function(e){ var f=e.target; if(!f['Téléphone'].value.trim() && !f.Email.value.trim()){ e.preventDefault(); var i=document.getElementById('info-contact'); i.style.color='#b91c1c'; i.textContent='Indiquez un téléphone ou un e-mail pour que nous puissions vous répondre.'; } });
 </script>
 <script defer src="/analytics.js"></script>
 <script defer src="/lang.js"></script>
