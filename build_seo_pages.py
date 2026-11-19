@@ -284,9 +284,9 @@ def breadcrumb_html(trail):
     parts = []
     for i, (n, u) in enumerate(trail):
         last = i == len(trail) - 1
-        parts.append(f'<span class="text-ink/50">{n}</span>' if last
+        parts.append(f'<span class="text-ink/70">{n}</span>' if last
                      else f'<a href="{u}" class="hover:text-bronze">{n}</a>')
-    return ('<nav aria-label="Fil d\'Ariane" class="text-[13px] text-ink/60 mb-6 flex flex-wrap gap-2">'
+    return ('<nav aria-label="Fil d\'Ariane" class="text-[13px] text-ink/70 mb-6 flex flex-wrap gap-2">'
             + '<span aria-hidden="true">›</span>'.join(parts) + "</nav>")
 
 
@@ -393,7 +393,7 @@ def revenue_table(block, place):
 <thead><tr><th>Type de bien</th><th>Prix médian / nuit</th><th>Revenus nets / mois à 55 % d'occupation</th><th>à 70 % d'occupation</th></tr></thead>
 <tbody>{rows}</tbody>
 </table>
-<p class="text-sm text-ink/60">Prix médians réellement pratiqués sur les logements que nous gérons.{star} Les montants indiqués sont ce qui vous revient <em>après</em> commissions de plateforme et frais de conciergerie, hors charges, taxe de séjour et fiscalité. Ce sont des ordres de grandeur : seule une étude de votre bien permet une projection fiable. <a href="/#estimation">Affinez avec le simulateur</a>.</p>"""
+<p class="text-sm text-ink/70">Prix médians réellement pratiqués sur les logements que nous gérons.{star} Les montants indiqués sont ce qui vous revient <em>après</em> commissions de plateforme et frais de conciergerie, hors charges, taxe de séjour et fiscalité. Ce sont des ordres de grandeur : seule une étude de votre bien permet une projection fiable. <a href="/#estimation">Affinez avec le simulateur</a>.</p>"""
 
 
 SERVICES = """<h2>Ce que nous prenons en charge</h2>
@@ -466,7 +466,7 @@ def local_stats(cfg, place):
 <tr><td>Mois le plus calme</td><td>{s["worst"]}</td></tr>
 </tbody>
 </table>
-<p class="text-sm text-ink/60">Montants avant commission et avant charges. Les résultats passés ne garantissent pas les résultats à venir : ils dépendent du logement, de son emplacement et de son équipement.</p>
+<p class="text-sm text-ink/70">Montants avant commission et avant charges. Les résultats passés ne garantissent pas les résultats à venir : ils dépendent du logement, de son emplacement et de son équipement.</p>
 <p>{a} {b}</p>"""
 
 
@@ -819,7 +819,7 @@ def articles(stats):
 <p>La conformité fait partie de notre travail. Concrètement, nous vérifions que chaque logement confié dispose d'un numéro d'enregistrement valide et affiché sur toutes les plateformes, nous vous accompagnons dans la déclaration en mairie si elle n'a pas été faite, nous collectons et reversons la taxe de séjour, et nous vous alertons lorsqu'une évolution réglementaire concerne votre commune.</p>
 <p>Nous vous orientons également vers le classement lorsque le calcul fiscal le justifie, ce qui est le cas de la grande majorité des logements dépassant 15 000 € de recettes annuelles.</p>
 
-<p class="text-sm text-ink/60 mt-10">Cet article présente l'état du droit à la date de sa publication, à titre d'information générale. Il ne constitue pas un conseil juridique ou fiscal personnalisé : la situation de chaque propriétaire doit être validée avec un professionnel du chiffre et auprès de la mairie concernée.</p>""",
+<p class="text-sm text-ink/70 mt-10">Cet article présente l'état du droit à la date de sa publication, à titre d'information générale. Il ne constitue pas un conseil juridique ou fiscal personnalisé : la situation de chaque propriétaire doit être validée avec un professionnel du chiffre et auprès de la mairie concernée.</p>""",
         "faq": [
             ("Mon logement est en Saône-et-Loire, suis-je vraiment concerné ?",
              "Oui pour l'enregistrement, le DPE et la fiscalité, qui sont des règles nationales. "
@@ -892,7 +892,7 @@ def articles(stats):
 <h2>Notre rôle</h2>
 <p>Nous accompagnons les propriétaires qui nous confient leur bien sur l'ensemble de la démarche : audit préalable du logement au regard de la grille, liste chiffrée des points à corriger par ordre de priorité, mise en relation avec un organisme de contrôle, et préparation du logement avant la visite. Dans la plupart des cas, la mise à niveau représente quelques centaines d'euros, amortis dès la première année.</p>
 
-<p class="text-sm text-ink/60 mt-10">Les montants et taux cités le sont à titre indicatif et à la date de publication. Faites valider votre situation par votre expert-comptable : l'arbitrage micro-BIC / régime réel dépend de votre tranche d'imposition, de vos charges et de votre patrimoine.</p>""",
+<p class="text-sm text-ink/70 mt-10">Les montants et taux cités le sont à titre indicatif et à la date de publication. Faites valider votre situation par votre expert-comptable : l'arbitrage micro-BIC / régime réel dépend de votre tranche d'imposition, de vos charges et de votre patrimoine.</p>""",
         "faq": [
             ("Le classement est-il obligatoire ?",
              "Non, il reste entièrement facultatif. Mais il conditionne l'abattement de 50 % au micro-BIC "
