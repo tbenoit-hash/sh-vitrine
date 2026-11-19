@@ -418,7 +418,7 @@ def why_local(place):
 
 
 TRANSPARENCE = """<h2>Notre engagement de transparence</h2>
-<p>Deux formules au choix : Standard à 20 % TTC ou Premium à 25 % TTC du montant des locations, avec la création de l'annonce et les consommables inclus en Premium. Le détail des frais figure au contrat. Le ménage est facturé au voyageur, pas à vous. Vous recevez chaque mois un relevé détaillé qui reprend séjour par séjour le montant encaissé, les frais et ce qui vous est reversé.</p>
+<p>Une seule formule : 20 % TTC du montant des locations, soit 16,67 % HT. La mise en place de votre logement et les éventuels services complémentaires vous sont présentés lors de notre rendez-vous, et tout est détaillé au contrat. Le ménage est facturé au voyageur, pas à vous. Vous recevez chaque mois un relevé détaillé qui reprend séjour par séjour le montant encaissé, les frais et ce qui vous est reversé.</p>
 <p>Le contrat reste résiliable à tout moment avec un mois de préavis et sans indemnité : si le partenariat ne vous convient pas, vous récupérez votre bien et vos annonces. Nous préférons garder des propriétaires qui restent parce qu'ils gagnent plus, pas parce qu'ils sont bloqués par un contrat.</p>"""
 
 
@@ -651,10 +651,10 @@ def city_faq(place, block):
             if n else "Nous intervenons sur ce secteur")
     return [
         (f"Combien coûte une conciergerie à {place} ?",
-         "Deux formules au choix : Standard à 20 % TTC ou Premium à 25 % TTC du montant des locations, avec la création de l'annonce et les consommables inclus en Premium. Le détail des frais figure au contrat. "
-         "Le ménage est facturé au voyageur et non au propriétaire. Le taux exact dépend "
-         "du niveau de service retenu et du volume : il vous est communiqué chiffré, "
-         "par écrit, lors de l'estimation gratuite."),
+         "Une seule formule : 20 % TTC du montant des locations, soit 16,67 % HT. "
+         "Le ménage est facturé au voyageur et non au propriétaire. La mise en place de "
+         "votre logement et les éventuels services complémentaires vous sont présentés "
+         "lors de notre rendez-vous, et tout est détaillé au contrat avant la signature."),
         (f"Combien mon logement peut-il rapporter à {place} ?",
          f"Sur notre parc, le prix médian constaté sur ce secteur s'établit autour de {med} la nuit, "
          "mais le revenu réel dépend surtout du taux d'occupation, donc de la qualité de l'annonce "
@@ -1029,7 +1029,7 @@ def articles(stats):
 
 <h2>Nos réponses, en une ligne chacune</h2>
 <ul>
-<li><strong>Commission</strong> : 20 % TTC en formule Standard ou 25 % TTC en formule Premium, sur le montant des locations. Les autres frais sont détaillés au contrat avant la signature.</li>
+<li><strong>Commission</strong> : 20 % TTC sur le montant des locations, soit 16,67 % HT. Les autres frais sont présentés en rendez-vous et détaillés au contrat avant la signature.</li>
 <li><strong>Ménage</strong> : facturé au voyageur, réalisé par nos équipes salariées ou partenaires, contrôlé après chaque intervention.</li>
 <li><strong>Engagement</strong> : pas de durée bloquante ; vous récupérez votre bien et vos annonces si vous partez.</li>
 <li><strong>Diffusion</strong> : Airbnb, Booking.com, Abritel et notre propre site de réservation directe, sans commission de plateforme.</li>
