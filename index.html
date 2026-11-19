@@ -6,6 +6,7 @@
 <title>Conciergerie Airbnb à Chalon-sur-Saône et en Saône-et-Loire | SH Développement</title>
 <meta name="description" content="Conciergerie Airbnb clé en main à Chalon-sur-Saône, Mâcon, Tournus, Beaune et en Côte chalonnaise : annonce, prix pilotés, ménage hôtelier, voyageurs. Estimation gratuite.">
 <meta name="robots" content="index, follow">
+<link rel="preload" as="image" href="/img/l/465401-0.webp" imagesrcset="/img/l/465401-c480.webp 480w, /img/l/465401-c.webp 800w, /img/l/465401-0.webp 1200w" imagesizes="100vw" fetchpriority="high">
 <link rel="canonical" href="https://www.sh-developpement.fr/">
 <link rel="icon" href="img/logo_gold.png">
 
@@ -16,12 +17,12 @@
 <meta property="og:title" content="Conciergerie Airbnb à Chalon-sur-Saône et en Saône-et-Loire | SH Développement">
 <meta property="og:description" content="Conciergerie Airbnb clé en main à Chalon-sur-Saône, Mâcon, Tournus, Beaune et en Côte chalonnaise : annonce, prix pilotés, ménage hôtelier, voyageurs. Estimation gratuite.">
 <meta property="og:url" content="https://www.sh-developpement.fr/">
-<meta property="og:image" content="https://www.sh-developpement.fr/img/hero.jpg">
+<meta property="og:image" content="https://www.sh-developpement.fr/img/og-accueil.jpg">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Conciergerie Airbnb à Chalon-sur-Saône et en Saône-et-Loire | SH Développement">
 <meta name="twitter:description" content="Conciergerie Airbnb clé en main à Chalon-sur-Saône, Mâcon, Tournus, Beaune et en Côte chalonnaise : annonce, prix pilotés, ménage hôtelier, voyageurs. Estimation gratuite.">
-<meta name="twitter:image" content="https://www.sh-developpement.fr/img/hero.jpg">
+<meta name="twitter:image" content="https://www.sh-developpement.fr/img/og-accueil.jpg">
 <!-- JSON-LD -->
 <script type="application/ld+json">
 {
@@ -181,7 +182,14 @@
 
 <!-- ░░ HERO PROPRIÉTAIRES ░░ -->
 <section id="top" class="relative min-h-dvh flex items-end overflow-hidden">
-  <img src="img/hero.jpg" alt="L'agence SH Développement à Chalon-sur-Saône" class="absolute inset-0 w-full h-full object-cover object-center">
+  <div id="hero-slides" class="absolute inset-0" aria-roledescription="carrousel" aria-label="Quelques logements que nous gérons">
+    <img src="/img/l/465401-0.webp" srcset="/img/l/465401-c480.webp 480w, /img/l/465401-c.webp 800w, /img/l/465401-0.webp 1200w" sizes="100vw" alt="Le château de Dracy et son parc, à Dracy-le-Fort, géré par SH Développement" fetchpriority="high" data-nom="Château de Dracy" data-ville="Dracy-le-Fort" data-id="465401" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:1;transition:opacity 1.4s ease">
+    <img data-src="/img/l/465754-0.webp" alt="La piscine intérieure des Vagastines, à Saint-Germain-du-Plain" data-nom="Les Vagastines, piscine intérieure" data-ville="Saint-Germain-du-Plain" data-id="465754" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:0;transition:opacity 1.4s ease">
+    <img data-src="/img/l/470947-0.webp" alt="Vue sur la Saône depuis le Paradis Bord de Saône, à Chalon-sur-Saône" data-nom="Paradis Bord de Saône" data-ville="Chalon-sur-Saône" data-id="470947" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:0;transition:opacity 1.4s ease">
+    <img data-src="/img/l/465755-0.webp" alt="La longère des Vagastines et son jardin, à Saint-Germain-du-Plain" data-nom="Les Vagastines" data-ville="Saint-Germain-du-Plain" data-id="465755" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:0;transition:opacity 1.4s ease">
+    <img data-src="/img/l/470939-0.webp" alt="Le séjour lumineux du Verger Secret, à Saint-Loup-de-Varennes" data-nom="Le Verger Secret" data-ville="Saint-Loup-de-Varennes" data-id="470939" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:0;transition:opacity 1.4s ease">
+    <img data-src="/img/l/570611-0.webp" alt="Le séjour en pierre et poutres du Chai des Écluses, à Saint-Léger-sur-Dheune" data-nom="Le Chai des Écluses" data-ville="Saint-Léger-sur-Dheune" data-id="570611" class="hero-slide absolute inset-0 w-full h-full object-cover object-center" style="opacity:0;transition:opacity 1.4s ease">
+  </div>
   <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/30"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/20 to-transparent"></div>
   <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pb-20 pt-32 w-full">
@@ -202,6 +210,15 @@
       </a>
     </div>
   </div>
+    <a id="hero-legende" href="/bien/465401/" class="hidden sm:flex absolute right-5 sm:right-8 bottom-8 z-10 items-center gap-4 rounded-2xl bg-ink/55 backdrop-blur px-5 py-3.5 text-cream hover:bg-ink/70" style="transition:background .3s">
+      <span class="text-right">
+        <span class="block text-[11px] tracking-luxe uppercase text-gold">Un logement que nous gérons</span>
+        <span id="hero-nom" class="block font-display text-xl leading-tight">Château de Dracy</span>
+        <span id="hero-ville" class="block text-cream/70 text-sm">Dracy-le-Fort</span>
+      </span>
+      <span class="w-9 h-9 rounded-full bg-cream text-ink flex items-center justify-center shrink-0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+    </a>
+    <div id="hero-points" class="absolute left-1/2 -translate-x-1/2 bottom-4 z-10 flex gap-2" aria-hidden="true"></div>
 </section>
 
 <!-- ░░ TRUST BAR ░░ -->
@@ -832,6 +849,27 @@ fetch('data.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then
 </script>
 <script defer src="/analytics.js"></script>
 <script defer src="/lang.js"></script>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('#hero-slides .hero-slide')); if(slides.length<2) return;
+  var nom=document.getElementById('hero-nom'), ville=document.getElementById('hero-ville'), lien=document.getElementById('hero-legende'), pts=document.getElementById('hero-points');
+  var cur=0, timer=null;
+  slides.forEach(function(s,k){ var b=document.createElement('span'); b.style.cssText='width:'+(k?8:22)+'px;height:4px;border-radius:4px;background:#FBF8F3;opacity:'+(k?.45:.95)+';transition:all .4s'; pts.appendChild(b); });
+  function charge(s){ if(s.dataset.src && !s.getAttribute('src')){ s.setAttribute('src', s.dataset.src); } }
+  function montre(n){
+    var s=slides[n]; charge(s); charge(slides[(n+1)%slides.length]);
+    slides.forEach(function(x,k){ x.style.opacity = k===n ? '1' : '0'; });
+    [].forEach.call(pts.children,function(b,k){ b.style.width = k===n ? '22px' : '8px'; b.style.opacity = k===n ? '.95' : '.45'; });
+    if(nom) nom.textContent=s.dataset.nom; if(ville) ville.textContent=s.dataset.ville; if(lien) lien.href='/bien/'+s.dataset.id+'/';
+    cur=n;
+  }
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function demarre(){ if(!timer) timer=setInterval(function(){ montre((cur+1)%slides.length); }, 6000); }
+  function arrete(){ clearInterval(timer); timer=null; }
+  window.addEventListener('load', function(){ charge(slides[1]); demarre(); });
+  document.addEventListener('visibilitychange', function(){ document.hidden ? arrete() : demarre(); });
+})();
+</script>
 <script>fetch("/cities.json").then(function(r){return r.json();}).then(function(d){var c=(d.cities||[]).filter(function(x){return x.name==="Chalon-sur-Saône";})[0]; var e=document.getElementById("chalon-count"); if(c&&e&&c.n) e.textContent=c.n;}).catch(function(){});</script>
 <script>document.querySelectorAll(".sh-annees").forEach(function(e){ e.textContent = Math.max(6, new Date().getFullYear() - 2020); });</script>
 </body>
