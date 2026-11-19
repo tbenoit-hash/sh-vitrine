@@ -110,23 +110,11 @@ tailwind.config = { theme: { extend: {
       <p class="text-muted text-lg mt-5 leading-relaxed">La location saisonnière rapporte plus que la location classique, à condition d'y passer des heures chaque semaine. Notre métier : vous rendre ces heures, sans perdre en revenus.</p>
       <a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-7 py-3.5 mt-8 font-semibold hover:bg-brown">En parler autour d'un café →</a>
     </div>
-    <div class="space-y-4">
-      <div class="reveal grid sm:grid-cols-2 gap-px rounded-3xl overflow-hidden border border-ecru bg-ecru">
-        <div class="bg-white p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-red-700/80">Sans conciergerie</p><p class="font-display text-2xl mt-2 line-through decoration-red-700/50 text-ink/60">Répondre aux messages à 23 h</p><p class="text-muted text-sm mt-2">Questions, arrivées tardives, imprévus : le téléphone ne s'arrête jamais.</p></div>
-        <div class="bg-sand/60 p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-bronze">Avec SH Développement</p><p class="font-display text-2xl mt-2">Une équipe qui répond 7j/7</p><p class="text-muted text-sm mt-2">Nous gérons les échanges avec les voyageurs, les arrivées autonomes et les urgences, tous les jours.</p></div>
-      </div>
-      <div class="reveal grid sm:grid-cols-2 gap-px rounded-3xl overflow-hidden border border-ecru bg-ecru">
-        <div class="bg-white p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-red-700/80">Sans conciergerie</p><p class="font-display text-2xl mt-2 line-through decoration-red-700/50 text-ink/60">Courir entre deux ménages</p><p class="text-muted text-sm mt-2">Le linge à laver, les consommables à racheter, le ménage à caler entre deux séjours.</p></div>
-        <div class="bg-sand/60 p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-bronze">Avec SH Développement</p><p class="font-display text-2xl mt-2">Ménage soigné, linge lavé chez nous</p><p class="text-muted text-sm mt-2">Le linge passe par notre propre blanchisserie, à Chalon : pas de prestataire extérieur, des frais de ménage plus bas.</p></div>
-      </div>
-      <div class="reveal grid sm:grid-cols-2 gap-px rounded-3xl overflow-hidden border border-ecru bg-ecru">
-        <div class="bg-white p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-red-700/80">Sans conciergerie</p><p class="font-display text-2xl mt-2 line-through decoration-red-700/50 text-ink/60">Un prix fixe toute l'année</p><p class="text-muted text-sm mt-2">Trop cher en basse saison, pas assez en été : des nuits perdues dans les deux cas.</p></div>
-        <div class="bg-sand/60 p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-bronze">Avec SH Développement</p><p class="font-display text-2xl mt-2">Des prix suivis et ajustés</p><p class="text-muted text-sm mt-2">Selon la saison, les week-ends et les événements chalonnais, sur Airbnb, Booking et notre site direct.</p></div>
-      </div>
-      <div class="reveal grid sm:grid-cols-2 gap-px rounded-3xl overflow-hidden border border-ecru bg-ecru">
-        <div class="bg-white p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-red-700/80">Sans conciergerie</p><p class="font-display text-2xl mt-2 line-through decoration-red-700/50 text-ink/60">Chercher un artisan en urgence</p><p class="text-muted text-sm mt-2">Une fuite, une serrure, une ampoule : à chaque fois, un déplacement facturé.</p></div>
-        <div class="bg-sand/60 p-6"><p class="text-[11px] font-semibold tracking-luxe uppercase text-bronze">Avec SH Développement</p><p class="font-display text-2xl mt-2">Un employé dédié à la maintenance</p><p class="text-muted text-sm mt-2">Petites réparations et contrôles qualité faits en interne : moins d'artisans à faire venir, moins de frais pour vous.</p></div>
-      </div>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="reveal rounded-3xl border border-ecru bg-sand/60 p-6"><p class="font-display text-2xl mt-2">Une équipe qui répond 7j/7</p><p class="text-muted text-sm mt-2">Nous gérons les échanges avec les voyageurs, les arrivées autonomes et les urgences, tous les jours.</p></div>
+      <div class="reveal rounded-3xl border border-ecru bg-sand/60 p-6"><p class="font-display text-2xl mt-2">Ménage soigné, linge lavé chez nous</p><p class="text-muted text-sm mt-2">Le linge passe par notre propre blanchisserie, à Chalon : pas de prestataire extérieur, des frais de ménage plus bas.</p></div>
+      <div class="reveal rounded-3xl border border-ecru bg-sand/60 p-6"><p class="font-display text-2xl mt-2">Des prix suivis et ajustés</p><p class="text-muted text-sm mt-2">Selon la saison, les week-ends et les événements chalonnais, sur Airbnb, Booking et notre site direct.</p></div>
+      <div class="reveal rounded-3xl border border-ecru bg-sand/60 p-6"><p class="font-display text-2xl mt-2">Un employé dédié à la maintenance</p><p class="text-muted text-sm mt-2">Petites réparations et contrôles qualité faits en interne : moins d'artisans à faire venir, moins de frais pour vous.</p></div>
     </div>
   </div>
 </section>
@@ -154,14 +142,13 @@ tailwind.config = { theme: { extend: {
   <div class="max-w-[1240px] mx-auto px-5 sm:px-8">
     <div class="reveal max-w-2xl">
       <p class="text-bronze text-sm font-semibold tracking-luxe uppercase mb-4">Des résultats réels, pas des promesses</p>
-      <h2 class="font-display text-4xl sm:text-5xl leading-tight">Nos logements de Chalon-sur-Saône sur les 12 derniers mois.</h2>
-      <p class="text-muted text-lg mt-5">Chiffres tirés de notre logiciel de gestion, sur les logements que nous gérons réellement.</p>
+      <h2 class="font-display text-4xl sm:text-5xl leading-tight">Nos logements à 15 km autour de Chalon-sur-Saône, sur les 12 derniers mois.</h2>
+      <p class="text-muted text-lg mt-5">Chiffres tirés de notre logiciel de gestion, sur les logements que nous gérons réellement dans un rayon de 15 km, de novembre 2025 à octobre 2026. Remplissage calculé sur les nuits ouvertes à la location.</p>
     </div>
-    <div class="reveal grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
-      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">46</div><p class="text-muted mt-1">logements suivis à Chalon</p></div>
-      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">9 571</div><p class="text-muted mt-1">nuits louées</p></div>
-      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">61 %</div><p class="text-muted mt-1">de remplissage médian</p></div>
-      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">12 100 €</div><p class="text-muted mt-1">encaissés par logement (médiane, hors ménage)</p></div>
+    <div class="reveal grid sm:grid-cols-3 gap-4 mt-12">
+      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">16 488</div><p class="text-muted mt-1">nuits louées en 12 mois</p></div>
+      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">72 %</div><p class="text-muted mt-1">de remplissage, ou plus, pour plus d'un logement sur trois</p></div>
+      <div class="rounded-3xl border border-ecru bg-white p-6"><div class="font-display text-5xl text-bronze">14 000 €</div><p class="text-muted mt-1">de loyers par logement sur l'année (médiane, hors ménage)</p></div>
     </div>
     <p class="reveal text-muted text-sm mt-5">Détail par type de logement et par quartier sur notre page <a href="/conciergerie-chalon-sur-saone.html" class="text-bronze underline underline-offset-4">conciergerie à Chalon-sur-Saône</a>.</p>
   </div>
@@ -212,9 +199,9 @@ tailwind.config = { theme: { extend: {
       <div>
         <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa">Type de logement</p>
         <div id="sim-types" class="flex flex-wrap gap-2 mt-3"></div>
-        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa mt-6">Taux de remplissage : <span id="sim-occ-val">61 %</span></p>
-        <input id="sim-occ" type="range" min="35" max="85" value="61" class="w-full mt-3 accent-[#8A5E1A]">
-        <p class="text-muted text-xs mt-2">61 % = le remplissage médian de nos logements à Chalon sur 12 mois.</p>
+        <p class="text-[11px] font-bold uppercase tracking-wide text-cocoa mt-6">Taux de remplissage : <span id="sim-occ-val">60 %</span></p>
+        <input id="sim-occ" type="range" min="35" max="85" value="60" class="w-full mt-3 accent-[#8A5E1A]">
+        <p class="text-muted text-xs mt-2">60 % = le remplissage médian de nos logements à 15 km de Chalon sur 12 mois ; plus d'un sur trois dépasse 72 %.</p>
       </div>
       <div class="rounded-2xl bg-sand/60 p-6 flex flex-col justify-center">
         <p class="text-muted">Revenu net estimé pour vous, par mois</p>
