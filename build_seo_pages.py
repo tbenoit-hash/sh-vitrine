@@ -403,7 +403,7 @@ SERVICES = """<h2>Ce que nous prenons en charge</h2>
 <li><strong>Tarification dynamique</strong> : les prix sont recalculés chaque jour selon la saison, le taux de remplissage, les événements locaux et la concurrence. C'est le levier qui fait le plus de différence sur une année complète.</li>
 <li><strong>Gestion des réservations et des voyageurs</strong> : réponse aux demandes, sélection des profils, envoi des instructions, assistance pendant le séjour, 7 jours sur 7.</li>
 <li><strong>Accueil et remise des clés</strong> : boîte à clés sécurisée, accueil en personne quand c'est pertinent, état des lieux photographique entre chaque séjour.</li>
-<li><strong>Ménage et blanchisserie hôtelière</strong> : équipes formées, linge de lit et de toilette fournis et lavé en pressing professionnel, contrôle qualité après chaque intervention.</li>
+<li><strong>Ménage et blanchisserie</strong> : équipes formées, linge de lit et de toilette fournis, lavés et repassés dans notre propre blanchisserie à Chalon-sur-Saône. Pas de prestataire extérieur à payer, donc des frais de ménage plus bas pour vos voyageurs et un logement plus compétitif. Contrôle qualité après chaque intervention.</li>
 <li><strong>Maintenance et qualité</strong> : un employé SH, en interne, assure les petits travaux, le suivi des incidents avec photos et les contrôles qualité. Moins d'artisans extérieurs à faire venir, donc moins de frais pour vous. Le remplacement des consommables est aussi pris en charge.</li>
 <li><strong>Administratif</strong> : collecte et reversement de la taxe de séjour, relevé mensuel détaillé, facturation, accompagnement sur la déclaration en mairie et le numéro d'enregistrement.</li>
 </ul>"""
