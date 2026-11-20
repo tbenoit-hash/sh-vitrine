@@ -23,9 +23,17 @@ TEL_H = "06 59 32 77 10"
 MAIL = "contact@sh-developpement.fr"
 TODAY = date.today().isoformat()
 
-# Part réellement reversée au propriétaire dans le simulateur du site
-# (net plateforme, après commission de conciergerie).
-OWNER_SHARE = 0.72
+# Part réellement reversée au propriétaire (net des plateformes, après notre commission de 20 % TTC) :
+# la même que le simulateur de l'accueil, mesurée sur 12 mois de réservations (simulateur.json,
+# généré par build_simulateur.py). 0,654 au 19/11/2026 si le fichier est absent.
+def _part_proprietaire():
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "simulateur.json"), encoding="utf-8") as f:
+            v = float(json.load(f)["part_proprietaire"])
+        return v if 0.5 < v < 0.8 else 0.654
+    except Exception:
+        return 0.654
+OWNER_SHARE = _part_proprietaire()
 NIGHTS_MONTH = 30.4
 
 
