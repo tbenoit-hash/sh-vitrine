@@ -350,8 +350,8 @@ def write_seo(records):
     u("catalogue.html", "0.9", "daily")
     u("sejourner.html", "0.9", "daily")
     # Pages SEO propriétaires (générées par build_seo_pages.py)
-    for slug in ("conciergerie-chalon-sur-saone.html",
-                 "conciergerie-macon.html",
+    # conciergerie-chalon-sur-saone.html : canonique = accueil, hors plan du site (20/11/2026)
+    for slug in ("conciergerie-macon.html",
                  "conciergerie-tournus.html",
                  "conciergerie-beaune-chagny.html",
                  "conciergerie-givry-cote-chalonnaise.html",

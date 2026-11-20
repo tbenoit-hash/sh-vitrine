@@ -26,6 +26,13 @@
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', GA_ID, { anonymize_ip: true });
+    // Demande d'estimation envoyée (formulaires propriétaires -> /merci.html) :
+    // événement GA4 « generate_lead », importé comme conversion dans Google Ads.
+    if (/\/merci\.html$/.test(location.pathname)) {
+      var src = 'site';
+      try { if (sessionStorage.getItem('sh_ads') === '1') src = 'google_ads'; } catch (e) {}
+      window.gtag('event', 'generate_lead', { lead_source: src });
+    }
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;

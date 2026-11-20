@@ -310,6 +310,10 @@ CTA_BLOCK = """<section class="mt-16 rounded-3xl bg-sand/70 p-8 sm:p-10 text-cen
 
 def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=None, image="/img/hero.jpg", form_html=None):
     url = f"{SITE}/{slug}"
+    # La page d'accueil est LA page « conciergerie Chalon-sur-Saône » : la page
+    # ville de Chalon reste lisible (détail par quartier) mais pointe vers l'accueil
+    # pour Google, afin que les deux pages ne se fassent plus concurrence (20/11/2026).
+    canonical = f"{SITE}/" if slug == CHALON_SLUG else url
     lds = [ld_breadcrumb(trail)]
     if faq:
         lds.append(ld_faq(faq))
@@ -327,14 +331,14 @@ def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=No
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="canonical" href="{url}">
+<link rel="canonical" href="{canonical}">
 <link rel="icon" href="/img/logo_gold.png">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="SH Développement">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:url" content="{url}">
+<meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{SITE}{image}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(title)}">
@@ -375,7 +379,7 @@ def page(slug, title, desc, hero_kicker, h1, lede, body, faq, trail, extra_ld=No
 </html>
 """
     city_links = "".join(
-        f'<li><a href="/{c["slug"]}" class="hover:text-gold">Conciergerie {c["nav_label"]}</a></li>'
+        f'<li><a href="{city_href(c["slug"])}" class="hover:text-gold">Conciergerie {c["nav_label"]}</a></li>'
         for c in CITY_PAGES
     )
     return html.replace("__CITYLINKS__", city_links)
@@ -506,12 +510,20 @@ def city_form(place):
     <label class="flex items-start gap-2 text-sm text-ink/80 mt-5"><input type="checkbox" name="consentement" required class="mt-1"> <span>J'accepte que mes données soient utilisées par SH Développement pour traiter ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze">politique de confidentialité</a>.</span></label>
     <button type="submit" class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-brown cursor-pointer">Recevoir mon estimation gratuite</button>
   </form>
-  <script>(function(){{try{{if(!/[?&](gclid|gbraid|wbraid)=/.test(location.search))return;var f=document.querySelector('#estimation-ville form');f.elements['Source'].value='Google Ads';f.elements['_subject'].value+=' [Google Ads]';}}catch(e){{}}}})();</script>
+  <script>(function(){{try{{if(!/[?&](gclid|gbraid|wbraid)=/.test(location.search))return;try{{sessionStorage.setItem('sh_ads','1')}}catch(e){{}}var f=document.querySelector('#estimation-ville form');f.elements['Source'].value='Google Ads';f.elements['_subject'].value+=' [Google Ads]';}}catch(e){{}}}})();</script>
 </section>"""
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Pages villes
 # ─────────────────────────────────────────────────────────────────────────────
+CHALON_SLUG = "conciergerie-chalon-sur-saone.html"
+
+
+def city_href(slug):
+    """Lien interne vers une page ville ; Chalon-sur-Saône = la page d'accueil."""
+    return "/" if slug == CHALON_SLUG else f"/{slug}"
+
+
 CITY_PAGES = [
     {
         "slug": "conciergerie-chalon-sur-saone.html",
@@ -713,7 +725,7 @@ def build_city_page(cfg, by_city, global_med, nav_links):
         )
 
     others = "".join(
-        f'<li><a href="/{c["slug"]}">Conciergerie à {c["nav_label"]}</a></li>'
+        f'<li><a href="{city_href(c["slug"])}">Conciergerie à {c["nav_label"]}</a></li>'
         for c in CITY_PAGES if c["slug"] != cfg["slug"]
     )
 
@@ -1081,7 +1093,7 @@ def build_article(art, nav_links):
         f'<h2>À lire également</h2><ul>{others}</ul>'
         f'<p>Vous souhaitez déléguer la gestion complète de votre logement ? '
         f'Découvrez <a href="/">notre offre de conciergerie</a> '
-        f'ou notre présence à <a href="/conciergerie-chalon-sur-saone.html">Chalon-sur-Saône</a>, '
+        f'ou notre présence à <a href="/">Chalon-sur-Saône</a>, '
         f'<a href="/conciergerie-macon.html">Mâcon</a>, '
         f'<a href="/conciergerie-tournus.html">Tournus</a>, '
         f'<a href="/conciergerie-beaune-chagny.html">Beaune et Chagny</a> et '
@@ -1122,7 +1134,7 @@ def build_hub(arts):
         for a in arts
     )
     villes = "".join(
-        f'<li><a href="/{c["slug"]}">Conciergerie à {c["nav_label"]}</a></li>' for c in CITY_PAGES
+        f'<li><a href="{city_href(c["slug"])}">Conciergerie à {c["nav_label"]}</a></li>' for c in CITY_PAGES
     )
     body = f"""<p>Louer un logement en courte durée, ce n'est pas seulement publier une annonce. C'est arbitrer entre des régimes fiscaux, respecter une réglementation qui bouge vite, fixer des prix qui suivent la demande et tenir un logement à un niveau de qualité que les voyageurs notent publiquement. Nous rassemblons ici ce que nous expliquons quotidiennement aux propriétaires qui nous confient leur bien.</p>
 <div class="grid gap-6 sm:grid-cols-2 mt-10 not-prose">{cards}</div>
