@@ -1,10 +1,10 @@
 {
-  "count": 130,
-  "communes": 24,
+  "count": 131,
+  "communes": 25,
   "adr": {
     "Studio": 49,
     "T3": 80,
-    "T2": 53,
+    "T2": 54,
     "T4": 124,
     "T6+": 157.2,
     "T5": 140.6
@@ -587,7 +587,7 @@
           "r": 0
         }
       ],
-      "reviewCount": 70,
+      "reviewCount": 71,
       "reviews": [
         {
           "name": "Voyageur",
@@ -732,5 +732,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-11-23"
+  "updated": "2026-11-24"
 }
