@@ -99,7 +99,7 @@
         <label class="block"><span class="block text-[11px] font-700 uppercase tracking-wide text-bronze mb-1">Message (facultatif)</span><textarea name="Message" rows="2" class="w-full rounded-xl border border-ecru px-3 py-2.5 text-base bg-white/60 outline-none focus:border-bronze"></textarea></label>
         <label class="flex items-start gap-2 text-xs text-ink/80"><input type="checkbox" name="Consentement" required class="mt-0.5"> <span>J'accepte les <a href="/cgv.html" class="underline text-bronze" target="_blank" rel="noopener">conditions générales de vente</a> et d'être recontacté(e) au sujet de ma demande, conformément à la <a href="/confidentialite.html" class="underline text-bronze" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
         <button type="submit" id="bkm-submit" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Envoyer ma demande</button>
-        <p id="bkm-note" class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).</p>
+        <p id="bkm-note" class="text-muted text-[11px] text-center leading-relaxed">Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement).</p>
       </form>
     </div>
     <div id="bkm-success" class="hidden text-center py-6">
@@ -171,7 +171,16 @@ const PAY_API = "";
 // Le voyageur choisit ses dates ICI, puis règle sur le moteur avec les mêmes dates (?start=&end=).
 // VIDE = retour au flux « demande de réservation » par mail.
 const BOOKING_ENGINE = "https://136426-1.thebookingportal.com/fr/listings/";
-window.__PREL = {"id": 626947, "name": "Gite Saint Nicolas\" meublé de tourisme classé 3*", "city": "Fontaines", "guests": 6, "bedrooms": 2, "bathrooms": 1, "price": 85, "rating": 0, "cover": "/img/l/626947-c.webp", "photos": ["/img/l/626947-0.webp", "/img/l/626947-1.webp", "/img/l/626947-2.webp", "/img/l/626947-3.webp", "/img/l/626947-4.webp", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-8t8wWlRG606UlIruGBryX3SrkP4aDyNSFBmETsqGDlA-6af5b896db6e6", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-3CcBXxQezIC7LXTbrGMKF7oeprW2Gn--oSd--mwKepTSg-6af5b8963a9e3", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-dArIHivqTsPIT7h4nIA7wYx7q7gb4tZ7dsXaMSpbAiw-6af5b895857e3", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-NFHpEU70OTvaXGZt1akPDD8pfdjsKTa1ZrD4hg2i-Mg-6af5b894b3eee", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-mgODqwH80toNfs6mUmDdMbEcWPKHYxAJsNNwJqSLsas-6af5b893dc26f", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-Apz33IvooRH--EjVpzk-Nl4Bc2rUOLMGASuRUjD8rJYw-6af5b89336d7b", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-nCF28EAM9x77wNOKTMHWpHAIoUb27qRMGXgAjxsaXQQ-6af5b89252e27"], "description": "Découvrez et profitez de notre charmante maison de 70m2, un nid douillet chaleureux situé Rue Saint-Nicolas. Idéal pour travailleurs, familles, ou vacanciers, il allie authenticité et confort. Profitez d’un séjour dans un espace confortable à Fontaines. Cette bâtisse est parfaite pour une expérience paisible et excentré des zones urbaines en Bourgogne. Bienvenue chez vous, pour un séjour reposant à Fontaines ! Plongez dans l'accueil chaleureux de notre demeure alliant charme rustique et commodités modernes, cet espace est conçu pour ceux qui apprécient la beauté ainsi que la tranquilité Salon dès l'Entrée : - Spacieux et Accueillant : Le cœur de notre maison dispose d'une table à manger pour six personnes, d'un canapé-lit polyvalent et d'une chaise rustique nichée dans un coin cosy à côté de la télévision. - Installation TV Unique : Une télévision repose sur une table basse, ingénieusement disposée dans un compartiment qui évoque la chaleur d'une cheminée traditionnelle. - Sol en Tomette : L'ensemble de l'espace, y compris cette pièce accueillante, est revêtu de tomettes classiques, ajoutant de la chaleur et du caractère. Cuisine à Droite : - Entièrement Équipée : Une cuisine complète avec une table haute pour dîner et tous les essentiels nécessaires à l'exploration culinaire.", "amenities": ["Wifi", "Cuisine équipée", "Parking gratuit", "Lave-vaisselle", "Télévision", "Chauffage", "Jardin", "Entrée privée", "Linge & nécessaire", "Fer à repasser", "Micro-ondes", "Four", "Réfrigérateur", "Séjours longue durée"], "lat": 46.8476991, "lng": 4.7553939, "mapx": 75.72, "mapy": 67.87, "type": "T3", "cleaningFee": 55, "deposit": 0, "markup": 1.0, "amk": 1.0, "minNights": 1, "currency": "EUR", "instant": 1, "fees": [{"t": "Frais CB", "a": 2.62, "p": 1, "r": 1}, {"t": "Frais caution", "a": 2.0, "p": 0, "r": 1}, {"t": "Frais de plateforme", "a": 5.0, "p": 1, "r": 0}]};
+/* Conditions d'annulation = celles du moteur Hostaway (décision Terence 26/11/2026).
+   Clé = cancellationPolicyId de l'annonce (exporté par build_data.py dans "cxl") :
+   [jours avant l'arrivée pour 100 %, jours avant l'arrivée pour 50 %]. */
+const CXL = { 530460: [14, 7], 530461: [30, 14] };
+function cxlText(p){
+  const c = CXL[p && p.cxl];
+  return c ? `annulation gratuite jusqu'à ${c[0]} jours avant l'arrivée, remboursement à 50 % jusqu'à ${c[1]} jours avant`
+           : `conditions d'annulation indiquées avant le paiement`;
+}
+window.__PREL = {"id": 626947, "name": "Gite Saint Nicolas\" meublé de tourisme classé 3*", "city": "Fontaines", "guests": 6, "bedrooms": 2, "bathrooms": 1, "price": 85, "rating": 0, "cover": "/img/l/626947-c.webp", "photos": ["/img/l/626947-0.webp", "/img/l/626947-1.webp", "/img/l/626947-2.webp", "/img/l/626947-3.webp", "/img/l/626947-4.webp", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-8t8wWlRG606UlIruGBryX3SrkP4aDyNSFBmETsqGDlA-6af5b896db6e6", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-3CcBXxQezIC7LXTbrGMKF7oeprW2Gn--oSd--mwKepTSg-6af5b8963a9e3", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-dArIHivqTsPIT7h4nIA7wYx7q7gb4tZ7dsXaMSpbAiw-6af5b895857e3", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-NFHpEU70OTvaXGZt1akPDD8pfdjsKTa1ZrD4hg2i-Mg-6af5b894b3eee", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-mgODqwH80toNfs6mUmDdMbEcWPKHYxAJsNNwJqSLsas-6af5b893dc26f", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-Apz33IvooRH--EjVpzk-Nl4Bc2rUOLMGASuRUjD8rJYw-6af5b89336d7b", "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/136426-626947-nCF28EAM9x77wNOKTMHWpHAIoUb27qRMGXgAjxsaXQQ-6af5b89252e27"], "description": "Découvrez et profitez de notre charmante maison de 70m2, un nid douillet chaleureux situé Rue Saint-Nicolas. Idéal pour travailleurs, familles, ou vacanciers, il allie authenticité et confort. Profitez d’un séjour dans un espace confortable à Fontaines. Cette bâtisse est parfaite pour une expérience paisible et excentré des zones urbaines en Bourgogne. Bienvenue chez vous, pour un séjour reposant à Fontaines ! Plongez dans l'accueil chaleureux de notre demeure alliant charme rustique et commodités modernes, cet espace est conçu pour ceux qui apprécient la beauté ainsi que la tranquilité Salon dès l'Entrée : - Spacieux et Accueillant : Le cœur de notre maison dispose d'une table à manger pour six personnes, d'un canapé-lit polyvalent et d'une chaise rustique nichée dans un coin cosy à côté de la télévision. - Installation TV Unique : Une télévision repose sur une table basse, ingénieusement disposée dans un compartiment qui évoque la chaleur d'une cheminée traditionnelle. - Sol en Tomette : L'ensemble de l'espace, y compris cette pièce accueillante, est revêtu de tomettes classiques, ajoutant de la chaleur et du caractère. Cuisine à Droite : - Entièrement Équipée : Une cuisine complète avec une table haute pour dîner et tous les essentiels nécessaires à l'exploration culinaire.", "amenities": ["Wifi", "Cuisine équipée", "Parking gratuit", "Lave-vaisselle", "Télévision", "Chauffage", "Jardin", "Entrée privée", "Linge & nécessaire", "Fer à repasser", "Micro-ondes", "Four", "Réfrigérateur", "Séjours longue durée"], "lat": 46.8476991, "lng": 4.7553939, "mapx": 75.72, "mapy": 67.87, "type": "T3", "cleaningFee": 55, "deposit": 0, "markup": 1.0, "amk": 1.0, "minNights": 1, "currency": "EUR", "instant": 1, "fees": [{"t": "Frais CB", "a": 2.62, "p": 1, "r": 1}, {"t": "Frais caution", "a": 2.0, "p": 0, "r": 1}, {"t": "Frais de plateforme", "a": 5.0, "p": 1, "r": 0}], "cxl": 530460};
 const id = 626947;
 // Ancienne URL logement.html?id=… : on redirige vers la page statique /bien/{id}/
 // (meilleur SEO, données complètes inlinées). Les pages /bien/ ont __PREL, pas de query.
@@ -239,7 +248,26 @@ function upgradeBooking(p){
   const trig = document.getElementById('bk-dates');
   trig.classList.remove('hidden');
   bindCalTrigger(p);
+  prefillStay(p);
   quote(p);
+}
+
+/* Dates reçues du catalogue (?in=&out=) : pré-sélectionnées si le séjour est réservable,
+   pour afficher tout de suite le total sans ressaisie. Sinon, message et calendrier sur le bon mois. */
+function prefillStay(p){
+  const qs = new URLSearchParams(location.search);
+  const a = qs.get('in'), b = qs.get('out'), re = /^\d{4}-\d{2}-\d{2}$/;
+  if (!a || !b || !re.test(a) || !re.test(b) || b <= a) return;
+  const days = (AVAIL && AVAIL.days) || {}, ms = (AVAIL && AVAIL.minStay) || {};
+  const need = Math.max((AVAIL && AVAIL.minNights) || 1, ms[a] || 0, 1);
+  const fmt = s => parseD(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+  const ad = parseD(a);
+  calMonth = new Date(ad.getFullYear(), ad.getMonth(), 1);
+  if (!rangeOk(days, a, b)) { flash(`Ce logement n'est pas libre du ${fmt(a)} au ${fmt(b)} : choisissez d'autres dates.`); return; }
+  if (nights(a, b) < need) { flash(`Séjour minimum ici : ${need} nuit${need>1?'s':''}.`); return; }
+  selIn = a; selOut = b;
+  document.getElementById('bk-in').textContent = fmt(a);
+  document.getElementById('bk-out').textContent = fmt(b);
 }
 
 function render(p) {
@@ -308,7 +336,7 @@ function render(p) {
           <label class="block rounded-xl border border-ecru px-3 py-2 mb-3"><span class="block text-[10px] font-700 uppercase tracking-wide text-bronze">Voyageurs</span><input id="bk-guests" type="number" min="1" max="${p.guests}" value="2" class="w-full bg-transparent text-base text-ink outline-none"></label>
           <div id="bk-quote" class="hidden text-sm text-ink/85 mb-3 space-y-1.5"></div>
           <button id="bk-go" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink py-3.5 font-700 hover:bg-bronze hover:text-cream cursor-pointer">Vérifier les dates</button>
-          <p id="bk-note" class="text-muted text-xs text-center mt-3">Paiement sécurisé par carte, confirmation immédiate · <a href="/cgv.html" class="underline underline-offset-2 hover:text-bronze">tarif non remboursable</a>.</p>
+          <p id="bk-note" class="text-muted text-xs text-center mt-3">Paiement sécurisé par carte, confirmation immédiate · <a href="/cgv.html" class="underline underline-offset-2 hover:text-bronze">${cxlText(p)}</a>.</p>
           <p class="text-center mt-2"><button type="button" id="bk-ask" class="text-xs text-bronze underline underline-offset-2 hover:text-ink cursor-pointer">Une question avant de réserver ? Écrivez-nous</button></p>
           <div id="bk-msg" aria-live="polite" class="hidden text-center text-sm text-bronze mt-2"></div>
         </div>
@@ -384,6 +412,8 @@ function initBooking(p){
     calMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
     bindCalTrigger(p);
   }
+  const gq = parseInt(new URLSearchParams(location.search).get('guests'), 10);
+  if (gq > 0 && gq <= (p.guests || 99)) document.getElementById('bk-guests').value = gq;
   document.getElementById('bk-guests').addEventListener('input', () => quote(p));
   document.getElementById('bk-go').addEventListener('click', () => checkout(p));
   const ask = document.getElementById('bk-ask'); if (ask) ask.addEventListener('click', () => openBooking(p));
@@ -531,7 +561,17 @@ function checkout(p){
 function payOnEngine(){ return !PAY_API && !!BOOKING_ENGINE; }
 function goEngine(p){
   const g = document.getElementById('bk-guests').value || 2;
-  window.location.href = BOOKING_ENGINE + p.id + '?start=' + selIn + '&end=' + selOut + '&numberOfGuests=' + g;
+  const url = BOOKING_ENGINE + p.id + '?start=' + selIn + '&end=' + selOut + '&numberOfGuests=' + g;
+  // Mesure (Google Analytics, seulement si les cookies sont acceptés) : départ vers le paiement
+  let gone = false; const go = () => { if (!gone) { gone = true; window.location.href = url; } };
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'begin_checkout', {
+      currency: 'EUR', value: (LASTQ && LASTQ.total) ? Math.round(LASTQ.total * 100) / 100 : undefined,
+      items: [{ item_id: String(p.id), item_name: p.name, item_category: p.city || '', quantity: (LASTQ && LASTQ.nights) || 1 }],
+      transport_type: 'beacon', event_callback: go
+    });
+    setTimeout(go, 600);
+  } else go();
 }
 
 /* Réservation 100 % sur NOTRE site : modale + envoi à l'équipe. AUCUNE redirection externe. */
@@ -552,8 +592,8 @@ function openBooking(p){
   const m = document.getElementById('bkmodal'); m.classList.remove('hidden'); m.classList.add('flex');
   document.getElementById('bkm-submit').textContent = PAY_API ? 'Payer et réserver' : 'Envoyer ma demande';
   document.getElementById('bkm-note').textContent = PAY_API
-    ? 'Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · tarif non remboursable (voir CGV).'
-    : 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).';
+    ? `Paiement sécurisé par carte (3-D Secure) · réservation confirmée immédiatement · ${cxlText(p)} (voir CGV).`
+    : `Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement) · ${cxlText(p)} (voir CGV).`;
   document.getElementById('bkm-form').onsubmit = e => submitBooking(e, p, guests);
 }
 function closeBooking(){ const m = document.getElementById('bkmodal'); m.classList.add('hidden'); m.classList.remove('flex'); }
@@ -608,7 +648,7 @@ async function payNow(p, guests, f, btn){
     // de laisser le voyageur devant un cul-de-sac.
     if (j && (j.error === 'owner_not_onboarded' || j.error === 'stripe_error')) {
       const note = document.getElementById('bkm-note');
-      if (note) note.textContent = 'Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement). Tarif non remboursable (voir CGV).';
+      if (note) note.textContent = `Réponse sous 24 h · notre équipe confirme votre séjour et vous transmet le moyen de paiement sécurisé (carte ou virement) · ${cxlText(p)} (voir CGV).`;
       btn.disabled = false; btn.textContent = 'Envoyer ma demande';
       return sendRequest(f, p, guests, btn, LASTQ || {});
     }

@@ -140,6 +140,8 @@ def prop_record(l):
         "minNights": int(l.get("minNights") or 1),
         "currency": l.get("currencyCode") or "EUR",
         "instant": 1 if l.get("instantBookable") else 0,
+        # conditions d'annulation du moteur Hostaway (texte affiché par logement.html, table CXL)
+        "cxl": l.get("cancellationPolicyId"),
     }
 
 

@@ -135,13 +135,22 @@
   <p id="empty" class="hidden text-center text-muted py-20">Aucun logement ne correspond à votre recherche.</p>
   <div id="loading" class="text-center text-muted py-20">Chargement des locations…</div>
 
-  <!-- Complément : intégralité des logements sur Airbnb (réservation directe reste prioritaire) -->
+  <!-- Pas trouvé ? L'équipe cherche pour le voyageur (au lieu de l'envoyer sur Airbnb) -->
   <div class="mt-14 pt-10 border-t border-ink/10 text-center">
-    <p class="text-muted text-sm max-w-xl mx-auto">Vous ne trouvez pas le logement recherché&nbsp;? Réservez en direct ci-dessus pour le meilleur tarif, ou retrouvez l'intégralité de nos logements&nbsp;:</p>
-    <a href="https://www.airbnb.fr/p/shdeveloppement" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 mt-4 rounded-full border border-ink/20 text-ink/80 px-5 py-2.5 text-sm font-600 hover:border-bronze hover:text-bronze transition-colors">
-      Voir tous nos logements sur Airbnb
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
-    </a>
+    <h2 class="font-display text-2xl text-ink">Vous ne trouvez pas le logement idéal&nbsp;?</h2>
+    <p class="text-muted text-sm max-w-xl mx-auto mt-2">Notre équipe à Chalon-sur-Saône vous trouve un logement selon vos dates, votre budget et le nombre de voyageurs, au meilleur tarif en direct.</p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      <a href="tel:+33659327710" class="inline-flex items-center justify-center gap-2 rounded-full bg-gold text-ink px-5 py-2.5 text-sm font-600 hover:bg-ink hover:text-cream transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        06 59 32 77 10
+      </a>
+      <a href="https://wa.me/33659327710?text=Bonjour%2C%20je%20cherche%20un%20logement%20pour%20" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-ink/20 text-ink/80 px-5 py-2.5 text-sm font-600 hover:border-bronze hover:text-bronze transition-colors">
+        Écrire sur WhatsApp
+      </a>
+      <a href="mailto:contact@sh-developpement.fr?subject=Recherche%20de%20logement" class="inline-flex items-center justify-center gap-2 rounded-full border border-ink/20 text-ink/80 px-5 py-2.5 text-sm font-600 hover:border-bronze hover:text-bronze transition-colors">
+        contact@sh-developpement.fr
+      </a>
+    </div>
   </div>
 </main>
 
@@ -255,11 +264,22 @@ function renderThemes(){
     return `<button data-theme="${k}" class="rounded-full border px-3.5 py-1.5 text-[13px] font-600 cursor-pointer ${on?'bg-bronze text-cream border-bronze':'bg-cream text-bronze border-ecru hover:border-bronze/50'}">${l}</button>`;
   }).join('');
 }
+// Dates et voyageurs de la recherche, transmis à la fiche (évite de les ressaisir)
+function stayQS(){
+  const inV = (document.getElementById('d-in') || {}).value || '';
+  const outV = (document.getElementById('d-out') || {}).value || '';
+  const g = parseInt((document.getElementById('d-guests') || {}).value, 10) || 0;
+  const qs = new URLSearchParams();
+  if (inV && outV && outV > inV) { qs.set('in', inV); qs.set('out', outV); }
+  if (g > 0) qs.set('guests', g);
+  const s = qs.toString();
+  return s ? '?' + s : '';
+}
 function card(l){
   const fav = FAV.has(l.id);
   const badge = (l.rating && l.rating >= 9.6) ? `<span class="absolute top-3 left-3 bg-cream text-ink text-[12px] font-700 px-2.5 py-1 rounded-full shadow-sm">Coup de cœur voyageurs</span>` : '';
   const rate = l.rating ? `<span class="shrink-0 inline-flex items-center gap-1 text-sm text-ink">${star} ${note10(l.rating)}</span>` : '';
-  return `<a href="/bien/${l.id}/" class="grp block">
+  return `<a href="/bien/${l.id}/${stayQS()}" class="grp block">
     <div class="relative aspect-[20/19] rounded-2xl overflow-hidden bg-sand">
       <img src="${l.cover}" ${l.cover && l.cover.indexOf('-c.webp') > -1 ? `srcset="${l.cover.replace('-c.webp','-c480.webp')} 480w, ${l.cover} 800w" sizes="(min-width:1024px) 300px, 50vw"` : ''} alt="${esc(l.name)}" loading="lazy" decoding="async" class="card-img absolute inset-0 w-full h-full object-cover">
       ${badge}
