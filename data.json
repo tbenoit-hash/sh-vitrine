@@ -58,11 +58,12 @@
       "type": "T6+",
       "cleaningFee": 300,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -75,12 +76,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 22,
@@ -150,11 +145,12 @@
       "type": "T5",
       "cleaningFee": 150,
       "deposit": 0,
-      "markup": 1.1,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 2,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530461,
       "fees": [
         {
           "t": "Frais CB",
@@ -167,12 +163,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ]
     },
@@ -224,11 +214,12 @@
       "type": "T6+",
       "cleaningFee": 220,
       "deposit": 0,
-      "markup": 1.15,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -241,12 +232,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 2,
@@ -311,11 +296,12 @@
       "type": "T4",
       "cleaningFee": 90,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 3,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -328,12 +314,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 8,
@@ -398,11 +378,12 @@
       "type": "T4",
       "cleaningFee": 60,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -415,12 +396,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ]
     },
@@ -470,11 +445,12 @@
       "type": "T4",
       "cleaningFee": 90,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -487,12 +463,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 56,
@@ -562,11 +532,12 @@
       "type": "T3",
       "cleaningFee": 65,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.25,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530460,
       "fees": [
         {
           "t": "Frais CB",
@@ -579,12 +550,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 71,
@@ -653,11 +618,12 @@
       "type": "T3",
       "cleaningFee": 50,
       "deposit": 0,
-      "markup": 1.05,
-      "amk": 1.18,
+      "markup": 0.9,
+      "amk": 1.0,
       "minNights": 1,
       "currency": "EUR",
       "instant": 1,
+      "cxl": 530461,
       "fees": [
         {
           "t": "Frais CB",
@@ -670,12 +636,6 @@
           "a": 2.0,
           "p": 0,
           "r": 1
-        },
-        {
-          "t": "Frais de plateforme",
-          "a": 5.0,
-          "p": 1,
-          "r": 0
         }
       ],
       "reviewCount": 65,
@@ -732,5 +692,5 @@
       "rating": 10
     }
   ],
-  "updated": "2026-11-26"
+  "updated": "2026-11-27"
 }

@@ -1,18 +1,18 @@
 {
- "maj": "2026-11-19",
+ "maj": "2026-11-27",
  "periode": [
   "2025-11-01",
   "2026-10-31"
  ],
- "logements": 99,
- "nuits": 18527,
+ "logements": 100,
+ "nuits": 18668,
  "part_proprietaire": 0.654,
  "base": {
   "Studio": 19.48,
-  "T2": 21.81,
+  "T2": 21.7,
   "T3": 32.24,
-  "T4": 46.73,
-  "T5": 56.67,
+  "T4": 48.24,
+  "T5": 57.43,
   "T6+": 66.62
  },
  "zones": [
@@ -20,14 +20,14 @@
    "k": "chalon",
    "label": "Chalon-sur-Saône",
    "mult": 1.0,
-   "occ": 0.726,
+   "occ": 0.72,
    "saison": "ville",
-   "n": 58
+   "n": 56
   },
   {
    "k": "agglo",
    "label": "Autour de Chalon (Grand Chalon)",
-   "mult": 0.947,
+   "mult": 0.94,
    "occ": 0.507,
    "saison": "ville",
    "n": 11
@@ -35,7 +35,7 @@
   {
    "k": "cote",
    "label": "Côte chalonnaise, Givry, Chagny",
-   "mult": 1.228,
+   "mult": 1.226,
    "occ": 0.494,
    "saison": "campagne",
    "n": 13
@@ -43,65 +43,65 @@
   {
    "k": "macon",
    "label": "Mâcon et Mâconnais",
-   "mult": 1.075,
-   "occ": 0.65,
+   "mult": 1.056,
+   "occ": 0.617,
    "saison": "ville",
-   "n": 10
+   "n": 11
   },
   {
    "k": "tournus",
    "label": "Tournus",
-   "mult": 0.809,
-   "occ": 0.504,
+   "mult": 0.857,
+   "occ": 0.57,
    "saison": "campagne",
-   "n": 3
+   "n": 4
   },
   {
    "k": "autre",
    "label": "Autre commune",
-   "mult": 0.945,
-   "occ": 0.487,
+   "mult": 0.874,
+   "occ": 0.469,
    "saison": "campagne",
-   "n": 4
+   "n": 5
   }
  ],
  "finition": {
-  "simple": 0.843,
-  "soigne": 1.024,
-  "haut": 1.205
+  "simple": 0.837,
+  "soigne": 1.02,
+  "haut": 1.175
  },
  "fourchette": [
-  0.784,
-  1.177
+  0.787,
+  1.153
  ],
  "saison": {
   "ville": [
-   0.909,
    0.906,
-   0.918,
-   1.01,
-   1.065,
-   1.089,
-   1.202,
-   1.158,
-   0.987,
-   0.92,
-   0.918,
-   0.916
+   0.907,
+   0.917,
+   1.013,
+   1.074,
+   1.094,
+   1.206,
+   1.164,
+   0.989,
+   0.913,
+   0.908,
+   0.909
   ],
   "campagne": [
-   0.73,
-   0.595,
-   0.601,
-   0.922,
-   1.173,
-   1.148,
-   1.397,
-   1.487,
-   1.173,
-   0.955,
-   0.926,
-   0.893
+   0.706,
+   0.588,
+   0.602,
+   0.92,
+   1.156,
+   1.137,
+   1.396,
+   1.497,
+   1.204,
+   0.996,
+   0.936,
+   0.864
   ]
  }
 }
